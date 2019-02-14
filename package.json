@@ -1,0 +1,22 @@
+{
+  "name": "doctruyenonline",
+  "version": "1.0.0",
+  "description": "Đọc Truyện Online",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhthang304/doctruyenonline.git"
+  },
+  "author": "Nguyễn Huy Thắng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhthang304/doctruyenonline/issues"
+  },
+  "homepage": "https://github.com/nhthang304/doctruyenonline#readme",
+  "dependencies": {
+    "bower": "^1.8.4"
+  }
+}
