@@ -1,0 +1,255 @@
+<header class="truyen-header">
+    <nav class="navbar navbar-truyen">
+        <section class="container">
+            <section class="navbar-header">
+                <th:block th:if="${information.logo !=null}">
+                    <a th:href="@{/}" class="navbar-logo hidden-sm hidden-xs"> <img
+                            class="img-fluid" th:src='${information.logo}' alt="">
+                    </a>
+                </th:block>
+                <th:block th:unless="${information.logo !=null}">
+                    <a th:href="@{/}" class="navbar-logo hidden-sm hidden-xs"> <img
+                            class="img-fluid" th:src="@{/images/logo.png}" alt="">
+                    </a>
+                </th:block>
+                <a href="#" class="navbar-search-btn js-open-search-box-mobile d-md-block d-lg-none">
+                    <i class="truyen-icon icon-search"></i>
+                </a>
+                <section class="navbar-category">
+                    <button class="navbar-category-btn js-open-sidebar">
+                                    <span class="lines">
+                                        <span class="line"></span>
+                                        <span class="line"></span>
+                                        <span class="line"></span>
+                                    </span>
+                        <span class="hidden-xs hidden-sm">Danh Mục</span>
+                    </button>
+                    <ul class="navbar-category-list">
+                        <li class="col-4 float-left">
+                            <a th:href="@{/danh-muc/hoan-thanh}" title="Truyện Hoàn Thành">Truyện Hoàn Thành</a>
+                        </li>
+                        <li class="col-4 float-left">
+                            <a th:href="@{/danh-muc/moi-cap-nhat}" title="Truyện Mới">Truyện Mới</a>
+                        </li>
+                        <li class="col-4 float-left">
+                            <a th:href="@{/danh-muc/truyen-vip}" title="Truyện Vip">Truyện Vip</a>
+                        </li>
+                    </ul>
+                </section>
+                <section class="navbar-category">
+                    <button class="navbar-category-btn js-open-sidebar">
+                            <span class="lines">
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                            </span>
+                        <span class="hidden-xs hidden-sm">Thể loại</span>
+                    </button>
+                    <ul class="navbar-category-list"
+                        th:if="${categorylist != null && not #lists.isEmpty(categorylist)}">
+                        <li class="col-4 float-left"
+                            th:each="category,iterStat : ${categorylist}">
+                            <a th:href="@{'/the-loai/'+${category.id}+'/'+${category.metatitle}}"
+                               th:title="'Truyện'+${category.name}"
+                               th:text="${iterStat.index+1}+' - '+${category.name}"></a>
+                        </li>
+                    </ul>
+                </section>
+
+            </section>
+            <section class="custom navbar-custom">
+                <ul class="nav navbar-nav navbar-right" style="flex-direction: row;">
+                    <li>
+                        <section class="search-block">
+                            <section class="actions">
+                                <button type="submit" title="Tìm kiếm"
+                                        class="search-toggle-btn" id="js-search-toggle">
+                                    <i class="truyen-icon icon-search"></i>
+                                </button>
+                            </section>
+                            <form id="js-search-panel" class="search-panel" th:action="@{/search}" th:method="POST">
+                                <div class="txtDiv">
+                                    <input type="text" name="txtKeyword" id="txtKeyword" value=""
+                                           placeholder="Tên truyện" class="form-control"
+                                           autocomplete="off" required
+                                           oninvalid="this.setCustomValidity('Bạn chưa nhập gì để tìm kiếm!')">
+                                    <button class="btn btn-search" type="submit">
+                                        <i class="truyen-icon icon-search-primary"></i>
+                                    </button>
+                                    <ul id="ulNoMatch"
+                                        class="ui-autocomplete ui-menu ui-widget1 ui-widget1-content ui-corner-all"
+                                        role="listbox" aria-activedescendant="ui-active-menuitem" style="z-index: 16;
+        display: none; width: 150px;">
+                                        <li class="ui-menu-item" role="menuitem">
+                                            <a class="ui-corner-all" tabindex="-1">Không Có Truyện Phù Hợp </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </section>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <section class="user-block">
+                            <i class="truyen-icon icon-user"></i>
+                            <a th:href="@{/dang-nhap}"> Đăng nhập </a>
+                            <span class="diver">|</span>
+                            <a th:href="@{/dang-ky}"> Đăng ký </a>
+                        </section>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="truyen-icon icon-user"></i>
+                            <span class="truyen-login-title" sec:authentication="name"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/tai-khoan/}">Hồ Sơ</a></li>
+                            <li><a th:href="@{/tai-khoan/quan_ly_truyen}">Quản Lý Truyện</a></li>
+                            <li><a th:href="@{/tai-khoan/nap-dau}">Nạp Đậu</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Thoát</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </nav>
+</header>
+<aside class="truyen-sidebar">
+    <a href="#" class="sidebar-close js-close-sidebar"></a>
+    <section class="sidebar-container">
+        <section class="sidebar-header" sec:authorize="isAnonymous()">
+            <section class="user-icon">
+                <i class="truyen-icon icon-user"></i>
+            </section>
+            <section class="card-menu">
+                <section class="list-group" style="margin-bottom: 20px;">
+                    <section class="list-group-item list-group-item-sidebar">
+                        <a class="truyen-sidebar-user-title" role="button"
+                           data-toggle="collapse" href="#truyen-user-login-custom"
+                           aria-expanded="false"
+                           aria-controls="truyen-user-login-custom">Đăng nhập /
+                            Đăng ký <span class="truyen-icon icon-white-next"></span>
+                        </a>
+                    </section>
+                    <section class="list-group collapse"
+                             id="truyen-user-login-custom">
+                        <section
+                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a th:href="@{/dang-nhap}" class="login-btn">Đăng nhập</a>
+                        </section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a th:href="@{/dang-ky}" class="login-btn">Đăng ký</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="sidebar-header" sec:authorize="isAuthenticated()">
+            <section class="user-icon">
+                <i class="truyen-icon icon-user"></i>
+            </section>
+
+            <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}" class="user-logout">Thoát</a>
+            <section class="card-menu">
+                <section class="list-group" style="margin-bottom: 20px;">
+                    <section class="list-group-item list-group-item-sidebar">
+                        <a class="truyen-sidebar-user-title collapsed"
+                           role="button" data-toggle="collapse"
+                           href="#truyen-user-menu-collapse" aria-expanded="false"
+                           aria-controls="truyen-user-menu-collapse">nhubang6x <span
+                                class="truyen-icon icon-white-next"></span>
+                        </a>
+                    </section>
+                    <section class="list-group collapse"
+                             id="truyen-user-menu-collapse">
+                        <section
+                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/tai-khoan/dang-truyen/">Đăng truyện<span
+                                    class="truyen-icon icon-white-next"></span>
+                            </a>
+                        </section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/account/list_story/">Quản lý truyện<span
+                                    class="truyen-icon icon-white-next"></span></a>
+                        </section>
+                        <section
+                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/tai-khoan/tu-truyen/">Tủ truyện<span
+                                    class="truyen-icon icon-white-next"></span></a>
+                        </section>
+                        <section
+                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/tai-khoan/">Hồ sơ <span
+                                    class="truyen-icon icon-white-next"></span></a>
+                        </section>
+                        <section
+                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/tai-khoan/nap-dau">Nạp Đậu<span
+                                    class="truyen-icon icon-white-next"></span></a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <section class="sidebar-menu">
+            <section class="list-group" style="margin-bottom: 20px;">
+                <section class="list-group-item list-group-item-action list-group-item-sidebar">
+                    <a th:href="@{/}"><i class="fas fa-home"></i>Trang chủ
+                        <span class="truyen-icon icon-next"></span>
+                    </a>
+                </section>
+            </section>
+            <section class="list-group" style="margin-bottom: 20px;">
+                <section class="list-group-item list-group-item-action list-group-item-sidebar">
+                    <a th:href="@{/danh-muc/moi-cap-nhat}" target="_blank"
+                       title="Truyện Mới"> Truyện Mới <span
+                            class="truyen-icon icon-next"></span>
+                    </a>
+                </section>
+                <section class="list-group-item list-group-item-action list-group-item-sidebar">
+                    <a th:href="@{/danh-muc/truyen-hoan-thanh}" target="_blank"
+                       title="Truyện Hoàn Thành"> Truyện Hoàn Thành <span
+                            class="truyen-icon icon-next"></span>
+                    </a>
+                </section>
+                <section class="list-group-item list-group-item-action list-group-item-sidebar">
+                    <a th:href="@{/danh-muc/truyen-vip}" target="_blank"
+                       title="Truyện Vip"> Truyện Vip <span
+                            class="truyen-icon icon-next"></span>
+                    </a>
+                </section>
+            </section>
+        </section>
+        <section class="list-group" style="margin-bottom: 20px;">
+            <section class="list-group-item list-group-item-action list-group-item-sidebar"
+                     th:if="${categorylist != null && not #lists.isEmpty(categorylist)}"
+                     th:each="category,iterStat : ${categorylist}">
+                <a th:href="@{'/the-loai/'+${category.id}+'/'+${category.metatitle}}"
+                   th:title="'Truyện'+${category.name}"
+                ><span th:text="${iterStat.index+1}+' - '+${category.name}"></span> <span
+                        class="truyen-icon icon-next"></span></a>
+            </section>
+        </section>
+    </section>
+</aside>
+<a href="#" class="truyen-sidebar-overlay js-close-sidebar"></a>
+<section class="truyen-search-box">
+    <section class="container">
+        <form class="search-box-mobile" method="post" th:action="@{/search}">
+            <input type="text" id="txtKeywordMobi" name="txtKeyword"
+                   class="form-control" placeholder="Tên truyện hoặc tác giả không dấu" value=""
+                   autocomplete="off" required oninvalid="this.setCustomValidity('Bạn chưa nhập gì để tìm kiếm!')">
+            <button type="submit" class="search-box-mobile-btn"
+                    id="js-search-box-mobile-btn">
+                <i class="truyen-icon icon-search-primary"></i>
+            </button>
+        </form>
+    </section>
+</section>
+<a href="#" class="truyen-search-box-overlay js-close-search-box"></a>

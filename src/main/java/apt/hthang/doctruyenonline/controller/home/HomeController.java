@@ -15,33 +15,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
-@RequestMapping(value = "/")
 public class HomeController {
-
+    
     @Autowired
     private InformationService informationService;
     @Autowired
     private CategoryService categoryService;
-    @Value("${hthang.truyenmvc.title.home}")
-    private String titleHome;
-
+    @Value("${hthang.truyenonline.title.home}")
+    private String titleHomePage;
+    @Value("${hthang.truyenonline.title.login}")
+    private String titleLoginPage;
     //Lấy Danh sách menu thể loại và Thông Tin Web
     private void getMenuAndInfo(Model model, String title) {
-
+        
         // Lấy Title Cho Page
         model.addAttribute("title", title);
-
+        
         // Lấy List Category cho Menu
-        model.addAttribute("categorylist", categoryService.getListCategoryOfMenu());
-
+        model.addAttribute("categorylist", categoryService.getListCategoryOfMenu(1));
+        
         // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
     }
-
+    
     @RequestMapping(value = "/")
     public String homePage(Model model) {
-        getMenuAndInfo(model, titleHome);
-        return "web/homePage";
+        
+        getMenuAndInfo(model, titleHomePage);
+        return "web/views/homePage";
     }
-
+    
+    @RequestMapping(value = "/dang-nhap")
+    public String loginPage(Model model) {
+        getMenuAndInfo(model, titleLoginPage);
+        return "web/views/loginPage";
+    }
+    
 }

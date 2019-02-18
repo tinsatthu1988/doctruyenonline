@@ -1,0 +1,38 @@
+<div class="detail-sidebar-related js-detail-sidebar-related">
+    <div class="swiper-container swiper-container-horizontal">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"
+                 ng-repeat="lStory in listStory">
+                <div class="item text-center">
+                    <a ng-href="/truyen/{{lStory.id}}"
+                       ng-attr-title="{{lStory.vnName}}"
+                       class="thumb">
+                        <img class="img-fluid"
+                             src="{{lStory.images}}"
+                             ng-alt="{{lStory.vnName}}">
+                    </a>
+                    <div class="info">
+                        <h2 class="title"><a
+                                ng-href="/truyen/{{lStory.id}}"
+                                ng-attr-title="{{lStory.vnName}}">{{lStory.vnName}}</a>
+                        </h2>
+                        <p class="description"
+                           ng-bind-html="lStory.infomation">
+                        </p>
+                        <a ng-href="/truyen/{{lStory.id}}"
+                           class="btn btn-truyen"
+                           title="">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-button-prev"><i
+                class="truyen-icon icon-prev"></i>
+        </div>
+        <div class="swiper-button-next"><i
+                class="truyen-icon icon-next"></i>
+        </div>
+    </div>
+</div>

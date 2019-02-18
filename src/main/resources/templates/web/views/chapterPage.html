@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+    <!--TinyMCE plugins-->
+    <script type="text/javascript" th:src="@{/bower/tinymce/tinymce.js}"></script>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!-- Angular UI TinyMCE -->
+    <script type="text/javascript" th:src="@{/bower/angular-ui-tinymce/src/tinymce.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/homeChapterController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+<body class="page-read" ng-app="ngApp" ng-controller="chapterCtrl" th:ng-init="|init(${chapter.story.id})|">
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section th:replace="/web/item/chapterItem"></section>
+
+    <!--Footer-->
+    <section th:replace="/web/fragments/footer"></section>
+</section>
+</body>
+</html>

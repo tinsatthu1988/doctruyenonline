@@ -1,0 +1,124 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs nav-custom" role="tablist">
+    <li class="nav-item active">
+        <a class="nav-link active" data-toggle="tab" href="#truyen-info"
+           role="tab">
+            Giới Thiệu
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#truyen-chapter" role="tab"
+           ng-click="getListChapter(1, 1)">
+            Danh Sách Chương
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#truyen-comment" role="tab"
+           ng-click="getListComment(1, 1)">
+            Bình Luận
+        </a>
+    </li>
+</ul>
+<!-- Tab panes {Fade}  -->
+<section class="tab-content">
+    <section class="tab-pane fade show active" id="truyen-info"
+             name="truyen-detail-info" role="tabpanel">
+        <section class="row">
+            <section class="col-sm-12 col-md-8 col-lg-9">
+                <section class="brief" th:utext="${story.infomation}"
+                         th:if="${story.infomation ne null}">
+                </section>
+                <section class="list-overview" th:if="${story.chapterNew ne null}">
+                    <section class="item">
+                        <section class="item-title">
+                            <i class="truyen-icon icon-list"></i> Mới nhất
+                        </section>
+                        <section class="item-value">
+                            <a th:href="@{'/truyen/' + ${story.id} + '/chuong-' + ${story.chapterNew.id}}"
+                               th:text="'Chương ' + ${story.chapterNew.chapterNumber}+': ' + ${story.chapterNew.name}"></a>
+                        </section>
+                        <section class="item-time"
+                                 th:text="${story.chapterNew.timeUpdate}"></section>
+                    </section>
+                </section>
+            </section>
+            <section class="col-sm-12 col-md-4 col-lg-3">
+                <section class="truyen-detail-sidebar">
+                    <section class="block block-normal">
+                        <section class="block-content">
+                            <section class="row">
+                                <section class="col-xs-12 col-sm-6 col-md-12">
+                                    <section class="block-detail-sidebar-author text-center">
+                                        <section class="info">
+                                            <a href="#" class="avatar">
+                                                <img class="img-fluid lazyload"
+                                                     data-src="{{user.avatar? user.avatar : noImage}}">
+                                            </a>
+                                            <h2 class="name">{{user.displayName? user.displayName : user.username}}</h2>
+                                        </section>
+                                        <ul class="list-unstyled truyen-author-badge"></ul>
+                                        <section class="overview">
+                                            <span class="cap-3">Ngày Tham Gia:
+                                                <span ng-bind="user.createDate | date:'dd-MM-yyyy'"></span>
+                                            </span>
+                                        </section>
+                                        <section class="statistic">
+                                            <section class="row">
+                                                <section class="col-4">
+                                                    <section class="item">
+                                                        <span class="item-icon">
+                                                            <i class="truyen-icon icon-book"></i>
+                                                        </span>
+                                                        <span class="item-value">{{user.countStory}}</span>
+                                                    </section>
+                                                </section>
+                                                <section class="col-4">
+                                                    <section class="item"><span
+                                                            class="item-icon"> <i
+                                                            class="truyen-icon icon-list"></i> </span>
+                                                        <span class="item-value">{{user.countChapter}}</span>
+                                                    </section>
+                                                </section>
+                                                <section class="col-4">
+                                                    <section class="item"><span
+                                                            class="item-icon"> <i
+                                                            class="truyen-icon icon-gold"></i> </span>
+                                                        <span class="item-value">{{user.gold}}</span>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="col-xs-12 col-sm-6 col-md-12">
+                                    <section class="block-detail-sidebar-related">
+                                        <section class="header">
+                                            <h2 class="title"> Cùng người đăng</h2>
+                                        </section>
+                                        <section class="content">
+                                            <section th:replace="web/slide/storyUserSlide"></section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="tab-pane fade" id="truyen-chapter" name="truyen-chapter" role="tabpanel">
+        <section class="truyen-detail-chap">
+            <th:block th:include="web/listLayout :: chapterOfStory"></th:block>
+        </section>
+    </section>
+    <section class="tab-pane fade" id="truyen-comment" name="truyen-comment" role="tabpanel">
+        <section class="truyen-detail-chap">
+            <section class="row">
+                <section class="col-md-12">
+                    <th:block th:include="web/listLayout :: commentOfStory"></th:block>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>

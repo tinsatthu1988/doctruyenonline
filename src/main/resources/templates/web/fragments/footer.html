@@ -1,0 +1,56 @@
+<!-- Footer -->
+<footer class="truyen-footer">
+    <section id="footer">
+        <section class="container footer-con">
+            <section class="row text-center text-xs-center text-sm-left text-md-left">
+                <section class="col-12 col-sm-12 col-md-4">
+                    <h5>Giới thiêu</h5>
+                    <hr class="bg-truyen mb-2 mt-0 d-inline-block mx-auto w-50">
+                    <p th:text="${information.introduce}">
+
+                    </p>
+                </section>
+                <section class="col-12 col-sm-12 col-md-4">
+                    <h5>Hỗ trợ</h5>
+                    <hr class="bg-truyen mb-2 mt-0 d-inline-block mx-auto w-50">
+                    <ul class="list-unstyled quick-links">
+                        <li><a href="#" target="_blank"><span class="block-list-icon">
+                                <i class="truyen-icon icon-mobile mr-3"></i></span> Ứng dụng Truyện Online</a></li>
+                        <li><a href="#"><span class="block-list-icon"><i
+                                class="truyen-icon icon-warning mr-3"></i></span>Báo lỗi ứng dụng</a></li>
+                        <li><a href="#"><span class="block-list-icon"><i
+                                class="truyen-icon icon-faq mr-3"></i></span> FAQs</a></li>
+                    </ul>
+                </section>
+                <section class="col-12 col-sm-12 col-md-4">
+                    <h5>Liên hệ</h5>
+                    <hr class="bg-truyen mb-2 mt-0 d-inline-block mx-auto w-50">
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <a href="mailto: ${information.email}">
+                                <span class="block-list-icon">
+                                    <i class="truyen-icon icon-email mr-3"></i>
+                                </span> Email: <span th:text="${information.email}"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="block-list-icon">
+                                    <i class="truyen-icon icon-mobile mr-3"></i>
+                                </span>
+                                Phone: <span th:text="${information.phone}"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="skype: ${information.skype}">
+                                <span class="block-list-icon">
+                                    <i class="truyen-icon icon-skype mr-3"></i>
+                                </span>Skype: <span th:text="${information.skype}"></span>
+                            </a></li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+    </section>
+</footer>
+<!-- Footer -->

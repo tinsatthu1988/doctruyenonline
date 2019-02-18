@@ -1,0 +1,62 @@
+<form id="signupForm" class="login-form" name='loginForm' th:action="@{j_spring_security_check}" method='POST'>
+    <section class="form-group" th:if="${param.error} and ${session}"
+             th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+        <section class="alert alert-danger" role="alert" th:text="${errorMsg}"></section>
+    </section>
+    <section class="form-group" th:if="${success != null}">
+        <section class="alert alert-success" role="alert" th:text="${success}"></section>
+    </section>
+    <section class="form-group">
+        <label for="exampleInputEmail1" class="text-uppercase"> Tài khoản </label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="" autofocus="autofocus">
+    </section>
+    <section class="form-group">
+        <section class="clearfix">
+            <label for="exampleInputPassword1" class="text-uppercase">Mật khẩu</label>
+            <a class="float-right" th:href="@{/quen-mat-khau}">Quên mật khẩu</a>
+        </section>
+        <input type="password" class="form-control" name="password" id="password"/>
+    </section>
+    <section class="form-check">
+        <label class="form-check-label mt-2">
+            <input type="checkbox" class="form-check-input" name="remember-me"/>
+            <small>Ghi nhớ đăng nhập</small>
+        </label>
+        <button type="submit" class="btn btn-truyen float-right" name="submit">Đăng nhập
+        </button>
+    </section>
+    <section class="form-check mt-3 text-center">
+        Bạn chưa có tài khoản? <a th:href="@{/dang-ky}">Đăng ký ngay</a>
+    </section>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
+<script>
+    $(document).ready(function () {
+        $("#signupForm").validate({
+            rules: {
+                username: "required",
+                password: "required"
+            },
+            messages: {
+                username: "Tài khoản không được để trống",
+                password: "Mật khẩu không được để trống"
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.next("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
+        });
+    })
+</script>

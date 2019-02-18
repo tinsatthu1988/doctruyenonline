@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+    <th:block th:include="web/layout :: head"></th:block>
+    <!--TinyMCE plugins-->
+    <script type="text/javascript" th:src="@{/bower/tinymce/tinymce.js}"></script>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!-- Angular UI TinyMCE -->
+    <script type="text/javascript" th:src="@{/bower/angular-ui-tinymce/src/tinymce.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/homeStoryContrller.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+    <!--Rating-->
+    <script th:src="@{/js/jRating.js}"></script>
+<body ng-app="ngApp" ng-controller="storyCtrl" th:ng-init="|init(${story.id}, ${story.userId})|">
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section th:replace="/web/item/storyItem"></section>
+
+    <!--Footer-->
+    <section th:replace="/web/fragments/footer"></section>
+</section>
+</body>
+</html>

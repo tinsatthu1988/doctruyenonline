@@ -1,0 +1,99 @@
+<form id="registerForm" class="form-horizontal" method='POST'
+      th:object="${user}" th:action="@{/dang-ky}">
+    <section class="form-group">
+        <label class="text-uppercase">Tài khoản: </label>
+        <input type="text" autofocus="autofocus" id="uName"
+               th:class="${#fields.hasErrors('username')}? 'form-control is-invalid' : 'form-control'"
+               th:field="*{username}"/>
+        <span th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}" class="invalid-feedback"></span>
+    </section>
+    <section class="form-group">
+        <label class="text-uppercase">Mật Khẩu: </label>
+        <input type="password" autofocus="autofocus" id="passwordRegister"
+               th:class="${#fields.hasErrors('passwordRegister')}? 'form-control is-invalid' : 'form-control'"
+               th:field="*{passwordRegister}"/>
+        <span th:if="${#fields.hasErrors('passwordRegister')}"
+              th:errors="*{passwordRegister}"
+              class="error invalid-feedback"></span>
+    </section>
+    <section class="form-group">
+        <label class="text-uppercase">Nhập Lại Mật Khẩu: </label>
+        <input type="password" autofocus="autofocus" id="passwordRegisterConfirm"
+               th:class="${#fields.hasErrors('passwordRegisterConfirm')}? 'form-control is-invalid' : 'form-control'"
+               th:field="*{passwordRegisterConfirm}"/>
+        <span th:if="${#fields.hasErrors('passwordRegisterConfirm')}"
+              th:errors="*{passwordRegisterConfirm}"
+              class="error invalid-feedback"></span>
+    </section>
+    <section class="form-group">
+        <label class="text-uppercase">Email: </label>
+        <input type="text" autofocus="autofocus" id="uEmail"
+               th:class="${#fields.hasErrors('email')}? 'form-control is-invalid' : 'form-control'"
+               th:field="*{email}"/>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+              class="error invalid-feedback"></span>
+    </section>
+    <section class="form-group form-check">
+        <label></label>
+        <button type="submit" class="btn btn-truyen float-right"
+                name="submit">Đăng Ký
+        </button>
+    </section>
+    <section class=" form-check mt-4 text-center">
+        Bạn đã có tài khoản? <a th:href="@{/dang-nhap}">Đăng nhập
+        ngay</a>
+    </section>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#registerForm").validate({
+            rules: {
+                username: "required",
+                passwordRegister: {
+                    required: true,
+                    rangelength: [6, 13]
+                },
+                passwordRegisterConfirm: {
+                    required: true,
+                    rangelength: [6, 13],
+                    equalTo: "#passwordRegister"
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+            },
+            messages: {
+                username: "Tài khoản không được để trống",
+                passwordRegister: {
+                    required: "Password không được để trống",
+                    rangelength: "Password có độ dài từ 6-13. Phân biệt hoa thường",
+                },
+                passwordRegisterConfirm: {
+                    required: "Password Confirm không được để trống",
+                    rangelength: "Password Confirm có độ dài từ 6-13. Phân biệt hoa thường",
+                    equalTo: "Password Confirm không chính xác"
+                },
+                email: "Email không đúng định dạng"
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Add the `invalid-feedback` class to the error element
+                error.addClass("invalid-feedback");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.next("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
+        });
+    })
+</script>
