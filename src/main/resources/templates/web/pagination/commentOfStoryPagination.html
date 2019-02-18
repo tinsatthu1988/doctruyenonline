@@ -1,0 +1,71 @@
+<section id="comment_field">
+    <section class="cm-based">
+        <p class="comment-count"><span id="count_comment">{{totalComment}}</span> bình luận
+        </p>
+        <form name="frmContact" id="frmContact" method="post" ng-submit="addComment()" novalidate>
+            <section class="form row">
+                <section class="form-group col-md-10 comment-text">
+                        <textarea ui-tinymce="tinymceOptions" ng-model="commentText" class="form-control">
+                        </textarea>
+                </section>
+                <section class="form-group col-md-2">
+                    <button type="submit" ng-click="" class="btn btn-truyen btn-lg btn-block " name="btnComment"
+                            id="btnComment">
+                        <span class="fas fa-check" aria-hidden="true"></span>
+                    </button>
+                </section>
+                <section class="clearfix"></section>
+            </section>
+        </form>
+        <section id="truyen-detail-comment" class="blog-comment">
+            <section class="alert alert-primary" role="alert" ng-show="listComment.length === 0">
+                <h5 class="text-center">Chưa có Bình Luận nào</h5>
+            </section>
+            <ul class="comments" id="comment_list" ng-show="listComment.length !== 0">
+                <li class="clearfix" ng-repeat="comment in listComment" id="comment_{{comment.comID}}">
+                    <section style="float:left;width:40px;height:80px;">
+                        <a ng-href="/member/{{comment.user.id}}">
+                            <img class="avatar"
+                                 alt="{{comment.user.displayName != null ? comment.user.displayName : comment.user.username}}"
+                                 ng-src="{{comment.user.avatar? comment.user.avatar : noImage}}">
+                        </a><br style="clear:both">
+                    </section>
+                    <section class="post-comments">
+                        <p ng-bind-html="comment.content"></p>
+                        <p class="meta-2">
+                            <a ng-href="/member/{{comment.user.id}}"><abbr title="Thành viên">{{comment.user.displayName?comment.user.displayName:comment.user.username}}</abbr></a>
+                            <small>
+                                <small><a>Báo xấu</a></small>
+                            </small>
+                            <small class="float-right">{{comment.timeUpdate}}
+                            </small>
+                        </p>
+                    </section>
+                </li>
+            </ul>
+            <section ng-show="totalCommentPages>1">
+                <ul class="pagination justify-content-end mb-3 mt-3">
+                    <li ng-show="currentCommentPage != 1" class="page-item">
+                        <a class="page-link" ng-click="getListComment(currentCommentPage - 1, 1)">
+                            <i class="fas fa-step-backward fa-sm"></i>
+                        </a>
+                    </li>
+                    <li ng-repeat="i in pageComment" ng-class="i===currentCommentPage?'page-item active': 'page-item'">
+                        <a ng-class="i===currentCommentPage?'page-link disabled': 'page-link'"
+                           ng-click="getListComment(i,1)">{{i}}</a>
+                    </li>
+                    <li ng-show="currentCommentPage != totalCommentPages" class="page-item">
+                        <a class="page-link" ng-click="getListComment(currentCommentPage + 1, 1)">
+                            <i class="fas fa-step-forward fa-sm"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-click="getListComment(1, 0)">
+                            Xem hết
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </section>
+</section>

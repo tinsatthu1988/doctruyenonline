@@ -1,0 +1,18 @@
+<section class="truyen-breadcrumb">
+    <section class="container">
+        <ol class="breadcrumb" style="background-color: inherit">
+            <li class="breadcrumb-item">
+                <a property="item" typeof="WebPage" th:href="@{/}">
+                    <span property="name">Trang chủ</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a th:href="@{'/truyen/' + ${chapter.story.id}}"
+                   th:text="${chapter.story.vnName}"></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"
+                th:text=" 'Chương ' + ${chapter.chapterNumber} + ': ' + ${chapter.name}">
+            </li>
+        </ol>
+    </section>
+</section>
