@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+</head>
+<body class="page-login">
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <section th:replace="/web/fragments/navbar"></section>
+    <section class="truyen-main">
+        <section id="content" class="container mb-4">
+            <section class="featured-content">
+                <section class="row">
+                    <div class="error-card">
+                        <div class="error-title-block">
+                            <h1 class="error-title" th:if="${number!=null}" th:text="${number}"></h1>
+                            <h2 class="error-sub-title" th:text="${message}" th:if="${message!=null}"></h2>
+                        </div>
+                        <div class="error-container text-center mt-4">
+                            <a class="btn btn-truyen " th:href="@{/}"><i
+                                    class="fa fa-angle-left"></i> Trở về Trang Chủ</a>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script>
+        $(document).ready(function () {
+            $('.error-title-block').addClass('animated flipInY');
+            $('.error-container').addClass('animated fadeInUp');
+        })
+    </script>
+    <!--Footer-->
+    <section th:replace="/web/fragments/footer"></section>
+</section>
+</body>
+</html>

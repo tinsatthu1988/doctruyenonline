@@ -1,0 +1,52 @@
+<section class="row" ng-show="listChapter.length === 0">
+    <section class="col-12">
+        <section class="alert alert-primary" role="alert">
+            <h5 class="text-center">Chưa có Chương nào được đăng </h5>
+        </section>
+    </section>
+</section>
+<section class="panel" ng-show="listChapter.length !== 0">
+    <section class="panel-body">
+        <section class="list-chap">
+            <section class="row">
+                <section class="col-sm-6 col-md-4 chapter-item" ng-repeat="item in listChapter">
+                    <section class="item">
+                        <a ng-href="/truyen/{{item.storyId}}/chuong-{{item.id}}" class="align-items-center d-flex"
+                           ng-attr-title="Đăng bởi {{item.userDisplayName!=null? item.userDisplayName : item.username}} lúc {{item.createDate| date: 'HH:mm dd-MM-yyyy' }}">
+                                <span class="chapter-name">
+                                    <img ng-show="item.status === 2" src="/images/vip-vip.gif" class="img-fluid"
+                                         height="12px"> Chương {{item.chapterNumber}} : {{item.name}}</span>&nbsp;
+                            <span class="chapter-time text-muted">{{item.timeUpdate}}</span>
+                        </a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section ng-show="totalPages>1">
+        <ul class="pagination justify-content-end mb-3 mt-3">
+            <li ng-show="currentPage != 1" class="page-item">
+                <a class="page-link"
+                   ng-click="getListChapter(currentPage - 1, 1)">
+                    <i class="fas fa-step-backward fa-sm"></i>
+                </a>
+            </li>
+            <li ng-repeat="i in page"
+                ng-class="i===currentPage?'page-item active': 'page-item'">
+                <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                   ng-click="getListChapter(i,1)">{{i}}</a>
+            </li>
+            <li ng-show="currentPage != totalPages" class="page-item">
+                <a class="page-link"
+                   ng-click="getListChapter(currentPage + 1, 1)">
+                    <i class="fas fa-step-forward fa-sm"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" ng-click="getListChapter(1, 0)">
+                    Xem hết
+                </a>
+            </li>
+        </ul>
+    </section>
+</section>

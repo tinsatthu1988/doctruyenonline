@@ -1,0 +1,26 @@
+<section class="modal fade bd-example-modal-sm" id="appointModal" tabindex="-1" role="dialog"
+         aria-labelledby="appointModalLabel"
+         aria-hidden="true">
+    <section class="modal-dialog modal-sm" role="document">
+        <section class="modal-content">
+            <section class="modal-header">
+                <h5 class="modal-title" id="appointModalLabel">Đề Cử Truyện</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </section>
+            <section class="modal-body">
+                <p>- Truyện đã được đề cử: <strong th:text="${story.countAppoint}"></strong> nguyệt phiếu</p>
+                <p>- Nếu bạn thấy truyện này hay bạn có thể sử dụng Đậu để đề cử truyện này, truyện càng có
+                    nhiều phiếu đề cử càng có vị trí đẹp ngoài trang chủ, càng có nhiều người đọc truyện hơn.</p>
+                <p>- Mỗi Phiếu đề cử tốn 1000 đậu</p>
+                <form class="form-inline" ng-submit="appoint()">
+                    <section class="form-group">
+                        <input type="number" class="form-control"
+                               placeholder="Nhập số phiếu đề cử" min="1" ng-model="coupon"></section>
+                    <button type="submit" class="btn btn-truyen">Đề cử</button>
+                </form>
+            </section>
+        </section>
+    </section>
+</section>
