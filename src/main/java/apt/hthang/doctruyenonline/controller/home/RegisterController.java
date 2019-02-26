@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.service.CategoryService;
 import apt.hthang.doctruyenonline.service.InformationService;
 import apt.hthang.doctruyenonline.service.SecurityService;
 import apt.hthang.doctruyenonline.service.UserService;
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +32,21 @@ import javax.validation.Valid;
 @RequestMapping("/dang-ky")
 public class RegisterController {
     
+    private final InformationService informationService;
+    private final CategoryService categoryService;
+    private final UserService userService;
+    private final SecurityService securityService;
     Logger logger = LoggerFactory.getLogger(RegisterController.class);
-    
     @Value("${hthang.truyenonline.title.register}")
     private String titleRegisterPage;
     
     @Autowired
-    private InformationService informationService;
-    
-    @Autowired
-    private CategoryService categoryService;
-    
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private SecurityService securityService;
+    public RegisterController(InformationService informationService, CategoryService categoryService, UserService userService, SecurityService securityService) {
+        this.informationService = informationService;
+        this.categoryService = categoryService;
+        this.userService = userService;
+        this.securityService = securityService;
+    }
     
     private void getMenuAndInfo(Model model, String title) {
         
@@ -54,7 +54,7 @@ public class RegisterController {
         model.addAttribute("title", title);
         
         // Lấy List Category cho Menu
-        model.addAttribute("categorylist", categoryService.getListCategoryOfMenu(1));
+        model.addAttribute("categorylist", categoryService.getListCategoryOfMenu(ConstantsStatusUtils.CATEGORY_ACTIVED));
         
         // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
@@ -81,12 +81,12 @@ public class RegisterController {
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
         user.setPassowrd(passwordEncoder.encode(user.getPasswordRegister()));
-
-//        //Lưu Người dùng đăng ký trong database
-//        userService.registerUser(user);
-//
-//        //Đăng nhập sau khi đăng ký thành công
-//        securityService.autologin(user.getUsername(), user.getPasswordRegisterConfirm(), request);
+        
+        //Lưu Người dùng đăng ký trong database
+        userService.registerUser(user);
+        
+        //Đăng nhập sau khi đăng ký thành công
+        securityService.autologin(user.getUsername(), user.getPasswordRegisterConfirm(), request);
         
         return "redirect:/";
     }

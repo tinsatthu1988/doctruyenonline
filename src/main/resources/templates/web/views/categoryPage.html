@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+<body>
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
+        <section class="truyen-section section-featured">
+            <section id="content" class="container mb-4">
+                <section class="featured-content">
+                    <section class="row align-items-center">
+                        <section class="error-card">
+                            <section class="error-title-block">
+                                <h2 class="error-sub-title shadow-1"> Chưa Có Truyên nào thuộc thể loại này</h2>
+                            </section>
+                            <section class="error-container text-center mt-4">
+                                <a class="btn btn-truyen" th:href="@{/}"><i
+                                        class="fa fa-angle-left"></i> Trở về Trang Chủ</a>
+                            </section>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.error-title-block').addClass('animated flipInY');
+                                    $('.error-container').addClass('animated fadeInUp');
+                                })
+                            </script>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="truyen-main" th:unless="${listStory == null || #lists.isEmpty(listStory)}">
+        <section class="container">
+            <section class="truyen-section section-featured">
+                <section class="featured-content">
+                    <section class="row">
+                        <section class="col-12 col-md-6 col-lg-4">
+                            <section class="block block-editors-choice-slider">
+                                <section class="block-content">
+                                    <section class="editors-choice-slider js-editors-choice-slider">
+                                        <h2 class="shadow-1">ĐỌC NHIỀU TRONG TUẦN</h2>
+                                        <section th:replace="web/slide/categorySlide"></section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="col-12 col-md-6 col-lg-4">
+                            <section class="block">
+                                <section class="block-content">
+                                    <section class="editors-choice-list">
+                                        <section class="row">
+                                            <th:block th:each="topstory,iterStat : ${topview}"
+                                                      th:if="${4<=iterStat.index}">
+                                                <section class="col-12 col-sm-12 col-md-6 btv-2">
+                                                    <section class="item">
+                                                        <h2 class="title">
+                                                            <a th:href="@{'/truyen/'+${topstory.id}}"
+                                                               th:title="${topstory.vnName}"
+                                                               th:text="${topstory.vnName}"></a>
+                                                        </h2>
+                                                        <section class="view text-secondary"><span
+                                                                class="text-red fz-16" th:text="${topstory.cnt}"></span>
+                                                            người truy cập
+                                                        </section>
+                                                        <p class="description" th:text="${topstory.infomation}"></p>
+                                                    </section>
+                                                </section>
+                                            </th:block>
+                                            <section class="clearfix hidden-xs"></section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="col-12 col-md-12 col-lg-4">
+                            <section class="block block-default block-readers-choice">
+                                <section class="block-header"><h2 class="title"> Top Tháng </h2></section>
+                                <section class="block-content">
+                                    <ul class="list-group">
+                                        <th:block th:each="topmonthstory,iterStats : ${topmonthview}">
+                                            <li class="list-group-item list-group-item-primary-me item-featured"
+                                                th:if="${iterStats.index == 0}">
+                                                <section class="content">
+                                                    <section class="index index-1 index-star"> 1</section>
+                                                    <section class="info">
+                                                        <h2 class="title">
+                                                            <a th:href="@{'/truyen/'+${topmonthstory.id}}"
+                                                               th:title="${topmonthstory.vnName}"
+                                                               th:text="${topmonthstory.vnName}"></a>
+                                                        </h2>
+                                                        <section class="view text-secondary">
+                                                        <span class="text-red fz-16"
+                                                              th:text="${topmonthstory.cnt}"></span> lượt
+                                                        </section>
+                                                        <section class="extra-info">
+                                                            <p>Thể Loại:
+                                                                <a th:href="@{'/the-loai/'+${topmonthstory.categoryId}}"
+                                                                   th:text="${topmonthstory.categoryName}"></a>
+                                                            </p>
+                                                            <p>Tác giả: <span th:text="${topmonthstory.author}"></span>
+                                                            </p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="thumb">
+                                                        <section class="book-cover">
+                                                            <a class="book-cover-link"
+                                                               th:href="@{'/truyen/'+${topmonthstory.id} }"
+                                                               th:title="${topmonthstory.vnName}">
+                                                                <img th:src="@{${topmonthstory.images}}"
+                                                                     th:alt="${topmonthstory.vnName}">
+                                                            </a> <span class="book-cover-shadow"></span>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </li>
+                                            <li class="list-group-item list-group-item-primary-me"
+                                                th:unless="${iterStats.index == 0}">
+                                                <section class="content">
+                                                    <section th:class="'index index-'+${iterStats.index+1}+' index-star'"
+                                                         th:text="${iterStats.index+1}"></section>
+                                                    <section class="info">
+                                                        <h2 class="title">
+                                                            <a th:href="@{'/truyen/'+${topmonthstory.id} }"
+                                                               th:title="${topmonthstory.vnName}"
+                                                               th:text="${topmonthstory.vnName}"></a>
+                                                        </h2>
+                                                        <section class="view text-secondary"
+                                                             th:text="${topmonthstory.cnt}"></section>
+                                                    </section>
+                                                </section>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="truyen-section mb-4">
+                <section class="featured-content">
+                    <section class="row">
+                        <section class="col-12">
+                            <section class="block block-default block-list-new">
+                                <section class="block-header">
+                                    <h2 class="title text-uppercase"
+                                        th:text="${title}"></h2>
+                                </section>
+                                <section th:replace="web/pagination/categoryPagination"
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!--Footer-->
+    <section th:replace="/web/fragments/footer"></section>
+</section>
+</body>
+</html>

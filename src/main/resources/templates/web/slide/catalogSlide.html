@@ -1,0 +1,34 @@
+<section class="swiper-container swiper-container-horizontal">
+    <section class="swiper-wrapper">
+        <section class="swiper-slide"
+                 th:each="topstory : ${topview}">
+            <section class="item">
+                <section class="thumb">
+                    <a th:href="@{'/truyen/'+${topstory.id}}"
+                       th:title="${topstory.vnName}">
+                        <img class="img-fluid" alt=""
+                             th:src="@{${topstory.images}}"
+                             th:title="${topstory.vnName}">
+                    </a>
+                </section>
+                <section class="info" style="">
+                    <h2 class="title">
+                        <a th:href="@{'/truyen/'+${topstory.id}}"
+                           th:title="${topstory.vnName}"
+                           th:text="${topstory.vnName}"></a>
+                    </h2>
+                    <p class="description text-center"
+                       th:text="${topstory.infomation}"></p>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section
+            class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+        <span class="swiper-pagination-bullet"></span>
+        <span class="swiper-pagination-bullet"></span>
+        <span class="swiper-pagination-bullet"></span>
+        <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+        <span class="swiper-pagination-bullet"></span>
+    </section>
+</section>
