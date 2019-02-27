@@ -1,7 +1,7 @@
 <section class="block-content" id="dataTable">
     <ul class="list-group">
         <li class="list-group-item list-group-item-table"
-            th:each="story : ${listStory}">
+            th:each="story : ${listTopViewWeek}">
             <section class="content">
                 <a class="thumb"
                    th:href="@{'/truyen/'+${story.id}}">
@@ -32,9 +32,9 @@
                                th:text="' - ' + ${story.timeUpdate}"></small>
                     </section>
                     <section class="time">
-                                                        <span class="d-none d-sm-block"
-                                                              th:if="${story.chapterId != null}"
-                                                              th:text="${story.displayName!=null?story.displayName:story.username}"></span>
+                        <span class="d-none d-sm-block"
+                              th:if="${story.chapterId != null}"
+                              th:text="${story.displayName!=null?story.displayName:story.username}"></span>
                         <span class="d-block d-sm-none"
                               th:text="${story.timeUpdate}"></span>
                     </section>
@@ -61,20 +61,18 @@
                     <a class="page-link disabled"
                        th:href="@{''+${urlIndex} + '/trang-'+${i}}"
                        th:text="${i}"></a></li>
-                <li class="page-item" th:unless="${i == currentIndex}"><a
-                        class="page-link"
-                        th:href="@{''+${urlIndex} + '/trang-'+${i}}"
-                        th:text="${i}"></a></li>
+                <li class="page-item" th:unless="${i == currentIndex}">
+                    <a class="page-link" th:href="@{''+${urlIndex} + '/trang-'+${i}}" th:text="${i}"></a>
+                </li>
             </th:block>
             <li th:if="${currentIndex != totalIndex}" class="page-item">
-                <a class="page-link"
+                <a class="page-link" th:title="'Trang '+ ${currentIndex+1}"
                    th:href="@{''+${urlIndex} + '/trang-'+${currentIndex+1}}">
                     <i class="fas fa-step-forward fa-sm"></i>
                 </a>
             </li>
             <li th:if="${currentIndex != totalIndex}" class="page-item">
-                <a class="page-link" title="Trang Cuối"
-                   th:href="@{''+${urlIndex} + '/trang-'+${totalIndex}}">
+                <a class="page-link" title="Trang Cuối" th:href="@{''+${urlIndex} + '/trang-'+${totalIndex}}">
                     <i class="fas fa-forward fa-sm"></i>
                 </a>
             </li>

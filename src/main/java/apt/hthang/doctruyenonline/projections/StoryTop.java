@@ -24,4 +24,5 @@ public interface StoryTop {
     
     Integer getDealStatus();
     
+    Integer getAppoint();
 }

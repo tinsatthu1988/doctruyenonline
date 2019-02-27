@@ -66,7 +66,7 @@ public class CategoryController {
     
     private void loadData(Category category, int pagenumber, Model model) {
         Page< StoryUpdate > page = storyService
-                .findStoryNewUpdateByCategroyId(category.getId(),
+                .findStoryNewUpdateByCategoryId(category.getId(),
                         pagenumber,
                         ConstantsUtils.PAGE_SIZE_DEFAULT,
                         ConstantsListUtils.LIST_STORY_DISPLAY,
@@ -78,7 +78,7 @@ public class CategoryController {
         // Kiểm tra tổng số trang có nhỏ hơn pagenumber không
         if (total < pagenumber) {
             pagenumber = ConstantsUtils.PAGE_DEFAULT;
-            page = storyService.findStoryNewUpdateByCategroyId(category.getId(),
+            page = storyService.findStoryNewUpdateByCategoryId(category.getId(),
                     pagenumber,
                     ConstantsUtils.PAGE_SIZE_DEFAULT,
                     ConstantsListUtils.LIST_STORY_DISPLAY,
@@ -178,7 +178,7 @@ public class CategoryController {
         
         loadTopView(model, category);
         
-        return "web/categoryPage";
+        return "web/view/categoryPage";
     }
     
     @RequestMapping("/{cid}/{cmetaTitle}/trang-{page}")
@@ -207,6 +207,6 @@ public class CategoryController {
         
         loadTopView(model, category);
         
-        return "web/categoryPage";
+        return "web/view/categoryPage";
     }
 }

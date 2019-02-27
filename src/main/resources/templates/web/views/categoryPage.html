@@ -55,7 +55,7 @@
                                 <section class="block-content">
                                     <section class="editors-choice-list">
                                         <section class="row">
-                                            <th:block th:each="topstory,iterStat : ${topview}"
+                                            <th:block th:each="topstory,iterStat : ${listTopViewWeek}"
                                                       th:if="${4<=iterStat.index}">
                                                 <section class="col-12 col-sm-12 col-md-6 btv-2">
                                                     <section class="item">
@@ -83,7 +83,7 @@
                                 <section class="block-header"><h2 class="title"> Top Tháng </h2></section>
                                 <section class="block-content">
                                     <ul class="list-group">
-                                        <th:block th:each="topmonthstory,iterStats : ${topmonthview}">
+                                        <th:block th:each="topmonthstory,iterStats : ${listTopAppointMonth}">
                                             <li class="list-group-item list-group-item-primary-me item-featured"
                                                 th:if="${iterStats.index == 0}">
                                                 <section class="content">
@@ -96,7 +96,7 @@
                                                         </h2>
                                                         <section class="view text-secondary">
                                                         <span class="text-red fz-16"
-                                                              th:text="${topmonthstory.cnt}"></span> lượt
+                                                              th:text="${topmonthstory.appoint}"></span> đề cử
                                                         </section>
                                                         <section class="extra-info">
                                                             <p>Thể Loại:
@@ -122,8 +122,9 @@
                                             <li class="list-group-item list-group-item-primary-me"
                                                 th:unless="${iterStats.index == 0}">
                                                 <section class="content">
-                                                    <section th:class="'index index-'+${iterStats.index+1}+' index-star'"
-                                                         th:text="${iterStats.index+1}"></section>
+                                                    <section
+                                                            th:class="'index index-'+${iterStats.index+1}+' index-star'"
+                                                            th:text="${iterStats.index+1}"></section>
                                                     <section class="info">
                                                         <h2 class="title">
                                                             <a th:href="@{'/truyen/'+${topmonthstory.id} }"
@@ -131,7 +132,7 @@
                                                                th:text="${topmonthstory.vnName}"></a>
                                                         </h2>
                                                         <section class="view text-secondary"
-                                                             th:text="${topmonthstory.cnt}"></section>
+                                                                 th:text="${topmonthstory.cnt}"></section>
                                                     </section>
                                                 </section>
                                             </li>

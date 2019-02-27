@@ -22,7 +22,7 @@ public interface StoryService {
      * @param storyStatus
      * @return Page<StoryUpdate>
      */
-    Page< StoryUpdate > findStoryNewUpdateByCategroyId(Integer cID,
+    Page< StoryUpdate > findStoryNewUpdateByCategoryId(Integer cID,
                                                        int page,
                                                        int size,
                                                        List< Integer > storyStatus,
