@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 
             Context context = new Context();
             context.setVariables(mail.getModel());
-            String html = templateEngine.process("mail/forgot-password", context);
+            String html = templateEngine.process("web/mail/forgot-password", context);
 
             helper.setTo(mail.getTo());
             helper.setText(html, true);

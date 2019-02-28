@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -43,8 +42,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findUserAccount(String userName) {
-        Optional< User > userOptional = userRepository.findByUsername(userName);
-        return userOptional.orElse(null);
+        return userRepository
+                .findByUsername(userName)
+                .orElse(null);
     }
     
     /**
@@ -62,5 +62,30 @@ public class UserServiceImpl implements UserService {
         user.setRoleList(roleList);
         User newUser = userRepository.save(user);
         return newUser.getId() != null;
+    }
+    
+    /**
+     * Tìm User Theo UserName và Email
+     *
+     * @param userName
+     * @param email
+     * @return User - Nếu tồn tại user với userName và Email / null - nếu không tồn tại user với userName và Email
+     */
+    @Override
+    public User findForgotUser(String userName, String email) {
+        return userRepository
+                .findByUsernameAndEmail(userName, email)
+                .orElse(null);
+    }
+    
+    /**
+     * Cập Nhật User
+     *
+     * @param user
+     * @return User
+     */
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 }

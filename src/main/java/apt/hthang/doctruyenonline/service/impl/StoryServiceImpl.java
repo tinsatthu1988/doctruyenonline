@@ -66,7 +66,49 @@ public class StoryServiceImpl implements StoryService {
                                                          int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return storyRepository
-                .finfTopStoryByCategory(categoryId, favoritesStatus,
+                .findTopViewByCategory(categoryId, favoritesStatus,
                         listStatus, startDate, endDate, pageable);
+    }
+    
+    /**
+     * Lấy Danh sách Truyện Top  Đề Cử Theo Category
+     *
+     * @param categoryID
+     * @param storyStatus
+     * @param payType
+     * @param payStatus
+     * @param startDate
+     * @param endDate
+     * @param page
+     * @param size
+     * @return Page<StoryTop>
+     */
+    @Override
+    public Page< StoryTop > findStoryTopVoteByCategoryId(Integer categoryID,
+                                                         List< Integer > storyStatus,
+                                                         Integer payType, Integer payStatus,
+                                                         Date startDate, Date endDate,
+                                                         int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return storyRepository
+                .findTopVoteByCategory(categoryID, storyStatus, payType, payStatus, startDate, endDate, pageable);
+    }
+    
+    /**
+     * Tìm Kiếm List Truyện Theo SearchKey
+     *
+     * @param searchKey
+     * @param pagenumber
+     * @param pageSize
+     * @param listStoryStatus
+     * @param listChapterStatus
+     * @return
+     */
+    @Override
+    public Page< StoryUpdate > findStoryBySearchKey(String searchKey,
+                                                    List< Integer > listChapterStatus, List< Integer > listStoryStatus,
+                                                    int pagenumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pagenumber - 1, pageSize);
+        return storyRepository.findStoryBySearchKey(listChapterStatus, searchKey, listStoryStatus, pageable);
     }
 }

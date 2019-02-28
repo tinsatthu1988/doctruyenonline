@@ -28,14 +28,24 @@ public class ConstantsStatusUtils {
     public static final Integer FAVORITES_VIEW = 1;
     
     //Trạng thái truyện bị ẩn
-    public static Integer STORY_STATUS_HIDDEN = 0;
+    public static final Integer STORY_STATUS_HIDDEN = 0;
     
     //Trạng thái truyện đang ra
-    public static Integer STORY_STATUS_GOING_ON = 1;
+    public static final Integer STORY_STATUS_GOING_ON = 1;
     
     //Trang thái truyện tạm dừng
-    public static Integer STORY_STATUS_STOP = 2;
+    public static final Integer STORY_STATUS_STOP = 2;
     
     //Trang thái truyện hoàn thành
-    public static Integer STORY_STATUS_COMPLETED = 3;
+    public static final Integer STORY_STATUS_COMPLETED = 3;
+    
+    // Trạng Thái Thanh Toán bị hủy
+    public static final Integer PAY_CANCEL = 0;
+    
+    // Trạng Thái Thanh Toán Hoàn Thành
+    public static final Integer PAY_COMPLETED = 1;
+    
+    // Trạng Thái Thanh Toán đang đợi thực hiện
+    public static final Integer PAY_WAIT = 2;
+    
 }

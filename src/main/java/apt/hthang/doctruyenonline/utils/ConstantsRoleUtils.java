@@ -6,15 +6,15 @@ package apt.hthang.doctruyenonline.utils;
  */
 public class ConstantsRoleUtils {
     
-    //ID role Admi
-    public static Integer ROLE_ADMIN_ID = 1;
+    //ID role Admin
+    public static final Integer ROLE_ADMIN_ID = 1;
     
     //Id role SMod
-    public static Integer ROLE_SMOD_ID = 2;
+    public static final Integer ROLE_SMOD_ID = 2;
     
     //Id role Converter
-    public static Integer ROLE_CONVERTER_ID = 3;
+    public static final Integer ROLE_CONVERTER_ID = 3;
     
     //Id role user
-    public static Integer ROLE_USER_ID = 4;
+    public static final Integer ROLE_USER_ID = 4;
 }

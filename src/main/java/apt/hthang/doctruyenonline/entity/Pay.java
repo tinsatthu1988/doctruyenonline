@@ -50,6 +50,8 @@ public class Pay implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "storyId", referencedColumnName = "id")
     private Story story;
+    @Column(name = "vote")
+    private Integer vote;
     @Column(name = "type", nullable = false)
     private Integer type;
     @Column(name = "status")

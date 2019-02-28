@@ -107,7 +107,7 @@ public class CategoryController {
         model.addAttribute("urlIndex", urlIndex);
     }
     
-    private void loadTopView(Model model, Category category) {
+    private void loadTopViewAndVote(Model model, Category category) {
         //Lấy ngày bắt đầu của tháng
         Date firstDayOfMonth = DateUtils.getFirstDayOfMonth();
         
@@ -125,17 +125,17 @@ public class CategoryController {
                 .findStoryTopViewByCategoryId(category.getId(),
                         ConstantsStatusUtils.FAVORITES_VIEW,
                         ConstantsListUtils.LIST_STORY_DISPLAY,
-                        firstDayOfMonth, lastDayOfMonth,
+                        firstDayOfWeek, lastDayOfWeek,
                         ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE)
                 .get()
                 .collect(Collectors.toList());
         
         //Lấy Top Truyện Đề cử Theo Thể Loại Trong Tháng
         List< StoryTop > listTopAppointMonth = storyService
-                .findStoryTopViewByCategoryId(category.getId(),
-                        ConstantsStatusUtils.FAVORITES_VIEW,
+                .findStoryTopVoteByCategoryId(category.getId(),
                         ConstantsListUtils.LIST_STORY_DISPLAY,
-                        firstDayOfWeek, lastDayOfWeek,
+                        ConstantsPayTypeUtils.PAY_APPOINT_TYPE, ConstantsStatusUtils.PAY_COMPLETED,
+                        firstDayOfMonth, lastDayOfMonth,
                         ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE)
                 .get()
                 .collect(Collectors.toList());
@@ -175,8 +175,8 @@ public class CategoryController {
         getMenuAndInfo(model, title);
         
         loadData(category, ConstantsUtils.PAGE_DEFAULT, model);
-        
-        loadTopView(model, category);
+    
+        loadTopViewAndVote(model, category);
         
         return "web/view/categoryPage";
     }
@@ -204,8 +204,8 @@ public class CategoryController {
         getMenuAndInfo(model, title);
         
         loadData(category, pagenumber, model);
-        
-        loadTopView(model, category);
+    
+        loadTopViewAndVote(model, category);
         
         return "web/view/categoryPage";
     }

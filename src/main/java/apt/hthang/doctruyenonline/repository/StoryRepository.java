@@ -39,7 +39,7 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
                                                Pageable pageable);
     
     /**
-     * Lấy Danh sách Truyện Top Theo Category
+     * Lấy Danh sách Truyện Top  View Theo Category
      *
      * @param cID
      * @param favoritesStatus
@@ -52,9 +52,39 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
     @Query(value = ConstantsQueryUtils.STORY_TOP_VIEW_BY_CATEGORY,
             countQuery = ConstantsQueryUtils.COUNT_STORY_TOP_VIEW_BY_CATEGORY,
             nativeQuery = true)
-    Page< StoryTop > finfTopStoryByCategory(@Param("categoryID") Integer cID,
+    Page< StoryTop > findTopViewByCategory(@Param("categoryID") Integer cID,
                                            @Param("favoritesStatus") Integer favoritesStatus,
                                            @Param("storyStatus") List< Integer > listStatus,
                                            @Param("startDate") Date startDate,
                                            @Param("endDate") Date endDate, Pageable pageable);
+    
+    /**
+     * Lấy Danh sách Truyện Top  Đề Cử Theo Category
+     *
+     * @param cID
+     * @param listStatus
+     * @param payType
+     * @param payStatus
+     * @param startDate
+     * @param endDate
+     * @param pageable
+     * @return Page<StoryTop>
+     */
+    @Query(value = ConstantsQueryUtils.STORY_TOP_VOTE_BY_CATEGORY,
+            countQuery = ConstantsQueryUtils.COUNT_STORY_TOP_VOTE_BY_CATEGORY,
+            nativeQuery = true)
+    Page< StoryTop > findTopVoteByCategory(@Param("categoryID") Integer cID,
+                                           @Param("storyStatus") List< Integer > listStatus,
+                                           @Param("payType") Integer payType, @Param("payStatus") Integer payStatus,
+                                           @Param("startDate") Date startDate, @Param("endDate") Date endDate,
+                                           Pageable pageable);
+    
+    
+    @Query(value = ConstantsQueryUtils.SEARCH_STORY,
+            countQuery = ConstantsQueryUtils.COUNT_SEARCH_STORY,
+            nativeQuery = true)
+    Page< StoryUpdate > findStoryBySearchKey(@Param("chapterStatus") List< Integer > listChStatus,
+                                    @Param("search") String search,
+                                    @Param("storyStatus") List< Integer > listStatus,
+                                    Pageable pageable);
 }
