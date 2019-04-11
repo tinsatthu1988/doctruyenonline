@@ -2,9 +2,9 @@ var app = angular.module('ngApp', ['ui.tinymce', 'ngSanitize']);
 
 app.controller('chapterCtrl', chapterCtrl);
 
-chapterCtrl.$inject = ['$http', '$scope', 'HomeService'];
+chapterCtrl.$inject = ['$http', '$scope', 'WebService'];
 
-function chapterCtrl($http, $scope, HomeService) {
+function chapterCtrl($http, $scope, WebService) {
 
     $scope.sid = 0;
     $scope.commentText = '';
@@ -50,7 +50,7 @@ function chapterCtrl($http, $scope, HomeService) {
 
     $scope.getListComment = function (pagenumber, size) {
         var url = window.location.origin + '/api/commentOfStory';
-        HomeService.getPage(url, $scope.sid, pagenumber, size).then(function (response) {
+        WebService.getPage(url, $scope.sid, pagenumber, size).then(function (response) {
             $scope.totalComment = response.data.totalElements;
             $scope.listComment = response.data.content;
             $scope.totalCommentPages = response.data.totalPages;
@@ -67,7 +67,7 @@ function chapterCtrl($http, $scope, HomeService) {
 
     $scope.addComment = function () {
         if ($scope.commentText.trim().length !== 0) {
-            HomeService.addComment($scope.sid, $scope.commentText).then(function (response) {
+            WebService.addComment($scope.sid, $scope.commentText).then(function (response) {
                 $scope.commentText = '';
                 $scope.getListComment(1, 1);
             }, function errorCallback(errResponse) {

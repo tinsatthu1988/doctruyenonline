@@ -1,5 +1,9 @@
 package apt.hthang.doctruyenonline.service.impl;
 
+import apt.hthang.doctruyenonline.entity.Story;
+import apt.hthang.doctruyenonline.exception.NotFoundException;
+import apt.hthang.doctruyenonline.projections.StorySlide;
+import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.projections.StoryTop;
 import apt.hthang.doctruyenonline.projections.StoryUpdate;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
@@ -110,5 +114,33 @@ public class StoryServiceImpl implements StoryService {
                                                     int pagenumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pagenumber - 1, pageSize);
         return storyRepository.findStoryBySearchKey(listChapterStatus, searchKey, listStoryStatus, pageable);
+    }
+    
+    /**
+     * Tìm Truyện Theo StoryID và ListStatus
+     *
+     * @param storyId
+     * @param listStoryStatus
+     * @return StorySummar - nếu tồn tại truyện thỏa mãn điều kiện
+     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
+     */
+    @Override
+    public StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception {
+        return storyRepository
+                .findByIdAndStatusIn(storyId, listStoryStatus)
+                .orElseThrow(NotFoundException::new);
+    }
+    
+    /**
+     * Lấy Danh sách truyện mới đăng của Converter
+     *
+     * @param userId
+     * @param listStoryDisplay
+     * @return List<StorySlide>
+     */
+    @Override
+    public List< StorySlide > findStoryOfConverter(Long userId, List< Integer > listStoryDisplay) {
+        return storyRepository
+                .findTop5ByUser_IdAndStatusInOrderByCreateDateDesc(userId, listStoryDisplay);
     }
 }

@@ -2,13 +2,13 @@ var app = angular.module('ngApp', []);
 
 app.controller('accountAdModController', accountAdModCtrl);
 
-accountAdModCtrl.$inject = ['$scope', 'HomeService'];
+accountAdModCtrl.$inject = ['$scope', 'WebService'];
 
 app.controller('payController', payCtrl);
 
-payCtrl.$inject = ['$scope', 'HomeService'];
+payCtrl.$inject = ['$scope', 'WebService'];
 
-function accountAdModCtrl($scope, HomeService) {
+function accountAdModCtrl($scope, WebService) {
     $scope.selectStatus = [];
     $scope.listStatus = [];
     $scope.totalPages = 0;
@@ -28,7 +28,7 @@ function accountAdModCtrl($scope, HomeService) {
     $scope.getList = function () {
         var data = new FormData();
         var url = window.location.origin + '/api/home/getStatusStoryList';
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.listStatus = response.data;
             $scope.selectStatus = $scope.listStatus[0];
         });
@@ -43,7 +43,7 @@ function accountAdModCtrl($scope, HomeService) {
         }
         data.append('pagenumber', pagenumber);
         data.append("search", encryptText($scope.search));
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.listStory = response.data.content;
             $scope.totalPages = response.data.totalPages;
             $scope.currentPage = response.data.number + 1;
@@ -67,7 +67,7 @@ function accountAdModCtrl($scope, HomeService) {
 
     $scope.deleteStoryAdmin = function (id) {
         var url = window.location.origin + '/api/deleteAdModStory/' + id;
-        HomeService.deleteData(url).then(function (response) {
+        WebService.deleteData(url).then(function (response) {
             swal({
                 text: 'Xóa Truyện Thành Công',
                 type: 'success',
@@ -88,7 +88,7 @@ function accountAdModCtrl($scope, HomeService) {
 
 }
 
-function payCtrl($scope, HomeService) {
+function payCtrl($scope, WebService) {
     $scope.listPay = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
@@ -102,7 +102,7 @@ function payCtrl($scope, HomeService) {
         var url = window.location.origin + '/api/payByUser';
         var data = new FormData();
         data.append('pagenumber', pagenumber);
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.listPay = response.data.content;
             $scope.totalPages = response.data.totalPages;
             $scope.currentPage = response.data.number + 1;

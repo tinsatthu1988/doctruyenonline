@@ -1,7 +1,9 @@
 package apt.hthang.doctruyenonline.component;
 
+import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.service.StoryService;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @author Huy Thang on 26/10/2018
+ * @author Huy Thang
  * @project truyenonline
  */
 
@@ -30,17 +32,18 @@ public class MyComponent {
         return DateUtils.betweenTwoDays(date);
     }
 
-//    //Lấy Chapter Đầu Tiên
-//    public ChapterSummary getChapterHead(Long sID) {
-//        return chapterService
-//                .getChapterIDHead(sID, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
-//    }
-//
-//    //Lấy Chapter Mới Nhất
-//    public ChapterSummary getNewChapter(Long sID) {
-//        return chapterService
-//                .getChapterIDNew(sID, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
-//    }
+    //Lấy Chapter Đầu Tiên của Truyện
+    public ChapterSummary getChapterHead(Long storyId) {
+        return chapterService
+                    .findChapterHeadOfStory(storyId, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
+    }
+
+    //Lấy Chapter Mới Nhất của Truyện
+    public ChapterSummary getNewChapter(Long storyId) {
+        return chapterService
+                .findChapterNewOfStory(storyId, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
+    }
+
 //
 //    public Long countStoryOfUser(Long uID) {
 //        return storyService.

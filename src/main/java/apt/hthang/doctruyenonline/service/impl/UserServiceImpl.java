@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -87,5 +88,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(User user) {
         return userRepository.save(user);
+    }
+    
+    /**
+     * Tìm user theo Id
+     *
+     * @param id
+     * @return User - nếu tồn tại / null- nếu không tồn tại user
+     */
+    @Override
+    public User findUserById(Long id) {
+        return userRepository
+                .findById(id)
+                .orElse(null);
     }
 }

@@ -2,6 +2,7 @@ package apt.hthang.doctruyenonline.controller.home;
 
 import apt.hthang.doctruyenonline.entity.Category;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
+import apt.hthang.doctruyenonline.projections.CategorySummary;
 import apt.hthang.doctruyenonline.projections.StoryTop;
 import apt.hthang.doctruyenonline.projections.StoryUpdate;
 import apt.hthang.doctruyenonline.service.CategoryService;
@@ -40,7 +41,7 @@ public class CategoryController {
         this.storyService = storyService;
     }
     
-    private Category checkCategoryID(String cid) throws Exception {
+    private CategorySummary checkCategoryID(String cid) throws Exception {
         
         // Kiểm tra cid != null
         // Kiểm tra cid có phải kiểu int
@@ -64,7 +65,7 @@ public class CategoryController {
         model.addAttribute("information", informationService.getWebInfomation());
     }
     
-    private void loadData(Category category, int pagenumber, Model model) {
+    private void loadData(CategorySummary category, int pagenumber, Model model) {
         Page< StoryUpdate > page = storyService
                 .findStoryNewUpdateByCategoryId(category.getId(),
                         pagenumber,
@@ -107,7 +108,7 @@ public class CategoryController {
         model.addAttribute("urlIndex", urlIndex);
     }
     
-    private void loadTopViewAndVote(Model model, Category category) {
+    private void loadTopViewAndVote(Model model, CategorySummary category) {
         //Lấy ngày bắt đầu của tháng
         Date firstDayOfMonth = DateUtils.getFirstDayOfMonth();
         
@@ -149,7 +150,7 @@ public class CategoryController {
     public String theloaiPage(@PathVariable("cid") String cid) throws Exception {
         
         // Lấy Category theo cID
-        Category category = checkCategoryID(cid);
+        CategorySummary category = checkCategoryID(cid);
         
         return "redirect:/the-loai/" + cid + "/" + category.getMetatitle();
     }
@@ -158,8 +159,8 @@ public class CategoryController {
     public String theloaiPage(@PathVariable("cid") String cid,
                               @PathVariable("cmetaTitle") String cmetaTitle,
                               Model model) throws Exception {
-        
-        Category category = checkCategoryID(cid);
+    
+        CategorySummary category = checkCategoryID(cid);
         
         // Kiểm tra Metatitle có đúng hay không
         // Nếu không chuyển trang sang định dạng đúng
@@ -186,8 +187,8 @@ public class CategoryController {
                                                @PathVariable("cmetaTitle") String cmetaTitle,
                                                @PathVariable("page") String page,
                                                Model model) throws Exception {
-        
-        Category category = checkCategoryID(cid);
+    
+        CategorySummary category = checkCategoryID(cid);
         // Kiểm tra Metatitle có đúng hay không
         // Nếu không chuyển trang sang định dạng đúng
         if (!cmetaTitle.equalsIgnoreCase(category.getMetatitle())) {

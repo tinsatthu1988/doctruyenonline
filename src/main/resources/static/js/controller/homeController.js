@@ -2,9 +2,9 @@ var app = angular.module('ngApp', []);
 
 app.controller('homeCtrl', homeCtrl);
 
-homeCtrl.$inject = ['HomeService', '$scope'];
+homeCtrl.$inject = ['WebService', '$scope'];
 
-function homeCtrl(HomeService, $scope) {
+function homeCtrl(WebService, $scope) {
 
     $scope.topViewMonth = [];
     $scope.storyNewUpdate = [];
@@ -21,7 +21,7 @@ function homeCtrl(HomeService, $scope) {
         var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tháng
         var url = window.location.origin + '/api/home/topAppoidMonth';
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.topViewMonth = response.data;
         }, function errorCallback(errResponse) {
             console.log('Có lỗi xảy ra!');
@@ -32,7 +32,7 @@ function homeCtrl(HomeService, $scope) {
         var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tuần
         var url = window.location.origin + '/api/home/storyNewUpdate';
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.storyNewUpdate = response.data;
         }, function errorCallback(errResponse) {
             console.log('Có lỗi xảy ra!');
@@ -43,7 +43,7 @@ function homeCtrl(HomeService, $scope) {
         var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tuần
         var url = window.location.origin + '/api/home/topConveter';
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.topConveter = response.data;
         }, function errorCallback(errResponse) {
             console.log('Có lỗi xảy ra!');

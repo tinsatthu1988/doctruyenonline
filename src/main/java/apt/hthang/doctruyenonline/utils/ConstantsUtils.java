@@ -18,6 +18,12 @@ public class ConstantsUtils {
     // Page size default
     public static Integer PAGE_SIZE_DEFAULT = 20;
     
+    //Page size list comment default
+    public static Integer PAGE_SIZE_COMMENT_DEFAULT = 10;
+    
     // Page size Top View
     public static Integer RANK_SIZE = 10;
+    
+    //Page size Chapter list default
+    public static Integer PAGE_SIZE_CHAPTER_OF_STORY = 45;
 }

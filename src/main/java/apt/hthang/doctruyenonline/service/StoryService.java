@@ -1,5 +1,8 @@
 package apt.hthang.doctruyenonline.service;
 
+import apt.hthang.doctruyenonline.entity.Story;
+import apt.hthang.doctruyenonline.projections.StorySlide;
+import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.projections.StoryTop;
 import apt.hthang.doctruyenonline.projections.StoryUpdate;
 import org.springframework.data.domain.Page;
@@ -74,4 +77,24 @@ public interface StoryService {
     Page< StoryUpdate > findStoryBySearchKey(String searchKey,
                                              List< Integer > listChapterStatus, List< Integer > listStoryStatus,
                                              int pagenumber, Integer pageSize);
+    
+    /**
+     * Tìm Truyện Theo StoryID và ListStatus
+     *
+     * @param storyId
+     * @param listStoryStatus
+     * @return StorySummar - nếu tồn tại truyện thỏa mãn điều kiện
+     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
+     */
+    StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception;
+    
+    /**
+     * Lấy Danh sách truyện mới đăng của Converter
+     *
+     * @param userId
+     * @param listStoryDisplay
+     * @return List<StorySlide>
+     */
+    List< StorySlide > findStoryOfConverter(Long userId, List< Integer > listStoryDisplay);
+    
 }

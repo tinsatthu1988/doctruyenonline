@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 @Repository
 public interface UserRepository extends JpaRepository< User, Long > {
-
+    
     /**
      * Tìm kiếm User theo username
      *
@@ -22,9 +22,10 @@ public interface UserRepository extends JpaRepository< User, Long > {
     
     /**
      * Tìm User theo username và email
+     *
      * @param userName
      * @param email
      * @return Optional<User>
      */
-    Optional<User> findByUsernameAndEmail(String userName, String email);
+    Optional< User > findByUsernameAndEmail(String userName, String email);
 }

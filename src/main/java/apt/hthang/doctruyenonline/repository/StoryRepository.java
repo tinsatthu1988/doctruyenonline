@@ -1,6 +1,8 @@
 package apt.hthang.doctruyenonline.repository;
 
 import apt.hthang.doctruyenonline.entity.Story;
+import apt.hthang.doctruyenonline.projections.StorySlide;
+import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.projections.StoryTop;
 import apt.hthang.doctruyenonline.projections.StoryUpdate;
 import apt.hthang.doctruyenonline.utils.ConstantsQueryUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -80,11 +83,38 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
                                            Pageable pageable);
     
     
+    /**
+     * Lấy danh sách truyện theo searchkey
+     *
+     * @param listChStatus
+     * @param search
+     * @param listStatus
+     * @param pageable
+     * @return Page<StoryUpdate>
+     */
     @Query(value = ConstantsQueryUtils.SEARCH_STORY,
             countQuery = ConstantsQueryUtils.COUNT_SEARCH_STORY,
             nativeQuery = true)
     Page< StoryUpdate > findStoryBySearchKey(@Param("chapterStatus") List< Integer > listChStatus,
-                                    @Param("search") String search,
-                                    @Param("storyStatus") List< Integer > listStatus,
-                                    Pageable pageable);
+                                             @Param("search") String search,
+                                             @Param("storyStatus") List< Integer > listStatus,
+                                             Pageable pageable);
+    
+    /**
+     * Tìm truyện theo id và status thỏa mãn
+     *
+     * @param storyId
+     * @param listStoryStatus
+     * @return Optional<StorySummary>
+     */
+    Optional< StorySummary > findByIdAndStatusIn(Long storyId, List< Integer > listStoryStatus);
+    
+    /**
+     * Lấy Danh sách Top 5 truyện mới đăng theo user và status
+     *
+     * @param userId
+     * @param listStoryDisplay
+     * @return List<StorySlide>
+     */
+    List< StorySlide > findTop5ByUser_IdAndStatusInOrderByCreateDateDesc(Long userId, List< Integer > listStoryDisplay);
 }

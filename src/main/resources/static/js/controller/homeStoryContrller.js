@@ -2,9 +2,9 @@ var app = angular.module('ngApp', ['ui.tinymce', 'ngSanitize']);
 
 app.controller('storyCtrl', storyCtrl);
 
-storyCtrl.$inject = ['HomeService', '$scope'];
+storyCtrl.$inject = ['WebService', '$scope'];
 
-function storyCtrl(HomeService, $scope,) {
+function storyCtrl(WebService, $scope) {
 
     $scope.listChapter = [];
     $scope.listStory = [];
@@ -23,10 +23,10 @@ function storyCtrl(HomeService, $scope,) {
     $scope.noImage = 'https://res.cloudinary.com/thang1988/image/upload/v1544258290/truyenmvc/noImages.png';
     $scope.coupon = null;
 
-    //Lấy danh sách Chapter Theo sID, pagenumber, size
-    $scope.getListChapter = function (pagenumber, size) {
-        var url = window.location.origin + '/api/chapterOfStory';
-        HomeService.getPage(url, $scope.sid, pagenumber, size).then(function (response) {
+    //Lấy danh sách Chapter Theo storyId, pagenumber, type
+    $scope.getListChapter = function (pagenumber, type) {
+        var url = window.location.origin + '/api/home/chapterOfStory';
+        WebService.getPage(url, $scope.sid, pagenumber, type).then(function (response) {
             $scope.listChapter = response.data.content;
             $scope.totalPages = response.data.totalPages;
             $scope.currentPage = response.data.number + 1;
@@ -40,9 +40,8 @@ function storyCtrl(HomeService, $scope,) {
         })
     };
 
-    $scope.getListComment = function (pagenumber, size) {
-        var url = window.location.origin + '/api/commentOfStory';
-        HomeService.getPage(url, $scope.sid, pagenumber, size).then(function (response) {
+    $scope.getListComment = function (pagenumber, type) {
+        WebService.loadComment($scope.sid, pagenumber, size).then(function (response) {
             $scope.totalComment = response.data.totalElements;
             $scope.listComment = response.data.content;
             $scope.totalCommentPages = response.data.totalPages;
@@ -59,7 +58,7 @@ function storyCtrl(HomeService, $scope,) {
 
     $scope.addComment = function () {
         if ($scope.commentText.trim().length !== 0) {
-            HomeService.addComment($scope.sid, $scope.commentText).then(function (response) {
+            WebService.addComment($scope.sid, $scope.commentText).then(function (response) {
                 $scope.commentText = '';
                 $scope.getListComment(1, 1);
             }, function errorCallback(errResponse) {
@@ -73,17 +72,17 @@ function storyCtrl(HomeService, $scope,) {
     $scope.getConverter = function () {
         var data = new FormData();
         data.append('uID', $scope.uID);
-        var url = window.location.origin + '/api/converterInfo';
+        var url = window.location.origin + '/api/home/converterInfo';
         // Lấy Thông Tin Converter
-        HomeService.getData(url, data).then(function (response) {
+        WebService.getData(url, data).then(function (response) {
             $scope.user = response.data;
             console.log($scope.user);
         }, function errorCallback(errResponse) {
             console.log('Có lỗi xảy ra!');
         });
         //Lấy Top 3 Truyện mới của converter
-        url = window.location.origin + '/api/storyOfConverter';
-        HomeService.getData(url, data).then(function (response) {
+        url = window.location.origin + '/api/home/storyOfConverter';
+        WebService.getData(url, data).then(function (response) {
             $scope.listStory = response.data;
             console.log($scope.listStory);
         }, function errorCallback(errResponse) {
@@ -101,7 +100,7 @@ function storyCtrl(HomeService, $scope,) {
             data.append('coupon', $scope.coupon);
             var url = window.location.origin + '/api/appoint';
 
-            HomeService.submitForm(url, data).then(function (response) {
+            WebService.submitForm(url, data).then(function (response) {
                 $scope.coupon = null;
                 swal({
                     text: 'Đề Cử Thành Công!',

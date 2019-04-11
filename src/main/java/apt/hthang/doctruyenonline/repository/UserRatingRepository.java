@@ -10,5 +10,21 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRatingRepository extends JpaRepository< UserRating, UserRatingPK > {
-
+    
+    /**
+     * Kiểm tra Tồn Tại UserRating theo
+     *
+     * @param storyId
+     * @param userId
+     * @return "true" nếu đã có bình chọn/ "false" nếu chưa có bình chọn phù hợp
+     */
+    boolean existsSratingByStory_IdAndUser_Id(Long storyId, Long userId);
+    
+    /**
+     * Đếm số đánh giá
+     *
+     * @param storyId
+     * @return Long
+     */
+    Long countByStory_Id(Long storyId);
 }

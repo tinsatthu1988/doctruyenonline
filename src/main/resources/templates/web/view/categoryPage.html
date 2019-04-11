@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:insert="/web/fragments/header"></th:block>
 <body>
@@ -56,7 +56,7 @@
                                     <section class="editors-choice-list">
                                         <section class="row">
                                             <th:block th:each="topstory,iterStat : ${listTopViewWeek}"
-                                                      th:if="${4<=iterStat.index}">
+                                                      th:if="${(listTopViewWeek.size()-6) <= iterStat.index}">
                                                 <section class="col-12 col-sm-12 col-md-6 btv-2">
                                                     <section class="item">
                                                         <h2 class="title">
@@ -68,7 +68,8 @@
                                                                 class="text-red fz-16" th:text="${topstory.cnt}"></span>
                                                             người truy cập
                                                         </section>
-                                                        <p class="description" th:text="${topstory.infomation}"></p>
+                                                        <p class="description"
+                                                           th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></p>
                                                     </section>
                                                 </section>
                                             </th:block>
@@ -122,8 +123,9 @@
                                             <li class="list-group-item list-group-item-primary-me"
                                                 th:unless="${iterStats.index == 0}">
                                                 <section class="content">
-                                                    <section th:class="'index index-'+${iterStats.index+1}+' index-star'"
-                                                         th:text="${iterStats.index+1}"></section>
+                                                    <section
+                                                            th:class="'index index-'+${iterStats.index+1}+' index-star'"
+                                                            th:text="${iterStats.index+1}"></section>
                                                     <section class="info">
                                                         <h2 class="title">
                                                             <a th:href="@{'/truyen/'+${topmonthstory.id} }"
@@ -131,7 +133,7 @@
                                                                th:text="${topmonthstory.vnName}"></a>
                                                         </h2>
                                                         <section class="view text-secondary"
-                                                             th:text="${topmonthstory.cnt}"></section>
+                                                                 th:text="${topmonthstory.cnt}"></section>
                                                     </section>
                                                 </section>
                                             </li>

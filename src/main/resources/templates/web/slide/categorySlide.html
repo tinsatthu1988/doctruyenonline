@@ -1,6 +1,6 @@
 <div class="swiper-container swiper-container-horizontal">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" th:each="topstory,iterStat : ${topview}"
+        <div class="swiper-slide" th:each="topstory,iterStat : ${listTopViewWeek}"
              th:if="${iterStat.index < 4}">
             <div class="item">
                 <div class="thumb">
@@ -18,7 +18,7 @@
                            th:text="${topstory.vnName}"></a>
                     </h2>
                     <p class="description text-center"
-                       th:text="${topstory.infomation}"></p>
+                       th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></p>
                 </div>
             </div>
         </div>

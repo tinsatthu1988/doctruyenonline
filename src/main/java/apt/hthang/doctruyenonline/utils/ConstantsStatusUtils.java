@@ -48,4 +48,15 @@ public class ConstantsStatusUtils {
     // Trạng Thái Thanh Toán đang đợi thực hiện
     public static final Integer PAY_WAIT = 2;
     
+    // Trạng Thái Comment hiển thị
+    public static final Integer COMMENT_DISPLAY = 1;
+    
+    // Trạng Thái Comment bị ẩn
+    public static final Integer COMMENT_HIDDEN = 0;
+    
+    // Trạng Thái User kích hoạt
+    public static final Integer USER_ACTIVED = 1;
+    
+    // Trạng Thái User bị khóa
+    public static final Integer USER_DENIED = 0;
 }

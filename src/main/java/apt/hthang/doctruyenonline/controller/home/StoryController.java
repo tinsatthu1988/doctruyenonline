@@ -1,15 +1,15 @@
 package apt.hthang.doctruyenonline.controller.home;
 
 import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
+import apt.hthang.doctruyenonline.projections.StorySlide;
+import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.service.*;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.WebUtils;
-import online.hthang.truyenonline.entity.MyUserDetails;
-import online.hthang.truyenonline.projections.SearchStory;
-import online.hthang.truyenonline.projections.StorySummary;
-import online.hthang.truyenonline.service.*;
-import online.hthang.truyenonline.utils.ConstantsListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author Huy Thang on 17/10/2018
@@ -46,7 +45,8 @@ public class StoryController {
     public StoryController(InformationService informationService,
                            CategoryService categoryService,
                            StoryService storyService,
-                           UserRatingService userRatingService, FavoritesService favoritesService) {
+                           UserRatingService userRatingService,
+                           FavoritesService favoritesService) {
         this.informationService = informationService;
         this.categoryService = categoryService;
         this.storyService = storyService;
@@ -61,18 +61,18 @@ public class StoryController {
         model.addAttribute("title", title);
         
         // Lấy List Category cho Menu
-        model.addAttribute("categorylist", categoryService.getCategoryMenu());
+        model.addAttribute("categorylist", categoryService.getListCategoryOfMenu(ConstantsStatusUtils.CATEGORY_ACTIVED));
         
-        // Lấy Information của Webm
+        // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
     }
     
-    @RequestMapping("/{sID}")
-    public String defaultStoryController(@PathVariable("sID") String sID,
+    @RequestMapping("/{storyId}")
+    public String defaultStoryController(@PathVariable("storyId") String storyId,
                                          Principal principal,
                                          Model model) throws Exception {
         
-        StorySummary story = checkStoryID(sID);
+        StorySummary story = checkStoryID(storyId);
         
         model.addAttribute("story", story);
         
@@ -88,28 +88,24 @@ public class StoryController {
         
         getChapterReadByUser(user, story.getId(), model);
         
-        return "web/storyPage";
+        return "web/view/storyPage";
     }
     
-    private StorySummary checkStoryID(String sID) throws NotFoundException {
+    private StorySummary checkStoryID(String storyId) throws Exception {
         
-        // Kiểm tra sID != null
-        // Kiểm tra sID có phải kiểu long
-        if (sID == null || WebUtils.checkLongNumber(sID)) {
+        // Kiểm tra storyId != null
+        // Kiểm tra storyId có phải kiểu long
+        if (storyId == null || WebUtils.checkLongNumber(storyId)) {
             throw new NotFoundException();
         }
         
-        // Lấy Category theo cID
-        Optional< StorySummary > storyOptional = storyService.getStoryBySIDAndStatus(Long.parseLong(sID)
-                , ConstantsListUtils.LIST_STORY_DISPLAY);
-        
-        if (!storyOptional.isPresent()) {
-            throw new NotFoundException();
-        }
-        return storyOptional.get();
+        return storyService.findStoryByStoryIdAndStatus(Long.parseLong(storyId),
+                ConstantsListUtils.LIST_STORY_DISPLAY);
     }
     
-    // Kiểm Tra Người Dùng Đã Đăng Nhập Chưa
+    // Lấy Thông Tìn Người dùng
+    // return User - nếu người dùng đã đăng nhập thành công
+    // return null - nếu người dùng chưa đăng nhập
     private User getUserLogin(Principal principal) {
         User user = null;
         if (principal != null) {
@@ -121,7 +117,6 @@ public class StoryController {
         return user;
     }
     
-    // Kiểm Tra Rating
     private void getRating(Model model,
                            User user,
                            StorySummary story) {
@@ -135,18 +130,19 @@ public class StoryController {
             } else {
                 
                 // Kiểm tra Người dùng đã đánh giá chưa
-                if (userRatingService
-                        .checkRatingWithUser(story.getId(), user.getId())) {
+                if (userRatingService.existsRatingWithUser(story.getId(), user.getId())) {
                     // Người dùng đã đánh giá
                     checkRating = true;
                 }
             }
         }
-        model.addAttribute("countRating", userRatingService.getSumRaitingOfStory(story.getId()));
+        model.addAttribute("countRating", userRatingService.countRatingStory(story.getId()));
         model.addAttribute("rating", checkRating);
     }
     
-    // Kiểm Tra Converter
+    // Kiểm Tra Người Dùng có phải Converter của truyện không
+    // false - Nếu Chưa Login hoặc không phải Converter
+    // true - Nếu là Converter của truyện
     private void checkConverter(Model model,
                                 User user,
                                 StorySummary story) {
@@ -158,19 +154,22 @@ public class StoryController {
         model.addAttribute("checkConverter", checkConverter);
     }
     
-    // Lấy List Truyện Của Người Đăng
+    // Lấy Danh Sách Truyện Mới Đăng Của Converter Truyện
     private void getListStoryOfConverter(Model model,
                                          StorySummary story) {
-        List< SearchStory > list = storyService
-                .getListStoryOfConverter(story.getUserId(), ConstantsListUtils.LIST_STORY_DISPLAY);
+        List< StorySlide > list = storyService
+                .findStoryOfConverter(story.getUserId(), ConstantsListUtils.LIST_STORY_DISPLAY);
         
         model.addAttribute("storyConverter", list);
     }
     
+    // Tìm Kiếm Thông Tin Chapter mới đọc của Người Dùng
+    // null - Nếu người dùng chưa đăng nhập hoặc chưa đọc
+    // chapter - Nếu tìm thấy dữ liệu phù hợp
     private void getChapterReadByUser(User user, Long sID, Model model) {
         Chapter chapter = null;
         if (user != null) {
-            chapter = favoritesService.getChapterReadNewByUser(user.getId(), sID);
+            chapter = favoritesService.findChapterReadByUser(user.getId(), sID);
         }
         model.addAttribute("readChapter", chapter);
     }

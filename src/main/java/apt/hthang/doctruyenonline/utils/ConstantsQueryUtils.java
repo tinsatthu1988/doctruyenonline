@@ -123,4 +123,16 @@ public class ConstantsQueryUtils {
             + " WHERE s.status IN :storyStatus"
             + " AND LOWER(s.vnName) LIKE %:search%"
             + " ORDER BY s.updateDate DESC";
+
+      public static final String CHAPTER_HEAD = "SELECT ch.* FROM Chapter ch"
+            + " WHERE ch.storyId = :storyId"
+            + " AND ch.status IN :chapterStatus"
+            + " ORDER BY ch.serial ASC"
+            + " LIMIT 1";
+    
+    public static final String CHAPTER_NEW = "SELECT ch.* FROM chapter ch"
+            + " WHERE ch.storyId = :storyId"
+            + " AND ch.status IN :chapterStatus"
+            + " ORDER BY ch.serial DESC"
+            + " LIMIT 1";
 }

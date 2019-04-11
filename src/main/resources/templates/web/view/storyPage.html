@@ -3,7 +3,6 @@
 >
 <head>
     <th:block th:insert="/web/fragments/header"></th:block>
-    <th:block th:include="web/layout :: head"></th:block>
     <!--TinyMCE plugins-->
     <script type="text/javascript" th:src="@{/bower/tinymce/tinymce.js}"></script>
     <!--Angular JS-->
@@ -86,7 +85,7 @@
                                                 </span>
                                             </section>
                                         </section>
-                                        <section class="item d-block d-sm-none" th:if="${readChapter ne null}">
+                                        <section class="item d-block d-sm-none" th:if="${readChapter != null}">
                                             <section class="item-label"> Đã đọc:</section>
                                             <section class="item-value">
                                                 <a th:href="@{'/truyen/' + ${story.id} + '/chuong-' + ${readChapter.id}}"
@@ -96,7 +95,7 @@
                                         </section>
                                         <section class="item d-block d-sm-none">
                                             <section class="item-label"> Mới nhất:</section>
-                                            <section class="item-value" th:if="${story.chapterNew ne null}">
+                                            <section class="item-value" th:if="${story.chapterNew != null}">
                                                 <a th:href="@{'/truyen/' + ${story.id} + '/chuong-'+${story.chapterNew.id}}">
                                                     <span class="text-info"
                                                           th:text="'Chương ' + ${story.chapterNew.chapterNumber} + ': ' + ${story.chapterNew.name}"></span>

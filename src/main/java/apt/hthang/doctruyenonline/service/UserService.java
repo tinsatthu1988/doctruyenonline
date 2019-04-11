@@ -39,4 +39,12 @@ public interface UserService {
      * @return User
      */
     User updateUser(User user);
+    
+    /**
+     * Tìm user theo Id
+     *
+     * @param id
+     * @return User - nếu tồn tại / null- nếu không tồn tại user
+     */
+    User findUserById(Long id);
 }

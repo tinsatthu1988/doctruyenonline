@@ -53,6 +53,9 @@ public class SearchController {
         model.addAttribute("information", informationService.getWebInfomation());
     }
     
+    //Lấy danh sách truyện theo
+    // searchKey - Từ khóa tìm kiếm
+    // pagenumber - Số trang
     private void loadData(String searchKey, int pagenumber, Model model) {
         Page< StoryUpdate > page = storyService
                 .findStoryBySearchKey(searchKey,
