@@ -11,6 +11,7 @@ import apt.hthang.doctruyenonline.service.CommentService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.AesUtil;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -80,10 +81,7 @@ public class CommentRestfulController {
             if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
                 throw new HttpUserLockedException();
             }
-            Story story = storyService.findStoryById(storyId);
-            if (story == null || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN)) {
-                throw new HttpMyException("Truyện đã bị xóa hoặc không tìm thấy!");
-            }
+            Story story = storyService.findStoryByIdAndStatus(storyId, ConstantsListUtils.LIST_STORY_DISPLAY);
             boolean check = commentService.saveComment(user, story, commentText);
             if (check) {
                 return new ResponseEntity<>(HttpStatus.OK);
@@ -94,4 +92,5 @@ public class CommentRestfulController {
             throw new HttpMyException("Có lỗi xảy ra. Mong bạn quay lại sau");
         }
     }
+    
 }

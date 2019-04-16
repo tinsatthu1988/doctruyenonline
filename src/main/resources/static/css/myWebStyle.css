@@ -121,7 +121,6 @@ a:hover {
 .btn-truyen {
     background: #007bff;
     color: #fff;
-    font-weight: 600;
 }
 
 .btn-truyen.focus, .btn-truyen:focus {

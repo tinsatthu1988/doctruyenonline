@@ -36,12 +36,13 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      * Lấy Chapter Mới Nhất của truyện
      *
      * @param storyId
-     * @param listStatus
+     * @param chapterStatus
      * @return Optional<ChapterSummary>
      */
     @Query(value = ConstantsQueryUtils.CHAPTER_NEW,
             nativeQuery = true)
-    Optional< ChapterSummary > findChapterNew(Long storyId, List< Integer > listStatus);
+    Optional< ChapterSummary > findChapterNew(@Param("storyId")Long storyId,
+                                              @Param("chapterStatus") List< Integer > chapterStatus);
     
     /**
      * Lấy Chapter Theo Truyện

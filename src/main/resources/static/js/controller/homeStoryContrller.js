@@ -25,7 +25,7 @@ function storyCtrl(WebService, $scope) {
 
     //Lấy danh sách Chapter Theo storyId, pagenumber, type
     $scope.getListChapter = function (pagenumber, type) {
-        var url = window.location.origin + '/api/home/chapterOfStory';
+        var url = window.location.origin + '/api/chapter/chapterOfStory';
         WebService.getPage(url, $scope.sid, pagenumber, type).then(function (response) {
             $scope.listChapter = response.data.content;
             $scope.totalPages = response.data.totalPages;
@@ -41,7 +41,7 @@ function storyCtrl(WebService, $scope) {
     };
 
     $scope.getListComment = function (pagenumber, type) {
-        WebService.loadComment($scope.sid, pagenumber, size).then(function (response) {
+        WebService.loadComment($scope.sid, pagenumber, type).then(function (response) {
             $scope.totalComment = response.data.totalElements;
             $scope.listComment = response.data.content;
             $scope.totalCommentPages = response.data.totalPages;
@@ -71,8 +71,8 @@ function storyCtrl(WebService, $scope) {
 
     $scope.getConverter = function () {
         var data = new FormData();
-        data.append('uID', $scope.uID);
-        var url = window.location.origin + '/api/home/converterInfo';
+        data.append('userId', $scope.uID);
+        var url = window.location.origin + '/api/user/converterInfo';
         // Lấy Thông Tin Converter
         WebService.getData(url, data).then(function (response) {
             $scope.user = response.data;
@@ -81,7 +81,7 @@ function storyCtrl(WebService, $scope) {
             console.log('Có lỗi xảy ra!');
         });
         //Lấy Top 3 Truyện mới của converter
-        url = window.location.origin + '/api/home/storyOfConverter';
+        url = window.location.origin + 'api/story/storyOfConverter';
         WebService.getData(url, data).then(function (response) {
             $scope.listStory = response.data;
             console.log($scope.listStory);
@@ -96,9 +96,9 @@ function storyCtrl(WebService, $scope) {
             callWarningSweetalert('Bạn Chưa nhập số phiếu đề cử');
         } else {
             var data = new FormData();
-            data.append('sID', $scope.sid);
+            data.append('storyId', $scope.sid);
             data.append('coupon', $scope.coupon);
-            var url = window.location.origin + '/api/appoint';
+            var url = window.location.origin + '/api/appoint/save';
 
             WebService.submitForm(url, data).then(function (response) {
                 $scope.coupon = null;

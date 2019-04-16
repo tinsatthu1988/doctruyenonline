@@ -42,13 +42,13 @@ public class HomeController {
     public String homePage(Model model) {
         
         getMenuAndInfo(model, titleHomePage);
-        return "web/views/homePage";
+        return "web/view/homePage";
     }
     
     @RequestMapping(value = "/dang-nhap")
     public String loginPage(Model model) {
         getMenuAndInfo(model, titleLoginPage);
-        return "web/views/loginPage";
+        return "web/view/loginPage";
     }
     
 }

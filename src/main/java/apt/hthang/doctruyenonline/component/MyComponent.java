@@ -20,12 +20,9 @@ public class MyComponent {
     
     private final ChapterService chapterService;
     
-    private final StoryService storyService;
-    
     @Autowired
     public MyComponent(ChapterService chapterService, StoryService storyService) {
         this.chapterService = chapterService;
-        this.storyService = storyService;
     }
     
     public String getBetewwen(Date date) {

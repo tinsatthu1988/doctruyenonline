@@ -80,8 +80,6 @@ public class StoryController {
         
         getRating(model, user, story);
         
-        getListStoryOfConverter(model, story);
-        
         getMenuAndInfo(model, story.getVnName());
         
         checkConverter(model, user, story);
@@ -152,15 +150,6 @@ public class StoryController {
             checkConverter = Objects.equals(user.getId(), story.getUserId());
         }
         model.addAttribute("checkConverter", checkConverter);
-    }
-    
-    // Lấy Danh Sách Truyện Mới Đăng Của Converter Truyện
-    private void getListStoryOfConverter(Model model,
-                                         StorySummary story) {
-        List< StorySlide > list = storyService
-                .findStoryOfConverter(story.getUserId(), ConstantsListUtils.LIST_STORY_DISPLAY);
-        
-        model.addAttribute("storyConverter", list);
     }
     
     // Tìm Kiếm Thông Tin Chapter mới đọc của Người Dùng

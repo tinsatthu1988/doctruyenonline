@@ -110,6 +110,15 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
     Optional< StorySummary > findByIdAndStatusIn(Long storyId, List< Integer > listStoryStatus);
     
     /**
+     * Tìm truyện theo id và status thỏa mãn
+     *
+     * @param storyId
+     * @param listStoryStatus
+     * @return Optional<Story>
+     */
+    Optional< Story > findStoryByIdAndStatusIn(Long storyId, List< Integer > listStoryStatus);
+    
+    /**
      * Lấy Danh sách Top 5 truyện mới đăng theo user và status
      *
      * @param userId

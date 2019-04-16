@@ -1,6 +1,7 @@
 package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.projections.ConveterSummary;
 
 /**
  * @author Huy Thang
@@ -47,4 +48,12 @@ public interface UserService {
      * @return User - nếu tồn tại / null- nếu không tồn tại user
      */
     User findUserById(Long id);
+    
+    /**
+     * Lấy Thông Tin Converter
+     *
+     * @param id
+     * @return ConverterSummary
+     */
+    ConveterSummary findConverterByID(Long id);
 }

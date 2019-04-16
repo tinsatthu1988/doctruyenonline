@@ -2,6 +2,7 @@ package apt.hthang.doctruyenonline.service.impl;
 
 import apt.hthang.doctruyenonline.entity.Role;
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.UserService;
@@ -101,5 +102,16 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findById(id)
                 .orElse(null);
+    }
+    
+    /**
+     * Lấy Thông Tin Converter
+     *
+     * @param id
+     * @return ConverterSummary
+     */
+    @Override
+    public ConveterSummary findConverterByID(Long id) {
+        return userRepository.findUserById(id);
     }
 }

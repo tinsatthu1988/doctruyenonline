@@ -1,6 +1,7 @@
 package apt.hthang.doctruyenonline.service.impl;
 
 import apt.hthang.doctruyenonline.entity.Story;
+import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.projections.StorySlide;
 import apt.hthang.doctruyenonline.projections.StorySummary;
@@ -142,5 +143,20 @@ public class StoryServiceImpl implements StoryService {
     public List< StorySlide > findStoryOfConverter(Long userId, List< Integer > listStoryDisplay) {
         return storyRepository
                 .findTop5ByUser_IdAndStatusInOrderByCreateDateDesc(userId, listStoryDisplay);
+    }
+    
+    /**
+     * Tìm Truyện Theo Id và ListStatus
+     *
+     * @param storyId
+     * @param listStoryStatus
+     * @return Story - nếu tồn tại truyện thỏa mãn điều kiện
+     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
+     */
+    @Override
+    public Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception {
+        return storyRepository
+                .findStoryByIdAndStatusIn(storyId, listStoryStatus)
+                .orElseThrow(() -> new HttpMyException("Truyện đã bị xóa hoặc không tồn tại!"));
     }
 }
