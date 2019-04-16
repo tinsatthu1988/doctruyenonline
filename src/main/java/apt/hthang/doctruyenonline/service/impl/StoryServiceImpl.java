@@ -159,4 +159,16 @@ public class StoryServiceImpl implements StoryService {
                 .findStoryByIdAndStatusIn(storyId, listStoryStatus)
                 .orElseThrow(() -> new HttpMyException("Truyện đã bị xóa hoặc không tồn tại!"));
     }
+    
+    /**
+     * Lấy số lượng truyện đăng bởi User
+     *
+     * @param userId
+     * @param listStoryDisplay
+     * @return Long
+     */
+    @Override
+    public Long countStoryByUser(Long userId, List< Integer > listStoryDisplay) {
+        return storyRepository.countByUser_IdAndStatusIn(userId, listStoryDisplay);
+    }
 }

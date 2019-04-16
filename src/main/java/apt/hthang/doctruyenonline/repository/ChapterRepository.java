@@ -65,4 +65,12 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      */
     List< ChapterOfStory > findByStory_IdAndStatusInOrderBySerialDesc(Long storyId,
                                                                       List< Integer > listChapterStatus);
+    
+    /**
+     * Lấy số lượng chuong đã đăng thành công của User
+     * @param userId
+     * @param listChapterDisplay
+     * @return long
+     */
+    Long countByUser_IdAndStatusIn(Long userId, List< Integer> listChapterDisplay);
 }

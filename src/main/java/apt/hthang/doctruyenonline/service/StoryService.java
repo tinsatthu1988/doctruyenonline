@@ -106,4 +106,13 @@ public interface StoryService {
      * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
      */
     Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception;
+    
+    /**
+     * Lấy số lượng truyện đăng bởi User
+     *
+     * @param userId
+     * @param listStoryDisplay
+     * @return Long
+     */
+    Long countStoryByUser(Long userId, List< Integer> listStoryDisplay);
 }

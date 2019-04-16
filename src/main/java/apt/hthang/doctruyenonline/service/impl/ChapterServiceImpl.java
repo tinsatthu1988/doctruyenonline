@@ -78,4 +78,16 @@ public class ChapterServiceImpl implements ChapterService {
         }
         return chapterOfStoryPage;
     }
+    
+    /**
+     * Lấy số lượng chương đã đăng thành công của User
+     *
+     * @param userId
+     * @param listChapterDisplay
+     * @return long
+     */
+    @Override
+    public Long countChapterByUser(Long userId, List< Integer > listChapterDisplay) {
+        return chapterRepository.countByUser_IdAndStatusIn(userId, listChapterDisplay);
+    }
 }

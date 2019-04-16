@@ -43,4 +43,12 @@ public interface ChapterService {
                                                  Integer pagenumber,
                                                  List< Integer > listChapterStatus,
                                                  Integer type);
+    
+    /**
+     * Lấy số lượng chương đã đăng thành công của User
+     * @param userId
+     * @param listChapterDisplay
+     * @return long
+     */
+    Long countChapterByUser(Long userId, List< Integer> listChapterDisplay);
 }

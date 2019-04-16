@@ -1,12 +1,9 @@
 package apt.hthang.doctruyenonline.restful;
 
-import apt.hthang.doctruyenonline.projections.ChapterOfStory;
 import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

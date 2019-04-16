@@ -58,6 +58,7 @@ app.service('WebService', ['$http', function ($http) {
         };
         return $http.post(url, data, config);
     };
+
     this.getData = function getData(url, data) {
         var config = {
             headers: {
