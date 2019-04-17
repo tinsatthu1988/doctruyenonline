@@ -1,4 +1,4 @@
-var app = angular.module('ngApp', ['ui.tinymce', 'ngSanitize']);
+var app = angular.module('ngApp', ['ngSanitize']);
 
 app.controller('storyCtrl', storyCtrl);
 
@@ -16,6 +16,7 @@ function storyCtrl(WebService, $scope) {
     $scope.page = [];
     $scope.commentText = '';
     $scope.listComment = [];
+    $scope.commentType = 1;
     $scope.totalCommentPages = 0;
     $scope.currentCommentPage = 1;
     $scope.pageComment = [];
@@ -53,6 +54,7 @@ function storyCtrl(WebService, $scope) {
                 pages.push(i);
             }
             $scope.pageComment = pages;
+            $scope.commentType = type;
         });
     };
 
@@ -60,7 +62,8 @@ function storyCtrl(WebService, $scope) {
         if ($scope.commentText.trim().length !== 0) {
             WebService.addComment($scope.sid, $scope.commentText).then(function (response) {
                 $scope.commentText = '';
-                $scope.getListComment(1, 1);
+                $scope.getListComment(1, $scope.commentType);
+                callSuccessSweetalert('Bình luận thành công!');
             }, function errorCallback(errResponse) {
                 callWarningSweetalert(errResponse.data.messageError);
             })
@@ -81,11 +84,11 @@ function storyCtrl(WebService, $scope) {
         });
 
     };
-    $scope.getStoryOfConverter= function () {
+    $scope.getStoryOfConverter = function () {
         var data = new FormData();
         data.append('userId', $scope.uID);
         //Lấy Top 3 Truyện mới của converter
-        var url = window.location.origin + 'api/story/storyOfConverter';
+        var url = window.location.origin + '/api/story/storyOfConverter';
         WebService.getData(url, data).then(function (response) {
             $scope.listStory = response.data;
         }, function errorCallback(errResponse) {
@@ -118,6 +121,17 @@ function storyCtrl(WebService, $scope) {
         }
     };
 
+    // $scope.registRecentReadingStory = function(){
+    //     var url = window.location.origin + '/api/favorites/add';
+    //     var data = new FormData();
+    //     data.append('storyId', $scope.sid);
+    //     WebService.submitForm(url, data).then(function (response) {
+    //         window.location.reload();
+    //     }, function errorCallback(errResponse) {
+    //         callWarningSweetalert(errResponse.data.messageError);
+    //     });
+    // };
+
     $scope.init = function (sID, uID) {
         $scope.sid = sID;
         $scope.uID = uID;
@@ -125,37 +139,5 @@ function storyCtrl(WebService, $scope) {
         $scope.getStoryOfConverter();
     };
 
-    $scope.tinymceOptions = {
-        plugins: ' emoticons image link lists textcolor ',
-        menubar: false,
-        skin: 'lightgray',
-        theme: 'modern',
-        relative_urls: false,
-        toolbar1: ' formatselect fontselect fontsizeselect | numlist bullist outdent indent | removeformat',
-        toolbar2: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | forecolor  emoticons | link image',
-        automatic_uploads: true,
-        image_description: false,
-        file_picker_types: 'image',
-        file_picker_callback: function (cb, value, meta) {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-            input.onchange = function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-
-                reader.onload = function () {
-                    var id = 'blobid' + (new Date()).getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(',')[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), {title: file.name});
-                };
-                reader.readAsDataURL(file);
-            };
-            input.click();
-        }
-    };
 }
 

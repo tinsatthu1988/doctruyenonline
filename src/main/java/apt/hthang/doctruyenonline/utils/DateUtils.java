@@ -77,13 +77,13 @@ public class DateUtils {
         return differentInSeconds + " giây";
     }
     
-    public static Date getOneDayAgo(Date now, long hours) {
+    public static Date getHoursAgo(Date now, long hours) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault());
         LocalDateTime result = localDateTime.minusHours(hours);
         return java.sql.Timestamp.valueOf(result);
     }
     
-    public static Date getHalfAgo(Date now, long minutes) {
+    public static Date getMinutesAgo(Date now, long minutes) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault());
         LocalDateTime result = localDateTime.minusMinutes(minutes);
         return java.sql.Timestamp.valueOf(result);

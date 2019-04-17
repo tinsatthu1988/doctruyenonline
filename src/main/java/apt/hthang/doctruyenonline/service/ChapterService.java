@@ -1,7 +1,9 @@
 package apt.hthang.doctruyenonline.service;
 
+import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.projections.ChapterOfStory;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -46,9 +48,50 @@ public interface ChapterService {
     
     /**
      * Lấy số lượng chương đã đăng thành công của User
+     *
      * @param userId
      * @param listChapterDisplay
      * @return long
      */
-    Long countChapterByUser(Long userId, List< Integer> listChapterDisplay);
+    Long countChapterByUser(Long userId, List< Integer > listChapterDisplay);
+    
+    /**
+     * Tìm Chapter Theo Story ID và Chapter ID
+     *
+     * @param storyId
+     * @param listStatusStory
+     * @param chapterId
+     * @param listStatusChapter
+     * @return Chapter
+     * @throws Exception
+     */
+    Chapter findChapterByStoryIdAndChapterID(Long storyId, List< Integer > listStatusStory,
+                                             Long chapterId, List< Integer > listStatusChapter) throws Exception;
+    
+    
+    /**
+     * Cập Nhật Lượt Xem Của Chapter
+     *
+     * @param chapter
+     * @throws Exception
+     */
+    void updateViewChapter(Chapter chapter) throws Exception;
+    
+    /**
+     * Lấy Chapter ID Trước
+     *
+     * @param serial
+     * @param storyId
+     * @return Long
+     */
+    Long findPreviousChapterID(Float serial, Long storyId);
+    
+    /**
+     * Lấy Chapter ID Tiếp Theo
+     *
+     * @param serial
+     * @param storyId
+     * @return Long
+     */
+    Long findNextChapterID(Float serial, Long storyId);
 }

@@ -56,7 +56,7 @@ public class StoryServiceImpl implements StoryService {
      * Lấy List Truyện Top View theo Category
      *
      * @param categoryId
-     * @param favoritesStatus
+     * @param historyStatus
      * @param listStatus
      * @param startDate
      * @param endDate
@@ -65,13 +65,13 @@ public class StoryServiceImpl implements StoryService {
      * @return Page<StoryTop>
      */
     @Override
-    public Page< StoryTop > findStoryTopViewByCategoryId(Integer categoryId, Integer favoritesStatus,
+    public Page< StoryTop > findStoryTopViewByCategoryId(Integer categoryId, Integer historyStatus,
                                                          List< Integer > listStatus,
                                                          Date startDate, Date endDate,
                                                          int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return storyRepository
-                .findTopViewByCategory(categoryId, favoritesStatus,
+                .findTopViewByCategory(categoryId, historyStatus,
                         listStatus, startDate, endDate, pageable);
     }
     

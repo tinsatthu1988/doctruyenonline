@@ -21,11 +21,11 @@ public class ConstantsStatusUtils {
     //Trang Thái Chapter Vip Hiện
     public static final Integer CHAPTER_VIP_ACTIVED = 2;
     
-    //Trạng Thái favorites không được tính lượt xem
-    public static final Integer FAVORITES_NOT_VIEW = 0;
+    //Trạng Thái lịch sử không được tính lượt xem
+    public static final Integer HISTORY_NOT_VIEW = 0;
     
-    //Trạng Thái favorites được tính lượt xem
-    public static final Integer FAVORITES_VIEW = 1;
+    //Trạng Thái lịch sử được tính lượt xem
+    public static final Integer HISTORY_VIEW = 1;
     
     //Trạng thái truyện bị ẩn
     public static final Integer STORY_STATUS_HIDDEN = 0;

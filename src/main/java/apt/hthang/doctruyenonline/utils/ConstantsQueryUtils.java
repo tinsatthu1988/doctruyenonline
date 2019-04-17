@@ -39,11 +39,11 @@ public class ConstantsQueryUtils {
     public static final String STORY_TOP_VIEW_BY_CATEGORY = "SELECT s.id, s.vnName, s.images, s.infomation, s.dealStatus, s.author,"
             + " COALESCE(d.countTopView,0) AS cnt, ca.id as categoryId, ca.name as categoryName FROM Story s"
             + " LEFT JOIN (SELECT c.storyId, COUNT(c.storyId) AS countTopView FROM Chapter c"
-            + " LEFT JOIN `favorites` f ON  c.id = f.chapterId"
+            + " LEFT JOIN `history` f ON  c.id = f.chapterId"
             + " LEFT JOIN Story st on c.storyId = st.id"
             + " WHERE st.status IN :storyStatus"
             + " AND f.dateView BETWEEN :startDate AND :endDate"
-            + " AND f.status = :favoritesStatus"
+            + " AND f.status = :historyStatus"
             + " GROUP BY c.storyId) d ON s.id = d.storyId"
             + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
             + " LEFT JOIN Category ca on sc.categoryId = ca.id"
@@ -53,11 +53,11 @@ public class ConstantsQueryUtils {
     
     public static final String COUNT_STORY_TOP_VIEW_BY_CATEGORY = "SELECT COUNT(*) FROM (SELECT s.id, COALESCE(d.countView,0) AS cnt FROM Story s"
             + " LEFT JOIN (SELECT c.storyId, COUNT(c.storyId) AS countTopView FROM Chapter c"
-            + " LEFT JOIN `favorites` f ON  c.id = f.chapterId"
+            + " LEFT JOIN `history` f ON  c.id = f.chapterId"
             + " LEFT JOIN Story st on c.storyId = st.id"
             + " WHERE st.status IN :storyStatus"
             + " AND f.dateView BETWEEN :startDate AND :endDate"
-            + " AND f.status = :favoritesStatus"
+            + " AND f.status = :historyStatus"
             + " GROUP BY c.storyId) d ON s.id = d.storyId"
             + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
             + " LEFT JOIN Category ca on sc.categoryId = ca.id"
@@ -123,8 +123,8 @@ public class ConstantsQueryUtils {
             + " WHERE s.status IN :storyStatus"
             + " AND LOWER(s.vnName) LIKE %:search%"
             + " ORDER BY s.updateDate DESC";
-
-      public static final String CHAPTER_HEAD = "SELECT ch.* FROM Chapter ch"
+    
+    public static final String CHAPTER_HEAD = "SELECT ch.* FROM Chapter ch"
             + " WHERE ch.storyId = :storyId"
             + " AND ch.status IN :chapterStatus"
             + " ORDER BY ch.serial ASC"
@@ -132,6 +132,20 @@ public class ConstantsQueryUtils {
     
     public static final String CHAPTER_NEW = "SELECT ch.* FROM chapter ch"
             + " WHERE ch.storyId = :storyId"
+            + " AND ch.status IN :chapterStatus"
+            + " ORDER BY ch.serial DESC"
+            + " LIMIT 1";
+    
+    public static final String NEXT_CHAPTER = "SELECT ch.id FROM chapter ch"
+            + " WHERE ch.serial > :chapterSerial"
+            + " AND ch.storyId = :storyId"
+            + " AND ch.status IN :chapterStatus"
+            + " ORDER BY ch.serial ASC"
+            + " LIMIT 1";
+    
+    public static final String PREVIOUS_CHAPTER = "SELECT ch.id FROM chapter ch"
+            + " WHERE ch.serial < :chapterSerial"
+            + " AND ch.storyId = :storyId"
             + " AND ch.status IN :chapterStatus"
             + " ORDER BY ch.serial DESC"
             + " LIMIT 1";

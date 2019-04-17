@@ -12,10 +12,10 @@ import java.util.Date;
  * @author Huy Thang
  */
 @Entity
-@Table(name = "favorites")
+@Table(name = "history")
 @Data
 @NoArgsConstructor
-public class Favorites implements Serializable {
+public class History implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

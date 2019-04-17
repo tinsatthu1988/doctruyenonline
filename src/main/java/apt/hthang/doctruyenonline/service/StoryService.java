@@ -33,7 +33,7 @@ public interface StoryService {
      * Lấy List Truyện Top View theo Category
      *
      * @param categoryId
-     * @param favoritesStatus
+     * @param historyStatus
      * @param listStatus
      * @param startDate
      * @param endDate
@@ -41,7 +41,7 @@ public interface StoryService {
      * @param size
      * @return Page<StoryTop>
      */
-    Page< StoryTop > findStoryTopViewByCategoryId(Integer categoryId, Integer favoritesStatus,
+    Page< StoryTop > findStoryTopViewByCategoryId(Integer categoryId, Integer historyStatus,
                                                   List< Integer > listStatus,
                                                   Date startDate, Date endDate,
                                                   int page, int size);

@@ -82,7 +82,7 @@ public class CommentRestfulController {
                 throw new HttpUserLockedException();
             }
             Story story = storyService.findStoryByIdAndStatus(storyId, ConstantsListUtils.LIST_STORY_DISPLAY);
-            boolean check = commentService.saveComment(user, story, commentText);
+            boolean check = commentService.saveComment(user, story, commentText.replaceAll("\n","<br />"));
             if (check) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {

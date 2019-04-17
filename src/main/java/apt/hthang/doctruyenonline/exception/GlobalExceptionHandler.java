@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(value = NotFoundException.class)
     public ModelAndView myError(NotFoundException ex) {
-        ModelAndView mav = new ModelAndView("web/ErrorPage.html");
+        ModelAndView mav = new ModelAndView("web/view/ErrorPage.html");
         mav.addObject("number", "404");
         mav.addObject("message", ex.getMessage());
         getMenuAndInfo(mav, "Trang này không tồn tại");

@@ -4,7 +4,6 @@ import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
-import apt.hthang.doctruyenonline.projections.StorySlide;
 import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,19 +37,19 @@ public class StoryController {
     private final CategoryService categoryService;
     private final StoryService storyService;
     private final UserRatingService userRatingService;
-    private final FavoritesService favoritesService;
+    private final HistoryService historyService;
     
     @Autowired
     public StoryController(InformationService informationService,
                            CategoryService categoryService,
                            StoryService storyService,
                            UserRatingService userRatingService,
-                           FavoritesService favoritesService) {
+                           HistoryService historyService) {
         this.informationService = informationService;
         this.categoryService = categoryService;
         this.storyService = storyService;
         this.userRatingService = userRatingService;
-        this.favoritesService = favoritesService;
+        this.historyService = historyService;
     }
     
     private void getMenuAndInfo(Model model,
@@ -158,7 +156,7 @@ public class StoryController {
     private void getChapterReadByUser(User user, Long sID, Model model) {
         Chapter chapter = null;
         if (user != null) {
-            chapter = favoritesService.findChapterReadByUser(user.getId(), sID);
+            chapter = historyService.findChapterReadByUser(user.getId(), sID);
         }
         model.addAttribute("readChapter", chapter);
     }

@@ -41,7 +41,7 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      */
     @Query(value = ConstantsQueryUtils.CHAPTER_NEW,
             nativeQuery = true)
-    Optional< ChapterSummary > findChapterNew(@Param("storyId")Long storyId,
+    Optional< ChapterSummary > findChapterNew(@Param("storyId") Long storyId,
                                               @Param("chapterStatus") List< Integer > chapterStatus);
     
     /**
@@ -68,9 +68,50 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
     
     /**
      * Lấy số lượng chuong đã đăng thành công của User
+     *
      * @param userId
      * @param listChapterDisplay
      * @return long
      */
-    Long countByUser_IdAndStatusIn(Long userId, List< Integer> listChapterDisplay);
+    Long countByUser_IdAndStatusIn(Long userId, List< Integer > listChapterDisplay);
+    
+    /**
+     * Lấy Chapter theo
+     *
+     * @param storyId
+     * @param listStatusStory
+     * @param chapterId
+     * @param listStatusChapter
+     * @return Optional<Chapter>
+     */
+    Optional< Chapter > findByStory_IdAndStory_StatusInAndIdAndStatusIn(Long storyId, List< Integer > listStatusStory,
+                                                                        Long chapterId, List< Integer > listStatusChapter);
+    
+    /**
+     * Lấy Chapter ID Trước
+     *
+     * @param serial
+     * @param storyId
+     * @param listStatus
+     * @return Optional<Long>
+     */
+    @Query(value = ConstantsQueryUtils.PREVIOUS_CHAPTER,
+            nativeQuery = true)
+    Optional< Long > findPreviousChapter(@Param("chapterSerial") float serial,
+                                         @Param("storyId") Long storyId,
+                                         @Param("chapterStatus") List< Integer > listStatus);
+    
+    /**
+     * Lấy Chapter ID Tiếp Theo
+     *
+     * @param serial
+     * @param storyId
+     * @param listStatus
+     * @return Optional<Long>
+     */
+    @Query(value = ConstantsQueryUtils.NEXT_CHAPTER,
+            nativeQuery = true)
+    Optional< Long > findNextChapter(@Param("chapterSerial") float serial,
+                                     @Param("storyId") Long storyId,
+                                     @Param("chapterStatus") List< Integer > listStatus);
 }

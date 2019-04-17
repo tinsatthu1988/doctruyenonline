@@ -1,5 +1,7 @@
 package apt.hthang.doctruyenonline.restful;
 
+import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.projections.ChapterOfStory;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;

@@ -1,5 +1,8 @@
 package apt.hthang.doctruyenonline.entity;
 
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+import apt.hthang.doctruyenonline.utils.DateUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +19,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class Comment implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +39,14 @@ public class Comment implements Serializable {
     @JoinColumn(name = "userPosted", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
+    
+    @PrePersist
+    public void prePersist() {
+        if (createDate == null) {
+            createDate = DateUtils.getCurrentDate();
+        }
+        if (status == null) {
+            status = ConstantsStatusUtils.COMMENT_DISPLAY;
+        }
+    }
 }

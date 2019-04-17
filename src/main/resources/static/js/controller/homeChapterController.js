@@ -1,4 +1,4 @@
-var app = angular.module('ngApp', ['ui.tinymce', 'ngSanitize']);
+var app = angular.module('ngApp', ['ngSanitize']);
 
 app.controller('chapterCtrl', chapterCtrl);
 
@@ -14,7 +14,7 @@ function chapterCtrl($http, $scope, WebService) {
     $scope.pageComment = [];
     $scope.totalComment = 0;
     $scope.noImage = 'https://res.cloudinary.com/thang1988/image/upload/v1544258290/truyenmvc/noImages.png';
-
+    $scope.commentType = 1;
     $scope.init = function (sID) {
         $scope.sid = sID;
         $scope.getListComment(1, 1);
@@ -46,11 +46,10 @@ function chapterCtrl($http, $scope, WebService) {
         }, function errorCallback(errResponse) {
             callWarningSweetalert(errResponse.data.messageError);
         });
-    }
+    };
 
-    $scope.getListComment = function (pagenumber, size) {
-        var url = window.location.origin + '/api/commentOfStory';
-        WebService.getPage(url, $scope.sid, pagenumber, size).then(function (response) {
+    $scope.getListComment = function (pagenumber, type) {
+        WebService.loadComment($scope.sid, pagenumber, type).then(function (response) {
             $scope.totalComment = response.data.totalElements;
             $scope.listComment = response.data.content;
             $scope.totalCommentPages = response.data.totalPages;
@@ -62,52 +61,21 @@ function chapterCtrl($http, $scope, WebService) {
                 pages.push(i);
             }
             $scope.pageComment = pages;
-        })
+            $scope.commentType = type;
+        });
     };
 
     $scope.addComment = function () {
         if ($scope.commentText.trim().length !== 0) {
             WebService.addComment($scope.sid, $scope.commentText).then(function (response) {
                 $scope.commentText = '';
-                $scope.getListComment(1, 1);
+                $scope.getListComment(1, $scope.commentType);
+                callSuccessSweetalert('Bình luận thành công!');
             }, function errorCallback(errResponse) {
                 callWarningSweetalert(errResponse.data.messageError);
             })
         } else {
             callWarningSweetalert('Nội dung bình luận không được để trống!');
-        }
-    };
-
-    $scope.tinymceOptions = {
-        plugins: ' emoticons image link lists textcolor ',
-        menubar: false,
-        skin: 'lightgray',
-        theme: 'modern',
-        relative_urls: false,
-        toolbar1: ' formatselect fontselect fontsizeselect | numlist bullist outdent indent | removeformat',
-        toolbar2: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | forecolor  emoticons | link image',
-        automatic_uploads: true,
-        image_description: false,
-        file_picker_types: 'image',
-        file_picker_callback: function (cb, value, meta) {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-            input.onchange = function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-
-                reader.onload = function () {
-                    var id = 'blobid' + (new Date()).getTime();
-                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(',')[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), {title: file.name});
-                };
-                reader.readAsDataURL(file);
-            };
-            input.click();
         }
     };
 }

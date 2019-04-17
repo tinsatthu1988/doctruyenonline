@@ -45,7 +45,7 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
      * Lấy Danh sách Truyện Top  View Theo Category
      *
      * @param cID
-     * @param favoritesStatus
+     * @param historyStatus
      * @param startDate
      * @param endDate
      * @param listStatus
@@ -56,7 +56,7 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
             countQuery = ConstantsQueryUtils.COUNT_STORY_TOP_VIEW_BY_CATEGORY,
             nativeQuery = true)
     Page< StoryTop > findTopViewByCategory(@Param("categoryID") Integer cID,
-                                           @Param("favoritesStatus") Integer favoritesStatus,
+                                           @Param("historyStatus") Integer historyStatus,
                                            @Param("storyStatus") List< Integer > listStatus,
                                            @Param("startDate") Date startDate,
                                            @Param("endDate") Date endDate, Pageable pageable);

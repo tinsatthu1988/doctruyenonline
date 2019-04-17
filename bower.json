@@ -25,7 +25,6 @@
     "jquery-validation": "https://github.com/jquery-validation/jquery-validation.git#^1.19.0",
     "jquery-lazy": "https://github.com/eisbehr-/jquery.lazy.git#^1.7.10",
     "angular": "https://github.com/angular/bower-angular.git#^1.7.5",
-    "angular-ui-tinymce": "^0.0.19",
     "angular-sanitize": "^1.7.5"
   }
 }

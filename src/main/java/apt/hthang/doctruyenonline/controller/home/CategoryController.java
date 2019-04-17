@@ -124,7 +124,7 @@ public class CategoryController {
         //Lấy Top View Truyện Theo Thể Loại Trong tuần
         List< StoryTop > listTopViewWeek = storyService
                 .findStoryTopViewByCategoryId(category.getId(),
-                        ConstantsStatusUtils.FAVORITES_VIEW,
+                        ConstantsStatusUtils.HISTORY_VIEW,
                         ConstantsListUtils.LIST_STORY_DISPLAY,
                         firstDayOfWeek, lastDayOfWeek,
                         ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE)
