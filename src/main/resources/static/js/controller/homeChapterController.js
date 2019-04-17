@@ -22,8 +22,8 @@ function chapterCtrl($http, $scope, WebService) {
 
     $scope.chapterVip = function (chID) {
         var data = new FormData();
-        data.append('chID', chID);
-        var url = window.location.origin + '/api/chapterVip';
+        data.append('chapterId', chID);
+        var url = window.location.origin + '/api/chapter/pay';
         var config = {
             headers: {
                 'Content-Type': undefined

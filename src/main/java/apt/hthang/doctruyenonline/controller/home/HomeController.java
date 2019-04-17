@@ -47,6 +47,9 @@ public class HomeController {
     
     @RequestMapping(value = "/dang-nhap")
     public String loginPage(Model model) {
+        if (principal != null) {
+            return "redirect:/";
+        }
         getMenuAndInfo(model, titleLoginPage);
         return "web/view/loginPage";
     }

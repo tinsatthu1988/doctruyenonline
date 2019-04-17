@@ -126,7 +126,9 @@ function storyCtrl(WebService, $scope) {
     //     var data = new FormData();
     //     data.append('storyId', $scope.sid);
     //     WebService.submitForm(url, data).then(function (response) {
-    //         window.location.reload();
+    //         function () {
+                //     window.location.reload();
+                // }
     //     }, function errorCallback(errResponse) {
     //         callWarningSweetalert(errResponse.data.messageError);
     //     });
