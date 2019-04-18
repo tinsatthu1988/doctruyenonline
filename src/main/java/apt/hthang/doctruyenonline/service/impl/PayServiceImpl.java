@@ -52,16 +52,16 @@ public class PayServiceImpl implements PayService {
     /**
      * Kiểm tra User đã thanh toán Chapter Vip trong khoảng
      *
-     * @param chID
-     * @param uID
+     * @param chapterId
+     * @param userId
      * @param startDate
      * @param endDate
      * @return true - nếu đã thanh toán trong khoảng /false - nếu chưa thanh toán / hoặc thanh toán ngoài khoảng
      */
     @Override
-    public boolean checkDealChapterVip(Long chID, Long uID, Date startDate, Date endDate) {
+    public boolean checkDealChapterVip(Long chapterId, Long userId, Date startDate, Date endDate) {
         return payRepository
-                .existsByChapter_IdAndUserSend_IdAndCreateDateBetweenAndTypeAndStatus(chID, uID,
+                .existsByChapter_IdAndUserSend_IdAndCreateDateBetweenAndTypeAndStatus(chapterId, userId,
                         startDate, endDate, ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE, ConstantsStatusUtils.PAY_COMPLETED);
     }
 }

@@ -129,9 +129,61 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
     
     /**
      * Lấy số lượng truyện đã đăng thành công
+     *
      * @param userId
      * @param listStoryDisplay
      * @return Long
      */
-    Long countByUser_IdAndStatusIn(Long userId, List< Integer> listStoryDisplay);
+    Long countByUser_IdAndStatusIn(Long userId, List< Integer > listStoryDisplay);
+    
+    /**
+     * Lấy Danh sách Truyện Mới Cập Nhật Theo Status
+     *
+     * @param listChapterStatus - Danh sách trạng thái chapter
+     * @param listStoryStatus   - danh sách trạng thái Story
+     * @param pageable          - biến phân trang
+     * @return Page<NewStory>
+     */
+    @Query(value = ConstantsQueryUtils.STORY_NEW_UPDATE_BY_STATUS,
+            countQuery = ConstantsQueryUtils.COUNT_STORY_NEW_UPDATE_BY_STATUS,
+            nativeQuery = true)
+    Page< StoryUpdate > getPageStoryComplete(@Param("chapterStatus") List< Integer > listChapterStatus,
+                                             @Param("storyStatus") List< Integer > listStoryStatus,
+                                             Pageable pageable);
+    
+    /**
+     * Lấy Danh sách Truyện Top
+     *
+     * @param startDate
+     * @param endDate
+     * @param listStatus
+     * @param historyStatus
+     * @param pageable
+     * @return Page<TopStory>
+     */
+    @Query(value = ConstantsQueryUtils.STORY_TOP_VIEW_BY_STATUS,
+            countQuery = ConstantsQueryUtils.COUNT_STORY_TOP_VIEW_BY_STATUS,
+            nativeQuery = true)
+    Page< StoryTop > findStoryTopViewByStatus(@Param("storyStatus") List< Integer > listStatus,
+                                              @Param("startDate") Date startDate,
+                                              @Param("endDate") Date endDate,
+                                              @Param("historyStatus") Integer historyStatus,
+                                              Pageable pageable);
+    
+    /**
+     * Lấy Danh sách Truyện Vip mới cập nhật
+     *
+     * @param listChapterStatus - danh sách trạng thái chapter
+     * @param pageable          - biến page
+     * @param listStoryStatus   - danh sách trạng thái truyện
+     * @param sDealStatus       - trạng thái truyện trả tiền
+     * @return Page<StoryUpdate>
+     */
+    @Query(value = ConstantsQueryUtils.VIP_STORY_NEW_UPDATE,
+            countQuery = ConstantsQueryUtils.COUNT_VIP_STORY_NEW_UPDATE,
+            nativeQuery = true)
+    Page< StoryUpdate > findVipStoryNew(@Param("chapterStatus") List< Integer > listChapterStatus,
+                                       @Param("storyStatus") List< Integer > listStoryStatus,
+                                       @Param("storyDealStatus") Integer sDealStatus,
+                                       Pageable pageable);
 }

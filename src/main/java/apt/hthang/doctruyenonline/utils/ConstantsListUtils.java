@@ -67,7 +67,12 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.STORY_STATUS_STOP);
             }}
     );
-
+    //List Status của Story có trạng thái hoàn thành
+    public static final List< Integer > LIST_STORY_COMPLETE = Collections.unmodifiableList(
+            new ArrayList< Integer >() {{
+                add(ConstantsStatusUtils.STORY_STATUS_COMPLETED);
+            }}
+    );
 //    public static final List< Integer > LIST_STORY_ALL = Collections.unmodifiableList(
 //            new ArrayList< Integer >() {{
 //                add(ConstantsUtils.STORY_STATUS_COMPLETED);
@@ -84,6 +89,7 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.CHAPTER_VIP_ACTIVED);
             }}
     );
+
 
 //    public static final List< Integer > LIST_PAY_TYPE = Collections.unmodifiableList(
 //            new ArrayList< Integer >() {{

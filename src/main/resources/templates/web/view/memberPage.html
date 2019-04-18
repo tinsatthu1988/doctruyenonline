@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:insert="/web/fragments/header"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/homeMemberController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
 <body class="page-read">
 <th:block th:insert="/web/fragments/loading"></th:block>
 <section class="page-wrapper">
@@ -10,7 +17,21 @@
     <section th:replace="/web/fragments/navbar"></section>
 
     <!--Body-->
-    <section th:replace="/web/pagination/searchPagination"></section>
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="row">
+                        <section class="col-12">
+                            <section id="navbar-custom">
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
 
     <!--Footer-->
     <section th:replace="/web/fragments/footer"></section>

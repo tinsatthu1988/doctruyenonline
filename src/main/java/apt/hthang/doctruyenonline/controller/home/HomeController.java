@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 /**
  * @author Huy Thang
  * @project doctruyenonline
@@ -25,6 +27,7 @@ public class HomeController {
     private String titleHomePage;
     @Value("${hthang.truyenonline.title.login}")
     private String titleLoginPage;
+    
     //Lấy Danh sách menu thể loại và Thông Tin Web
     private void getMenuAndInfo(Model model, String title) {
         
@@ -46,7 +49,7 @@ public class HomeController {
     }
     
     @RequestMapping(value = "/dang-nhap")
-    public String loginPage(Model model) {
+    public String loginPage(Model model, Principal principal) {
         if (principal != null) {
             return "redirect:/";
         }

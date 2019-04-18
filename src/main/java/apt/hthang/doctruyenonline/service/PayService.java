@@ -29,11 +29,12 @@ public interface PayService {
     /**
      * Kiểm tra User đã thanh toán Chapter Vip trong khoảng
      *
-     * @param chID
-     * @param uID
+     * @param chapterId
+     * @param userId
      * @param startDate
      * @param endDate
      * @return true - nếu đã thanh toán trong khoảng /false - nếu chưa thanh toán / hoặc thanh toán ngoài khoảng
      */
-    boolean checkDealChapterVip(Long chID, Long uID, Date startDate, Date endDate);
+    boolean checkDealChapterVip(Long chapterId, Long userId, Date startDate, Date endDate);
+    
 }

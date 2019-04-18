@@ -36,5 +36,4 @@ public class StoryRestfulController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
-    
 }

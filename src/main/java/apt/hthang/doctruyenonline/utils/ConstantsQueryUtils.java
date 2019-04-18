@@ -6,6 +6,32 @@ package apt.hthang.doctruyenonline.utils;
 
 public class ConstantsQueryUtils {
     
+    public static final String STORY_NEW_UPDATE_BY_STATUS = "SELECT s.id, s.vnName, s.images, s.author, s.updateDate,"
+            + " c.id as chapterId, c.chapterNumber,"
+            + " u.displayName, u.username, s.dealStatus"
+            + " FROM Story s LEFT JOIN (SELECT c.* FROM Chapter c INNER JOIN"
+            + " (SELECT MAX(c.id) AS maxChapterID FROM Story s"
+            + " LEFT JOIN Chapter c"
+            + " ON s.id = c.storyId GROUP BY s.id) d"
+            + " ON c.id = d.maxChapterID "
+            + " WHERE c.status IN :chapterStatus) c "
+            + " ON s.id = c.storyID "
+            + " LEFT JOIN user u on c.userPosted = u.id"
+            + " WHERE s.status IN :storyStatus"
+            + " ORDER BY s.updateDate DESC";
+    
+    public static final String COUNT_STORY_NEW_UPDATE_BY_STATUS = "SELECT COUNT(*)"
+            + " FROM Story s LEFT JOIN (SELECT c.* FROM Chapter c INNER JOIN"
+            + " (SELECT MAX(c.id) AS maxChapterID FROM Story s"
+            + " LEFT JOIN Chapter c"
+            + " ON s.id = c.storyId GROUP BY s.id) d"
+            + " ON c.id = d.maxChapterID "
+            + " WHERE c.status IN :chapterStatus) c "
+            + " ON s.id = c.storyID "
+            + " LEFT JOIN user u on c.userPosted = u.id"
+            + " WHERE s.status IN :storyStatus"
+            + " ORDER BY s.updateDate DESC";
+    
     public static final String STORY_NEW_UPDATE_BY_CATEGORY = "SELECT s.id, s.vnName, s.images, s.author, s.updateDate,"
             + " c.id as chapterId, c.chapterNumber,"
             + " u.displayName, u.username, s.dealStatus"
@@ -124,6 +150,36 @@ public class ConstantsQueryUtils {
             + " AND LOWER(s.vnName) LIKE %:search%"
             + " ORDER BY s.updateDate DESC";
     
+    public static final String STORY_TOP_VIEW_BY_STATUS = "SELECT s.id, s.vnName, s.images, s.author, s.infomation, s.dealStatus, "
+            + " COALESCE(d.countTopView,0) AS cnt, ca.id as categoryId, ca.name as categoryName"
+            + " FROM Story s "
+            + " LEFT JOIN (SELECT c.id as chapterId, c.storyId, COUNT(c.storyId) AS countTopView FROM Chapter c"
+            + " LEFT JOIN History f ON c.id = f.chapterId"
+            + " LEFT JOIN Story st on c.storyId = st.id"
+            + " WHERE st.status IN :storyStatus"
+            + " AND f.dateView BETWEEN :startDate AND :endDate"
+            + " AND f.status = :historyStatus"
+            + " GROUP BY c.storyId) d ON s.id = d.storyId"
+            + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
+            + " LEFT JOIN Category ca on sc.categoryId = ca.id"
+            + " WHERE  s.status IN :storyStatus"
+            + " GROUP BY s.id"
+            + " ORDER BY cnt DESC, s.countView DESC";
+    
+    public static final String COUNT_STORY_TOP_VIEW_BY_STATUS = "SELECT COUNT(*) FROM (SELECT s.id, COALESCE(d.countTopView,0) AS cnt FROM Story s"
+            + " LEFT JOIN (SELECT c.storyId, COUNT(c.storyId) AS countTopView FROM Chapter c"
+            + " LEFT JOIN History f ON c.id = f.chapterId"
+            + " LEFT JOIN Story st on c.storyId = st.id"
+            + " WHERE st.status IN :storyStatus"
+            + " AND f.dateView BETWEEN :startDate AND :endDate"
+            + " AND f.status = :historyStatus"
+            + " GROUP BY c.storyId) d ON s.id = d.storyId"
+            + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
+            + " LEFT JOIN Category ca on sc.categoryId = ca.id"
+            + " WHERE  s.status IN :storyStatus"
+            + " GROUP BY s.id"
+            + " ORDER BY cnt DESC, s.countView DESC) rs";
+    
     public static final String CHAPTER_HEAD = "SELECT ch.* FROM Chapter ch"
             + " WHERE ch.storyId = :storyId"
             + " AND ch.status IN :chapterStatus"
@@ -149,4 +205,34 @@ public class ConstantsQueryUtils {
             + " AND ch.status IN :chapterStatus"
             + " ORDER BY ch.serial DESC"
             + " LIMIT 1";
+    
+    public static final String VIP_STORY_NEW_UPDATE = "SELECT s.id, s.vnName, s.images, s.author, s.updateDate, s.infomation,"
+            + " c.id as chapterId, c.chapterNumber,"
+            + " u.displayName, u.username, s.dealStatus"
+            + " FROM Story s LEFT JOIN (SELECT c.* FROM Chapter c INNER JOIN"
+            + " (SELECT MAX(c.id) AS maxChapterID FROM Story s"
+            + " LEFT JOIN Chapter c"
+            + " ON s.id = c.storyId GROUP BY s.id) d"
+            + " ON c.id = d.maxChapterID "
+            + " WHERE c.status IN :chapterStatus) c "
+            + " ON s.id = c.storyID "
+            + " LEFT JOIN user u on c.userPosted = u.id"
+            + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
+            + " LEFT JOIN Category ca on sc.categoryId = ca.id"
+            + " WHERE s.status IN :storyStatus AND s.dealStatus = :storyDealStatus"
+            + " GROUP BY s.id"
+            + " ORDER BY s.updateDate DESC";
+    
+    public static final String COUNT_VIP_STORY_NEW_UPDATE = "SELECT COUNT(*)"
+            + " FROM Story s LEFT JOIN (SELECT c.* FROM Chapter c INNER JOIN"
+            + " (SELECT MAX(c.id) AS maxChapterID FROM Story s"
+            + " LEFT JOIN Chapter c"
+            + " ON s.id = c.storyId GROUP BY s.id) d"
+            + " ON c.id = d.maxChapterID "
+            + " WHERE c.status IN :chapterStatus) c "
+            + " ON s.id = c.storyID "
+            + " LEFT JOIN user u on c.userPosted = u.id"
+            + " WHERE s.status IN :storyStatus AND s.dealStatus = :storyDealStatus"
+            + " GROUP BY s.id"
+            + " ORDER BY s.updateDate DESC";
 }

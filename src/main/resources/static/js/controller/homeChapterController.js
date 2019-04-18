@@ -24,16 +24,7 @@ function chapterCtrl($http, $scope, WebService) {
         var data = new FormData();
         data.append('chapterId', chID);
         var url = window.location.origin + '/api/chapter/pay';
-        var config = {
-            headers: {
-                'Content-Type': undefined
-            },
-            transformResponse: function (data, headers, status) {
-                var ret = {messageError: data, status: status};
-                return ret;
-            }
-        };
-        $http.post(url, data, config).then(function successCallback(response) {
+        WebService.submitForm(url, data).then(function successCallback(response) {
             swal({
                 text: 'Thanh toán thành công',
                 type: 'success',
