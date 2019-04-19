@@ -1,10 +1,7 @@
 package apt.hthang.doctruyenonline.repository;
 
 import apt.hthang.doctruyenonline.entity.Story;
-import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.projections.StorySummary;
-import apt.hthang.doctruyenonline.projections.StoryTop;
-import apt.hthang.doctruyenonline.projections.StoryUpdate;
+import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.utils.ConstantsQueryUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +19,8 @@ import java.util.Optional;
  */
 
 @Repository
-public interface StoryRepository extends JpaRepository< Story, Long > {
+public interface
+StoryRepository extends JpaRepository< Story, Long > {
     
     /**
      * Lấy Danh sách Truyện Mới Theo Thể Loại
@@ -183,7 +181,29 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
             countQuery = ConstantsQueryUtils.COUNT_VIP_STORY_NEW_UPDATE,
             nativeQuery = true)
     Page< StoryUpdate > findVipStoryNew(@Param("chapterStatus") List< Integer > listChapterStatus,
-                                       @Param("storyStatus") List< Integer > listStoryStatus,
-                                       @Param("storyDealStatus") Integer sDealStatus,
-                                       Pageable pageable);
+                                        @Param("storyStatus") List< Integer > listStoryStatus,
+                                        @Param("storyDealStatus") Integer sDealStatus,
+                                        Pageable pageable);
+    
+    /**
+     * Lấy Page truyện theo id và status
+     *
+     * @param userId
+     * @param listStatus
+     * @param pageable
+     * @return
+     */
+    Page< StoryMember > findByUser_IdAndStatusInOrderByCreateDateDesc(Long userId,
+                                                                      List< Integer > listStatus,
+                                                                      Pageable pageable);
+    
+    /**
+     * Lấy danh sách truyện theo user_id và status
+     *
+     * @param userId
+     * @param listStatus
+     * @return
+     */
+    List< StoryMember > findAllByUser_IdAndStatusInOrderByCreateDateDesc(Long userId,
+                                                                         List< Integer > listStatus);
 }

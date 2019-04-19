@@ -1,9 +1,12 @@
 package apt.hthang.doctruyenonline.restful;
 
+import apt.hthang.doctruyenonline.projections.StoryMember;
 import apt.hthang.doctruyenonline.projections.StorySlide;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,4 +39,13 @@ public class StoryRestfulController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
+    @PostMapping(value = "/storyOfMember")
+    public ResponseEntity< ? > loadStoryOfMember(@RequestParam("userId") Long userId,
+                                                 @RequestParam("pagenumber") int pagenumber,
+                                                 @RequestParam("type") int type) {
+        Page< StoryMember > storyMembers = storyService
+                .findStoryByUserId(userId, ConstantsListUtils.LIST_STORY_DISPLAY,
+                        pagenumber, type, ConstantsUtils.PAGE_SIZE_DEFAULT);
+        return new ResponseEntity<>(storyMembers, HttpStatus.OK);
+    }
 }

@@ -3,14 +3,13 @@ package apt.hthang.doctruyenonline.service.impl;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
-import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.projections.StorySummary;
-import apt.hthang.doctruyenonline.projections.StoryTop;
-import apt.hthang.doctruyenonline.projections.StoryUpdate;
+import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
 import apt.hthang.doctruyenonline.service.StoryService;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -223,5 +222,30 @@ public class StoryServiceImpl implements StoryService {
     public Page< StoryUpdate > findStoryVipUpdateByStatus(List< Integer > listChapterStatus, List< Integer > listStoryStatus, Integer sDealStatus, int pagenumber, Integer size) {
         Pageable pageable = PageRequest.of(pagenumber - 1, size);
         return storyRepository.findVipStoryNew(listChapterStatus, listStoryStatus, sDealStatus, pageable);
+    }
+    
+    /**
+     * Lấy danh sách truyện đã đăng của User
+     *
+     * @param userId
+     * @param pagenumber
+     * @param type
+     * @param size
+     * @param listStatus
+     * @return
+     */
+    @Override
+    public Page< StoryMember > findStoryByUserId(Long userId, List< Integer > listStatus,
+                                                 int pagenumber, int type, Integer size) {
+        Page< StoryMember > storyMembers;
+        if (type == 1) {
+            Pageable pageable = PageRequest.of(pagenumber - 1, ConstantsUtils.PAGE_SIZE_CHAPTER_OF_STORY);
+            storyMembers = storyRepository.findByUser_IdAndStatusInOrderByCreateDateDesc(userId, listStatus, pageable);
+        } else {
+            List< StoryMember > storyMemberList = storyRepository
+                    .findAllByUser_IdAndStatusInOrderByCreateDateDesc(userId, listStatus);
+            storyMembers = new PageImpl<>(storyMemberList);
+        }
+        return storyMembers;
     }
 }

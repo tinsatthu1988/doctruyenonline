@@ -1,10 +1,7 @@
 package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.Story;
-import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.projections.StorySummary;
-import apt.hthang.doctruyenonline.projections.StoryTop;
-import apt.hthang.doctruyenonline.projections.StoryUpdate;
+import apt.hthang.doctruyenonline.projections.*;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
@@ -156,4 +153,17 @@ public interface StoryService {
      */
     Page< StoryUpdate > findStoryVipUpdateByStatus(List< Integer > listChapterStatus, List< Integer > listStoryStatus,
                                                    Integer sDealStatus, int pagenumber, Integer size);
+    
+    /**
+     * Lấy danh sách truyện đã đăng của User
+     *
+     * @param userId
+     * @param pagenumber
+     * @param type
+     * @param size
+     * @param listStatus
+     * @return
+     */
+    Page< StoryMember > findStoryByUserId(Long userId, List< Integer > listStatus,
+                                          int pagenumber, int type, Integer size);
 }

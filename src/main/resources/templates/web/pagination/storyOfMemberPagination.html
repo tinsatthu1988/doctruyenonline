@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<section class="col-12" ng-show="listStory.length === 0">
+    <section class="alert alert-primary" role="alert">
+        <h5 class="text-center">Chưa có truyện đăng </h5>
+    </section>
+</section>
+<section class="col-12" ng-show="listStory.length !== 0">
+    <section class="block block-default block-list-new">
+        <section class="block-content" id="dataTable">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-table" ng-repeat="item in listStory">
+                    <section class="content">
+                        <a class="thumb" ng-href="/truyen/{{item.id}}">
+                            <img class="img-fluid lazyload"
+                                 ng-src=="{{item.images}}"
+                                 alt="{{item.vnName}}">
+                        </a>
+                        <section class="info">
+                            <h2 class="title">
+                                <a ng-href="/truyen/{{item.id}}"
+                                   ng-title="{{item.vnName}}">
+                                    <img class="img-fluid"
+                                         ng-show="item.dealStatus === 2"
+                                         src="/images/vip-vip.gif">
+                                    <span th:class="${story.dealStatus == 1}?'shadow-2' : ''"
+                                          th:text="${story.vnName}"></span>
+                                </a>
+                            </h2>
+                            <section class="chap" th:text="${story.author}"></section>
+                            <section class="author">
+                                        <span class="d-block">
+                                            <i class="fas fa-eye"></i> {{item.countView}} lượt xem
+                                        </span>
+                            </section>
+                            <section class="time">
+                                <a th:if="${story.newChapter != null}"
+                                   th:href="@{'/truyen/'+${story.id}+'/chuong-'+${story.newChapter.id}}"
+                                   th:title="'Chương ' + ${story.newChapter.chapterNumber}"
+                                   th:text="'Chương '+ ${story.newChapter.chapterNumber}"></a>
+                                <a class="d-block d-sm-none"
+                                   th:unless="${story.newChapter != null}">&nbsp;</a>
+                                <small class="d-none d-sm-inline-block"
+                                       th:if="${story.newChapter != null}"
+                                       th:text="' - ' + ${story.timeUpdate}"></small>
+                            </section>
+                        </section>
+                    </section>
+                </li>
+            </ul>
+            <section th:if="${totalIndex > 1}">
+                <ul class="pagination justify-content-end mb-3 mt-3">
+                    <li th:if="${currentIndex != 1}" class="page-item">
+                        <a class="page-link" th:onclick="|storypostby(${uID},${currentIndex - 1})|">
+                            <i class="fas fa-step-backward fa-sm"></i>
+                        </a>
+                    </li>
+                    <th:block th:each="i : ${#numbers.sequence( beginIndex, endIndex)}">
+                        <li class="page-item active" th:if="${i == currentIndex}">
+                            <a class="page-link disabled"
+                               th:text="${i}"></a></li>
+                        <li class="page-item" th:unless="${i == currentIndex}"><a
+                                class="page-link"
+                                th:onclick="|storypostby(${uID},${i})|"
+                                th:text="${i}"></a></li>
+                    </th:block>
+                    <li th:if="${currentIndex != totalIndex}" class="page-item">
+                        <a class="page-link"
+                           th:onclick="|storypostby(${uID},${currentIndex + 1})|">
+                            <i class="fas fa-step-forward fa-sm"></i>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </section>
+</section>

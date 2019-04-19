@@ -18,9 +18,6 @@ public interface ChapterSummary {
 
     String getName();
 
-    @Value("#{target.story.id}")
-    Long getStoryId();
-
     Integer getStatus();
 
     @Value("#{@myComponent.getBetewwen(target.createDate)}")
