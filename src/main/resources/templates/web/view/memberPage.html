@@ -10,7 +10,7 @@
     <script th:src="@{/js/controller/homeMemberController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
-<body class="page-read">
+<body class="page-read" ng-app="ngApp" ng-controller="memberCtrl" th:ng-init="|init(${user.id})|">
 <th:block th:insert="/web/fragments/loading"></th:block>
 <section class="page-wrapper">
     <!--NavBar-->
@@ -24,7 +24,7 @@
                     <section class="row">
                         <section class="col-12">
                             <section id="navbar-custom">
-
+                                <section th:replace="web/nav-tabs/memberNavtabs"></section>
                             </section>
                         </section>
                     </section>

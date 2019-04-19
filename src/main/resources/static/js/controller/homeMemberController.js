@@ -1,10 +1,10 @@
 var app = angular.module('ngApp', ['ngSanitize']);
 
-app.controller('storyCtrl', storyCtrl);
+app.controller('memberCtrl', memberCtrl);
 
 storyCtrl.$inject = ['WebService', '$scope'];
 
-function storyCtrl(WebService, $scope) {
+function memberCtrl(memberCtrl, $scope) {
 
     $scope.listStory = [];
     $scope.totalPages = 0;
@@ -13,7 +13,7 @@ function storyCtrl(WebService, $scope) {
     $scope.page = [];
 
     //Lấy danh sách Chapter Theo storyId, pagenumber, type
-    $scope.getListChapter = function (pagenumber, type) {
+    $scope.getListStory = function (pagenumber, type) {
         if (pagenumber === undefined) {
             pagenumber = 1;
         }

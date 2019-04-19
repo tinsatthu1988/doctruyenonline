@@ -21,55 +21,54 @@
                                     <img class="img-fluid"
                                          ng-show="item.dealStatus === 2"
                                          src="/images/vip-vip.gif">
-                                    <span th:class="${story.dealStatus == 1}?'shadow-2' : ''"
-                                          th:text="${story.vnName}"></span>
+                                    <span ng-class="{{'shadow-2': item.dealStatus === 1}}">{{item.vnName}}</span>
                                 </a>
                             </h2>
-                            <section class="chap" th:text="${story.author}"></section>
+                            <section class="chap"> {{item.author}}</section>
                             <section class="author">
                                         <span class="d-block">
                                             <i class="fas fa-eye"></i> {{item.countView}} lượt xem
                                         </span>
                             </section>
                             <section class="time">
-                                <a th:if="${story.newChapter != null}"
-                                   th:href="@{'/truyen/'+${story.id}+'/chuong-'+${story.newChapter.id}}"
-                                   th:title="'Chương ' + ${story.newChapter.chapterNumber}"
-                                   th:text="'Chương '+ ${story.newChapter.chapterNumber}"></a>
+                                <a ng-show="{{item.newChapter !== null}}"
+                                   ng-href="/truyen/{{item.id}}/chuong-{{item.newChapter.id}}"
+                                   ng-title="Chương {{item.newChapter.chapterNumber}}"> Chương {{item.newChapter.chapterNumber}}</a>
                                 <a class="d-block d-sm-none"
-                                   th:unless="${story.newChapter != null}">&nbsp;</a>
+                                   ng-show="{{item.newChapter !== null}}">&nbsp;</a>
                                 <small class="d-none d-sm-inline-block"
-                                       th:if="${story.newChapter != null}"
-                                       th:text="' - ' + ${story.timeUpdate}"></small>
+                                       ng-show="{{item.newChapter != null}}"> - {{item.timeUpdate}}</small>
                             </section>
                         </section>
                     </section>
                 </li>
             </ul>
-            <section th:if="${totalIndex > 1}">
-                <ul class="pagination justify-content-end mb-3 mt-3">
-                    <li th:if="${currentIndex != 1}" class="page-item">
-                        <a class="page-link" th:onclick="|storypostby(${uID},${currentIndex - 1})|">
-                            <i class="fas fa-step-backward fa-sm"></i>
-                        </a>
-                    </li>
-                    <th:block th:each="i : ${#numbers.sequence( beginIndex, endIndex)}">
-                        <li class="page-item active" th:if="${i == currentIndex}">
-                            <a class="page-link disabled"
-                               th:text="${i}"></a></li>
-                        <li class="page-item" th:unless="${i == currentIndex}"><a
-                                class="page-link"
-                                th:onclick="|storypostby(${uID},${i})|"
-                                th:text="${i}"></a></li>
-                    </th:block>
-                    <li th:if="${currentIndex != totalIndex}" class="page-item">
-                        <a class="page-link"
-                           th:onclick="|storypostby(${uID},${currentIndex + 1})|">
-                            <i class="fas fa-step-forward fa-sm"></i>
-                        </a>
-                    </li>
-                </ul>
-            </section>
+            <section ng-show="totalPages>1">
+        <ul class="pagination justify-content-end mb-3 mt-3">
+            <li ng-show="currentPage != 1" class="page-item">
+                <a class="page-link"
+                   ng-click="getListStory(currentPage - 1, 1)">
+                    <i class="fas fa-step-backward fa-sm"></i>
+                </a>
+            </li>
+            <li ng-repeat="i in page"
+                ng-class="i===currentPage?'page-item active': 'page-item'">
+                <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                   ng-click="getListStory(i,1)">{{i}}</a>
+            </li>
+            <li ng-show="currentPage != totalPages" class="page-item">
+                <a class="page-link"
+                   ng-click="getListStory(currentPage + 1, 1)">
+                    <i class="fas fa-step-forward fa-sm"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" ng-click="getListStory(1, 0)">
+                    Xem hết
+                </a>
+            </li>
+        </ul>
+    </section>
         </section>
     </section>
 </section>
