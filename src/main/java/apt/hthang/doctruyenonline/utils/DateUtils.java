@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class DateUtils {
     
+    //Lấy ngày đầu tiên của tuần hiện tại
     public static Date getFirstDayOfWeek() {
         LocalDate today = LocalDate.now();
         LocalDate monday = today;
@@ -17,6 +18,7 @@ public class DateUtils {
         return java.sql.Timestamp.valueOf(monday.atStartOfDay());
     }
     
+    //Lấy ngày cuối của tuần hiện tại
     public static Date getLastDayOfWeek() {
         LocalDate today = LocalDate.now();
         LocalDate sunday = today;
@@ -26,18 +28,21 @@ public class DateUtils {
         return java.sql.Timestamp.valueOf(sunday.atStartOfDay());
     }
     
+    //Lấy ngày đầu tiên của tháng hiện tại
     public static Date getFirstDayOfMonth() {
         LocalDate today = LocalDate.now();
         LocalDate firstday = today.withDayOfMonth(1);
         return java.sql.Timestamp.valueOf(firstday.atStartOfDay());
     }
     
+    //Lấy ngày cuối cùng của tháng hiện tại
     public static Date getLastDayOfMonth() {
         LocalDate today = LocalDate.now();
         LocalDate lastday = today.withDayOfMonth(today.lengthOfMonth());
         return java.sql.Timestamp.valueOf(lastday.atStartOfDay());
     }
     
+    //Lấy thời gian hiện tại
     public static Date getCurrentDate() {
         LocalDateTime localDateTime = LocalDateTime.now();
         return java.sql.Timestamp.valueOf(localDateTime);
@@ -66,6 +71,7 @@ public class DateUtils {
             return differentInMinutes + " phút trước";
         return differentInSeconds + " giây trước";
     }
+    
     
     public static String betweenHours(Date createDate) {
         LocalDateTime startDate = createDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();

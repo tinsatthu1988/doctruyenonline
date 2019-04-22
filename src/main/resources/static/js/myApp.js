@@ -43,7 +43,7 @@ window.TruyenOnlineScript = {
             source: function (request, response) {
                 $.ajax({
                     type: "POST",
-                    url: window.location.origin + '/api/search',
+                    url: window.location.origin + '/api/story/search',
                     data: {
                         txtSearch: encryptText(this.term)
                     },
@@ -58,9 +58,9 @@ window.TruyenOnlineScript = {
                             return {
                                 label: item.vnName,
                                 value: item.vnName,
-                                image: item.sImages,
-                                author: item.sAuthor,
-                                id: item.sID
+                                image: item.images,
+                                author: item.author,
+                                id: item.id
                             }
                         }));
                     }
@@ -100,7 +100,7 @@ window.TruyenOnlineScript = {
             source: function (request, response) {
                 $.ajax({
                     type: "POST",
-                    url: window.location.origin + '/api/search',
+                    url: window.location.origin + '/api/story/search',
                     data: {
                         txtSearch: encryptText(this.term)
                     },
@@ -115,9 +115,9 @@ window.TruyenOnlineScript = {
                             return {
                                 label: item.vnName,
                                 value: item.vnName,
-                                image: item.sImages,
-                                author: item.sAuthor,
-                                id: item.sID
+                                image: item.images,
+                                author: item.author,
+                                id: item.id
                             }
                         }));
                     }

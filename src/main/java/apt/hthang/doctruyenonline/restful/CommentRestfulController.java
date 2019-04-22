@@ -82,7 +82,10 @@ public class CommentRestfulController {
                 throw new HttpUserLockedException();
             }
             Story story = storyService.findStoryByIdAndStatus(storyId, ConstantsListUtils.LIST_STORY_DISPLAY);
-            boolean check = commentService.saveComment(user, story, commentText.replaceAll("\n","<br />"));
+            if (story == null) {
+                throw new HttpMyException("Truyện không tồn tại hoặc đã bị xóa!");
+            }
+            boolean check = commentService.saveComment(user, story, commentText.replaceAll("\n", "<br />"));
             if (check) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {

@@ -206,4 +206,13 @@ StoryRepository extends JpaRepository< Story, Long > {
      */
     List< StoryMember > findAllByUser_IdAndStatusInOrderByCreateDateDesc(Long userId,
                                                                          List< Integer > listStatus);
+    
+    /**
+     * Lấy danh sách truyện theo
+     *
+     * @param searchText
+     * @param listStatus
+     * @return
+     */
+    List< StorySlide > findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(String searchText, List< Integer > listStatus);
 }

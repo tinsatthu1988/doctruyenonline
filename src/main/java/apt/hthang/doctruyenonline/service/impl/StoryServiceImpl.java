@@ -122,10 +122,9 @@ public class StoryServiceImpl implements StoryService {
      * @param storyId
      * @param listStoryStatus
      * @return StorySummar - nếu tồn tại truyện thỏa mãn điều kiện
-     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
      */
     @Override
-    public StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception {
+    public StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception{
         return storyRepository
                 .findByIdAndStatusIn(storyId, listStoryStatus)
                 .orElseThrow(NotFoundException::new);
@@ -150,13 +149,12 @@ public class StoryServiceImpl implements StoryService {
      * @param storyId
      * @param listStoryStatus
      * @return Story - nếu tồn tại truyện thỏa mãn điều kiện
-     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
      */
     @Override
-    public Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception {
+    public Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus){
         return storyRepository
                 .findStoryByIdAndStatusIn(storyId, listStoryStatus)
-                .orElseThrow(() -> new HttpMyException("Truyện đã bị xóa hoặc không tồn tại!"));
+                .orElse(null);
     }
     
     /**
@@ -247,5 +245,18 @@ public class StoryServiceImpl implements StoryService {
             storyMembers = new PageImpl<>(storyMemberList);
         }
         return storyMembers;
+    }
+    
+    /**
+     * Lấy List Truyện Theo searchText
+     *
+     * @param searchText
+     * @param listStatus
+     * @return
+     */
+    @Override
+    public List< StorySlide > findListStoryBySearchKey(String searchText, List< Integer > listStatus) {
+        return storyRepository
+                .findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(searchText,listStatus);
     }
 }

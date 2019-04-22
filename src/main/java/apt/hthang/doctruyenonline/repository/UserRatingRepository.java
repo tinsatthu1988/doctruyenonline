@@ -3,7 +3,12 @@ package apt.hthang.doctruyenonline.repository;
 import apt.hthang.doctruyenonline.entity.UserRating;
 import apt.hthang.doctruyenonline.entity.UserRatingPK;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -27,4 +32,32 @@ public interface UserRatingRepository extends JpaRepository< UserRating, UserRat
      * @return Long
      */
     Long countByStory_Id(Long storyId);
+    
+    /**
+     * Tìm UserRating theo
+     *
+     * @param storyId
+     * @param locationIP
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    Optional< UserRating > findByStory_IdAndLocationIPAndCreateDateBetween(Long storyId,
+                                                                           String locationIP,
+                                                                           Date startDate, Date endDate);
+    
+    /**
+     * Thực Hiện Đánh giá
+     *
+     * @param userID
+     * @param storyID
+     * @param myLocationIP
+     * @param myRating
+     * @return Float
+     */
+    @Procedure("saveRating")
+    Float saveRating(@Param("userID") Long userID,
+                     @Param("storyID") Long storyID,
+                     @Param("myLocationIP") String myLocationIP,
+                     @Param("myRating") Integer myRating);
 }

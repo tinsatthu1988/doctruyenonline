@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.utils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
 public class WebUtils {
@@ -107,4 +108,17 @@ public class WebUtils {
                 && !fileExtension.equalsIgnoreCase("png");
     }
     
+    public static String getLocationIP(HttpServletRequest request) {
+        String remoteAddr = "";
+    
+        //Kiểm Tra HttpServletRequest có null
+        if (request != null) {
+            remoteAddr = request.getHeader("X-FORWARDED-FOR");
+            if (remoteAddr == null || "".equals(remoteAddr)) {
+                remoteAddr = request.getRemoteAddr();
+            }
+        }
+    
+        return remoteAddr;
+    }
 }

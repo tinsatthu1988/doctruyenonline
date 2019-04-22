@@ -16,5 +16,5 @@ public interface SecurityService {
      * @param request
      * @return void
      */
-    public void autologin(String username, String password, HttpServletRequest request);
+    void autologin(String username, String password, HttpServletRequest request);
 }

@@ -59,6 +59,9 @@ public class AppointRestfulController {
             throw new HttpUserLockedException();
         }
         Story story = storyService.findStoryByIdAndStatus(storyId, ConstantsListUtils.LIST_STORY_DISPLAY);
+        if (story == null) {
+            throw new HttpMyException("Truyện không tồn tại hoặc đã bị xóa!");
+        }
         if (coupon <= 0) {
             throw new HttpMyException("Số phiếu đề cử ít nhất là 1!");
         }

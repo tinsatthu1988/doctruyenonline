@@ -100,9 +100,8 @@ public interface StoryService {
      * @param storyId
      * @param listStoryStatus
      * @return Story - nếu tồn tại truyện thỏa mãn điều kiện
-     * @throws Exception - nếu không tồn tại truyện thỏa mãn điều kiện
      */
-    Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception;
+    Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus);
     
     /**
      * Lấy số lượng truyện đăng bởi User
@@ -166,4 +165,12 @@ public interface StoryService {
      */
     Page< StoryMember > findStoryByUserId(Long userId, List< Integer > listStatus,
                                           int pagenumber, int type, Integer size);
+    
+    /**
+     * Lấy List Truyện Theo searchText
+     * @param searchText
+     * @param listStatus
+     * @return
+     */
+    List< StorySlide > findListStoryBySearchKey(String searchText, List< Integer > listStatus);
 }

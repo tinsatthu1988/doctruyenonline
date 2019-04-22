@@ -3,7 +3,7 @@
             var defaults = {
                 bigStarsPath: 'jquery/icons/stars.png',
                 smallStarsPath: 'jquery/icons/small.png',
-                ratingPath: window.location.origin + '/api/rating',
+                ratingPath: window.location.origin + '/api/story/rating',
                 type: 'big',
                 step: false,
                 isDisabled: false,

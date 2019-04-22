@@ -10,10 +10,6 @@ public interface StorySlide {
     
     String getVnName();
     
-    String getCnName();
-    
-    String getCnLink();
-    
     String getImages();
     
     String getAuthor();

@@ -1,9 +1,12 @@
 package apt.hthang.doctruyenonline.service.impl;
 
+import apt.hthang.doctruyenonline.entity.UserRating;
 import apt.hthang.doctruyenonline.repository.UserRatingRepository;
 import apt.hthang.doctruyenonline.service.UserRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author Huy Thang
@@ -41,4 +44,36 @@ public class UserRatingServiceImpl implements UserRatingService {
         return userRatingRepository
                 .countByStory_Id(storyId);
     }
+    
+    /**
+     * Tìm UserRating theo
+     *
+     * @param storyId
+     * @param locationIP
+     * @param startDate
+     * @param endDate
+     * @return UserRating
+     */
+    @Override
+    public UserRating existsRatingWithLocationIP(Long storyId, String locationIP, Date startDate, Date endDate) {
+        return userRatingRepository
+                .findByStory_IdAndLocationIPAndCreateDateBetween(storyId, locationIP, startDate, endDate)
+                .orElse(null);
+    }
+    
+    /**
+     * Thực Hiện Đánh giá
+     *
+     * @param uID
+     * @param sID
+     * @param locationIP
+     * @param rating
+     * @return true / false
+     */
+    @Override
+    public Float saveRating(Long uID, Long sID, String locationIP, Integer rating) {
+        return userRatingRepository
+                .saveRating(uID,sID,locationIP,rating);
+    }
+    
 }

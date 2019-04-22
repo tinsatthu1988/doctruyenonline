@@ -1,5 +1,10 @@
 package apt.hthang.doctruyenonline.service;
 
+import apt.hthang.doctruyenonline.entity.UserRating;
+
+import java.util.Date;
+import java.util.Optional;
+
 /**
  * @author Huy Thang
  */
@@ -20,4 +25,27 @@ public interface UserRatingService {
      * @return Long
      */
     Long countRatingStory(Long storyId);
+    
+    /**
+     * Tìm UserRating theo
+     *
+     * @param storyId
+     * @param locationIP
+     * @param startDate
+     * @param endDate
+     * @return UserRating
+     */
+    UserRating existsRatingWithLocationIP(Long storyId, String locationIP, Date startDate, Date endDate);
+    
+    /**
+     * Thực Hiện Đánh giá
+     *
+     * @param uID
+     * @param sID
+     * @param locationIP
+     * @param rating
+     * @return true / false
+     */
+    Float saveRating(Long uID, Long sID, String locationIP, Integer rating);
+    
 }

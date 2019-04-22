@@ -28,20 +28,3 @@ callSuccessSweetalert = function (messager) {
         confirmButtonText: 'Ok'
     })
 };
-
-storypostby = function (uID, pagenumber) {
-    if (typeof (pagenumber) !== "undefined") {
-        $.ajax({
-            type: "POST",
-            url: window.location.origin + '/member/story',
-            data: {
-                pagenumber: pagenumber,
-                uid: uID
-            },
-            cache: false,
-            complete: function (respone) {
-                $('#truyen-detail-chap').html(respone.responseText);
-            }
-        });
-    }
-};

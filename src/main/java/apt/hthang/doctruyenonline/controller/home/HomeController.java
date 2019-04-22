@@ -2,6 +2,8 @@ package apt.hthang.doctruyenonline.controller.home;
 
 import apt.hthang.doctruyenonline.service.CategoryService;
 import apt.hthang.doctruyenonline.service.InformationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,7 +20,7 @@ import java.security.Principal;
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
 public class HomeController {
-    
+    private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
     @Autowired
     private InformationService informationService;
     @Autowired
