@@ -1,6 +1,7 @@
 package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 
 /**
@@ -56,4 +57,38 @@ public interface UserService {
      * @return ConverterSummary
      */
     ConveterSummary findConverterByID(Long id);
+    
+    /**
+     * Kiểm tra DisplayName đã tồn tại chưa
+     *
+     * @param userId
+     * @param newNick
+     * @return boolean
+     */
+    boolean checkUserDisplayNameExits(Long userId, String newNick);
+    
+    /**
+     * Cập nhật ngoại hiệu
+     *
+     * @param userId
+     * @param money
+     * @param newNick
+     */
+    void updateDisplayName(Long userId, Double money, String newNick) throws Exception;
+    
+    /**
+     * Cập nhật notification  của User
+     *
+     * @param userId
+     * @param newNotification
+     * @return void
+     */
+    void updateNotification(Long userId, String newNotification);
+    
+    /**
+     * Cập nhật ảnh địa diện
+     * @param userId
+     * @param url
+     */
+    void updateAvatar(Long userId, String url);
 }

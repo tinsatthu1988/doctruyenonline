@@ -14,6 +14,9 @@ public class ConstantsUtils {
     //Độ dài chuỗi random
     public static final int RANDOM_STRING_LENGTH = 6;
     
+    //Giá cập nhật Ngoại Hiệu
+    public static final Double PRICE_UPDATE_NICK = Double.valueOf(2000);
+    
     // Page Default
     public static Integer PAGE_DEFAULT = 1;
     

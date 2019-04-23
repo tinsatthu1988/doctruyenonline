@@ -1,4 +1,4 @@
-package apt.hthang.doctruyenonline.controller.account;
+package apt.hthang.doctruyenonline.controller.home;
 
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
@@ -25,9 +25,9 @@ import java.security.Principal;
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
 @RequestMapping(value = "/tai-khoan")
-public class HomeController {
+public class AccountHomeController {
     
-    private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private final static Logger logger = LoggerFactory.getLogger(AccountHomeController.class);
     @Autowired
     private UserService userService;
     @Autowired

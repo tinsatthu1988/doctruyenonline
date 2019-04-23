@@ -29,7 +29,6 @@ function homeCtrl(WebService, $scope) {
     };
 
     $scope.getStoryNewUpdate = function () {
-        var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tuần
         var url = window.location.origin + '/api/home/storyNewUpdate';
         WebService.getData(url, data).then(function (response) {

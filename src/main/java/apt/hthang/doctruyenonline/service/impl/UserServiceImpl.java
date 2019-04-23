@@ -2,6 +2,7 @@ package apt.hthang.doctruyenonline.service.impl;
 
 import apt.hthang.doctruyenonline.entity.Role;
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -115,4 +115,59 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserById(id);
     }
     
+    /**
+     * Kiểm tra DisplayName đã tồn tại chưa
+     *
+     * @param userId
+     * @param newNick
+     * @return boolean
+     */
+    @Override
+    public boolean checkUserDisplayNameExits(Long userId, String newNick) {
+        return userRepository.existsByIdNotAndDisplayName(userId, newNick);
+    }
+    
+    /**
+     * Cập nhật ngoại hiệu
+     *
+     * @param userId
+     * @param money
+     * @param newNick
+     */
+    @Override
+    public void updateDisplayName(Long userId, Double money, String newNick) throws Exception {
+        User user = userRepository.findById(userId).get();
+        if (user.getGold() < money)
+            throw new HttpMyException("Số dư của bạn không đủ để thanh toán!");
+        user.setDisplayName(newNick);
+        user.setGold(user.getGold() - money);
+        userRepository.save(user);
+    }
+    
+    /**
+     * Cập nhật notification  của User
+     *
+     * @param userId
+     * @param newNotification
+     * @return void
+     */
+    @Override
+    public void updateNotification(Long userId, String newNotification) {
+        User user = userRepository.findById(userId).get();
+        user.setNotification(newNotification);
+        userRepository.save(user);
+    }
+    
+    /**
+     * Cập nhật ảnh địa diện
+     *
+     * @param userId
+     * @param url
+     */
+    @Override
+    public void updateAvatar(Long userId, String url) {
+        User user = userRepository.findById(userId).get();
+        user.setAvatar(url);
+        userRepository.save(user);
+    }
 }

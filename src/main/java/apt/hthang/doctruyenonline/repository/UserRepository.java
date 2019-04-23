@@ -32,8 +32,18 @@ public interface UserRepository extends JpaRepository< User, Long > {
     
     /**
      * Tìm User theo id
+     *
      * @param id
      * @return ConveterSummary
      */
     ConveterSummary findUserById(Long id);
+    
+    /**
+     * Kiểm Tra Có tồn tại Display Name với điều kiện Khác userId không
+     *
+     * @param userId
+     * @param newNick
+     * @return true - nếu tồn tại user/ false - nếu không tồn tại user
+     */
+    boolean existsByIdNotAndDisplayName(Long userId, String newNick);
 }

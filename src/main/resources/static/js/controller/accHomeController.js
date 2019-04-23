@@ -1,20 +1,16 @@
-var app = angular.module("ngApp", []);
+var app = angular.module('ngApp', []);
 
-app.controller("myAccount", ['$compile', '$http', '$scope', function ($compile, $http, $scope) {
+app.controller('accHomeCtrl', accHomeCtrl);
+
+accHomeCtrl.$inject = ['WebService', '$scope'];
+
+function accHomeCtrl(WebService, $scope) {
+
     $scope.changeNick = function () {
         var data = new FormData();
-        data.append('uDname', $("#txtChangenick").val());
-        var url = window.location.origin + '/api/saveDName';
-        var config = {
-            headers: {
-                'Content-Type': undefined
-            },
-            transformResponse: function (data, headers, status) {
-                var ret = {messager: data, status: status};
-                return ret;
-            }
-        };
-        $http.post(url, data, config).then(function successCallback(response) {
+        data.append('txtChangenick', encryptText($("#txtChangenick").val()));
+        var url = window.location.origin + '/api/user/changeNick';
+        WebService.submitForm(url, data).then(function successCallback(response) {
             swal({
                 text: 'Thay đổi ngoại hiệu thành công!',
                 type: 'success',
@@ -41,18 +37,9 @@ app.controller("myAccount", ['$compile', '$http', '$scope', function ($compile, 
 
     $scope.updateNotification = function () {
         var data = new FormData();
-        data.append('notification', $("#txtAbout").val());
-        var url = window.location.origin + '/api/saveNotification';
-        var config = {
-            headers: {
-                'Content-Type': undefined
-            },
-            transformResponse: function (data, headers, status) {
-                var ret = {messager: data, status: status};
-                return ret;
-            }
-        };
-        $http.post(url, data, config).then(function successCallback(response) {
+        data.append('notification', encryptText($("#txtAbout").val()));
+        var url = window.location.origin + '/api/user/saveNotification';
+        WebService.submitForm(url, data).then(function successCallback(response) {
             swal({
                 text: 'Cập Nhật Thông Báo thành công!',
                 type: 'success',
@@ -76,4 +63,5 @@ app.controller("myAccount", ['$compile', '$http', '$scope', function ($compile, 
             })
         });
     }
-}]);
+
+}

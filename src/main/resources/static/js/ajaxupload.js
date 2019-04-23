@@ -158,7 +158,7 @@
                 }
             }
             this._settings = {
-                action: '/api/upload',
+                action: '/api/user/upload',
                 name: 'userfile',
                 data: {},
                 autoSubmit: true,
