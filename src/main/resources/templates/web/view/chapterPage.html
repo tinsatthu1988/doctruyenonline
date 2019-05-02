@@ -11,26 +11,27 @@
     <script th:src="@{/js/controller/homeChapterController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
+</head>
 <body class="page-read" ng-app="ngApp" ng-controller="chapterCtrl" th:ng-init="|init(${chapter.story.id})|">
-<th:block th:insert="/web/fragments/loading"></th:block>
-<section class="page-wrapper">
-    <!--NavBar-->
-    <section th:replace="/web/fragments/navbar"></section>
+    <th:block th:insert="/web/fragments/loading"></th:block>
+    <section class="page-wrapper">
+        <!--NavBar-->
+        <section th:replace="/web/fragments/navbar"></section>
 
-    <!--Body-->
-    <section class="truyen-main">
-        <section th:replace="/web/breadcrumb/chapterBreadcrumb"></section>
-        <section class="truyen-section section-read-info">
-            <section class="container">
-                <section class="read-info-block text-center">
-                    <h1 class="title">
-                        <a th:href="@{'/truyen/' + ${chapter.story.id}}" th:title="${chapter.story.vnName}"
-                           th:text="${chapter.story.vnName}"></a>
-                    </h1>
-                    <ul class="list-unstyled meta">
-                        <li>
-                            <a class="author js-popover" data-toggle="popover"
-                               data-target="#js-popover-read-author" data-placement="bottom" data-original-title="">
+        <!--Body-->
+        <section class="truyen-main">
+            <section th:replace="/web/breadcrumb/chapterBreadcrumb"></section>
+            <section class="truyen-section section-read-info">
+                <section class="container">
+                    <section class="read-info-block text-center">
+                        <h1 class="title">
+                            <a th:href="@{'/truyen/' + ${chapter.story.id}}" th:title="${chapter.story.vnName}"
+                            th:text="${chapter.story.vnName}"></a>
+                        </h1>
+                        <ul class="list-unstyled meta">
+                            <li>
+                                <a class="author js-popover" data-toggle="popover"
+                                data-target="#js-popover-read-author" data-placement="bottom" data-original-title="">
                                 <section class="avatar">
                                     <img class="img-fluid lazyload" th:data-src="${chapter.user.avatar}">
                                 </section>
@@ -63,78 +64,78 @@
                 <section class="truyen-read-block">
                     <section class="truyen-read-navigation text-center">
                         <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${preChapter}}"
-                           class="btn btn-primary" th:classappend="${preChapter!=0} ? '': 'disabled'"
-                           data-toggle="tooltip" data-placement="bottom" title="Chương trước">
-                            <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
-                        </a>
-                        <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
-                           onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
-                                class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
-                                title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
-                        <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
-                           class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
-                           data-toggle="tooltip" data-placement="bottom" title="Chương sau">
-                            <span class="btn-icon"> <i class="truyen-icon icon-next-bold"></i> </span>
-                        </a>
-                    </section>
-                    <section class="truyen-read-content" data-font-family="'Palatino Linotype', sans-serif"
-                             style="width: 100%">
-                        <section class="header">
-                            <h2 class="title"
-                                th:text="'Chương ' + ${chapter.chapterNumber} + ': ' + ${chapter.name}"></h2>
+                        class="btn btn-primary" th:classappend="${preChapter!=0} ? '': 'disabled'"
+                        data-toggle="tooltip" data-placement="bottom" title="Chương trước">
+                        <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
+                    </a>
+                    <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
+                    onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
+                    class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
+                    title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
+                    <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
+                    class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
+                    data-toggle="tooltip" data-placement="bottom" title="Chương sau">
+                    <span class="btn-icon"> <i class="truyen-icon icon-next-bold"></i> </span>
+                </a>
+            </section>
+            <section class="truyen-read-content" data-font-family="'Palatino Linotype', sans-serif"
+            style="width: 100%">
+            <section class="header">
+                <h2 class="title"
+                th:text="'Chương ' + ${chapter.chapterNumber} + ': ' + ${chapter.name}"></h2>
+            </section>
+            <section class="content" id="js-truyen-content"
+            style="font-size: 26px; line-height: 140%; font-family: 'Palatino Linotype', sans-serif; word-wrap: break-word;">
+            <section class="content-vip" th:unless="${checkVip}">
+                <h3 class="text-danger text-center">Đây là chương truyện mất phí,bạn cần trả <strong
+                    th:text="${chapter.price}"></strong> đậu để
+                    xem, nếu đồng ý hãy ấn vào nút <strong>MUA</strong> bên dưới. </h3>
+                    <p class="text-center">
+                        <button class="btn btn-primary" th:ng-click="|chapterVip('${chapter.id}')|">
+                            MUA
+                        </button>
+                    </p>
+                    <section class="alert alert-primary col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                        <p class="text-justify small">- Chương truyện sau khi mua bạn có 24 tiếng để đọc,
+                        sau 24 tiếng nếu muốn đọc lại bạn phải mua lại.</p>
+                        <p class="text-justify small">- Chương truyện này sẽ cho đọc miễn phí sau <strong
+                            th:text="${chapter.story.timeDeal}"></strong> ngày kể từ lúc được đăng.</p>
                         </section>
-                        <section class="content" id="js-truyen-content"
-                                 style="font-size: 26px; line-height: 140%; font-family: 'Palatino Linotype', sans-serif; word-wrap: break-word;">
-                            <section class="content-vip" th:unless="${checkVip}">
-                                <h3 class="text-danger text-center">Đây là chương truyện mất phí,bạn cần trả <strong
-                                        th:text="${chapter.price}"></strong> đậu để
-                                    xem, nếu đồng ý hãy ấn vào nút <strong>MUA</strong> bên dưới. </h3>
-                                <p class="text-center">
-                                    <button class="btn btn-primary" th:ng-click="|chapterVip('${chapter.id}')|">
-                                        MUA
-                                    </button>
-                                </p>
-                                <section class="alert alert-primary col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
-                                    <p class="text-justify small">- Chương truyện sau khi mua bạn có 24 tiếng để đọc,
-                                        sau 24 tiếng nếu muốn đọc lại bạn phải mua lại.</p>
-                                    <p class="text-justify small">- Chương truyện này sẽ cho đọc miễn phí sau <strong
-                                            th:text="${chapter.story.timeDeal}"></strong> ngày kể từ lúc được đăng.</p>
-                                </section>
-                                <section class="clearfix"></section>
-                            </section>
-                            <th:block th:if="${checkVip}" th:utext="${chapter.content}"></th:block>
-                        </section>
+                        <section class="clearfix"></section>
                     </section>
-                    <section class="truyen-read-navigation text-center">
-                        <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${preChapter}}"
-                           class="btn btn-primary" th:classappend="${preChapter!=0} ? '': 'disabled'"
-                           data-toggle="tooltip" data-placement="bottom" title="Chương trước">
-                            <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
-                        </a>
-                        <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
-                           onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
-                                class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
-                                title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
-                        <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
-                           class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
-                           data-toggle="tooltip" data-placement="bottom" title="Chương sau">
-                            <span class="btn-icon"> <i class="truyen-icon icon-next-bold"></i> </span>
-                        </a>
-                    </section>
-                    <section class="chapter-comment">
-                        <section class="row">
-                            <section class="col-md-12">
-                                <section th:replace="web/pagination/commentOfStoryPagination"></section>
-                            </section>
-                        </section>
-                    </section>
+                    <th:block th:if="${checkVip}" th:utext="${chapter.content}"></th:block>
                 </section>
+            </section>
+            <section class="truyen-read-navigation text-center">
+                <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${preChapter}}"
+                class="btn btn-primary" th:classappend="${preChapter!=0} ? '': 'disabled'"
+                data-toggle="tooltip" data-placement="bottom" title="Chương trước">
+                <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
+            </a>
+            <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
+            onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
+            class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
+            title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
+            <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
+            class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
+            data-toggle="tooltip" data-placement="bottom" title="Chương sau">
+            <span class="btn-icon"> <i class="truyen-icon icon-next-bold"></i> </span>
+        </a>
+    </section>
+    <section class="chapter-comment">
+        <section class="row">
+            <section class="col-md-12">
+                <section th:replace="web/pagination/commentOfStoryPagination"></section>
             </section>
         </section>
     </section>
+</section>
+</section>
+</section>
+</section>
 
-    <!--Footer-->
-    <section th:replace="/web/fragments/footer"></section>
+<!--Footer-->
+<section th:replace="/web/fragments/footer"></section>
 </section>
 </body>
 </html>

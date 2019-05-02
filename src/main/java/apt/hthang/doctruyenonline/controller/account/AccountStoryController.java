@@ -1,4 +1,4 @@
-package apt.hthang.doctruyenonline.controller.home;
+package apt.hthang.doctruyenonline.controller.account;
 
 /**
  * @author Huy Thang

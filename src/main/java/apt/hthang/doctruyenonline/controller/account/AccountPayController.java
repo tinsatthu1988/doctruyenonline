@@ -1,15 +1,17 @@
-package apt.hthang.doctruyenonline.controller.home;
+package apt.hthang.doctruyenonline.controller.account;
 
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
-import apt.hthang.doctruyenonline.service.*;
-import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.service.CategoryService;
+import apt.hthang.doctruyenonline.service.InformationService;
+import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,19 +27,17 @@ import java.security.Principal;
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
 @RequestMapping(value = "/tai-khoan")
-public class AccountHomeController {
+public class AccountPayController {
     
-    private final static Logger logger = LoggerFactory.getLogger(AccountHomeController.class);
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CategoryService categoryService;
+    private final static Logger logger = LoggerFactory.getLogger(AccountPayController.class);
     @Autowired
     private InformationService informationService;
     @Autowired
-    private StoryService storyService;
+    private CategoryService categoryService;
     @Autowired
-    private ChapterService chapterService;
+    private UserService userService;
+    @Value("${hthang.truyenonline.title.pay}")
+    private String title;
     
     private void getMenuAndInfo(Model model, String title) {
         
@@ -51,8 +51,8 @@ public class AccountHomeController {
         model.addAttribute("information", informationService.getWebInfomation());
     }
     
-    @RequestMapping
-    private String defaultHomePage(Model model, Principal principal) throws NotFoundException {
+    @RequestMapping("/nap-dau")
+    public String defaultPage(Model model, Principal principal) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
         if (user == null) {
@@ -65,21 +65,13 @@ public class AccountHomeController {
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
             user.setAvatar(ConstantsUtils.AVATAR_DEFAULT);
         }
+        model.addAttribute("codePay", user.getId() + "-" + user.getUsername());
         
-        model.addAttribute("user", user);
-        
+        model.addAttribute("urlPayMoMO", ConstantsUtils.LINK_PAY_MOMO);
+        model.addAttribute("urlPayViettel", ConstantsUtils.LINK_PAY_VIETTEL);
         getMenuAndInfo(model, title);
         
-        loadStory_ChapterByUser(user.getId(), model);
-        return "web/view/accHomePage";
-    }
-    
-    
-    // Lấy Số Chapter Và Số Truyện Đăng bởi User
-    private void loadStory_ChapterByUser(Long userId, Model model) {
-        model.addAttribute("countStory", storyService.
-                countStoryByUser(userId, ConstantsListUtils.LIST_STORY_DISPLAY));
-        model.addAttribute("countChapter", chapterService
-                .countChapterByUser(userId, ConstantsListUtils.LIST_CHAPTER_DISPLAY));
+        return "web/view/accPayPage";
     }
 }
+

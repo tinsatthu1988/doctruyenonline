@@ -1,6 +1,5 @@
 package apt.hthang.doctruyenonline.controller.home;
 
-import apt.hthang.doctruyenonline.entity.Category;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.projections.CategorySummary;
 import apt.hthang.doctruyenonline.projections.StoryTop;

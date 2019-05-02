@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class User implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +27,8 @@ public class User implements Serializable {
     private Long id;
     @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username;
-    @Column(name = "passowrd", nullable = false, length = 60)
-    private String passowrd;
+    @Column(name = "password", nullable = false, length = 60)
+    private String password;
     @Column(name = "displayName", unique = true)
     private String displayName;
     @Column(name = "email", unique = true, nullable = false, length = 150)
@@ -54,9 +55,11 @@ public class User implements Serializable {
             @JoinColumn(name = "roleId", nullable = false, updatable = false)})
     private Collection< Role > roleList;
     @Transient
+    @Size(min = 6, max = 13, message = "{hthang.truyenmvc.user.passwordRegister.size.message}")
     private String passwordRegister;
-
+    
     @Transient
+    @Size(min = 6, max = 13, message = "{hthang.truyenmvc.user.passwordRegister.size.message}")
     private String passwordRegisterConfirm;
-
+    
 }

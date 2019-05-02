@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+    <!-- Material Design Bootstrap -->
+    <link th:href="@{/bower/MDB-4.7.5/css/mdb.min.css}" rel="stylesheet">
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" th:src="@{/bower/MDB-4.7.5/js/mdb.js}" defer></script>
+    <!-- Jquery Validation -->
+    <script type="text/javascript" th:src="@{/bower/jquery-validation/dist/jquery.validate.js}"></script>
+</head>
+<body>
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="container-fluid">
+                        <section class="featured-content" id="content">
+                            <section class="row">
+                                <th:block th:include="web/nav-tabs/navbar_left"></th:block>
+                                <section class="col-lg-10 col-md-9">
+                                    <section class="row">
+                                        <section class="col-12">
+                                            <section id="navbar-custom">
+                                                <!-- Nav tabs -->
+                                                <ul class="nav nav-tabs nav-custom" role="tablist">
+                                                    <li class="nav-item active">
+                                                        <a class="nav-link active" data-toggle="tab" href="#truyen-detail-introduction" role="tab">
+                                                            Nạp Bằng MoMo
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#truyen-detail-story" role="tab">
+                                                            Nạp Bằng ViettelPay
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Tab panes {Fade}  -->
+                                                <section class="tab-content">
+                                                    <section class="tab-pane fade show active" id="truyen-detail-introduction" name="truyen-detail-introduction" role="tabpanel">
+                                                        <section class="row">
+                                                            <section class="col-sm-12">
+                                                                <div class="text-center">
+                                                                    <div class="text-center" style="margin-top: 20px;">
+                                                                        <p><span class="font-weight-bold">Bước 1:</span> Dùng App MoMo quét mã QR bên dưới</p>
+                                                                        <p><img class="img-fluid lazyload" th:data-src="${urlPayMoMO}" alt=""></p>
+                                                                        <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong MoMo, nhập nội dung chuyển tiền là: <span
+                                                                                class="font-weight-bold" th:text="${codePay}"></span>
+                                                                            (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold" th:text="${codePay}"></span>, không thêm gì khác). Điền số tiền
+                                                                            bằng số đậu bạn muốn
+                                                                            nạp (1 đậu = 1 đồng)</p>
+                                                                        <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="alert alert-primary" role="alert">
+                                                                    Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
+                                                                </div>
+                                                            </section>
+                                                        </section>
+                                                    </section>
+                                                    <section class="tab-pane fade" id="truyen-detail-story"
+                                                             name="truyen-detail-story"
+                                                             role="tabpanel">
+                                                        <section class="truyen-detail-chap" id="truyen-detail-chap">
+                                                            <div class="text-center">
+                                                                <div class="text-center" style="margin-top: 20px;">
+                                                                    <p><span class="font-weight-bold">Bước 1:</span> Dùng App ViettelPay quét mã QR bên dưới</p>
+                                                                    <p><img class="img-fluid lazyload" th:data-src="${urlPayViettel}" alt=""></p>
+                                                                    <p>hoặc chọn chuyển tiền tới số điện thoại <span class="font-weight-bold">0366 235 661</span></p>
+                                                                    <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong ViettelPay, nhập nội dung chuyển tiền là: <span
+                                                                            class="font-weight-bold" th:text="${codePay}"></span> (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold"
+                                                                                                                                                                      th:text="${codePay}"></span>,
+                                                                        không thêm gì khác). Điền số tiền bằng số đậu bạn muốn nạp (1 đậu = 1 đồng)</p>
+                                                                    <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="alert alert-primary" role="alert">
+                                                                Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
+                                                            </div>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!--Footer-->
+    <section th:replace="/web/fragments/footer"></section>
+</body>
+</html>

@@ -4,7 +4,7 @@
 body {
     background-repeat: no-repeat;
     background-position: 50% 36px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif !important;
     font-size: 14px;
     line-height: 1.28571429;
     color: #333;
@@ -79,6 +79,12 @@ a {
 a:hover {
     text-decoration: none;
     color: #007bff;
+}
+
+input.is-invalid {
+    border-bottom: 1px solid #ef5350 !important;
+    -webkit-box-shadow: 0 1px 0 0 #ef5350 !important;
+    box-shadow: 0 1px 0 0 #ef5350 !important;
 }
 
 .help-error {

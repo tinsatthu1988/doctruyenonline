@@ -1,5 +1,7 @@
 package apt.hthang.doctruyenonline.utils;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
@@ -110,7 +112,7 @@ public class WebUtils {
     
     public static String getLocationIP(HttpServletRequest request) {
         String remoteAddr = "";
-    
+        
         //Kiểm Tra HttpServletRequest có null
         if (request != null) {
             remoteAddr = request.getHeader("X-FORWARDED-FOR");
@@ -118,7 +120,12 @@ public class WebUtils {
                 remoteAddr = request.getRemoteAddr();
             }
         }
-    
+        
         return remoteAddr;
+    }
+    
+    public static String encrypString(String text) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(text);
     }
 }

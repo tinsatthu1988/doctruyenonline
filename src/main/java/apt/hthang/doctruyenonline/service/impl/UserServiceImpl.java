@@ -8,6 +8,7 @@ import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsRoleUtils;
+import apt.hthang.doctruyenonline.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserAccount(String userName) {
         return userRepository
-                .findByUsername(userName)
-                .orElse(null);
+        .findByUsername(userName)
+        .orElse(null);
     }
     
     /**
@@ -76,8 +77,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findForgotUser(String userName, String email) {
         return userRepository
-                .findByUsernameAndEmail(userName, email)
-                .orElse(null);
+        .findByUsernameAndEmail(userName, email)
+        .orElse(null);
     }
     
     /**
@@ -100,8 +101,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository
-                .findById(id)
-                .orElse(null);
+        .findById(id)
+        .orElse(null);
     }
     
     /**
@@ -168,6 +169,29 @@ public class UserServiceImpl implements UserService {
     public void updateAvatar(Long userId, String url) {
         User user = userRepository.findById(userId).get();
         user.setAvatar(url);
+        userRepository.save(user);
+    }
+
+    /**
+     * Kiểm tra có tồn tại user theo
+     * @param userId
+     * @param password
+     * @return true - nếu tồn tại / false - nếu không tồn tại
+     */
+    @Override
+    public boolean checkUserByIdAndPassword(Long userId, String password){
+        return userRepository.existsByIdAndPassword(userId, WebUtils.encrypString(password));
+    }
+
+    /**
+     * Cập nhật Mật Khẩu
+     * @param userId
+     * @param password
+     */
+    @Override
+    public void updatePassword(Long userId, String password){
+        User user = userRepository.findById(userId).get();
+        user.setPassword(WebUtils.encrypString(password));
         userRepository.save(user);
     }
 }

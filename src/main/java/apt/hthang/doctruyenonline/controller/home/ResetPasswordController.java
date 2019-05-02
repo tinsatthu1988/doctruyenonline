@@ -107,7 +107,7 @@ public class ResetPasswordController {
                 String newPassword = WebUtils.randomPassword();
                 if (sendMail(user, newPassword)) {
                     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                    user.setPassowrd(passwordEncoder.encode(newPassword));
+                    user.setPassword(passwordEncoder.encode(newPassword));
                     userService.updateUser(user);
                     redirect.addFlashAttribute("success", "Mật khẩu của bạn đã được thay đổi! Mời vào email để xem mật khẩu mới!");
                     return "redirect:/dang-nhap";

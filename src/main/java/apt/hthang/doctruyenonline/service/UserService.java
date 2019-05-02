@@ -8,7 +8,7 @@ import apt.hthang.doctruyenonline.projections.ConveterSummary;
  * @author Huy Thang
  */
 public interface UserService {
-    
+
     /**
      * Tìm kiếm User theo username
      *
@@ -91,4 +91,19 @@ public interface UserService {
      * @param url
      */
     void updateAvatar(Long userId, String url);
+
+    /**
+     * Kiểm tra có tồn tại user theo
+     * @param userId
+     * @param password
+     * @return true - nếu tồn tại / false - nếu không tồn tại
+     */
+    boolean checkUserByIdAndPassword(Long userId, String password);
+
+    /**
+     * Cập nhật Mật Khẩu
+     * @param userId
+     * @param url
+     */
+    void updatePassword(Long userId, String password);
 }

@@ -2,18 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <th:block th:insert="/web/fragments/header"></th:block>
+	<th:block th:insert="/web/fragments/header"></th:block>
+</head>
 <body>
-<th:block th:insert="web/fragments/loading"></th:block>
-<section class="page-wrapper">
-    <!--NavBar-->
-    <section th:replace="web/fragments/navbar"></section>
+	<th:block th:insert="web/fragments/loading"></th:block>
+	<section class="page-wrapper">
+		<!--NavBar-->
+		<section th:replace="web/fragments/navbar"></section>
 
-    <!--Body-->
-    <section th:replace="web/pagination/searchPagination"></section>
+		<!--Body-->
+		<section th:replace="web/pagination/searchPagination"></section>
 
-    <!--Footer-->
-    <section th:replace="web/fragments/footer"></section>
-</section>
+		<!--Footer-->
+		<section th:replace="web/fragments/footer"></section>
+	</section>
 </body>
 </html>

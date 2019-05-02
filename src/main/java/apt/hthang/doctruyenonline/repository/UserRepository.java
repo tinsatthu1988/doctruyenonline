@@ -46,4 +46,6 @@ public interface UserRepository extends JpaRepository< User, Long > {
      * @return true - nếu tồn tại user/ false - nếu không tồn tại user
      */
     boolean existsByIdNotAndDisplayName(Long userId, String newNick);
+    
+    boolean existsByIdAndPassword(Long userId, String encrypString);
 }

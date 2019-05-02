@@ -20,7 +20,7 @@ function accHomeCtrl(WebService, $scope) {
             })
         }, function errorCallback(errResponse) {
             swal({
-                text: errResponse.data.messager,
+                text: errResponse.data.messageError,
                 type: 'warning',
                 confirmButtonText: 'Ok'
             }).then(function () {
@@ -49,7 +49,7 @@ function accHomeCtrl(WebService, $scope) {
             })
         }, function errorCallback(errResponse) {
             swal({
-                text: errResponse.data.messager,
+                text: errResponse.data.messageError,
                 type: 'warning',
                 confirmButtonText: 'Ok'
             }).then(function () {

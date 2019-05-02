@@ -80,7 +80,7 @@ public class RegisterController {
         }
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
-        user.setPassowrd(passwordEncoder.encode(user.getPasswordRegister()));
+        user.setPassword(passwordEncoder.encode(user.getPasswordRegister()));
         
         //Lưu Người dùng đăng ký trong database
         userService.registerUser(user);

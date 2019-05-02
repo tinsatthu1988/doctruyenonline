@@ -37,7 +37,16 @@ public class ConstantsUtils {
 
     //Thời Gian Một Ngày Theo Giờ
     public static Long TIME_DAY = valueOf(24);
+    
     //Thời gian nửa tiếng theo phút
-    public static long HALF_HOUR = valueOf(30);    //Link avartar default
+    public static long HALF_HOUR = valueOf(30);
+    
+    //Link avartar default
     public static final String AVATAR_DEFAULT = "https://res.cloudinary.com/thang1988/image/upload/v1541176548/truyenmvc/logo.png";
+    
+    //Link pay MoMo default
+    public static final String LINK_PAY_MOMO = "https://res.cloudinary.com/thang1988/image/upload/v1543465570/truyenmvc/momo.png";
+    
+    //Link pay VietTel default
+    public static final String LINK_PAY_VIETTEL = "https://res.cloudinary.com/thang1988/image/upload/v1543465569/truyenmvc/viettelpay.png";
 }
