@@ -121,7 +121,11 @@ public class UserRestfulController {
             if (newNotification.trim().length() > 255) {
                 throw new HttpMyException("Thông báo không được dài quá 255 ký tự!");
             }
-            userService.updateNotification(user.getId(), newNotification.trim());
+            //Lấy Thông User
+            user = userService.findUserById(user.getId());
+            user.setNotification(newNotification.trim());
+            //Cập Nhật Thông Tin User
+            userService.updateUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             throw new HttpMyException("Có lỗi xảy ra. Mong bạn quay lại sau");
@@ -154,7 +158,11 @@ public class UserRestfulController {
             throw new HttpMyException("Kích thước ảnh upload tối đa là 20 Megabybtes!");
         }
         String url = cloudinaryUploadService.upload(uploadfile, user.getUsername() + "-" + System.nanoTime());
-        userService.updateAvatar(user.getId(), url);
+        //Lấy User theo id
+        user = userService.findUserById(user.getId());
+        user.setAvatar(url);
+        //Cập Nhật Thông Tin User
+        userService.updateUser(user);
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
     

@@ -128,4 +128,9 @@ public class WebUtils {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(text);
     }
+    
+    public static boolean equalsPassword(String rawPassword, String encodedPassword) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
+    }
 }

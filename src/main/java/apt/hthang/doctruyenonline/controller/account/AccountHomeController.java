@@ -8,6 +8,7 @@ import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+import apt.hthang.doctruyenonline.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,7 +126,8 @@ public class AccountHomeController {
         String title = "Đổi Mật Khẩu";
         
         getMenuAndInfo(model, title);
-        if (changePassword.getOldPassword() != null && !changePassword.getOldPassword().isEmpty() && !userService.checkUserByIdAndPassword(user.getId(), changePassword.getOldPassword())) {
+        
+        if (changePassword.getOldPassword() != null && !WebUtils.equalsPassword(changePassword.getOldPassword(), user.getPassword())) {
             result.addError(new FieldError("changePassword", "oldPassword", "Mật Khẩu Cũ không chính xác"));
         }
         if (result.hasErrors()) {
@@ -133,8 +135,11 @@ public class AccountHomeController {
             redirectAttributes.addFlashAttribute("changePassword", changePassword);
             return "redirect:/tai-khoan/doi_mat_khau";
         }
-        
-        userService.updatePassword(user.getId(), changePassword.getNewPassword());
+        //Lấy User theo Id
+        user = userService.findUserById(user.getId());
+        user.setPassword(WebUtils.encrypString(changePassword.getNewPassword()));
+        //Cập Nhật User
+        userService.updateUser(user);
         model.addAttribute("success", true);
         return "web/view/accPasswordPage";
     }

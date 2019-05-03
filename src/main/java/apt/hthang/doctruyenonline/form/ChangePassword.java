@@ -1,6 +1,5 @@
 package apt.hthang.doctruyenonline.form;
 
-import apt.hthang.doctruyenonline.annotations.CheckPassFields;
 import apt.hthang.doctruyenonline.annotations.EqualFields;
 import lombok.Data;
 import lombok.NoArgsConstructor;
