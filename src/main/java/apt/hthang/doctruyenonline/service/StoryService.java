@@ -168,9 +168,21 @@ public interface StoryService {
     
     /**
      * Lấy List Truyện Theo searchText
+     *
      * @param searchText
      * @param listStatus
      * @return
      */
     List< StorySlide > findListStoryBySearchKey(String searchText, List< Integer > listStatus);
+    
+    /**
+     * Lấy List Truyện đăng bởi User
+     *
+     * @param id         - id của User đăng
+     * @param pagenumber - biến số trang
+     * @param size       - biến size
+     * @return
+     */
+    Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size);
+    
 }

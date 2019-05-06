@@ -2,6 +2,9 @@ package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
+import apt.hthang.doctruyenonline.projections.StoryUpdate;
+import apt.hthang.doctruyenonline.projections.StoryUser;
+import org.springframework.data.domain.Page;
 
 /**
  * @author Huy Thang

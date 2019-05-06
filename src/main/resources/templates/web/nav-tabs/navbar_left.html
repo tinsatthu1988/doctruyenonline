@@ -24,8 +24,8 @@
                 class="fa fa-chevron-up"></span></b></span>
         </div>
         <div class="list-group" id="coltaisan">
-            <a class="list-group-item" th:href="@{/tai-khoan/nap-dau}">Nạp Đậu</a>
-            <a class="list-group-item" th:href="@{/tai-khoan/log_xu}">Log Giao Dịch</a>
+            <a class="list-group-item" th:href="@{/tai-khoan/nap_dau}">Nạp Đậu</a>
+            <a class="list-group-item" th:href="@{/tai-khoan/giao_dich}">Log Giao Dịch</a>
             <a class="list-group-item" th:href="@{/tai-khoan/rut_tien}"
                sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER','ROLE_SMOD')">Rút Tiền</a>
         </div>

@@ -51,7 +51,7 @@ public class AccountPayController {
         model.addAttribute("information", informationService.getWebInfomation());
     }
     
-    @RequestMapping("/nap-dau")
+    @RequestMapping("/nap_dau")
     public String defaultPage(Model model, Principal principal) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
@@ -71,7 +71,27 @@ public class AccountPayController {
         model.addAttribute("urlPayViettel", ConstantsUtils.LINK_PAY_VIETTEL);
         getMenuAndInfo(model, title);
         
-        return "web/view/accPayPage";
+        return "web/view/account/accPayPage";
+    }
+    
+    @RequestMapping("/giao_dich")
+    public String logPage(Model model, Principal principal) throws NotFoundException {
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
+        if (user == null) {
+            throw new NotFoundException("Tài khoản không tồn tại mời liên hệ admin để biết thêm thông tin");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        String title = user.getDisplayName() != null ? user.getDisplayName() : user.getUsername();
+        if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
+            user.setAvatar(ConstantsUtils.AVATAR_DEFAULT);
+        }
+        getMenuAndInfo(model, title);
+        
+        model.addAttribute("id", user.getId());
+        return "web/view/accLogPayPage";
     }
 }
 

@@ -1,7 +1,6 @@
 package apt.hthang.doctruyenonline.service.impl;
 
 import apt.hthang.doctruyenonline.entity.Story;
-import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
@@ -258,5 +257,18 @@ public class StoryServiceImpl implements StoryService {
     public List< StorySlide > findListStoryBySearchKey(String searchText, List< Integer > listStatus) {
         return storyRepository
                 .findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(searchText,listStatus);
+    }
+    
+    /**
+     * Lấy List Truyện đăng bởi User
+     *
+     * @param id         - id của User đăng
+     * @param pagenumber - biến số trang
+     * @param size       - biến size
+     * @return
+     */
+    @Override
+    public Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size) {
+        return null;
     }
 }

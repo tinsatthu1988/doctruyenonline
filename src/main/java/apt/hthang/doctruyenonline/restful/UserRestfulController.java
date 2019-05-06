@@ -166,5 +166,9 @@ public class UserRestfulController {
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
     
-    
+    @PostMapping(value = "/list_pay")
+    public ResponseEntity< ? > loadListPayOfUser(@RequestParam("id") Long id,
+                                                 Principal principal){
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 }

@@ -79,7 +79,7 @@ public class AccountHomeController {
         getMenuAndInfo(model, title);
         
         loadStory_ChapterByUser(user.getId(), model);
-        return "web/view/accHomePage";
+        return "web/view/account/accHomePage";
     }
     
     
@@ -109,7 +109,7 @@ public class AccountHomeController {
         getMenuAndInfo(model, title);
         
         
-        return "web/view/accPasswordPage";
+        return "web/view/account/accPasswordPage";
     }
     
     @PostMapping(value = "/doi_mat_khau")
@@ -141,6 +141,6 @@ public class AccountHomeController {
         //Cập Nhật User
         userService.updateUser(user);
         model.addAttribute("success", true);
-        return "web/view/accPasswordPage";
+        return "web/view/account/accPasswordPage";
     }
 }
