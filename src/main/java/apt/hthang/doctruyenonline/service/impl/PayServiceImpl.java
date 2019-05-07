@@ -3,11 +3,15 @@ package apt.hthang.doctruyenonline.service.impl;
 import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.projections.PaySummary;
 import apt.hthang.doctruyenonline.repository.PayRepository;
 import apt.hthang.doctruyenonline.service.PayService;
 import apt.hthang.doctruyenonline.utils.ConstantsPayTypeUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -63,5 +67,19 @@ public class PayServiceImpl implements PayService {
         return payRepository
                 .existsByChapter_IdAndUserSend_IdAndCreateDateBetweenAndTypeAndStatus(chapterId, userId,
                         startDate, endDate, ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE, ConstantsStatusUtils.PAY_COMPLETED);
+    }
+    
+    /**
+     * Lấy danh sách giao dịch của User theo
+     *
+     * @param id         - id của User
+     * @param pagenumber - biến số trang
+     * @param size       - biến size
+     * @return
+     */
+    @Override
+    public Page< PaySummary > findPageByIdAndDate(Long id, Integer pagenumber, Integer size) {
+        Pageable pageable = PageRequest.of(pagenumber - 1, size);
+        return payRepository.findByUserReceived_IdOrUserSend_IdOrderByCreateDateDesc(id, id, pageable);
     }
 }

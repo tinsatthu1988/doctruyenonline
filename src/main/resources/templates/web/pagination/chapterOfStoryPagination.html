@@ -12,7 +12,7 @@
                 <section class="col-sm-6 col-md-4 chapter-item" ng-repeat="item in listChapter">
                     <section class="item">
                         <a ng-href="/truyen/{{item.storyId}}/chuong-{{item.id}}" class="align-items-center d-flex"
-                           ng-attr-title="Đăng bởi {{item.userDisplayName!=null? item.userDisplayName : item.username}} lúc {{item.createDate| date: 'HH:mm dd-MM-yyyy' }}">
+                           ng-attr-title="Đăng bởi {{item.displayName}} lúc {{item.createDate| date: 'HH:mm dd-MM-yyyy' }}">
                                 <span class="chapter-name">
                                     <img ng-show="item.status === 2" src="/images/vip-vip.gif" class="img-fluid"
                                          height="12px"> Chương {{item.chapterNumber}} : {{item.name}}</span>&nbsp;

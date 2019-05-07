@@ -21,11 +21,8 @@ public interface ChapterOfStory {
     @Value("#{target.story.id}")
     Long getStoryId();
 
-    @Value("#{target.user.username}")
-    String getUsername();
-
-    @Value("#{target.user.displayName}")
-    String getUserDisplayName();
+    @Value("#{@myComponent.getDisplayName(target.user.username,target.user.displayName)}")
+    String getDisplayName();
 
     Date getCreateDate();
 

@@ -1,8 +1,11 @@
 package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.projections.PaySummary;
+import org.springframework.data.domain.Page;
 
 import java.util.Date;
 
@@ -37,4 +40,12 @@ public interface PayService {
      */
     boolean checkDealChapterVip(Long chapterId, Long userId, Date startDate, Date endDate);
     
+    /**
+     * Lấy danh sách giao dịch của User theo
+     * @param id - id của User
+     * @param pagenumber - biến số trang
+     * @param size - biến size
+     * @return
+     */
+    Page< PaySummary > findPageByIdAndDate(Long id, Integer pagenumber, Integer size);
 }

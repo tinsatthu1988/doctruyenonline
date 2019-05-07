@@ -26,14 +26,14 @@
                     <section style="float:left;width:40px;height:80px;">
                         <a ng-href="/member/{{comment.user.id}}">
                             <img class="avatar"
-                                 alt="{{comment.user.displayName != null ? comment.user.displayName : comment.user.username}}"
+                                 alt="{{comment.user.displayName}}"
                                  ng-src="{{comment.user.avatar? comment.user.avatar : noImage}}">
                         </a><br style="clear:both">
                     </section>
                     <section class="post-comments">
                         <p ng-bind-html="comment.content"></p>
                         <p class="meta-2">
-                            <a ng-href="/member/{{comment.user.id}}"><abbr title="Thành viên">{{comment.user.displayName?comment.user.displayName:comment.user.username}}</abbr></a>
+                            <a ng-href="/member/{{comment.user.id}}"><abbr title="Thành viên">{{comment.user.displayName}}</abbr></a>
                             <small>
                                 <small><a>Báo xấu</a></small>
                             </small>

@@ -1,5 +1,7 @@
 package apt.hthang.doctruyenonline.utils;
 
+import apt.hthang.doctruyenonline.component.MyComponent;
+
 /**
  * @author Linh
  * @project doctruyenonline

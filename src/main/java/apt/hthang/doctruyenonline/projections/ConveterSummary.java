@@ -12,8 +12,7 @@ public interface ConveterSummary {
 
     Long getId();
 
-    String getUsername();
-
+    @Value("#{@myComponent.getDisplayName(target.username,target.displayName)}")
     String getDisplayName();
 
     String getAvatar();
