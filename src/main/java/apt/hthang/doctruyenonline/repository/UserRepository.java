@@ -2,6 +2,7 @@ package apt.hthang.doctruyenonline.repository;
 
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
+import apt.hthang.doctruyenonline.projections.InfoSummary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +40,14 @@ public interface UserRepository extends JpaRepository< User, Long > {
     ConveterSummary findUserById(Long id);
     
     /**
+     * Tìm User theo id
+     *
+     * @param id
+     * @return InfoSummary
+     */
+    Optional< InfoSummary > findUsersById(Long id);
+    
+    /**
      * Kiểm Tra Có tồn tại Display Name với điều kiện Khác userId không
      *
      * @param userId
@@ -48,4 +57,6 @@ public interface UserRepository extends JpaRepository< User, Long > {
     boolean existsByIdNotAndDisplayName(Long userId, String newNick);
     
     boolean existsByIdAndPassword(Long userId, String encrypString);
+    
+    
 }

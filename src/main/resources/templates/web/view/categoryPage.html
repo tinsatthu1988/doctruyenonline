@@ -13,7 +13,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         <!--Body-->
         <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
             <section class="truyen-section section-featured">
-                <section id="content" class="container mb-4">
+                <section id="content" class="container container-truyen mb-4">
                     <section class="featured-content">
                         <section class="row align-items-center">
                             <section class="error-card">
@@ -37,7 +37,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </section>
             </section>
             <section class="truyen-main" th:unless="${listStory == null || #lists.isEmpty(listStory)}">
-                <section class="container">
+                <section class="container container-truyen">
                     <section class="truyen-section section-featured">
                         <section class="featured-content">
                             <section class="row">

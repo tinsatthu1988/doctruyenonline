@@ -17,4 +17,7 @@ public class ConstantsPayTypeUtils {
     
     //Loại Thanh Toán Đề Cử Truyện
     public static final Integer PAY_APPOINT_TYPE = 4;
+    
+    //Loại Thanh Toán Rút Tiền
+    public static final Integer PAY_WITHDRAW_TYPE = 5;
 }

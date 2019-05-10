@@ -2,6 +2,7 @@ package apt.hthang.doctruyenonline.service;
 
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
+import apt.hthang.doctruyenonline.projections.InfoSummary;
 import apt.hthang.doctruyenonline.projections.StoryUpdate;
 import apt.hthang.doctruyenonline.projections.StoryUser;
 import org.springframework.data.domain.Page;
@@ -78,4 +79,10 @@ public interface UserService {
      */
     void updateDisplayName(Long userId, Double money, String newNick) throws Exception;
     
+    /**
+     * Lấy Thông Tin Người dùng Theo id
+     * @param id
+     * @return
+     */
+    InfoSummary findInfoUserById(Long id);
 }

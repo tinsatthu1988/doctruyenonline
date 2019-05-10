@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/accLogPayController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+</head>
+<body ng-app="ngApp" ng-controller="accLogPayCtrl" th:ng-init="|init(${id})|">
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container container-full mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="container-fluid">
+                        <section class="featured-content" id="content">
+                            <section class="row">
+                                <th:block th:include="web/nav-tabs/navbar_left"></th:block>
+                                <section class="col-lg-10 col-md-9">
+                                    <div class="card">
+                                        <h3 class="card-header primary-color white-text text-center">
+                                            Danh sách giao dịch
+                                        </h3>
+                                        <div class="card-body table-responsive">
+                                            <table class="table table-striped" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th class="font-weight-bolder">Mã GD
+                                                    </th>
+                                                    <th class="font-weight-bolder">Thời Gian
+                                                    </th>
+                                                    <th class="font-weight-bolder">Thay đổi</th>
+                                                    <th class="font-weight-bolder">Nội Dung
+                                                    </th>
+                                                    <th class="font-weight-bolder">Trạng Thái
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-show="listPay.length === 0" class="text-center">
+                                                    <td colspan="5">Bạn chưa có giao dịch nào</td>
+                                                </tr>
+                                                <tr ng-show="listPay.length !== 0" ng-repeat="item in listPay">
+                                                    <td>{{item.id}}</td>
+                                                    <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                                                    <td ng-bind="getMoney(item)"></td>
+                                                    <td ng-bind-html="getContent(item)"></td>
+                                                    <td>
+                                                        <span ng-show="item.status===1" class="badge badge-pill badge-success">Hoàn Thành</span>
+                                                        <span ng-show="item.status===2" class="badge badge-pill badge-info">Đợi Xử Lý</span>
+                                                        <span ng-show="item.status===0" class="badge badge-pill badge-danger">Hủy</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div aria-label="Page navigation example" ng-show="totalPages>1">
+                                                <ul class="pagination pg-blue justify-content-end">
+                                                    <li class="page-item" ng-show="currentPage != 1">
+                                                        <a class="page-link" ng-click="getPage(currentPage - 1)">
+                                                            <i class="fas fa-step-backward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                                        <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                                           ng-click="getPage(i)">{{i}}</a>
+                                                    </li>
+                                                    <li class="page-item" ng-show="currentPage != totalPages">
+                                                        <a class="page-link" ng-click="getPage(currentPage + 1)">
+                                                            <i class="fas fa-step-forward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section th:replace="/web/fragments/footer"></section>
+</section>
+</body>
+</html>

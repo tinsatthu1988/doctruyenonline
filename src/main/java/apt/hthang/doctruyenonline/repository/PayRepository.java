@@ -49,4 +49,6 @@ public interface PayRepository extends JpaRepository< Pay, Long > {
     boolean existsByChapter_IdAndUserSend_IdAndCreateDateBetweenAndTypeAndStatus(Long chID, Long uID, Date startDate, Date endDate, Integer payType, Integer payStatus);
     
     Page< PaySummary > findByUserReceived_IdOrUserSend_IdOrderByCreateDateDesc(Long userReceivedId, Long userSendId, Pageable pageable);
+    
+    Page< PaySummary > findByTypeAndUserSend_IdOrderByCreateDateDesc(Integer type, Long userSendId, Pageable pageable);
 }

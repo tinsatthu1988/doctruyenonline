@@ -12,7 +12,7 @@
 
         <!--Body-->
         <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
-            <section id="content" class="container mb-4">
+            <section id="content" class="container container-truyen mb-4">
                 <section class="truyen-section section-featured">
                     <section class="featured-content">
                         <section class="row align-items-center">
@@ -38,7 +38,7 @@
             </section>
             <section class="truyen-main" th:unless="${listStory == null || #lists.isEmpty(listStory)}">
                 <section class="truyen-section section-featured">
-                    <section class="container mb-4">
+                    <section class="container container-truyen mb-4">
                         <section class="featured-content">
                             <section class="row">
                                 <section class="col-12 col-sm-12 col-md-8">

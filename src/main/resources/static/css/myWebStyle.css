@@ -8,13 +8,18 @@ body {
     font-size: 14px;
     line-height: 1.28571429;
     color: #333;
-    background-color: #fff;
-    color: #333;
+    background-color: #fff !important;
+}
+
+.container-full{
+    max-width: 100% !important;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 @media only screen and (min-width: 992px) {
-    .container {
-        padding: 0
+    .container-truyen {
+        padding: 0 !important;
     }
 }
 
@@ -25,18 +30,18 @@ body {
 }
 
 @media (min-width: 576px) {
-    .container {
-        max-width: 750px;
+    .container-truyen {
+        max-width: 750px !important;
     }
 }
 
 @media only screen and (min-width: 992px) {
-    .truyen-main .container {
-        overflow-x: hidden
+    .truyen-main .container-truyen {
+        overflow-x: hidden !important;
     }
 
-    .page-login .truyen-main .container {
-        overflow-x: inherit
+    .page-login .truyen-main .container-truyen {
+        overflow-x: inherit !important;
     }
 }
 
@@ -255,20 +260,20 @@ p.jRatingInfos span.maxRate {
 }
 
 @media ( min-width: 768px) {
-    .container {
-        max-width: 750px;
+    .container-truyen {
+        max-width: 750px !important;
     }
 }
 
 @media ( min-width: 992px) {
-    .container {
-        max-width: 970px;
+    .container-truyen {
+        max-width: 970px !important;
     }
 }
 
 @media ( min-width: 1200px) {
-    .container {
-        max-width: 1170px;
+    .container-truyen {
+        max-width: 1170px !important;
     }
 }
 
@@ -316,7 +321,7 @@ p.jRatingInfos span.maxRate {
 }
 
 .featured-content {
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 @media only screen and (max-width: 541px) {

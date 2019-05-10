@@ -4,11 +4,11 @@ import apt.hthang.doctruyenonline.entity.Role;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
+import apt.hthang.doctruyenonline.projections.InfoSummary;
 import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsRoleUtils;
-import apt.hthang.doctruyenonline.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserAccount(String userName) {
         return userRepository
-        .findByUsername(userName)
-        .orElse(null);
+                .findByUsername(userName)
+                .orElse(null);
     }
     
     /**
@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findForgotUser(String userName, String email) {
         return userRepository
-        .findByUsernameAndEmail(userName, email)
-        .orElse(null);
+                .findByUsernameAndEmail(userName, email)
+                .orElse(null);
     }
     
     /**
@@ -101,8 +101,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository
-        .findById(id)
-        .orElse(null);
+                .findById(id)
+                .orElse(null);
     }
     
     /**
@@ -145,4 +145,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
     
+    /**
+     * Lấy Thông Tin Người dùng Theo id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public InfoSummary findInfoUserById(Long id) {
+        return userRepository.findUsersById(id).orElse(null);
+    }
 }

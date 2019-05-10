@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/web/fragments/header"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/accDrawPayController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+</head>
+<body ng-app="ngApp" ng-controller="accDrawPayCtrl" th:ng-init="|init(${id})|">
+<th:block th:insert="/web/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/web/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container container-full mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="container-fluid">
+                        <section class="featured-content" id="content">
+                            <section class="row">
+                                <th:block th:include="web/nav-tabs/navbar_left"></th:block>
+                                <section class="col-lg-10 col-md-9">
+                                    <div class="card">
+                                        <h3 class="card-header primary-color white-text text-center">
+                                            Danh sách rút tiền
+                                        </h3>
+                                        <div class="card-body table-responsive">
+                                            <button class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#modalLRFormDemo">Đăng Ký Rút Tiền</button>
+                                            <table class="table table-striped" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th class="font-weight-bolder">Mã GD
+                                                    </th>
+                                                    <th class="font-weight-bolder">Thời Gian
+                                                    </th>
+                                                    <th class="font-weight-bolder">Thay đổi</th>
+                                                    <th class="font-weight-bolder">Nội Dung
+                                                    </th>
+                                                    <th class="font-weight-bolder">Trạng Thái
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-show="listPay.length === 0" class="text-center">
+                                                    <td colspan="5">Bạn chưa có giao dịch rút tiền nào</td>
+                                                </tr>
+                                                <tr ng-show="listPay.length !== 0" ng-repeat="item in listPay">
+                                                    <td>{{item.id}}</td>
+                                                    <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                                                    <td>
+                                                        <span ng-show="item.status === 0">0</span>
+                                                        <span ng-show="item.status !== 0"> - {{item.money}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span ng-show="item.status===0">Bạn hủy rút {{item.money}} đậu thành tiền mặt</span>
+                                                        <span ng-show="item.status===1">Bạn đã rút {{item.money}} đậu thành tiền mặt</span>
+                                                        <span ng-show="item.status===2">Bạn đăng ký rút {{item.money}} đậu thành tiền mặt</span>
+                                                    </td>
+                                                    <td>
+                                                        <span ng-show="item.status===1" class="badge badge-pill badge-success">Hoàn Thành</span>
+                                                        <span ng-show="item.status===2" class="badge badge-pill badge-info">Đợi Xử Lý</span>
+                                                        <span ng-show="item.status===0" class="badge badge-pill badge-danger">Hủy</span>
+                                                    </td>
+                                                    <td>
+                                                        <a ng-show="item.status===2" ng-click="deleteDraw(item.id)" title="Hủy Giao Dịch" class="badge badge-pill badge-danger"><i
+                                                                class="fas fa-times mx-1"></i></a>
+                                                        <a ng-show="item.status!==2" class="badge badge-pill badge-light" title="Hủy Giao Dịch"><i class="fas fa-times mx-1"></i></a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div aria-label="Page navigation example" ng-show="totalPages>1">
+                                                <ul class="pagination pg-blue justify-content-end">
+                                                    <li class="page-item" ng-show="currentPage != 1">
+                                                        <a class="page-link" ng-click="getPage(currentPage - 1)">
+                                                            <i class="fas fa-step-backward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                                        <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                                           ng-click="getPage(i)">{{i}}</a>
+                                                    </li>
+                                                    <li class="page-item" ng-show="currentPage != totalPages">
+                                                        <a class="page-link" ng-click="getPage(currentPage + 1)">
+                                                            <i class="fas fa-step-forward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section th:replace="/web/fragments/footer"></section>
+    <!-- Modal đăng ký rút tiền-->
+    <div class="modal fade" id="modalLRFormDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-notify modal-primary" role="document">
+            <!-- Content -->
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <p class="heading lead">Đăng Ký Rút Tiền</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">×</span>
+                    </button>
+                </div>
+                <form ng-submit="submitWithDraw()">
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <!-- Material input -->
+                        <div class="md-form input-group">
+                            <input type="number" id="numberExample" class="form-control" ng-model="drawMoney" value="0" min="50000" step="10000" ng-change="changeValue()">
+                            <label for="numberExample" class="text-primary">Số Tiền Rút </label>
+                            <div class="input-group-append">
+                                <span class="input-group-text md-addon">VNĐ</span>
+                            </div>
+                            <span class="form-text text-muted">
+                            Số Tiền cần rút phải chia hết cho 10.000 . Mỗi lần rút ít nhất 50.000 VNĐ
+                        </span>
+                        </div>
+                        <div class="md-form input-group">
+                            <input type="text" id="numberExample1" class="form-control font-weight-bold" readonly ng-model="drawCoin" value="0">
+                            <label for="numberExample1" class="text-primary">Số Đậu Cần Thanh Toán </label>
+                            <div class="input-group-append">
+                                <span class="input-group-text md-addon">Đậu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer justify-content-center">
+                        <input type="submit" class="btn btn-primary waves-effect waves-light" value="Đăng ký">
+                        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal" ng-click="reset()">Hủy</a>
+                    </div>
+                </form>
+            </div>
+            <!-- Content -->
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

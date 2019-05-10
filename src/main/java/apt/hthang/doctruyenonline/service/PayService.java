@@ -47,5 +47,14 @@ public interface PayService {
      * @param size - biến size
      * @return
      */
-    Page< PaySummary > findPageByIdAndDate(Long id, Integer pagenumber, Integer size);
+    Page< PaySummary > findPageByUserId(Long id, Integer pagenumber, Integer size);
+    
+    /**
+     * Lấy danh sách giao dịch rút tiền của người dùng
+     * @param id
+     * @param pagenumber
+     * @param size
+     * @return
+     */
+    Page<PaySummary> findPagePayWithdrawByUserId(Long id, Integer pagenumber, Integer size);
 }

@@ -17,8 +17,7 @@
                            th:title="${topstory.vnName}"
                            th:text="${topstory.vnName}"></a>
                     </h2>
-                    <p class="description text-center"
-                       th:text="${topstory.infomation}"></p>
+                    <p class="description text-center" th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></p>
                 </section>
             </section>
         </section>

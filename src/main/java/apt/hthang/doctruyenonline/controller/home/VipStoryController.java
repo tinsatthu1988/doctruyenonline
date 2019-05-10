@@ -115,7 +115,7 @@ public class VipStoryController {
         
         loadTopView(model);
         
-        return "web/catalogPage";
+        return "web/view/catalogPage";
     }
     
     @RequestMapping(value = "/trang-{page}")
@@ -129,7 +129,7 @@ public class VipStoryController {
         
         loadTopView(model);
         
-        return "web/catalogPage";
+        return "web/view/catalogPage";
     }
     
 }

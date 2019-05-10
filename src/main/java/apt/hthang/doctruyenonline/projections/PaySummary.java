@@ -25,7 +25,7 @@ public interface PaySummary {
     
     ChapterPay getChapter();
     
-    //Sô tiền giao dịch
+    //Số tiền giao dịch
     Double getMoney();
     
     //Ngày giao dịch

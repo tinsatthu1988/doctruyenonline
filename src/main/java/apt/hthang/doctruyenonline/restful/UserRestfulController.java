@@ -165,23 +165,4 @@ public class UserRestfulController {
         userService.updateUser(user);
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
-    
-    @PostMapping(value = "/list_pay")
-    public ResponseEntity< ? > loadListPayOfUser(@RequestParam("pagenumber") Integer pagenumber,
-                                                 Principal principal) throws Exception {
-//        if (principal == null) {
-//            throw new HttpNotLoginException();
-//        }
-//        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
-//        User user = myUser.getUser();
-//        user = userService.findUserById(user.getId());
-//        if (user == null) {
-//            throw new HttpNotLoginException("Tài khoản không tồn tại");
-//        }
-//        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
-//            throw new HttpUserLockedException();
-//        }
-        User user = userService.findUserById((long) 1);
-        return new ResponseEntity<>(payService.findPageByIdAndDate(user.getId(), pagenumber, 2), HttpStatus.OK);
-    }
 }

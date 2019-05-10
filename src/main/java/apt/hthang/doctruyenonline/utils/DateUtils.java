@@ -77,8 +77,8 @@ public class DateUtils {
     public static String betweenTwoDays(Date createDate) {
         LocalDateTime startDate = createDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         LocalDate startLocalDate = createDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDateTime endDate = getCurrentDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDate endLocalDate = getCurrentDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime endDate = LocalDateTime.now();
+        LocalDate endLocalDate = LocalDate.now();
         long differentInSeconds = Duration.between(startDate, endDate).getSeconds();
         long differentInMinutes = Duration.between(startDate, endDate).toMinutes();
         long differentInHours = Duration.between(startDate, endDate).toHours();

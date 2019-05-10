@@ -139,6 +139,7 @@ public class ChapterController {
             
             // Kiểm tra người dùng đã đăng nhập chưa
             if (user != null) {
+                //Kiểm tra người dùng có phải người đăng chapter không
                 boolean checkUser = user.equals(chapter.getUser());
                 // Kiểm tra người dùng đã thanh toán chương vip trong 24h qua không
                 // Nếu chưa thanh toán rồi thì check = false

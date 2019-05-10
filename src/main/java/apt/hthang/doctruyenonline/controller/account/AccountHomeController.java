@@ -74,7 +74,7 @@ public class AccountHomeController {
             user.setAvatar(ConstantsUtils.AVATAR_DEFAULT);
         }
         
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findInfoUserById(user.getId()));
         
         getMenuAndInfo(model, title);
         

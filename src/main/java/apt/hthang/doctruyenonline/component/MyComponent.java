@@ -1,12 +1,12 @@
 package apt.hthang.doctruyenonline.component;
 
-import apt.hthang.doctruyenonline.entity.Chapter;
-import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
+import apt.hthang.doctruyenonline.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,7 +59,23 @@ public class MyComponent {
                 countChapterByUser(uID, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
     }
     
-    public Long getId() {
-        return Long.valueOf(0);
+    public String maskEmail(final String email) {
+        try {
+            String[] parts = email.split("@");
+            
+            if (parts[0].length() < 2)
+                return email;
+            else
+                return WebUtils.maskString(parts[0], '*') + "@" + parts[1];
+        } catch (Exception ex) {
+            return email;
+        }
+    }
+    
+    public String checkAvatar(final String avatar) {
+        if (avatar == null || avatar.isEmpty()) {
+            return ConstantsUtils.AVATAR_DEFAULT;
+        }
+        return avatar;
     }
 }
