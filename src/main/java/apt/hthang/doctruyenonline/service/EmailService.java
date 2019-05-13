@@ -6,7 +6,7 @@ import apt.hthang.doctruyenonline.entity.Mail;
  * @author Huy Thang
  */
 public interface EmailService {
-
-    boolean sendSimpleMessage(Mail mail);
-
+    
+    boolean sendSimpleMessage(Mail mail, String template);
+    
 }

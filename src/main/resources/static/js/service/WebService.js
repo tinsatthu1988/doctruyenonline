@@ -87,8 +87,7 @@ app.service('WebService', ['$http', function ($http) {
                 'Content-Type': undefined
             },
             transformResponse: function (data, headers, status) {
-                var ret = {messageError: data, status: status};
-                return ret;
+                return {messageError: data, status: status};
             }
         };
         return $http.delete(url, config);

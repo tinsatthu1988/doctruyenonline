@@ -132,13 +132,12 @@ public class ResetPasswordController {
         mail.setTo(user.getEmail());
         mail.setSubject(emailSubject);
         mail.setFromDisplay(emailDisplay);
-        logger.info("Send mail");
         Map< String, Object > modelMap = new HashMap< String, Object >();
         modelMap.put("name", user.getDisplayName() != null ? user.getDisplayName() : user.getUsername());
         modelMap.put("url", emailUrl);
         modelMap.put("signature", emailSignature);
         modelMap.put("password", newPassword);
         mail.setModel(modelMap);
-        return emailService.sendSimpleMessage(mail);
+        return emailService.sendSimpleMessage(mail, "web/mail/forgot-password");
     }
 }

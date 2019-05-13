@@ -34,7 +34,7 @@ function storyCtrl(WebService, $scope) {
             var startPage = Math.max(1, $scope.currentPage - 2);
             var endPage = Math.min(startPage + 4, $scope.totalPages);
             var pages = [];
-            for (let i = startPage; i <= endPage; i++) {
+            for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
             }
             $scope.page = pages;
@@ -50,7 +50,7 @@ function storyCtrl(WebService, $scope) {
             var startPage = Math.max(1, $scope.currentCommentPage - 2);
             var endPage = Math.min(startPage + 4, $scope.totalCommentPages);
             var pages = [];
-            for (let i = startPage; i <= endPage; i++) {
+            for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
             }
             $scope.pageComment = pages;

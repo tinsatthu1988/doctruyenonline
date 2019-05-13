@@ -1,6 +1,7 @@
 package apt.hthang.doctruyenonline.service.impl;
 
 import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.PaySummary;
@@ -95,5 +96,38 @@ public class PayServiceImpl implements PayService {
     public Page< PaySummary > findPagePayWithdrawByUserId(Long id, Integer pagenumber, Integer size) {
         Pageable pageable = PageRequest.of(pagenumber - 1, size);
         return payRepository.findByTypeAndUserSend_IdOrderByCreateDateDesc(ConstantsPayTypeUtils.PAY_WITHDRAW_TYPE, id, pageable);
+    }
+    
+    /**
+     * Tìm kiếm Pay Theo id
+     *
+     * @param payId - id Pay
+     * @return
+     */
+    @Override
+    public Pay findPayById(Long payId) {
+        return payRepository.findById(payId).orElse(null);
+    }
+    
+    /**
+     * Thực Hiện Lệnh Hủy/ Từ Chối Giao dịch
+     *
+     * @param id
+     */
+    @Override
+    public boolean cancelWithDraw(Long id) {
+        return payRepository.cancelWithDraw(id);
+    }
+    
+    /**
+     * Tạo mới đăng ký rút tiền
+     *
+     * @param userId
+     * @param money
+     * @return
+     */
+    @Override
+    public Long newPayWithDraw(Long userId, Double money) {
+        return payRepository.saveWithDrawPay(userId, money, ConstantsPayTypeUtils.PAY_WITHDRAW_TYPE, ConstantsStatusUtils.PAY_WAIT);
     }
 }

@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.PaySummary;
+import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
@@ -42,19 +43,43 @@ public interface PayService {
     
     /**
      * Lấy danh sách giao dịch của User theo
-     * @param id - id của User
+     *
+     * @param id         - id của User
      * @param pagenumber - biến số trang
-     * @param size - biến size
+     * @param size       - biến size
      * @return
      */
     Page< PaySummary > findPageByUserId(Long id, Integer pagenumber, Integer size);
     
     /**
      * Lấy danh sách giao dịch rút tiền của người dùng
+     *
      * @param id
      * @param pagenumber
      * @param size
      * @return
      */
-    Page<PaySummary> findPagePayWithdrawByUserId(Long id, Integer pagenumber, Integer size);
+    Page< PaySummary > findPagePayWithdrawByUserId(Long id, Integer pagenumber, Integer size);
+    
+    /**
+     * Tìm kiếm Pay Theo id
+     *
+     * @param payId - id Pay
+     * @return
+     */
+    Pay findPayById(Long payId);
+    
+    /**
+     * Thực Hiện Lệnh Hủy/ Từ Chối Giao dịch
+     * @param id
+     */
+    boolean cancelWithDraw(Long id);
+    
+    /**
+     * Tạo mới đăng ký rút tiền
+     * @param userId
+     * @param money
+     * @return
+     */
+    Long newPayWithDraw(Long userId, Double money);
 }

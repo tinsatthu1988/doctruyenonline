@@ -12,7 +12,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "src/main/resources/static/bower/"
   ],
   "dependencies": {
     "Font-Awesome": "https://github.com/FortAwesome/Font-Awesome.git#^5.6.0",

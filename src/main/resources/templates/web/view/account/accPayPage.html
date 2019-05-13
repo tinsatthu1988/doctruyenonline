@@ -28,66 +28,63 @@
                                 <section class="col-lg-10 col-md-9" style="background: white;">
                                     <section class="row">
                                         <section class="col-12">
-                                            <section id="navbar-custom">
+                                            <div class="classic-tabs">
                                                 <!-- Nav tabs -->
-                                                <ul class="nav nav-tabs nav-custom" role="tablist">
-                                                    <li class="nav-item active">
-                                                        <a class="nav-link active" data-toggle="tab" href="#truyen-detail-introduction" role="tab">
-                                                            Nạp Bằng MoMo
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#truyen-detail-story" role="tab">
-                                                            Nạp Bằng ViettelPay
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <!-- Tab panes {Fade}  -->
-                                                <section class="tab-content">
-                                                    <section class="tab-pane fade show active" id="truyen-detail-introduction" name="truyen-detail-introduction" role="tabpanel">
-                                                        <section class="row">
-                                                            <section class="col-sm-12">
-                                                                <div class="text-center">
-                                                                    <div class="text-center" style="margin-top: 20px;">
-                                                                        <p><span class="font-weight-bold">Bước 1:</span> Dùng App MoMo quét mã QR bên dưới</p>
-                                                                        <p><img class="img-fluid lazyload" th:data-src="${urlPayMoMO}" alt=""></p>
-                                                                        <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong MoMo, nhập nội dung chuyển tiền là: <span
-                                                                                class="font-weight-bold" th:text="${codePay}"></span>
-                                                                            (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold" th:text="${codePay}"></span>, không thêm gì khác). Điền số tiền
-                                                                            bằng số đậu bạn muốn
-                                                                            nạp (1 đậu = 1 đồng)</p>
-                                                                        <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="alert alert-primary" role="alert">
-                                                                    Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
-                                                                </div>
-                                                            </section>
-                                                        </section>
-                                                    </section>
-                                                    <section class="tab-pane fade" id="truyen-detail-story"
-                                                             name="truyen-detail-story"
-                                                             role="tabpanel">
-                                                        <section class="truyen-detail-chap" id="truyen-detail-chap">
-                                                            <div class="text-center">
-                                                                <div class="text-center" style="margin-top: 20px;">
-                                                                    <p><span class="font-weight-bold">Bước 1:</span> Dùng App ViettelPay quét mã QR bên dưới</p>
-                                                                    <p><img class="img-fluid lazyload" th:data-src="${urlPayViettel}" alt=""></p>
-                                                                    <p>hoặc chọn chuyển tiền tới số điện thoại <span class="font-weight-bold">0366 235 661</span></p>
-                                                                    <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong ViettelPay, nhập nội dung chuyển tiền là: <span
-                                                                            class="font-weight-bold" th:text="${codePay}"></span> (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold"
-                                                                                                                                                                      th:text="${codePay}"></span>,
-                                                                        không thêm gì khác). Điền số tiền bằng số đậu bạn muốn nạp (1 đậu = 1 đồng)</p>
-                                                                    <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
-                                                                </div>
+                                                <div class="tabs-wrapper">
+                                                    <ul class="nav tabs-blue" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light active waves-effect waves-light" data-toggle="tab" href="#panel36" role="tab">Nạp Tiền Bằng MoMo</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel37" role="tab">Nạp Tiền Bằng Vietel</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Tab panels -->
+
+                                                <div class="tab-content card">
+                                                    <!-- Panel 1 -->
+                                                    <div class="tab-pane fade in show active" id="panel36" role="tabpanel">
+                                                        <div class="text-center">
+                                                            <div class="text-center" style="margin-top: 20px;">
+                                                                <p><span class="font-weight-bold">Bước 1:</span> Dùng App MoMo quét mã QR bên dưới</p>
+                                                                <p><img class="img-fluid lazyload" th:data-src="${urlPayMoMO}" alt=""></p>
+                                                                <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong MoMo, nhập nội dung chuyển tiền là: <span
+                                                                        class="font-weight-bold" th:text="${codePay}"></span>
+                                                                    (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold" th:text="${codePay}"></span>, không thêm gì khác). Điền số
+                                                                    tiền
+                                                                    bằng số đậu bạn muốn
+                                                                    nạp (1 đậu = 1 đồng)</p>
+                                                                <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
                                                             </div>
-                                                            <div class="alert alert-primary" role="alert">
-                                                                Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
+                                                        </div>
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 1 -->
+                                                    <!-- Panel 2 -->
+                                                    <div class="tab-pane fade" id="panel37" role="tabpanel">
+                                                        <div class="text-center">
+                                                            <div class="text-center" style="margin-top: 20px;">
+                                                                <p><span class="font-weight-bold">Bước 1:</span> Dùng App ViettelPay quét mã QR bên dưới</p>
+                                                                <p><img class="img-fluid lazyload" th:data-src="${urlPayViettel}" alt=""></p>
+                                                                <p>hoặc chọn chuyển tiền tới số điện thoại <span class="font-weight-bold">0366 235 661</span></p>
+                                                                <p><span class="font-weight-bold">Bước 2:</span> Tại mục chuyển tiền trong ViettelPay, nhập nội dung chuyển tiền là: <span
+                                                                        class="font-weight-bold" th:text="${codePay}"></span> (bắt buộc phải ghi và chỉ ghi <span class="font-weight-bold"
+                                                                                                                                                                  th:text="${codePay}"></span>,
+                                                                    không thêm gì khác). Điền số tiền bằng số đậu bạn muốn nạp (1 đậu = 1 đồng)</p>
+                                                                <p><span class="font-weight-bold">Bước 3:</span> Số đậu bạn nạp sẽ được cộng trong 30 phút - 1 giờ</p>
                                                             </div>
-                                                        </section>
-                                                    </section>
-                                                </section>
-                                            </section>
+                                                        </div>
+                                                        <div class="alert alert-danger" role="alert">
+                                                            Nếu có lỗi xảy ra xin mời liên hệ admin để giải quyết
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 2 -->
+                                                </div>
+                                            </div>
                                         </section>
                                     </section>
                                 </section>

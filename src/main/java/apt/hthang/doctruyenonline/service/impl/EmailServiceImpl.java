@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public boolean sendSimpleMessage(Mail mail) {
+    public boolean sendSimpleMessage(Mail mail, String template) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
@@ -38,8 +38,8 @@ public class EmailServiceImpl implements EmailService {
 
             Context context = new Context();
             context.setVariables(mail.getModel());
-            String html = templateEngine.process("web/mail/forgot-password", context);
-
+            String html = templateEngine.process(template, context);
+            
             helper.setTo(mail.getTo());
             helper.setText(html, true);
             helper.setSubject(mail.getSubject());

@@ -17,6 +17,7 @@ import java.util.Date;
 
 @Repository
 public interface PayRepository extends JpaRepository< Pay, Long > {
+    
     /**
      * Thực Hiện Thanh Toán Chapter Vip
      *
@@ -48,7 +49,47 @@ public interface PayRepository extends JpaRepository< Pay, Long > {
      */
     boolean existsByChapter_IdAndUserSend_IdAndCreateDateBetweenAndTypeAndStatus(Long chID, Long uID, Date startDate, Date endDate, Integer payType, Integer payStatus);
     
+    /**
+     * Lấy danh sách Giao Dịch Theo
+     *
+     * @param userReceivedId
+     * @param userSendId
+     * @param pageable
+     * @return
+     */
     Page< PaySummary > findByUserReceived_IdOrUserSend_IdOrderByCreateDateDesc(Long userReceivedId, Long userSendId, Pageable pageable);
     
+    /**
+     * Lấy danh sách Giao Dịch Rút Tiền Theo
+     *
+     * @param type
+     * @param userSendId
+     * @param pageable
+     * @return
+     */
     Page< PaySummary > findByTypeAndUserSend_IdOrderByCreateDateDesc(Integer type, Long userSendId, Pageable pageable);
+    
+    /**
+     * Thực Hiện Từ Chối/ Hủy Giao dịch Rút tiền
+     *
+     * @param id
+     * @return true - nếu thanh toán thành công / false - nếu thanh toán thất bại và roll back dữ liệu
+     */
+    @Procedure("cancelWithDraw")
+    boolean cancelWithDraw(@Param("payId") Long id);
+    
+    /**
+     * Thực Hiện Thanh Toán Đăng ký rút tiền
+     *
+     * @param userId
+     * @param money
+     * @param payStatus
+     * @param payType
+     * @return
+     */
+    @Procedure("savePayDraw")
+    Long saveWithDrawPay(@Param("userId") Long userId,
+                            @Param("money") Double money,
+                            @Param("payType") Integer payType,
+                            @Param("payStatus") Integer payStatus);
 }
