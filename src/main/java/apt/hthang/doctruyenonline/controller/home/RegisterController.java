@@ -67,7 +67,7 @@ public class RegisterController {
         getMenuAndInfo(model, titleRegisterPage);
         
         model.addAttribute("user", new User());
-        return "web/view/registerPage";
+        return "view/registerPage";
     }
     
     @PostMapping
@@ -76,7 +76,7 @@ public class RegisterController {
         if (hasError) {
             getMenuAndInfo(model, titleRegisterPage);
             model.addAttribute("user", user);
-            return "web/view/registerPage";
+            return "view/registerPage";
         }
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);

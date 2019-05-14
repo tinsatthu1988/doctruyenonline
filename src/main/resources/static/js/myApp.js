@@ -282,7 +282,7 @@ window.TruyenOnlineScript = {
                     slideShadows: true,
                 },
                 spaceBetween: 30,
-                loop:true,
+                loop: true,
                 thumbs: {
                     swiper: info,
                 },
@@ -294,7 +294,7 @@ window.TruyenOnlineScript = {
         isMobile: function (agent) {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent || window.navigator.userAgent);
         }
-    },
+    }
 };
 
 $('document').ready(function () {

@@ -103,7 +103,7 @@ public class SearchController {
         
         loadData(txtKeyWord, ConstantsUtils.PAGE_DEFAULT, model);
         
-        return "web/view/searchPage";
+        return "view/searchPage";
     }
     
     @RequestMapping(value = "/{txtKeyWord}/trang-{page}")
@@ -117,6 +117,6 @@ public class SearchController {
         
         loadData(txtKeyWord, pagenumber, model);
         
-        return "web/view/searchPage";
+        return "view/searchPage";
     }
 }

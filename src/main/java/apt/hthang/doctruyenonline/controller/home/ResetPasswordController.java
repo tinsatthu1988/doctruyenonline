@@ -92,7 +92,7 @@ public class ResetPasswordController {
         
         model.addAttribute("user", new ForgotUser());
         
-        return "web/view/forgotPage";
+        return "view/forgotPage";
     }
     
     @PostMapping
@@ -121,7 +121,7 @@ public class ResetPasswordController {
         if (hasError) {
             getMenuAndInfo(model, titleForgot);
             model.addAttribute("user", forgotUser);
-            return "web/view/forgotPage";
+            return "view/forgotPage";
         }
         return "redirect:/";
     }

@@ -3225,6 +3225,10 @@ section .section-title {
     color: #000000;
 }
 
+#content .list-group-item.active {
+    color: #ffffff;
+}
+
 #content .list-group-item:hover {
     background-color: rgba(0, 123, 255, 0.73);
     color: #ffffff;

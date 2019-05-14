@@ -173,4 +173,20 @@ public class ChapterServiceImpl implements ChapterService {
         return chapterRepository.findChapterByIdAndStatusIn(chapterId, listStatus)
                 .orElse(null);
     }
+    
+        /**
+     * Đếm Số Chương Của Truyện
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Long countChapterByStory(Long id) {
+        return chapterRepository.countChapterByStory_Id(id);
+    }
+    
+    @Override
+    public Chapter saveNewChapter(Chapter chapter) {
+        return chapterRepository.save(chapter);
+    }
 }

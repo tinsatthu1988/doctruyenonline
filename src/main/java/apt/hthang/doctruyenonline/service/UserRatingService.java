@@ -48,4 +48,5 @@ public interface UserRatingService {
      */
     Float saveRating(Long uID, Long sID, String locationIP, Integer rating);
     
+    
 }

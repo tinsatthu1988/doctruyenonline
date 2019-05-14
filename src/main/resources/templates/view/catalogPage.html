@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org"  lang="vi">
 <head>
-    <th:block th:insert="/web/fragments/header"></th:block>
+    <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body>
-    <th:block th:insert="/web/fragments/loading"></th:block>
+    <th:block th:insert="/fragments/loading"></th:block>
     <section class="page-wrapper">
         <!--NavBar-->
-        <section th:replace="/web/fragments/navbar"></section>
+        <section th:replace="/fragments/navbar"></section>
 
         <!--Body-->
         <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
@@ -47,7 +46,7 @@
                                             <h1 class="title text-uppercase"
                                             th:text="${title}"></h1>
                                         </section>
-                                        <section th:replace="web/pagination/catalogPagination"></section>
+                                        <section th:replace="pagination/catalogPagination"></section>
                                     </section>
                                 </section>
                                 <section class="col-12 col-sm-12 col-md-4">
@@ -55,7 +54,7 @@
                                         <section class="block-content">
                                             <section class="editors-choice-slider js-editors-choice-slider">
                                                 <h2 class="shadow-1">ĐỌC NHIỀU</h2>
-                                                <section th:replace="web/slide/catalogSlide"></section>
+                                                <section th:replace="/slide/catalogSlide"></section>
                                             </section>
                                         </section>
                                     </section>
@@ -66,7 +65,7 @@
                 </section>
             </section>
             <!--Footer-->
-            <section th:replace="/web/fragments/footer"></section>
+            <section th:replace="/fragments/footer"></section>
         </section>
     </body>
     </html>

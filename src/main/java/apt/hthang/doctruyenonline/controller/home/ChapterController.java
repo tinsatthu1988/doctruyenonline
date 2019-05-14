@@ -111,7 +111,7 @@ public class ChapterController {
         if (chapter.getUser().getAvatar() == null || chapter.getUser().getAvatar().isEmpty()) {
             chapter.getUser().setAvatar(ConstantsUtils.AVATAR_DEFAULT);
         }
-        return "web/view/chapterPage";
+        return "view/chapterPage";
     }
     
     // Kiểm Tra Người Dùng Đã Đăng Nhập Chưa

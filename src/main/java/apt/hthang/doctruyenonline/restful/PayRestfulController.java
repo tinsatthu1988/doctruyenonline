@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Linh
+ * @author HuyThang
  * @project doctruyenonline
  */
 @RestController
@@ -133,7 +133,7 @@ public class PayRestfulController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new HttpUserLockedException();
         }
-        if (vnd % 10000 == 0 && vnd >= 50000)
+        if (vnd % 10000 != 0 && vnd < 50000)
             throw new HttpMyException("Số Tiền Cần đổi phải chia hết cho 10000! Rút ít nhất 50000VND");
         if (user.getGold() < money)
             throw new HttpMyException(" Số dư tài khoản bạn không đủ!");

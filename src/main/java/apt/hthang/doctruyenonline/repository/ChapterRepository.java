@@ -123,4 +123,13 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      * @return Optional<Chapter>
      */
     Optional< Chapter > findChapterByIdAndStatusIn(Long chapterId, List< Integer > listStatus);
+    
+    /**
+     * Đếm số chương đã đăng của Story
+     *
+     * @param id
+     * @return
+     */
+    Long countChapterByStory_Id(Long id);
+    
 }

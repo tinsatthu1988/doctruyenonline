@@ -102,4 +102,13 @@ public interface ChapterService {
      * @return chapter - nếu có dữ liệu thỏa mãn điều kiện / null - nếu không có dữ liệu thỏa mãn điều kiện
      */
     Chapter findChapterByIdAndStatus(Long chapterId, List< Integer > listStatus);
+    
+    /**
+     * Đếm Số Chương Của Truyện
+     * @param id
+     * @return
+     */
+    Long countChapterByStory(Long id);
+    
+    Chapter saveNewChapter(Chapter chapter);
 }

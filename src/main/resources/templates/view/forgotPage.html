@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="vi">
 <head>
-    <th:block th:insert="/web/fragments/header"></th:block>
+    <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body class="page-login">
-    <th:block th:insert="web/fragments/loading"></th:block>
+    <th:block th:insert="/fragments/loading"></th:block>
     <section class="page-wrapper">
-        <section th:replace="web/fragments/navbar"></section>
+        <section th:replace="/fragments/navbar"></section>
         <section class="truyen-main">
-            <script type="text/javascript" sec:authorize="isAuthenticated()">
+            <script type="text/javascript" sec:authorize="isAuthenticated()" `>
                 window.location = '[[@{/}]]';
             </script>
             <section id="content" class="container">
@@ -18,11 +18,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         <section class="container">
                             <section class="row truyen-login-row">
                                 <section class="col-lg-4 login-sec">
-                                    <h2 class="text-center text-uppercase">Đăng ký</h2>
-                                    <form th:replace="web/form/registerForm"></form>
+                                    <h2 class="text-center text-uppercase">Quên Mật Khẩu</h2>
+                                    <form th:replace="web/form/forgotForm"></form>
                                 </section>
                                 <section class="col-lg-8 banner-sec pl-0 pr-0">
-                                    <section th:replace="web/slide/loginSlide"></section>
+                                    <section th:replace="/slide/loginSlide"></section>
                                 </section>
                             </section>
                         </section>
@@ -30,7 +30,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </section>
             </section>
         </section>
-        <section th:replace="web/fragments/footer"></section>
+        <section th:replace="/fragments/footer"></section>
     </section>
 </body>
 </html>

@@ -50,7 +50,7 @@ function accountAdModCtrl($scope, WebService) {
             var startPage = Math.max(1, $scope.currentPage - 2);
             var endPage = Math.min(startPage + 4, $scope.totalPages);
             var pages = [];
-            for (let i = startPage; i <= endPage; i++) {
+            for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
             }
             $scope.page = pages;
@@ -65,7 +65,7 @@ function accountAdModCtrl($scope, WebService) {
         })
     };
 
-    $scope.deleteStoryAdmin = function (id) {
+    $scope.deleteStory= function (id) {
         var url = window.location.origin + '/api/deleteAdModStory/' + id;
         WebService.deleteData(url).then(function (response) {
             swal({
@@ -109,7 +109,7 @@ function payCtrl($scope, WebService) {
             var startPage = Math.max(1, $scope.currentPage - 2);
             var endPage = Math.min(startPage + 4, $scope.totalPages);
             var pages = [];
-            for (let i = startPage; i <= endPage; i++) {
+            for (var i = startPage; i <= endPage; i++) {
                 pages.push(i);
             }
             $scope.page = pages;

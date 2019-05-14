@@ -115,7 +115,7 @@ function accDrawPayCtrl(WebService, $scope) {
             }).then(function () {
                 $scope.getPayPage(1);
                 $scope.reset();
-                $('#modalLRFormDemo').modal('hide');
+                templates.modal('hide');
                 $("#submitWD").attr("disabled", false).val("Đăng Ký");
                 $('#numberExample').attr('readonly', false);
                 $('#canSubmit').attr("disabled", false);

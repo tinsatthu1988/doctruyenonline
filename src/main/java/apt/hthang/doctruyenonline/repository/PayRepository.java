@@ -92,4 +92,12 @@ public interface PayRepository extends JpaRepository< Pay, Long > {
                             @Param("money") Double money,
                             @Param("payType") Integer payType,
                             @Param("payStatus") Integer payStatus);
+    
+    /**
+     * Đếm số thanh toán của Truyện
+     * @param storyId
+     * @param id
+     * @return
+     */
+    Long countByStory_IdOrChapter_Story_Id(Long id, Long storyId);
 }

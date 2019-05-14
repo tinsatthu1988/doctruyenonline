@@ -50,7 +50,7 @@ public class HomeController {
     public String homePage(Model model) {
         
         getMenuAndInfo(model, titleHomePage);
-        return "web/view/homePage";
+        return "view/homePage";
     }
     
     @RequestMapping(value = "/dang-nhap")
@@ -59,7 +59,7 @@ public class HomeController {
             return "redirect:/";
         }
         getMenuAndInfo(model, titleLoginPage);
-        return "web/view/loginPage";
+        return "view/loginPage";
     }
     
     @RequestMapping(value = "/dang-xuat")

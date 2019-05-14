@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <th:block th:insert="/fragments/header"></th:block>
+</head>
+<body class="page-login">
+<th:block th:insert="/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
+
+    <!--Body-->
+    <section th:replace="/error/homeError"></section>
+
+    <!--Footer-->
+    <section th:replace="/fragments/footer"></section>
+</section>
+</body>
+</html>

@@ -215,4 +215,15 @@ StoryRepository extends JpaRepository< Story, Long > {
      * @return
      */
     List< StorySlide > findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(String searchText, List< Integer > listStatus);
+    
+    /**
+     * Lấy danh sách Truyện theo Id người đăng và Status
+     *
+     * @param id
+     * @param status
+     * @param pageable
+     * @return
+     */
+    Page< StoryUser > findByUser_IdAndStatusOrderByUpdateDateDesc(Long id, Integer status, Pageable pageable);
+    
 }

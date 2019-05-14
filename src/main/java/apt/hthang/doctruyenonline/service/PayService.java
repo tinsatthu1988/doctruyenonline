@@ -82,4 +82,11 @@ public interface PayService {
      * @return
      */
     Long newPayWithDraw(Long userId, Double money);
+    
+    /**
+     * Đếm số thanh toán của Truyện
+     * @param id
+     * @return
+     */
+    Long countPayOfStory(Long id);
 }

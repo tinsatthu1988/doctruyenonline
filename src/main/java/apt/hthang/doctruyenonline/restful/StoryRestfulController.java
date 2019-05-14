@@ -5,12 +5,13 @@ import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.entity.UserRating;
 import apt.hthang.doctruyenonline.exception.ExceptionResponse;
+import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.HttpNotLoginException;
+import apt.hthang.doctruyenonline.exception.HttpUserLockedException;
 import apt.hthang.doctruyenonline.projections.StoryMember;
 import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.service.StoryService;
-import apt.hthang.doctruyenonline.service.UserRatingService;
-import apt.hthang.doctruyenonline.service.UserService;
+import apt.hthang.doctruyenonline.projections.StoryUser;
+import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -44,6 +42,10 @@ public class StoryRestfulController {
     private UserService userService;
     @Autowired
     private UserRatingService userRatingService;
+    @Autowired
+    private ChapterService chapterService;
+    @Autowired
+    private PayService payService;
     
     //Lấy Top 3 Truyện mới đăng của Converter
     @PostMapping(value = "/storyOfConverter")
@@ -126,4 +128,47 @@ public class StoryRestfulController {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
     
+    @PostMapping(value = "/list_story")
+    public ResponseEntity< ? > getStoryByAccount(@RequestParam("pagenumber") int pagenumber,
+                                                 @RequestParam("status") int status,
+                                                 Principal principal)
+            throws HttpNotLoginException {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        Page< StoryUser > pageStory = storyService.findPageStoryByUser(user.getId(), pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT, status);
+        return new ResponseEntity<>(pageStory, HttpStatus.OK);
+    }
+    
+    @DeleteMapping(value = "/delete_story/{id}")
+    public ResponseEntity< ? > deleteStory(@PathVariable("id") Long id, Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        Story story = storyService.findStoryById(id);
+        if (story == null)
+            throw new HttpMyException("Truyện Không Tồn Tại hoặc Đã Bị Xóa");
+        if (!story.getUser().getId().equals(user.getId()))
+            throw new HttpMyException("Bạn không có quyền Xóa Truyện Không phải bản thân đăng!");
+        Long countChapter = chapterService.countChapterByStory(story.getId());
+        Long countPay = payService.countPayOfStory(id);
+        Long countRating = userRatingService.countRatingStory(id);
+        if (countChapter > 0 || countPay > 0 || countRating > 0
+                || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_COMPLETED)
+                || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_GOING_ON))
+            throw new HttpMyException("Không thể xóa truyện!");
+        storyService.deleteStoryById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

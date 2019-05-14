@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/fragments/header"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/accStoryController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+</head>
+<body ng-app="ngApp" ng-controller="accStoryCtrl" th:ng-init="|init()|">
+<th:block th:insert="/fragments/loading"></th:block>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container container-full mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="container-fluid">
+                        <section class="featured-content" id="content">
+                            <section class="row">
+                                <th:block th:include="/nav-tabs/navbar_left"></th:block>
+                                <section class="col-lg-10 col-md-9" style="background: white;">
+                                    <section class="row">
+                                        <section class="col-12">
+                                            <div class="classic-tabs">
+                                                <!-- Nav tabs -->
+                                                <div class="tabs-wrapper">
+                                                    <ul class="nav tabs-blue" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light active waves-effect waves-light" data-toggle="tab" href="#panel36" role="tab">Đang Làm</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel37" role="tab">Hoàn Thành</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel38" role="tab">Tạm Dừng</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="#panel39" role="tab">Khóa</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Tab panels -->
+
+                                                <div class="tab-content card">
+                                                    <!-- Panel 1 -->
+                                                    <div class="tab-pane fade in show active" id="panel36" role="tabpanel">
+                                                        <table class="table table-striped" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="font-weight-bolder">ID
+                                                                </th>
+                                                                <th class="font-weight-bolder">Tên truyện
+                                                                </th>
+                                                                <th class="font-weight-bolder">Đánh Giá</th>
+                                                                <th class="font-weight-bolder">Đề Cử</th>
+                                                                <th class="font-weight-bolder">Trạng Thái</th>
+                                                                <th class="font-weight-bolder">Thao Tác
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="listOnGoing.length === 0" class="text-center">
+                                                                <td colspan="6">Bạn chưa có truyện đăng nào!</td>
+                                                            </tr>
+                                                            <tr ng-show="listOnGoing.length !== 0" ng-repeat="item in listOnGoing">
+                                                                <td>{{item.id}}</td>
+                                                                <td>
+                                                                    <a ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
+                                                                        {{item.vnName}}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    {{item.rating}}
+                                                                </td>
+                                                                <td>
+                                                                    {{item.countAppoint}}
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-show="item.dealStatus === 0" class="badge badge-pill badge-primary">Free </span>
+                                                                    <span ng-show="item.dealStatus === 1" type="button" class="badge badge-pill badge-success">Vip </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a ng-href="/tai-khoan/them_chuong/{{item.id}}/" class="badge badge-pill badge-info">Thêm chương</a>
+                                                                    <a class="badge badge-pill badge-info" ng-href="/tai-khoan/sua_truyen/{{item.id}}/">Sửa</a>
+                                                                    <a ng-href="/tai-khoan/list_chuong/{{item.id}}/" class="badge badge-pill badge-info">DSC</a>
+                                                                    <a ng-href="{{item.cnLink}}" target="_blank" class="badge badge-pill badge-info">Kiểm Tra</a>
+                                                                    <a ng-click="deleteStory(item.id, item.vnName)" class="badge badge-pill badge-danger"><i
+                                                                            class="fas fa-times mx-1"></i> Xóa</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div aria-label="Page navigation example" ng-show="totalOnGoingPages>1">
+                                                            <ul class="pagination pg-blue justify-content-end">
+                                                                <li class="page-item" ng-show="currentOnGoingPage != 1">
+                                                                    <a class="page-link" ng-click="getListStoryOnGoing(currentOnGoingPage - 1)">
+                                                                        <i class="fas fa-step-backward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li ng-repeat="i in pageOnGoing" ng-class="i===currentOnGoingPage?'page-item active': 'page-item'">
+                                                                    <a ng-class="i===currentOnGoingPage?'page-link disabled': 'page-link'"
+                                                                       ng-click="getListStoryOnGoing(i)">{{i}}</a>
+                                                                </li>
+                                                                <li class="page-item" ng-show="currentOnGoingPage != totalOnGoingPages">
+                                                                    <a class="page-link" ng-click="getListStoryOnGoing(currentOnGoingPage + 1)">
+                                                                        <i class="fas fa-step-forward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 1 -->
+                                                    <!-- Panel 2 -->
+                                                    <div class="tab-pane fade" id="panel37" role="tabpanel">
+                                                        <table class="table table-striped" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="font-weight-bolder">ID
+                                                                </th>
+                                                                <th class="font-weight-bolder">Tên truyện
+                                                                </th>
+                                                                <th class="font-weight-bolder">Đánh Giá</th>
+                                                                <th class="font-weight-bolder">Đề Cử</th>
+                                                                <th class="font-weight-bolder">Trạng Thái</th>
+                                                                <th class="font-weight-bolder">Thao Tác
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="listComplte.length === 0" class="text-center">
+                                                                <td colspan="6">Bạn chưa có truyện đăng hoàn thành nào!</td>
+                                                            </tr>
+                                                            <tr ng-show="listComplte.length !== 0" ng-repeat="item in listComplte">
+                                                                <td>{{item.id}}</td>
+                                                                <td>
+                                                                    <a ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
+                                                                        {{item.vnName}}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    {{item.rating}}
+                                                                </td>
+                                                                <td>
+                                                                    {{item.countAppoint}}
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-show="item.dealStatus === 0" class="badge badge-pill badge-primary">Free </span>
+                                                                    <span ng-show="item.dealStatus === 1" type="button" class="badge badge-pill badge-success">Vip </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a ng-href="/tai-khoan/them_chuong/{{item.id}}/" class="badge badge-pill badge-info">Thêm chương</a>
+                                                                    <a class="badge badge-pill badge-info" ng-href="/tai-khoan/sua_truyen/{{item.id}}/">Sửa</a>
+                                                                    <a ng-href="/tai-khoan/list_chuong/{{item.id}}/" class="badge badge-pill badge-info">DSC</a>
+                                                                    <a ng-href="{{item.cnLink}}" target="_blank" class="badge badge-pill badge-info">Kiểm Tra</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div aria-label="Page navigation example" ng-show="totalCompltePages>1">
+                                                            <ul class="pagination pg-blue justify-content-end">
+                                                                <li class="page-item" ng-show="currentCompltePage != 1">
+                                                                    <a class="page-link" ng-click="getListStoryComplte(currentCompltePage - 1)">
+                                                                        <i class="fas fa-step-backward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li ng-repeat="i in pageComplte" ng-class="i===currentCompltePage?'page-item active': 'page-item'">
+                                                                    <a ng-class="i===currentCompltePage?'page-link disabled': 'page-link'"
+                                                                       ng-click="getListStoryComplte(i)">{{i}}</a>
+                                                                </li>
+                                                                <li class="page-item" ng-show="currentCompltePage != totalCompltePages">
+                                                                    <a class="page-link" ng-click="getListStoryComplte(currentCompltePage + 1)">
+                                                                        <i class="fas fa-step-forward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 2 -->
+                                                    <!-- Panel 3 -->
+                                                    <div class="tab-pane fade" id="panel38" role="tabpanel">
+                                                        <table class="table table-striped" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="font-weight-bolder">ID
+                                                                </th>
+                                                                <th class="font-weight-bolder">Tên truyện
+                                                                </th>
+                                                                <th class="font-weight-bolder">Đánh Giá</th>
+                                                                <th class="font-weight-bolder">Đề Cử</th>
+                                                                <th class="font-weight-bolder">Trạng Thái</th>
+                                                                <th class="font-weight-bolder">Thao Tác
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="listStop.length === 0" class="text-center">
+                                                                <td colspan="6">Bạn chưa có truyện tạm dừng nào!</td>
+                                                            </tr>
+                                                            <tr ng-show="listStop.length !== 0" ng-repeat="item in listStop">
+                                                                <td>{{item.id}}</td>
+                                                                <td>
+                                                                    <a ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
+                                                                        {{item.vnName}}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    {{item.rating}}
+                                                                </td>
+                                                                <td>
+                                                                    {{item.countAppoint}}
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-show="item.dealStatus === 0" class="badge badge-pill badge-primary">Free </span>
+                                                                    <span ng-show="item.dealStatus === 1" type="button" class="badge badge-pill badge-success">Vip </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a ng-href="/tai-khoan/them_chuong/{{item.id}}/" class="badge badge-pill badge-info">Thêm chương</a>
+                                                                    <a class="badge badge-pill badge-info" ng-href="/tai-khoan/sua_truyen/{{item.id}}/">Sửa</a>
+                                                                    <a ng-href="/tai-khoan/list_chuong/{{item.id}}/" class="badge badge-pill badge-info">DSC</a>
+                                                                    <a ng-href="{{item.cnLink}}" target="_blank" class="badge badge-pill badge-info">Kiểm Tra</a>
+                                                                    <a ng-click="deleteStory(item.id, item.vnName)" class="badge badge-pill badge-danger"><i
+                                                                            class="fas fa-times mx-1"></i> Xóa</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div aria-label="Page navigation example" ng-show="totalStopPages>1">
+                                                            <ul class="pagination pg-blue justify-content-end">
+                                                                <li class="page-item" ng-show="currentStopPage != 1">
+                                                                    <a class="page-link" ng-click="getListStoryStop(currentStopPage - 1)">
+                                                                        <i class="fas fa-step-backward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li ng-repeat="i in pageStop" ng-class="i===currentStopPage?'page-item active': 'page-item'">
+                                                                    <a ng-class="i===currentStopPage?'page-link disabled': 'page-link'"
+                                                                       ng-click="getListStoryStop(i)">{{i}}</a>
+                                                                </li>
+                                                                <li class="page-item" ng-show="currentStopPage != totalStopPages">
+                                                                    <a class="page-link" ng-click="getListStoryStop(currentStopPage + 1)">
+                                                                        <i class="fas fa-step-forward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 3 -->
+                                                    <!-- Panel 4-->
+                                                    <div class="tab-pane fade" id="panel39" role="tabpanel">
+                                                        <table class="table table-striped" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="font-weight-bolder">ID
+                                                                </th>
+                                                                <th class="font-weight-bolder">Tên truyện
+                                                                </th>
+                                                                <th class="font-weight-bolder">Đánh Giá</th>
+                                                                <th class="font-weight-bolder">Đề Cử</th>
+                                                                <th class="font-weight-bolder">Trạng Thái</th>
+                                                                <th class="font-weight-bolder">Thao Tác
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-show="listHidden.length === 0" class="text-center">
+                                                                <td colspan="6">Bạn chưa có truyện nào bị khóa!</td>
+                                                            </tr>
+                                                            <tr ng-show="listHidden.length !== 0" ng-repeat="item in listHidden">
+                                                                <td>{{item.id}}</td>
+                                                                <td>
+                                                                    <a ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
+                                                                        {{item.vnName}}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    {{item.rating}}
+                                                                </td>
+                                                                <td>
+                                                                    {{item.countAppoint}}
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-show="item.dealStatus === 0" class="badge badge-pill badge-primary">Free </span>
+                                                                    <span ng-show="item.dealStatus === 1" type="button" class="badge badge-pill badge-success">Vip </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a ng-href="/tai-khoan/list_chuong/{{item.id}}/" class="badge badge-pill badge-info">DSC</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div aria-label="Page navigation example" ng-show="totalHiddenPages>1">
+                                                            <ul class="pagination pg-blue justify-content-end">
+                                                                <li class="page-item" ng-show="currentHiddenPage != 1">
+                                                                    <a class="page-link" ng-click="getListStoryHidden(currentHiddenPage - 1)">
+                                                                        <i class="fas fa-step-backward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li ng-repeat="i in pageHidden" ng-class="i===currentHiddenPage?'page-item active': 'page-item'">
+                                                                    <a ng-class="i===currentHiddenPage?'page-link disabled': 'page-link'"
+                                                                       ng-click="getListStoryHidden(i)">{{i}}</a>
+                                                                </li>
+                                                                <li class="page-item" ng-show="currentHiddenPage != totalHiddenPages">
+                                                                    <a class="page-link" ng-click="getListStoryHidden(currentHiddenPage + 1)">
+                                                                        <i class="fas fa-step-forward fa-sm"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Panel 4 -->
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!--Footer-->
+    <section th:replace="/fragments/footer"></section>
+</body>
+</html>

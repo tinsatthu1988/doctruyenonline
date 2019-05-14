@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
 import apt.hthang.doctruyenonline.service.StoryService;
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Huy Thang
@@ -123,7 +125,7 @@ public class StoryServiceImpl implements StoryService {
      * @return StorySummar - nếu tồn tại truyện thỏa mãn điều kiện
      */
     @Override
-    public StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception{
+    public StorySummary findStoryByStoryIdAndStatus(Long storyId, List< Integer > listStoryStatus) throws Exception {
         return storyRepository
                 .findByIdAndStatusIn(storyId, listStoryStatus)
                 .orElseThrow(NotFoundException::new);
@@ -150,7 +152,7 @@ public class StoryServiceImpl implements StoryService {
      * @return Story - nếu tồn tại truyện thỏa mãn điều kiện
      */
     @Override
-    public Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus){
+    public Story findStoryByIdAndStatus(Long storyId, List< Integer > listStoryStatus) {
         return storyRepository
                 .findStoryByIdAndStatusIn(storyId, listStoryStatus)
                 .orElse(null);
@@ -256,7 +258,7 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public List< StorySlide > findListStoryBySearchKey(String searchText, List< Integer > listStatus) {
         return storyRepository
-                .findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(searchText,listStatus);
+                .findTop10ByVnNameContainingAndStatusInOrderByVnNameAsc(searchText, listStatus);
     }
     
     /**
@@ -265,10 +267,71 @@ public class StoryServiceImpl implements StoryService {
      * @param id         - id của User đăng
      * @param pagenumber - biến số trang
      * @param size       - biến size
+     * @param status     - Trạng Thái Truyện
      * @return
      */
     @Override
-    public Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size) {
-        return null;
+    public Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size, Integer status) {
+        Pageable pageable = PageRequest.of(pagenumber - 1, size);
+        return storyRepository.findByUser_IdAndStatusOrderByUpdateDateDesc(id, status, pageable);
+    }
+    
+    /**
+     * Tìm Truyện Theo id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Story findStoryById(Long id) {
+        return storyRepository.findById(id).orElse(null);
+    }
+    
+    /**
+     * Xóa truyện Theo Id
+     *
+     * @param id
+     */
+    @Override
+    public void deleteStoryById(Long id) {
+        storyRepository.deleteById(id);
+    }
+    
+    /**
+     * Đăng Truyện mới
+     *
+     * @param story
+     * @return
+     */
+    @Override
+    public boolean newStory(Story story) {
+        Story storyRes = storyRepository.save(story);
+        return storyRes.getId() != null;
+    }
+    
+    /**
+     * Cập Nhật Truyện
+     *
+     * @param story
+     * @return
+     */
+    @Override
+    public boolean updateStory(Story story) {
+        Optional< Story > storyOptional = storyRepository.findById(story.getId());
+        Story storyEdit = storyOptional.get();
+        if (storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN))
+            return false;
+        storyEdit.setAuthor(story.getAuthor());
+        storyEdit.setVnName(story.getVnName());
+        storyEdit.setCnName(story.getCnName());
+        storyEdit.setCnLink(story.getCnLink());
+        storyEdit.setInfomation(story.getInfomation());
+        storyEdit.setCategoryList(story.getCategoryList());
+        storyEdit.setStatus(story.getStatus());
+        if (story.getImages() != null && !story.getImages().isEmpty()) {
+            storyEdit.setImages(story.getImages());
+        }
+        storyRepository.save(storyEdit);
+        return true;
     }
 }

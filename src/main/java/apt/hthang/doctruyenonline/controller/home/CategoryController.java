@@ -178,7 +178,7 @@ public class CategoryController {
     
         loadTopViewAndVote(model, category);
         
-        return "web/view/categoryPage";
+        return "view/categoryPage";
     }
     
     @RequestMapping("/{cid}/{cmetaTitle}/trang-{page}")
@@ -207,6 +207,6 @@ public class CategoryController {
     
         loadTopViewAndVote(model, category);
         
-        return "web/view/categoryPage";
+        return "view/categoryPage";
     }
 }

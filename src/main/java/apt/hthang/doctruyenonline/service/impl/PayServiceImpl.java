@@ -130,4 +130,15 @@ public class PayServiceImpl implements PayService {
     public Long newPayWithDraw(Long userId, Double money) {
         return payRepository.saveWithDrawPay(userId, money, ConstantsPayTypeUtils.PAY_WITHDRAW_TYPE, ConstantsStatusUtils.PAY_WAIT);
     }
+    
+    /**
+     * Đếm số thanh toán của Truyện
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Long countPayOfStory(Long id) {
+        return payRepository.countByStory_IdOrChapter_Story_Id(id, id);
+    }
 }

@@ -47,7 +47,7 @@ public class AccountHomeController {
     @Autowired
     private ChapterService chapterService;
     
-    private void getMenuAndInfo(Model model, String title) {
+    private void getMenuAndInfo(Model model, String title, Integer typePage) {
         
         // Lấy Title Cho Page
         model.addAttribute("title", title);
@@ -57,6 +57,8 @@ public class AccountHomeController {
         
         // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
+        
+        model.addAttribute("typePage", typePage);
     }
     
     @RequestMapping
@@ -76,10 +78,10 @@ public class AccountHomeController {
         
         model.addAttribute("user", userService.findInfoUserById(user.getId()));
         
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 0);
         
         loadStory_ChapterByUser(user.getId(), model);
-        return "web/view/account/accHomePage";
+        return "view/account/accHomePage";
     }
     
     
@@ -106,10 +108,10 @@ public class AccountHomeController {
             model.addAttribute("changePassword", new ChangePassword());
         }
         
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 1);
         
         
-        return "web/view/account/accPasswordPage";
+        return "view/account/accPasswordPage";
     }
     
     @PostMapping(value = "/doi_mat_khau")
@@ -125,7 +127,7 @@ public class AccountHomeController {
         }
         String title = "Đổi Mật Khẩu";
         
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 1);
         
         if (changePassword.getOldPassword() != null && !WebUtils.equalsPassword(changePassword.getOldPassword(), user.getPassword())) {
             result.addError(new FieldError("changePassword", "oldPassword", "Mật Khẩu Cũ không chính xác"));
@@ -141,6 +143,6 @@ public class AccountHomeController {
         //Cập Nhật User
         userService.updateUser(user);
         model.addAttribute("success", true);
-        return "web/view/account/accPasswordPage";
+        return "view/account/accPasswordPage";
     }
 }

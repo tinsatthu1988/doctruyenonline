@@ -64,7 +64,7 @@ public class MemberController {
         
         getMenuAndInfo(model, title);
         
-        return "web/view/memberPage";
+        return "view/memberPage";
     }
     
     //Lay thong tin User theo uID

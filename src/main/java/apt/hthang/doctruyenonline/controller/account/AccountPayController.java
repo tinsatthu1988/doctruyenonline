@@ -39,7 +39,7 @@ public class AccountPayController {
     @Value("${hthang.truyenonline.title.pay}")
     private String title;
     
-    private void getMenuAndInfo(Model model, String title) {
+    private void getMenuAndInfo(Model model, String title, Integer typePage) {
         
         // Lấy Title Cho Page
         model.addAttribute("title", title);
@@ -49,6 +49,8 @@ public class AccountPayController {
         
         // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
+        
+        model.addAttribute("typePage", typePage);
     }
     
     @RequestMapping("/nap_dau")
@@ -69,9 +71,9 @@ public class AccountPayController {
         
         model.addAttribute("urlPayMoMO", ConstantsUtils.LINK_PAY_MOMO);
         model.addAttribute("urlPayViettel", ConstantsUtils.LINK_PAY_VIETTEL);
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 2);
         
-        return "web/view/account/accPayPage";
+        return "view/account/accPayPage";
     }
     
     @RequestMapping("/giao_dich")
@@ -88,10 +90,10 @@ public class AccountPayController {
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
             user.setAvatar(ConstantsUtils.AVATAR_DEFAULT);
         }
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 3);
         
         model.addAttribute("id", user.getId());
-        return "web/view/account/accLogPayPage";
+        return "view/account/accLogPayPage";
     }
     
     @RequestMapping("/rut_tien")
@@ -108,10 +110,10 @@ public class AccountPayController {
         if (user.getAvatar() == null || user.getAvatar().isEmpty()) {
             user.setAvatar(ConstantsUtils.AVATAR_DEFAULT);
         }
-        getMenuAndInfo(model, title);
+        getMenuAndInfo(model, title, 4);
         
         model.addAttribute("id", user.getId());
-        return "web/view/account/accDrawPayPage";
+        return "view/account/accDrawPayPage";
     }
 }
 

@@ -84,7 +84,7 @@ public class StoryController {
         
         getChapterReadByUser(user, story.getId(), model);
         
-        return "web/view/storyPage";
+        return "view/storyPage";
     }
     
     private StorySummary checkStoryID(String storyId) throws Exception {

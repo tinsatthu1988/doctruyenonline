@@ -113,7 +113,7 @@ function storyCtrl(WebService, $scope) {
                     type: 'success',
                     confirmButtonText: 'Ok'
                 }).then(function () {
-                    $('#appointModal').modal('hide');
+                    templates.modal('hide');
                 });
             }, function errorCallback(errResponse) {
                 callWarningSweetalert(errResponse.data.messageError);

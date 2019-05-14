@@ -116,7 +116,7 @@ public class NewStoryController {
         
         loadTopView(model);
         
-        return "web/view/catalogPage";
+        return "view/catalogPage";
     }
     
     @RequestMapping(value = "/trang-{page}")
@@ -130,7 +130,7 @@ public class NewStoryController {
         
         loadTopView(model);
         
-        return "web/catalogPage";
+        return "view/catalogPage";
     }
     
 }

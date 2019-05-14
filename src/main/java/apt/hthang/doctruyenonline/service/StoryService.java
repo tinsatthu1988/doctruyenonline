@@ -181,8 +181,39 @@ public interface StoryService {
      * @param id         - id của User đăng
      * @param pagenumber - biến số trang
      * @param size       - biến size
+     * @param status     - Trạng Thái Truyện
      * @return
      */
-    Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size);
+    Page< StoryUser > findPageStoryByUser(Long id, int pagenumber, Integer size, Integer status);
     
+    /**
+     * Tìm Truyện Theo id
+     *
+     * @param id
+     * @return
+     */
+    Story findStoryById(Long id);
+    
+    /**
+     * Xóa truyện Theo Id
+     *
+     * @param id
+     */
+    void deleteStoryById(Long id);
+    
+    /**
+     * Đăng Truyện mới
+     *
+     * @param story
+     * @return
+     */
+    boolean newStory(Story story);
+    
+    /**
+     * Cập Nhật Truyện
+     *
+     * @param storyEdit
+     * @return
+     */
+    boolean updateStory(Story storyEdit);
 }

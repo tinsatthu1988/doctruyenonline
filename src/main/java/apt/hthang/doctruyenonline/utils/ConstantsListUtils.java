@@ -1,5 +1,7 @@
 package apt.hthang.doctruyenonline.utils;
 
+import apt.hthang.doctruyenonline.entity.Status;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,20 +11,20 @@ import java.util.List;
  * @project truyenonline
  */
 public class ConstantsListUtils {
-
-//    public static final List< Status > LIST_STORY_STATUS_VIP = Collections.unmodifiableList(
+    
+    //    public static final List< Status > LIST_STORY_STATUS_VIP = Collections.unmodifiableList(
 //            new ArrayList< Status >() {{
 //                add(new Status(ConstantsUtils.STORY_NOT_VIP , "Miễn Phí"));
 //                add(new Status(ConstantsUtils.STORY_VIP, "Trả Phí"));
 //            }}
 //    );
-//    public static final List< Status > LIST_STORY_STATUS_CONVERTER = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(ConstantsUtils.STORY_STATUS_GOING_ON, "Đang ra"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_STOP, "Tạm Dừng"));
-//            }}
-//    );
+    public static final List< Status > LIST_STORY_STATUS_CONVERTER = Collections.unmodifiableList(
+            new ArrayList< Status >() {{
+                add(new Status(ConstantsStatusUtils.STORY_STATUS_GOING_ON, "Đang ra"));
+                add(new Status(ConstantsStatusUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
+                add(new Status(ConstantsStatusUtils.STORY_STATUS_STOP, "Tạm Dừng"));
+            }}
+    );
 //
 //    public static final List< Status > LIST_STORY_STATUS = Collections.unmodifiableList(
 //            new ArrayList< Status >() {{

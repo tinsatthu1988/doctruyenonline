@@ -1,10 +1,6 @@
 package apt.hthang.doctruyenonline.utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 /**
@@ -12,37 +8,14 @@ import java.util.Date;
  */
 public class DateUtils {
     
-    /**
-     * Chuyển đổi String sang Date
-     *
-     * @param dateStr Chuỗi String cần đổi
-     * @return Date - nếu không có lỗi / null nếu có lỗi xảy ra
-     */
-    public static Date convertStringToDate(String dateStr) {
-        try {
-            TemporalAccessor temporal = DateTimeFormatter
-                    .ofPattern("dd-MM-yyyy")
-                    .parse(dateStr); // use parse(date, LocalDateTime::from) to get LocalDateTime
-            System.out.println(temporal.toString());
-//            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            LocalDate localDate = LocalDate.parse(temporal.toString());
-//            System.out.println(localDate.toString());
-//            java.util.Date newDate = new java.util.Date();
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            return dateFormat.format();
-            return null;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    
     //Lấy ngày đầu tiên của tuần hiện tại
+    
     public static Date getFirstDayOfWeek() {
         LocalDate monday = LocalDate.now();
         while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
             monday = monday.minusDays(1);
         }
-        return java.sql.Date.valueOf(monday.toString());
+        return java.sql.Timestamp.valueOf(monday.atStartOfDay());
     }
     
     //Lấy ngày cuối của tuần hiện tại
@@ -51,27 +24,27 @@ public class DateUtils {
         while (sunday.getDayOfWeek() != DayOfWeek.SUNDAY) {
             sunday = sunday.plusDays(1);
         }
-        return java.sql.Date.valueOf(sunday.toString());
+        return java.sql.Timestamp.valueOf(sunday.atStartOfDay());
     }
     
     //Lấy ngày đầu tiên của tháng hiện tại
     public static Date getFirstDayOfMonth() {
         LocalDate today = LocalDate.now();
         LocalDate firstday = today.withDayOfMonth(1);
-        return java.sql.Date.valueOf(firstday.toString());
+        return java.sql.Timestamp.valueOf(firstday.atStartOfDay());
     }
     
     //Lấy ngày cuối cùng của tháng hiện tại
     public static Date getLastDayOfMonth() {
         LocalDate today = LocalDate.now();
         LocalDate lastday = today.withDayOfMonth(today.lengthOfMonth());
-        return java.sql.Date.valueOf(lastday.toString());
+        return java.sql.Timestamp.valueOf(lastday.atStartOfDay());
     }
     
     //Lấy thời gian hiện tại
     public static Date getCurrentDate() {
-        LocalDate today = LocalDate.now();
-        return java.sql.Date.valueOf(today.toString());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return java.sql.Timestamp.valueOf(localDateTime);
     }
     
     public static String betweenTwoDays(Date createDate) {
