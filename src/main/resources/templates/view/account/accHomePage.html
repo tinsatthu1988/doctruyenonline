@@ -13,7 +13,7 @@
     <script th:src="@{/js/controller/accHomeController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
-    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
+
 </head>
 <body ng-app="ngApp" ng-controller="accHomeCtrl">
 <section class="page-wrapper">
@@ -115,18 +115,6 @@
             </section>
         </section>
     </section>
-
-    <script th:if="${typePage == 0}">
-        $(document).ready(function() {
-            toastr.success('Folder 1 has been clicked!','Thông báo',  {
-                "positionClass": "md-toast-top-left"
-            });
-            $('.toast').toast({
-                delay:10000
-            })
-        });
-
-    </script>
     <!--Footer-->
     <section th:replace="/fragments/footer"></section>
 </section>

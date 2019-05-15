@@ -93,26 +93,35 @@ public class AccountStoryController {
         return "view/account/addStoryPage";
     }
     
-    @PostMapping("/them_truyen")
+    @PostMapping("/them_truyen/save")
     public String saveStoryPage(@Valid Story story, BindingResult result, Principal principal, RedirectAttributes redirectAttributes) {
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
+        if (user == null) {
+            throw new NotFoundException("Tài khoản không tồn tại mời liên hệ admin để biết thêm thông tin");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        String title = "Đổi Mật Khẩu";
+        if (!model.containsAttribute("changePassword")) {
+            model.addAttribute("changePassword", new ChangePassword());
+        }
         boolean hasError = result.hasErrors();
         if (hasError) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
             redirectAttributes.addFlashAttribute("story", story);
             return "redirect:/tai-khoan/them_truyen";
         }
-        //Lấy Thông Tin người dùng đăng nhập
-        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
-        
         story.setUser(loginedUser.getUser());
         String url = cloudinaryUploadService
                 .upload(story.getUploadfile(), loginedUser.getUser().getUsername() + "-" + System.nanoTime());
         story.setImages(url);
         boolean check = storyService.newStory(story);
         if (check) {
-            redirectAttributes.addFlashAttribute("checkAddStoryTrue", "Đăng truyện mới thành công!");
+            redirectAttributes.addFlashAttribute("checkAddStory",true );
         } else {
-            redirectAttributes.addFlashAttribute("checkAddStoryFalse", "Có lỗi xảy ra, Đăng truyện thất bại!");
+            redirectAttributes.addFlashAttribute("checkAddStory",false );
         }
         return "redirect:/tai-khoan/quan_ly_truyen";
     }
@@ -136,12 +145,12 @@ public class AccountStoryController {
         if (!story.getUser().getId().equals(loginedUser.getUser().getId())) {
             redirectAttrs.addFlashAttribute("checkEditStory", "Bạn không có quyền sửa truyện không do bạn đăng!");
             return "redirect:/tai-khoan/quan_ly_truyen";
-        }
-        
+        }        
         getMenuAndInfo(model, "Sửa Truyện", -1);
         
-        model.addAttribute("story", story);
-        
+        if (!model.containsAttribute("story")) {
+            model.addAttribute("story", story);
+        }
         model.addAttribute("statusList", ConstantsListUtils.LIST_STORY_STATUS_CONVERTER);
         return "web/account/editStoryPage";
     }

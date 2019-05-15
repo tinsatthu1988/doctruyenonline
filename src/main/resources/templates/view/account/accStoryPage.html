@@ -11,6 +11,29 @@
     <script th:src="@{/js/controller/accStoryController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
+    <!-- Toastr -->
+    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>    
+    <script th:if="${checkAddStory != null && checkAddStory == true}">
+        $(document).ready(function() {
+            toastr.success('Đăng truyện mới thành công!','Thông báo',  {
+                "positionClass": "md-toast-top-left"
+            });
+            $('.toast').toast({
+                delay:10000
+            })
+        });
+    </script>
+    
+    <script th:if="${checkAddStory != null && checkAddStory == false}">
+        $(document).ready(function() {
+            toastr.danger('Có lỗi xảy ra, Đăng truyện thất bại!','Thông báo',  {
+                "positionClass": "md-toast-top-left"
+            });
+            $('.toast').toast({
+                delay:10000
+            })
+        });
+    </script>
 </head>
 <body ng-app="ngApp" ng-controller="accStoryCtrl" th:ng-init="|init()|">
 <section class="page-wrapper">
