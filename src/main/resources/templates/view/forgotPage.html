@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="vi">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="vi">
 <head>
     <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body class="page-login">
-    <th:block th:insert="/fragments/loading"></th:block>
-    <section class="page-wrapper">
-        <section th:replace="/fragments/navbar"></section>
-        <section class="truyen-main">
-            <script type="text/javascript" sec:authorize="isAuthenticated()" `>
-                window.location = '[[@{/}]]';
-            </script>
-            <section id="content" class="container">
-                <section class="row">
-                    <section class="login-block">
-                        <section class="container">
-                            <section class="row truyen-login-row">
-                                <section class="col-lg-4 login-sec">
-                                    <h2 class="text-center text-uppercase">Quên Mật Khẩu</h2>
-                                    <form th:replace="web/form/forgotForm"></form>
+<section class="page-wrapper">
+    <section th:replace="/fragments/navbar"></section>
+    <section class="truyen-main">
+        <script type="text/javascript" sec:authorize="isAuthenticated()" `>
+            window.location = '[[@{/}]]';
+        </script>
+        <section id="content" class="container">
+            <section class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <h5 class="card-header primary-color white-text text-center py-4">
+                            <strong>Lấy Lại Mật Khẩu</strong>
+                        </h5>
+                        <div class="card-body px-lg-5 pt-0">
+                            <form class="md-form" iid="rePassword" action="#" method="POST" th:object="${user}" th:action="@{/quen-mat-khau}">
+                                <section class="md-form" th:if="${error != null}">
+                                    <section class="alert alert-danger" role="alert" th:text="${error}"></section>
                                 </section>
-                                <section class="col-lg-8 banner-sec pl-0 pr-0">
-                                    <section th:replace="/slide/loginSlide"></section>
-                                </section>
-                            </section>
-                        </section>
-                    </section>
-                </section>
+                                <div class="md-form">
+                                    <input type="text" autofocus="autofocus" id="username"
+                                           th:classappend="${#fields.hasErrors('username')}? 'is-invalid' : ''" th:field="*{username}" class="form-control mb-4">
+                                    <label for="username" class="text-primary">Tài khoản</label>
+                                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error invalid-feedback"></span>
+                                </div>
+                                <div class="md-form">
+                                    <input type="email" autofocus="autofocus" id="email"
+                                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''"
+                                           th:field="*{email}" class="form-control mb-4">
+                                    <label for="email" class="text-primary">Email</label>
+                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error invalid-feedback"></span>
+                                </div><!--Grid row-->
+                                <div class="row d-flex align-items-center mb-4">
+                                    <!--Grid column-->
+                                    <div class="text-center mb-3 col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block btn-rounded z-depth-1">Gửi Mật Khẩu</button>
+                                    </div>
+                                    <!--Grid column-->
+                                </div>
+                                <!--Grid row-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </section>
         </section>
-        <section th:replace="/fragments/footer"></section>
     </section>
+    <section th:replace="/fragments/footer"></section>
+</section>
 </body>
 </html>

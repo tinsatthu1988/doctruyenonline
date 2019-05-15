@@ -89,10 +89,10 @@
                         </section>
                     </li>
                     <li sec:authorize="isAnonymous()">
-                        <section class="user-block">
+                        <section class="user-block h-100">
                             <i class="truyen-icon icon-user"></i>
                             <a th:href="@{/dang-nhap}"> Đăng nhập </a>
-                            <span class="diver">|</span>
+                            <a class="diver disabled">|</a>
                             <a th:href="@{/dang-ky}"> Đăng ký </a>
                         </section>
                     </li>

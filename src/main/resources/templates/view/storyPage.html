@@ -14,7 +14,6 @@
     <script th:src="@{/js/jRating.js}"></script>
 </head>
 <body ng-app="ngApp" ng-controller="storyCtrl" th:ng-init="|init(${story.id}, ${story.userId})|">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>

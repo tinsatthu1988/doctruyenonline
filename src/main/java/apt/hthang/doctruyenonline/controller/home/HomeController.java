@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.controller.home;
 
+import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.service.CategoryService;
 import apt.hthang.doctruyenonline.service.InformationService;
 import org.slf4j.Logger;
@@ -48,7 +49,9 @@ public class HomeController {
     
     @RequestMapping(value = "/")
     public String homePage(Model model) {
-        
+        if (!model.containsAttribute("story")) {
+            model.addAttribute("story", new Story());
+        }
         getMenuAndInfo(model, titleHomePage);
         return "view/homePage";
     }

@@ -1,29 +1,15 @@
 <div class="col-lg-2 col-md-3" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="accordion md-accordion accordion-3 mb-3" id="accordionEx" role="tablist" aria-multiselectable="true">
-        <!-- Accordion card -->
-        <div class="card">
-            <!-- Card header -->
-            <div class="card-header primary-color white-text" role="tab" id="headingOne1">
-                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-                   aria-controls="collapseOne1">
-                    <h5 class="mb-0 white-text">
-                        Menu <i class="fas fa-angle-down rotate-icon "></i>
-                    </h5>
-                </a>
-            </div>
-
-            <!-- Card body -->
-            <div id="collapseOne1" class="collapse show card-body list-group z-depth-1 p-0" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-                <a class="list-group-item" th:classappend="${typePage ==0?'active':''}" th:href="@{/tai-khoan/}">Hồ sơ</a>
-                <a class="list-group-item" th:classappend="${typePage ==1?'active':''}" th:href="@{/tai-khoan/doi_mat_khau}">Đổi Mật Khẩu</a>
-                <a class="list-group-item" th:classappend="${typePage ==2?'active':''}" th:href="@{/tai-khoan/nap_dau}">Nạp Đậu</a>
-                <a class="list-group-item" th:classappend="${typePage ==3?'active':''}" th:href="@{/tai-khoan/giao_dich}">Log Giao Dịch</a>
-                <a class="list-group-item" th:classappend="${typePage ==4?'active':''}" th:href="@{/tai-khoan/rut_tien}"
-                   sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER','ROLE_SMOD')">Rút Tiền</a>
-                <a class="list-group-item" th:classappend="${typePage ==5?'active':''}" th:href=" @{/tai-khoan/them_truyen}">Đăng Truyện</a>
-                <a class="list-group-item" th:classappend="${typePage ==6?'active':''}" th:href="@{/tai-khoan/quan_ly_truyen}">Quản
-                    lý Truyện</a>
-            </div>
+    <div class="card sticky-top mb-3" style="top: 20px !important">
+        <div class="card-body list-group z-depth-1 p-0">
+            <a class="list-group-item" th:classappend="${typePage ==0?'active':''}" th:href="@{/tai-khoan/}">Hồ sơ</a>
+            <a class="list-group-item" th:classappend="${typePage ==1?'active':''}" th:href="@{/tai-khoan/doi_mat_khau}">Đổi Mật Khẩu</a>
+            <a class="list-group-item" th:classappend="${typePage ==2?'active':''}" th:href="@{/tai-khoan/nap_dau}">Nạp Đậu</a>
+            <a class="list-group-item" th:classappend="${typePage ==3?'active':''}" th:href="@{/tai-khoan/giao_dich}">Log Giao Dịch</a>
+            <a class="list-group-item" th:classappend="${typePage ==4?'active':''}" th:href="@{/tai-khoan/rut_tien}"
+               sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER','ROLE_SMOD')">Rút Tiền</a>
+            <a class="list-group-item" th:classappend="${typePage ==5?'active':''}" th:href=" @{/tai-khoan/them_truyen}">Đăng Truyện</a>
+            <a class="list-group-item" th:classappend="${typePage ==6?'active':''}" th:href="@{/tai-khoan/quan_ly_truyen}">Quản
+                lý Truyện</a>
         </div>
     </div>
 </div>

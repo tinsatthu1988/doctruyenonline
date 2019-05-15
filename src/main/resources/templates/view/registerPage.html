@@ -5,7 +5,6 @@
     <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body class="page-login">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <section th:replace="/fragments/navbar"></section>
     <section class="truyen-main">
@@ -14,22 +13,114 @@
         </script>
         <section id="content" class="container">
             <section class="row">
-                <section class="login-block">
-                    <section class="container">
-                        <section class="row truyen-login-row">
-                            <section class="col-lg-4 login-sec">
-                                <h2 class="text-center text-uppercase">Đăng ký</h2>
-                                <form th:replace="/form/registerForm"></form>
-                            </section>
-                            <section class="col-lg-8 banner-sec pl-0 pr-0">
-                                <section th:replace="/slide/loginSlide"></section>
-                            </section>
-                        </section>
-                    </section>
-                </section>
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <h5 class="card-header primary-color white-text text-center py-4">
+                            <strong>Đăng Ký</strong>
+                        </h5>
+                        <div class="card-body px-lg-5 pt-0">
+                            <form class="md-form" id="registerForm" name='loginForm' method='POST' th:object="${user}" th:action="@{/dang-ky}">
+                                <div class="md-form">
+                                    <input type="text" name="username" id="username" placeholder="" autofocus="autofocus" class="form-control mb-4"
+                                           th:classappend="${#fields.hasErrors('username')}? 'is-invalid' : ''" th:value="*{username}">
+                                    <label for="username" class="text-primary">Tài khoản</label>
+                                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error invalid-feedback"></span>
+                                </div>
+                                <div class="md-form">
+                                    <input type="password" name="passwordRegister" id="passwordRegister" class="form-control mb-4"
+                                           th:classappend="${#fields.hasErrors('passwordRegister')}? 'is-invalid' : ''" th:value="*{passwordRegister}">
+                                    <label for="passwordRegister" class="text-primary">Mật Khẩu</label>
+                                    <span th:if="${#fields.hasErrors('passwordRegister')}" th:errors="*{passwordRegister}" class="error invalid-feedback"></span>
+                                </div>
+                                <div class="md-form">
+                                    <input type="password" name="passwordRegisterConfirm" id="passwordRegisterConfirm" class="form-control mb-4"
+                                           th:classappend="${#fields.hasErrors('passwordRegisterConfirm')}? 'is-invalid' : ''" th:value="*{passwordRegisterConfirm}">
+                                    <label for="passwordRegisterConfirm" class="text-primary">Nhập Lại Mật Khẩu</label>
+                                    <span th:if="${#fields.hasErrors('passwordRegisterConfirm')}" th:errors="*{passwordRegisterConfirm}" class="error invalid-feedback"></span>
+                                </div>
+                                <div class="md-form">
+                                    <input type="email" name="email" id="email" placeholder="" class="form-control mb-4"
+                                           th:classappend="${#fields.hasErrors('email')}? 'is-invalid' : ''" th:value="*{email}">
+                                    <label for="email" class="text-primary">Email</label>
+                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error invalid-feedback"></span>
+                                </div>
+                                <!--Grid row-->
+                                <div class="row d-flex align-items-center mb-4">
+
+                                    <!--Grid column-->
+                                    <div class="text-center mb-3 col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block btn-rounded z-depth-1">Đăng Ký</button>
+                                    </div>
+                                    <!--Grid column-->
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid column-->
+                                <div class="col-md-12">
+                                    <p class="font-small d-flex justify-content-end">Bạn đã có tài khoản? <a th:href="@{/dang-nhap}" class="text-primary ml-1 font-weight-bold"> Đăng Nhập Ngay</a></p>
+                                </div>
+                                <!--Grid column-->
+                                <div class="col-md-12">
+                                    <p class="font-small d-flex justify-content-end">Quên mật khẩu? <a th:href="@{/quen-mat-khau}" class="text-primary ml-1 font-weight-bold"> Lấy Lại Mật Khẩu</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </section>
         </section>
     </section>
+    <script>
+        $(document).ready(function () {
+            $("#registerForm").validate({
+                rules: {
+                    username: "required",
+                    passwordRegister: {
+                        required: true,
+                        rangelength: [6, 13]
+                    },
+                    passwordRegisterConfirm: {
+                        required: true,
+                        rangelength: [6, 13],
+                        equalTo: "#passwordRegister"
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    username: "Tài khoản không được để trống",
+                    passwordRegister: {
+                        required: "Password không được để trống",
+                        rangelength: "Password có độ dài từ 6-13. Phân biệt hoa thường",
+                    },
+                    passwordRegisterConfirm: {
+                        required: "Password Confirm không được để trống",
+                        rangelength: "Password Confirm có độ dài từ 6-13. Phân biệt hoa thường",
+                        equalTo: "Password Confirm không chính xác"
+                    },
+                    email: "Email không đúng định dạng"
+                },
+                errorElement: "em",
+                errorPlacement: function (error, element) {
+                    // Add the `invalid-feedback` class to the error element
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.next("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        })
+    </script>
     <section th:replace="/fragments/footer"></section>
 </section>
 </body>

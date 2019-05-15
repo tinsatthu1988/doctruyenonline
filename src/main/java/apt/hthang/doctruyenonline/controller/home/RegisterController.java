@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -65,18 +66,22 @@ public class RegisterController {
         logger.info("Get Dang ky");
         // Lấy List Category Menu
         getMenuAndInfo(model, titleRegisterPage);
-        
-        model.addAttribute("user", new User());
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", new User());
+        }
         return "view/registerPage";
     }
     
     @PostMapping
-    public String register(@Valid User user, BindingResult result, Model model, HttpServletRequest request) {
+    public String register(@Valid User user, BindingResult result, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         boolean hasError = result.hasErrors();
         if (hasError) {
-            getMenuAndInfo(model, titleRegisterPage);
-            model.addAttribute("user", user);
-            return "view/registerPage";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/dang-ky";
+//            getMenuAndInfo(model, titleRegisterPage);
+//            model.addAttribute("user", user);
+//            return "view/registerPage";
         }
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);

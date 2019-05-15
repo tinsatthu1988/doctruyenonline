@@ -13,9 +13,9 @@
     <script th:src="@{/js/controller/accHomeController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
+    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
 </head>
 <body ng-app="ngApp" ng-controller="accHomeCtrl">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>
@@ -31,7 +31,7 @@
                                 <th:block th:include="/nav-tabs/navbar_left"></th:block>
                                 <section class="col-lg-10 col-md-9">
                                     <section class="row">
-                                        <div class="col-md-6 mb-5">
+                                        <div class="col-lg-6 mb-5">
                                             <div class="card h-100">
                                                 <h3 class="card-header primary-color white-text">
                                                     <span class="fas fa-user" style="" aria-hidden="true"></span> Thông tin tài khoản
@@ -61,7 +61,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-5">
+                                        <div class="col-lg-6 mb-5">
                                             <div class="card h-100">
                                                 <h3 class="card-header primary-color white-text">
                                                     <span class="fas fa-user" aria-hidden="true"></span> Cập nhật thông báo
@@ -76,7 +76,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-5">
+                                        <div class="col-lg-6 mb-5">
                                             <div class="card h-100">
                                                 <h3 class="card-header primary-color white-text">
                                                     <span class="fas fa-user" aria-hidden="true"></span> Đổi ngoại hiệu
@@ -116,6 +116,17 @@
         </section>
     </section>
 
+    <script th:if="${typePage == 0}">
+        $(document).ready(function() {
+            toastr.success('Folder 1 has been clicked!','Thông báo',  {
+                "positionClass": "md-toast-top-left"
+            });
+            $('.toast').toast({
+                delay:10000
+            })
+        });
+
+    </script>
     <!--Footer-->
     <section th:replace="/fragments/footer"></section>
 </section>

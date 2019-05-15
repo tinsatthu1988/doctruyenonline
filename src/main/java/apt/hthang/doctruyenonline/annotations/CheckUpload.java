@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface CheckUpload {
     
-    String message() default "{hthang.truyenmvc.story.category.empty.message}";
+    String message() default "{hthang.truyenonline.story.category.empty.message}";
     
     Class< ? >[] groups() default {};
     

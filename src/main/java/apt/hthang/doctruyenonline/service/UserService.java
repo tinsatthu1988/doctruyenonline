@@ -3,14 +3,11 @@ package apt.hthang.doctruyenonline.service;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
-import apt.hthang.doctruyenonline.projections.StoryUpdate;
-import apt.hthang.doctruyenonline.projections.StoryUser;
-import org.springframework.data.domain.Page;
 
 /**
  * @author Huy Thang
  */
-public interface UserService {
+public interface UserService extends FieldValueExists {
     
     /**
      * Tìm kiếm User theo username
@@ -81,6 +78,7 @@ public interface UserService {
     
     /**
      * Lấy Thông Tin Người dùng Theo id
+     *
      * @param id
      * @return
      */

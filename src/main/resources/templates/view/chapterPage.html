@@ -12,7 +12,6 @@
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
 <body class="page-read" ng-app="ngApp" ng-controller="chapterCtrl" th:ng-init="|init(${chapter.story.id})|">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>

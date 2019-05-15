@@ -19,7 +19,7 @@
     "Font-Awesome": "https://github.com/FortAwesome/Font-Awesome.git#^5.6.0",
     "swiper": "https://github.com/nolimits4web/swiper.git#^4.4.2",
     "jquery": "https://github.com/jquery/jquery.git#^3.3.1",
-    "sweetalert2": "https://github.com/sweetalert2/sweetalert2.git#^7.32.2",
+    "sweetalert2": "https://github.com/sweetalert2/sweetalert2.git#7.32.2",
     "animate.css": "https://github.com/daneden/animate.css.git#^3.7.0",
     "jquery-ui": "https://github.com/components/jqueryui.git#^1.12.1",
     "jquery-validation": "https://github.com/jquery-validation/jquery-validation.git#^1.19.0",

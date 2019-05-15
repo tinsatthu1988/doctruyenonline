@@ -4,6 +4,7 @@ import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
+import apt.hthang.doctruyenonline.form.ChangePassword;
 import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
@@ -84,15 +85,16 @@ public class AccountStoryController {
     public String addStoryPage(Model model) {
         
         getMenuAndInfo(model, "Đăng Truyện", 5);
-        
-        model.addAttribute("story", new Story());
+    
+        if (!model.containsAttribute("story")) {
+            model.addAttribute("story", new Story());
+        }
         
         return "view/account/addStoryPage";
     }
     
     @PostMapping("/them_truyen")
-    public String saveStoryPage(@Valid Story story, BindingResult result, Model model,
-                                Principal principal, RedirectAttributes redirectAttributes) {
+    public String saveStoryPage(@Valid Story story, BindingResult result, Principal principal, RedirectAttributes redirectAttributes) {
         boolean hasError = result.hasErrors();
         if (hasError) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.story", result);

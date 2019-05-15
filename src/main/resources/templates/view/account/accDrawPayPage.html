@@ -13,7 +13,6 @@
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
 <body ng-app="ngApp" ng-controller="accDrawPayCtrl" th:ng-init="|init(${id})|">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>
@@ -72,8 +71,8 @@
                                                     </td>
                                                     <td>
                                                         <a ng-show="item.status===2" ng-click="deleteDraw(item.id)" title="Hủy Giao Dịch" class="badge badge-pill badge-danger"><i
-                                                                class="fas fa-times mx-1"></i></a>
-                                                        <a ng-show="item.status!==2" class="badge badge-pill badge-light" title="Hủy Giao Dịch"><i class="fas fa-times mx-1"></i></a>
+                                                                class="fas fa-times mx-1"></i> Hủy</a>
+                                                        <a ng-show="item.status!==2" class="badge badge-pill badge-light" title="Hủy Giao Dịch"><i class="fas fa-times mx-1"></i> Hủy</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,5 +155,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public InfoSummary findInfoUserById(Long id) {
         return userRepository.findUsersById(id).orElse(null);
+    }
+    
+    /**
+     * Checks whether or not a given value exists for a given field
+     *
+     * @param value     The value to check for
+     * @param fieldName The name of the field for which to check if the value exists
+     * @return True if the value exists for the field; false otherwise
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
+        Assert.notNull(fieldName);
+        
+        if (!fieldName.equals("email") && !fieldName.equals("username")) {
+            throw new UnsupportedOperationException("Field name not supported");
+        }
+        
+        if (value == null) {
+            return true;
+        }
+        if (fieldName.equals("email")) {
+            return this.userRepository.existsUserByEmail(value.toString());
+        }
+        return this.userRepository.existsUserByUsername(value.toString());
     }
 }

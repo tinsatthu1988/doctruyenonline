@@ -5,7 +5,6 @@
     <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body class="page-login">
-<th:block th:insert="/fragments/loading"></th:block>
 <section class="page-wrapper">
     <section th:replace="/fragments/navbar"></section>
     <section class="truyen-main">
@@ -14,23 +13,61 @@
         </script>
         <section id="content" class="container">
             <section class="row">
-                <section class="login-block">
-                    <section class="container">
-                        <section class="row truyen-login-row">
-                            <section class="col-lg-4 login-sec">
-                                <h2 class="text-center text-uppercase">Đăng nhập</h2>
-                                <form th:replace="form/loginForm"></form>
-                            </section>
-                            <section class="col-lg-8 banner-sec pl-0 pr-0">
-                                <section th:replace="/slide/loginSlide"></section>
-                            </section>
-                        </section>
-                    </section>
-                </section>
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <h5 class="card-header primary-color white-text text-center py-4">
+                            <strong>Đăng Nhập</strong>
+                        </h5>
+                        <div class="card-body px-lg-5 pt-0">
+                            <form class="md-form" id="signupForm1" name='loginForm' th:action="@{j_spring_security_check}" method='POST'>
+                                <section class="md-form" th:if="${param.error} and ${session}"
+                                         th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                                    <section class="alert alert-danger" role="alert" th:text="${errorMsg}"></section>
+                                </section>
+                                <section class="md-form" th:if="${success != null}">
+                                    <section class="alert alert-success" role="alert" th:text="${success}"></section>
+                                </section>
+                                <div class="md-form">
+                                    <input type="text" name="username" id="username" placeholder="" autofocus="autofocus" class="form-control mb-4">
+                                    <label for="username">Tài khoản</label>
+                                </div>
+                                <div class="md-form">
+                                    <input type="password" name="password" id="password" class="form-control mb-4">
+                                    <label for="password">Mật Khẩu</label>
+                                </div>
+                                <div class="form-check my-4">
+                                    <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
+                                    <label class="form-check-label" for="remember-me"> Ghi nhớ đăng nhập</label>
+                                </div>
+                                <!--Grid row-->
+                                <div class="row d-flex align-items-center mb-4">
+
+                                    <!--Grid column-->
+                                    <div class="text-center mb-3 col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-block btn-rounded z-depth-1">Đăng Nhập</button>
+                                    </div>
+                                    <!--Grid column-->
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid column-->
+                                <div class="col-md-12">
+                                    <p class="font-small d-flex justify-content-end">Bạn chưa có tài khoản? <a th:href="@{/dang-ky}" class="text-primary ml-1 font-weight-bold"> Đăng Ký Ngay</a></p>
+                                </div>
+                                <!--Grid column-->
+                                <div class="col-md-12">
+                                    <p class="font-small d-flex justify-content-end">Quên mật khẩu? <a th:href="@{/quen-mat-khau}" class="text-primary ml-1 font-weight-bold"> Lấy Lại Mật Khẩu</a></p>
+                                </div>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </section>
         </section>
     </section>
-    <section th:replace="fragments/footer"></section>
+</section>
+<section th:replace="fragments/footer"></section>
 </section>
 </body>
 </html>

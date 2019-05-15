@@ -153,10 +153,10 @@ function accStoryCtrl($scope, WebService) {
         })
     };
 
-    $scope.deleteStory = function (id, name) {
+    $scope.storyDelete = function (id, vnName) {
         swal({
             title: 'Bạn có chắc?',
-            text: "Bạn muốn xóa truyện " + name,
+            text: "Bạn muốn xóa truyện " + vnName,
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -193,5 +193,5 @@ function accStoryCtrl($scope, WebService) {
                 })
             }
         })
-    }
+    };
 }
