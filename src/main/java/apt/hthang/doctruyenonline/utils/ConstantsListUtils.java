@@ -20,9 +20,10 @@ public class ConstantsListUtils {
 //    );
     public static final List< Status > LIST_STORY_STATUS_CONVERTER = Collections.unmodifiableList(
             new ArrayList< Status >() {{
+                add(new Status(ConstantsStatusUtils.STORY_STATUS_HIDDEN, "Khóa"));
                 add(new Status(ConstantsStatusUtils.STORY_STATUS_GOING_ON, "Đang ra"));
-                add(new Status(ConstantsStatusUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
                 add(new Status(ConstantsStatusUtils.STORY_STATUS_STOP, "Tạm Dừng"));
+                add(new Status(ConstantsStatusUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
             }}
     );
 //

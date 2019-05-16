@@ -12,29 +12,28 @@
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
 <body class="page-read" ng-app="ngApp" ng-controller="memberCtrl" th:ng-init="|init(${user.id})|">
-    <section class="page-wrapper">
-        <!--NavBar-->
-        <section th:replace="/fragments/navbar"></section>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
 
-        <!--Body-->
-        <section class="truyen-main">
-            <section class="truyen-section section-featured">
-                <section class="container mb-4 mt-5">
-                    <section class="featured-content">
-                        <section class="row">
-                            <section class="col-12">
-                                <section id="navbar-custom">
-                                    <section th:replace="/nav-tabs/memberNavtabs"></section>
-                                </section>
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="row">
+                        <section class="col-12">
+                            <section id="navbar-custom">
+                                <section th:replace="/nav-tabs/memberNavtabs"></section>
                             </section>
                         </section>
                     </section>
                 </section>
             </section>
         </section>
-
-        <!--Footer-->
-        <section th:replace="/fragments/footer"></section>
     </section>
+</section>
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
 </body>
 </html>

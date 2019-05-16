@@ -12,25 +12,46 @@
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
     <!-- Toastr -->
-    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>    
+    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
     <script th:if="${checkAddStory != null && checkAddStory == true}">
-        $(document).ready(function() {
-            toastr.success('Đăng truyện mới thành công!','Thông báo',  {
+        $(document).ready(function () {
+            toastr.success('Đăng truyện mới thành công!', 'Thông báo', {
                 "positionClass": "md-toast-top-left"
             });
             $('.toast').toast({
-                delay:10000
+                delay: 10000
             })
         });
     </script>
-    
     <script th:if="${checkAddStory != null && checkAddStory == false}">
-        $(document).ready(function() {
-            toastr.danger('Có lỗi xảy ra, Đăng truyện thất bại!','Thông báo',  {
+        $(document).ready(function () {
+            toastr.danger('Có lỗi xảy ra, Đăng truyện thất bại!', 'Thông báo', {
                 "positionClass": "md-toast-top-left"
             });
             $('.toast').toast({
-                delay:10000
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditStoryFalse != null}" th:inline="javascript">
+        $(document).ready(function () {
+            var message = /*[[${checkEditStoryFalse}]]*/ '';
+            toastr.danger(message, 'Thông báo', {
+                "positionClass": "md-toast-top-left"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditStoryTrue!= null}" th:inline="javascript">
+        $(document).ready(function () {
+            var message = /*[[${checkEditStoryTrue}]]*/ '';
+            toastr.success(message, 'Thông báo', {
+                "positionClass": "md-toast-top-left"
+            });
+            $('.toast').toast({
+                delay: 10000
             })
         });
     </script>

@@ -128,7 +128,7 @@
                                         </section>
                                         <section class="star-total hidden-xs">
                                     <span id="myrate" itemprop="ratingValue"
-                                          th:text="${#numbers.formatDecimal(story.rating, 0, T(Math).round(story.rating) == story.rating?0:1 , 'POINT')}"></span>
+                                          th:text="${#numbers.formatDecimal(story.rating, 0, T(Math).round(story.rating) == story.rating?0:1, 'POINT')}"></span>
                                         </section>
                                         <section th:class="${rating?'basic jDisabled':'basic'}"
                                                  th:data-average="${story.rating}" th:data-id="${story.id}">
@@ -150,10 +150,9 @@
     <!-- Modal -->
     <section th:replace="/modal/appointModal"></section>
 
-    <!--Footer-->
-    <section th:replace="/fragments/footer"></section>
 </section>
-
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
 <script>
     $(document).ready(function () {
         $(".basic").jRating({

@@ -105,54 +105,56 @@
             </section>
         </section>
     </section>
-    <section th:replace="/fragments/footer"></section>
-    <!-- Modal đăng ký rút tiền-->
-    <div class="modal fade" id="modalLRFormDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-notify modal-primary" role="document">
-            <!-- Content -->
-            <div class="modal-content">
-                <!-- Header -->
-                <div class="modal-header">
-                    <p class="heading lead">Đăng Ký Rút Tiền</p>
+</section>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">×</span>
-                    </button>
-                </div>
-                <form ng-submit="submitWithDraw()">
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <!-- Material input -->
-                        <div class="md-form input-group">
-                            <input type="number" id="numberExample" class="form-control" ng-model="drawMoney" value="0" min="50000" step="10000" ng-change="changeValue()">
-                            <label for="numberExample" class="text-primary">Số Tiền Rút </label>
-                            <div class="input-group-append">
-                                <span class="input-group-text md-addon">VNĐ</span>
-                            </div>
-                            <span class="form-text text-muted">
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
+
+<!-- Modal đăng ký rút tiền-->
+<div class="modal fade" id="modalLRFormDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-notify modal-primary" role="document">
+        <!-- Content -->
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <p class="heading lead">Đăng Ký Rút Tiền</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+            <form ng-submit="submitWithDraw()">
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Material input -->
+                    <div class="md-form input-group">
+                        <input type="number" id="numberExample" class="form-control" ng-model="drawMoney" value="0" min="50000" step="10000" ng-change="changeValue()">
+                        <label for="numberExample" class="text-primary">Số Tiền Rút </label>
+                        <div class="input-group-append">
+                            <span class="input-group-text md-addon">VNĐ</span>
+                        </div>
+                        <span class="form-text text-muted">
                             Số Tiền cần rút phải chia hết cho 10.000 . Mỗi lần rút ít nhất 50.000 VNĐ
                         </span>
-                        </div>
-                        <div class="md-form input-group">
-                            <input type="text" id="numberExample1" class="form-control font-weight-bold" readonly ng-model="drawCoin" value="0">
-                            <label for="numberExample1" class="text-primary">Số Đậu Cần Thanh Toán </label>
-                            <div class="input-group-append">
-                                <span class="input-group-text md-addon">Đậu</span>
-                            </div>
+                    </div>
+                    <div class="md-form input-group">
+                        <input type="text" id="numberExample1" class="form-control font-weight-bold" readonly ng-model="drawCoin" value="0">
+                        <label for="numberExample1" class="text-primary">Số Đậu Cần Thanh Toán </label>
+                        <div class="input-group-append">
+                            <span class="input-group-text md-addon">Đậu</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Footer -->
-                    <div class="modal-footer justify-content-center">
-                        <input type="submit" class="btn btn-primary waves-effect waves-light" value="Đăng ký" id="submitWD">
-                        <input type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal" ng-click="reset()" id="canSubmit" value="Hủy"/>
-                    </div>
-                </form>
-            </div>
-            <!-- Content -->
+                <!-- Footer -->
+                <div class="modal-footer justify-content-center">
+                    <input type="submit" class="btn btn-primary waves-effect waves-light" value="Đăng ký" id="submitWD">
+                    <input type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal" ng-click="reset()" id="canSubmit" value="Hủy"/>
+                </div>
+            </form>
         </div>
+        <!-- Content -->
     </div>
-
-</section>
+</div>
 </body>
 </html>

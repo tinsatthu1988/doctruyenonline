@@ -11,7 +11,7 @@ body {
     background-color: #fff !important;
 }
 
-.container-full{
+.container-full {
     max-width: 100% !important;
 }
 
@@ -84,7 +84,7 @@ a:hover {
     color: #007bff;
 }
 
-input.is-invalid , textarea.is-invalid{
+input.is-invalid, textarea.is-invalid {
     border-bottom: 1px solid #ef5350 !important;
     -webkit-box-shadow: 0 1px 0 0 #ef5350 !important;
     box-shadow: 0 1px 0 0 #ef5350 !important;
@@ -1773,7 +1773,11 @@ section .section-title {
 }
 
 .page-login .page-wrapper {
-    background-image: none;
+    background: url(https://res.cloudinary.com/thang1988/image/upload/v1557929256/truyenmvc/img_11.jpg) center center no-repeat;
+}
+
+.page-login1 .page-wrapper {
+    background: none;
 }
 
 .login-block {
@@ -4026,10 +4030,14 @@ section .section-title {
 }
 
 
-.btn-remove{
-    display:none
+.btn-remove {
+    display: none
 }
 
-.btn-remove.is-selected{
-    display:block;
+.btn-remove.is-selected {
+    display: block;
+}
+
+.md-form label.active, .form-label {
+    font-size: 1rem !important;
 }

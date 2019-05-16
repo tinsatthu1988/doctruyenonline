@@ -1,70 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="vi">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <th:block th:insert="/fragments/header"></th:block>
 </head>
 <body>
-    <section class="page-wrapper">
-        <!--NavBar-->
-        <section th:replace="/fragments/navbar"></section>
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
 
-        <!--Body-->
-        <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
-            <section id="content" class="container container-truyen mb-4">
-                <section class="truyen-section section-featured">
-                    <section class="featured-content">
-                        <section class="row align-items-center">
-                            <section class="error-card">
-                                <section class="error-title-block">
-                                    <h2 class="error-sub-title shadow-1"> Chưa Có Truyên nào thuộc thể loại này</h2>
-                                </section>
-                                <section class="error-container text-center mt-4">
-                                    <a class="btn btn-truyen" th:href="@{/}"><i
+    <!--Body-->
+    <section class="truyen-main" th:if="${listStory == null || #lists.isEmpty(listStory)}">
+        <section id="content" class="container container-truyen mb-4">
+            <section class="truyen-section section-featured">
+                <section class="featured-content">
+                    <section class="row align-items-center">
+                        <section class="error-card">
+                            <section class="error-title-block">
+                                <h2 class="error-sub-title shadow-1"> Chưa Có Truyên nào thuộc thể loại này</h2>
+                            </section>
+                            <section class="error-container text-center mt-4">
+                                <a class="btn btn-truyen" th:href="@{/}"><i
                                         class="fa fa-angle-left"></i> Trở về Trang Chủ</a>
-                                    </section>
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('.error-title-block').addClass('animated flipInY');
-                                            $('.error-container').addClass('animated fadeInUp');
-                                        })
-                                    </script>
-                                </section>
                             </section>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.error-title-block').addClass('animated flipInY');
+                                    $('.error-container').addClass('animated fadeInUp');
+                                })
+                            </script>
                         </section>
                     </section>
                 </section>
             </section>
-            <section class="truyen-main" th:unless="${listStory == null || #lists.isEmpty(listStory)}">
-                <section class="truyen-section section-featured">
-                    <section class="container container-truyen mb-4">
-                        <section class="featured-content">
-                            <section class="row">
-                                <section class="col-12 col-sm-12 col-md-8">
-                                    <section class="block block-default block-list-new">
-                                        <section class="block-header">
-                                            <h1 class="title text-uppercase"
-                                            th:text="${title}"></h1>
-                                        </section>
-                                        <section th:replace="pagination/catalogPagination"></section>
-                                    </section>
-                                </section>
-                                <section class="col-12 col-sm-12 col-md-4">
-                                    <section class="block block-editors-choice-slider">
-                                        <section class="block-content">
-                                            <section class="editors-choice-slider js-editors-choice-slider">
-                                                <h2 class="shadow-1">ĐỌC NHIỀU</h2>
-                                                <section th:replace="/slide/catalogSlide"></section>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </section>
-                            </section>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <!--Footer-->
-            <section th:replace="/fragments/footer"></section>
         </section>
-    </body>
-    </html>
+    </section>
+    <section class="truyen-main" th:unless="${listStory == null || #lists.isEmpty(listStory)}">
+        <section class="truyen-section section-featured">
+            <section class="container container-truyen mb-4">
+                <section class="featured-content">
+                    <section class="row">
+                        <section class="col-12 col-sm-12 col-md-8">
+                            <section class="block block-default block-list-new">
+                                <section class="block-header">
+                                    <h1 class="title text-uppercase"
+                                        th:text="${title}"></h1>
+                                </section>
+                                <section th:replace="pagination/catalogPagination"></section>
+                            </section>
+                        </section>
+                        <section class="col-12 col-sm-12 col-md-4">
+                            <section class="block block-editors-choice-slider">
+                                <section class="block-content">
+                                    <section class="editors-choice-slider js-editors-choice-slider">
+                                        <h2 class="shadow-1">ĐỌC NHIỀU</h2>
+                                        <section th:replace="/slide/catalogSlide"></section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
+</body>
+</html>

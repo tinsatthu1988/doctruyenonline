@@ -319,8 +319,6 @@ public class StoryServiceImpl implements StoryService {
     public boolean updateStory(Story story) {
         Optional< Story > storyOptional = storyRepository.findById(story.getId());
         Story storyEdit = storyOptional.get();
-        if (storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN))
-            return false;
         storyEdit.setAuthor(story.getAuthor());
         storyEdit.setVnName(story.getVnName());
         storyEdit.setCnName(story.getCnName());

@@ -1,16 +1,11 @@
 package apt.hthang.doctruyenonline.controller.account;
 
-import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
-import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.*;
-import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
-import apt.hthang.doctruyenonline.utils.ConstantsUtils;
-import apt.hthang.doctruyenonline.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 /**
@@ -63,8 +53,7 @@ public class AccountChapterController {
     }
     
     @RequestMapping("/list_chuong/{id}")
-    public String listChapterPage(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttrs,
-                                  Principal principal) throws NotFoundException {
+    public String listChapterPage(@PathVariable("id") Long id, Model model, Principal principal) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
         if (user == null) {
@@ -75,12 +64,10 @@ public class AccountChapterController {
         }
         Story story = storyService.findStoryById(id);
         if (story == null) {
-            redirectAttrs.addFlashAttribute("checkEditStory", "Truyện không tồn tại");
-            return "redirect:/tai-khoan/quan_ly_truyen";
+            model.addAttribute("checkListChapter", "Truyện không tồn tại");
         }
         if (!story.getUser().getId().equals(user.getId())) {
-            redirectAttrs.addFlashAttribute("checkEditStory", "Bạn không có quyền quản lý truyện không do bạn đăng!");
-            return "redirect:/tai-khoan/quan_ly_truyen";
+            model.addAttribute("checkListChapter", "Bạn không có quyền quản lý truyện không do bạn đăng!");
         }
         getMenuAndInfo(model, "Danh sách Chapter đã đăng");
         
@@ -88,7 +75,7 @@ public class AccountChapterController {
         
         return "web/account/listChapterPage";
     }
-    
+
 //    @GetMapping("/them_chuong/{id}")
 //    public String addStoryPage(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttrs,
 //                               Principal principal) throws NotFoundException {

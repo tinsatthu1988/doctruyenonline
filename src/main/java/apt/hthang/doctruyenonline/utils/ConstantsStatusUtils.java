@@ -27,7 +27,7 @@ public class ConstantsStatusUtils {
     //Trạng Thái lịch sử được tính lượt xem
     public static final Integer HISTORY_VIEW = 1;
     
-    //Trạng thái truyện bị ẩn
+    //Trạng thái truyện bị khóa
     public static final Integer STORY_STATUS_HIDDEN = 0;
     
     //Trạng thái truyện đang ra

@@ -42,7 +42,12 @@
                         <section class="featured-content" id="content">
                             <section class="row">
                                 <th:block th:include="/nav-tabs/navbar_left"></th:block>
-                                <section class="col-lg-10 col-md-9">
+                                <section class="col-lg-10 col-md-9" sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER','ROLE_SMOD')">
+                                    <div class="alert alert-danger text-center text-black" role="alert" style="font-size: larger;">
+                                        <span class="font-weight-bold">Bạn không có đủ quyền để đăng truyện mới</span>
+                                    </div>
+                                </section>
+                                <section sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER')" class="col-lg-10 col-md-9">
                                     <section class="row">
                                         <div class="col">
                                             <div class="card mb-5">
@@ -56,9 +61,9 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="vnName" name="vnName" th:value="*{vnName}"
+                                                                    <input type="text" class="form-control" id="vnName" name="vnName" th:value="*{vnName}" length="255"
                                                                            th:classappend="${#fields.hasErrors('vnName')} ? 'is-invalid' : ''">
-                                                                    <label for="vnName" class=" text-primary">Tên Tiếng Việt </label>
+                                                                    <label for="vnName" class="form-label text-primary">Tên Tiếng Việt </label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('vnName')}" th:errors="*{vnName}"></em>
                                                                 </div>
                                                             </div>
@@ -68,9 +73,9 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="cnName" name="cnName" th:value="*{cnName}"
+                                                                    <input type="text" class="form-control" length="255" id="cnName" name="cnName" th:value="*{cnName}"
                                                                            th:classappend="${#fields.hasErrors('cnName')} ? 'is-invalid' : ''">
-                                                                    <label for="cnName" class=" text-primary">Tên Tiếng Trung</label>
+                                                                    <label for="cnName" class=" text-primary form-label">Tên Tiếng Trung</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnName')}" th:errors="*{cnName}"></em>
                                                                 </div>
                                                             </div>
@@ -80,7 +85,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="cnLink" name="cnLink" th:value="*{cnLink}"
+                                                                    <input type="url" class="form-control" id="cnLink" name="cnLink" th:value="*{cnLink}" length="255"
                                                                            th:classappend="${#fields.hasErrors('cnLink')} ? 'is-invalid' : ''">
                                                                     <label for="cnLink" class=" text-primary">Link Tiếng Trung</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnLink')}" th:errors="*{cnLink}"></em>
@@ -92,9 +97,9 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="author" name="author" th:value="*{author}"
+                                                                    <input type="text" class="form-control" id="author" name="author" th:value="*{author}" length="255"
                                                                            th:classappend="${#fields.hasErrors('author')} ? 'is-invalid' : ''">
-                                                                    <label for="author" class=" text-primary">Tác giả</label>
+                                                                    <label for="author" class=" form-label text-primary">Tác giả</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></em>
                                                                 </div>
                                                             </div>
@@ -116,7 +121,7 @@
                                                         <!--Grid row-->
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <label class="md-label-cs text-primary mt-1">Thể Loại</label>
+                                                                <label class="md-label-cs text-primary mt-1  form-label">Thể Loại</label>
                                                             </div>
                                                             <!-- Material checked -->
                                                             <div class="col-6 col-md-4 col-lg-2" th:each="category : ${categorylist}">
@@ -139,7 +144,7 @@
                                                         <div class="row">
                                                             <!--Grid column-->
                                                             <div class="col-12 mt-2">
-                                                                <label class="md-label-cs text-primary">Hình Ảnh</label>
+                                                                <label class="md-label-cs text-primary form-label">Hình Ảnh</label>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="md-form mt-0">
@@ -245,7 +250,9 @@
             $('#img-remove').removeClass('is-selected');
         }
     </script>
-    <section th:replace="/fragments/footer"></section>
 </section>
+
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
 </body>
 </html>
