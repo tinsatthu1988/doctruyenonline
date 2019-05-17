@@ -21,6 +21,8 @@ public interface StoryUpdate {
     
     Long getChapterId();
     
+    String getInfomation();
+    
     Integer getChapterNumber();
     
     @Value("#{@myComponent.getDisplayName(target.username, target.displayName)}")

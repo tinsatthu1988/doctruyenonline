@@ -38,6 +38,9 @@
                                                     <th class="font-weight-bolder">Truyện
                                                     </th>
                                                     <th class="font-weight-bolder">
+                                                        Cập Nhật
+                                                    </th>
+                                                    <th class="font-weight-bolder">
                                                     </th>
                                                     <th class="font-weight-bolder">
                                                     </th>
@@ -45,12 +48,13 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-show="listStory.length === 0" class="text-center">
-                                                    <td colspan="2">Bạn chưa theo dõi truyện nào</td>
+                                                    <td colspan="4">Bạn chưa theo dõi truyện nào</td>
                                                 </tr>
                                                 <tr ng-show="listStory.length !== 0" ng-repeat="item in listStory">
                                                     <td>
                                                         <a ng-href="/truyen/{{item.story.id}}" target="_blank">{{item.story.vnName}}</a>
                                                     </td>
+                                                    <td> {{item.story.updateDate | date:'dd/MM/yyyy HH:mm' }}</td>
                                                     <td>
                                                         <a ng-href="/truyen/{{item.story.id}}" target="_blank" class="float-right badge badge-pill badge-secondary">Đọc Truyện</a>
                                                     </td>

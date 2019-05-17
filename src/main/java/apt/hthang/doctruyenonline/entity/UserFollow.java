@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.entity;
 
+import apt.hthang.doctruyenonline.utils.DateUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,5 +27,15 @@ public class UserFollow implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
+    
+    @PrePersist
+    public void prePersist() {
+        if (this.userFollowPK == null) {
+            UserFollowPK pk = new UserFollowPK();
+            pk.setStoryId(story.getId());
+            pk.setUserId(user.getId());
+            this.setUserFollowPK(pk);
+        }
+    }
     
 }

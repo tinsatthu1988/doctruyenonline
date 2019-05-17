@@ -8,9 +8,7 @@ import apt.hthang.doctruyenonline.exception.ExceptionResponse;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.HttpNotLoginException;
 import apt.hthang.doctruyenonline.exception.HttpUserLockedException;
-import apt.hthang.doctruyenonline.projections.StoryMember;
-import apt.hthang.doctruyenonline.projections.StorySlide;
-import apt.hthang.doctruyenonline.projections.StoryUser;
+import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,4 +169,27 @@ public class StoryRestfulController {
         storyService.deleteStoryById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    //Lấy Top 3 Truyện Mới Của Converter
+    @PostMapping(value = "/topAppoidMonth")
+    public ResponseEntity< ? > loadStoryTopViewMonth() {
+        
+        // Lấy Danh Sách Truyện Top View trong tháng
+        List< StoryTop > topstory = storyService
+                .getTopStoryAppoind(ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE)
+                .getContent();
+        return new ResponseEntity<>(topstory, HttpStatus.OK);
+    }
+    
+    //Lấy Top 3 Truyện Mới Của Converter
+    @PostMapping(value = "/storyNewUpdate")
+    public ResponseEntity< ? > loadStoryNewUpdate() {
+        // Lấy Danh Sách Truyện Mới Cập Nhật
+        List< StoryUpdate > listNewStory = storyService
+                .findStoryUpdateByStatus(ConstantsListUtils.LIST_CHAPTER_DISPLAY, ConstantsListUtils.LIST_STORY_DISPLAY,
+                        ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.PAGE_SIZE_HOME)
+                .getContent();
+        return new ResponseEntity<>(listNewStory, HttpStatus.OK);
+    }
+    
 }

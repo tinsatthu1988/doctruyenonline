@@ -217,4 +217,11 @@ public interface StoryService {
      */
     boolean updateStory(Story storyEdit);
     
+    /**
+     *
+     * @param pageDefault
+     * @param rankSize
+     * @return
+     */
+    Page<StoryTop> getTopStoryAppoind(Integer pageDefault, Integer rankSize);
 }

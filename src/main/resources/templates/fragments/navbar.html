@@ -104,6 +104,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{/tai-khoan/}">Hồ Sơ</a></li>
+                            <li><a th:href="@{/tai-khoan/theo_doi}">Truyện Theo Dõi</a></li>
                             <li><a th:href="@{/tai-khoan/quan_ly_truyen}">Quản Lý Truyện</a></li>
                             <li><a th:href="@{/tai-khoan/nap-dau}">Nạp Đậu</a></li>
                             <li class="dropdown-divider"></li>
@@ -164,10 +165,14 @@
                     </section>
                     <section class="list-group collapse"
                              id="truyen-user-menu-collapse">
-                        <section
-                                class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
+                        <section class="list-group-item list-group-item-sidebar list-group-item-diver"></section>
                         <section class="list-group-item list-group-item-sidebar">
                             <a href="/tai-khoan/dang-truyen/">Đăng truyện<span
+                                    class="truyen-icon icon-white-next"></span>
+                            </a>
+                        </section>
+                        <section class="list-group-item list-group-item-sidebar">
+                            <a href="/tai-khoan/theo_doi/">Truyện Theo Dõi<span
                                     class="truyen-icon icon-white-next"></span>
                             </a>
                         </section>

@@ -2990,13 +2990,6 @@ section .section-title {
 
 /*Error Page*/
 
-/*Tab Body navbar-custom*/
-@media (min-width: 1200px) {
-    .truyen-detail-tab {
-        padding-left: 20px
-    }
-}
-
 #navbar-custom .bs-callout {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;

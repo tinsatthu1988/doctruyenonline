@@ -3,6 +3,10 @@ package apt.hthang.doctruyenonline.service;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
+import apt.hthang.doctruyenonline.projections.TopConverter;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * @author Huy Thang
@@ -83,4 +87,12 @@ public interface UserService extends FieldValueExists {
      * @return
      */
     InfoSummary findInfoUserById(Long id);
+    
+    /**
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    List< TopConverter > findTopConverter(int page, int size);;
 }

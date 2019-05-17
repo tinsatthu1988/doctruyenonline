@@ -121,18 +121,20 @@ function storyCtrl(WebService, $scope) {
         }
     };
 
-    // $scope.registRecentReadingStory = function(){
-    //     var url = window.location.origin + '/api/favorites/add';
-    //     var data = new FormData();
-    //     data.append('storyId', $scope.sid);
-    //     WebService.submitForm(url, data).then(function (response) {
-    //         function () {
-                //     window.location.reload();
-                // }
-    //     }, function errorCallback(errResponse) {
-    //         callWarningSweetalert(errResponse.data.messageError);
-    //     });
-    // };
+    $scope.registRecentReadingStory = function(){
+        var url = window.location.origin + '/api/follow/add';
+        var data = new FormData();
+        data.append('storyId', $scope.sid);
+        WebService.submitForm(url, data).then(function (response) {
+            window.location.reload(true);
+        }, function errorCallback(errResponse) {
+            swal({
+                text: errResponse.data.messageError,
+                type: 'warning',
+                confirmButtonText: 'Ok'
+            })
+        });
+    };
 
     $scope.init = function (sID, uID) {
         $scope.sid = sID;

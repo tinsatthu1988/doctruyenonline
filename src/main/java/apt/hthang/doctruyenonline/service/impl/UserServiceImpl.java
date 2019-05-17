@@ -5,13 +5,20 @@ import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
+import apt.hthang.doctruyenonline.projections.TopConverter;
 import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.UserService;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsRoleUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -180,5 +187,16 @@ public class UserServiceImpl implements UserService {
             return this.userRepository.existsUserByEmail(value.toString());
         }
         return this.userRepository.existsUserByUsername(value.toString());
+    }
+    
+    @Override
+    public List< TopConverter > findTopConverter(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page< TopConverter > result = userRepository
+                .getTopConverter(ConstantsListUtils.LIST_CHAPTER_DISPLAY,
+                        ConstantsListUtils.LIST_STORY_DISPLAY,
+                        ConstantsStatusUtils.USER_ACTIVED,
+                        pageable);
+        return result.getContent();
     }
 }

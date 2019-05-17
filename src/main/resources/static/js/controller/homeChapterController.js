@@ -7,6 +7,8 @@ chapterCtrl.$inject = ['$http', '$scope', 'WebService'];
 function chapterCtrl($http, $scope, WebService) {
 
     $scope.sid = 0;
+    $scope.reportMss = '';
+    $scope.chapterId = 0;
     $scope.commentText = '';
     $scope.listComment = [];
     $scope.totalCommentPages = 0;
@@ -15,8 +17,9 @@ function chapterCtrl($http, $scope, WebService) {
     $scope.totalComment = 0;
     $scope.noImage = 'https://res.cloudinary.com/thang1988/image/upload/v1544258290/truyenmvc/noImages.png';
     $scope.commentType = 1;
-    $scope.init = function (sID) {
+    $scope.init = function (sID, chapterId) {
         $scope.sid = sID;
+        $scope.chapterId = chapterId;
         $scope.getListComment(1, 1);
     };
 
@@ -69,4 +72,30 @@ function chapterCtrl($http, $scope, WebService) {
             callWarningSweetalert('Nội dung bình luận không được để trống!');
         }
     };
+
+    $scope.submitReport = function () {
+        if ($scope.reportMss.trim().length === 0) {
+            swal({
+                text: 'Nội dung lỗi không được để trống',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            })
+        } else {
+            var data = new FormData();
+            data.append('chapterId', $scope.chapterId);
+            data.append('content', $scope.reportMss);
+            var url =  window.location.origin + '/api/report/add';
+            WebService.submitForm(url, data).then(function successCallback(response) {
+                swal({
+                    text: 'Báo Lỗi thành công',
+                    type: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(
+                    $('#modal-report').modal('hide')
+                );
+            }, function errorCallback(errResponse) {
+                callWarningSweetalert(errResponse.data.messageError);
+            });
+        }
+    }
 }

@@ -3,9 +3,16 @@ package apt.hthang.doctruyenonline.repository;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
+import apt.hthang.doctruyenonline.projections.TopConverter;
+import apt.hthang.doctruyenonline.utils.ConstantsQueryUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -78,4 +85,12 @@ public interface UserRepository extends JpaRepository< User, Long > {
      * @return
      */
     boolean existsUserByUsername(String username);
+    
+    @Query(value = ConstantsQueryUtils.TOP_CONVERTER,
+            countQuery = ConstantsQueryUtils.COUNT_TOP_CONVERTER,
+            nativeQuery = true)
+    Page< TopConverter > getTopConverter(@Param("chapterStatus") List< Integer > listChapterStatus,
+                                         @Param("storyStatus") List< Integer > listStoryStatus,
+                                         @Param("userStatus") Integer uStatus, Pageable pageable);
+    
 }

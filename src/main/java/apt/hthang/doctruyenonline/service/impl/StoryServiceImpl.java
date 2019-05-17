@@ -332,4 +332,9 @@ public class StoryServiceImpl implements StoryService {
         storyRepository.save(storyEdit);
         return true;
     }
+    
+    @Override
+    public Page< StoryTop > getTopStoryAppoind(Integer pageDefault, Integer rankSize) {
+        return null;
+    }
 }

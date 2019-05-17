@@ -108,8 +108,7 @@
                                            th:href="@{'/truyen/' + ${story.id} + '/chuong-' + ${story.chapterHead.id}}">
                                             Đọc Từ Đầu
                                         </a>
-                                        <a onclick="registRecentReadingStory(20569,1)" class="btn btn-truyen-white">
-                                            Theo dõi</a>
+                                        <a ng-click="registRecentReadingStory()" class="btn btn-outline-primary waves-effect">Theo dõi</a>
                                         <!-- Button trigger modal -->
                                         <a class="btn btn-xs btn-read text-white" data-toggle="modal" data-target="#appointModal">
                                             Đề Cử
@@ -140,7 +139,7 @@
                     </section>
                 </section>
                 <section class="truyen-section">
-                    <section class="truyen-detail-tab" id="navbar-custom">
+                    <section class="truyen-detail-tab classic-tabs" id="navbar-custom">
                         <section th:replace="/nav-tabs/storyNavtabs"></section>
                     </section>
                 </section>

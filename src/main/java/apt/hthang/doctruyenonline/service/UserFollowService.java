@@ -20,7 +20,6 @@ public interface UserFollowService {
     Page< FollowSummar > findAllStoryFollowByUserId(Long id, Integer pagenumber, Integer size);
     
     /**
-     *
      * @param userId
      * @param storyId
      * @return
@@ -28,8 +27,13 @@ public interface UserFollowService {
     UserFollow findByUserIdAndStoryId(Long userId, Long storyId);
     
     /**
-     *
      * @param userFollow
      */
     void deleteFollow(UserFollow userFollow);
+    
+    /**
+     *
+     * @param userFollow
+     */
+    void saveFollow(UserFollow userFollow);
 }

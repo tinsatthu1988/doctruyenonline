@@ -130,7 +130,7 @@
                                         idBox: idBox,
                                         rate: rate
                                     }, function (data) {
-                                        if (!templates.error) {
+                                        if (!data.error) {
                                             $('.serverResponse p').html(data.server);
                                             if (opts.onSuccess)
                                                 opts.onSuccess(element, rate, data);

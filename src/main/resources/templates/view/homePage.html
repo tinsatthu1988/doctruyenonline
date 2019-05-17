@@ -13,107 +13,325 @@
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
 <body ng-app="ngApp" ng-controller="homeCtrl" ng-init="init()">
-<section class="col-12">
-    <div class="pb-2 pt-2 mb-4 border-bottom">
-        <h3>
-            <span class="oi oi-book"></span> Đăng Truyện
-        </h3>
-    </div>
-    <form method="POST" class="form-horizontal"
-          th:object="${story}"
-          th:action="@{/tai-khoan/them_truyen}" enctype="multipart/form-data">
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Tên Tiếng Việt:</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" th:field="*{vnName}"/>
-                <span th:if="${#fields.hasErrors('vnName')}" th:errors="*{vnName}"
-                      class="help-error"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Tên Tiếng Trung:</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" th:field="*{cnName}"/> <span
-                    th:if="${#fields.hasErrors('cnName')}" th:errors="*{cnName}"
-                    class="help-error"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Link Tiếng Trung:</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" th:field="*{cnLink}"/> <span
-                    th:if="${#fields.hasErrors('cnLink')}" th:errors="*{cnLink}"
-                    class="help-error"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Tác giả:</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" th:field="*{author}"/> <span
-                    th:if="${#fields.hasErrors('author')}" th:errors="*{author}"
-                    class="help-error"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Giới Thiệu:</label>
-            <div class="col-sm-8">
-                <textarea id="mytextarea" class="form-control" th:field="*{infomation}"></textarea>
-                <span th:if="${#fields.hasErrors('infomation')}"
-                      th:errors="*{infomation}"
-                      class="help-error"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Thể Loại:</label>
-            <div class="col-sm-8">
-                <section class="col-12">
-<!--                    <section class="row">-->
-<!--                        <div class="form-check col-12 col-sm-6 col-md-4 col-lg-3 mr-0"-->
-<!--                             th:each="category : ${categorylist}">-->
-<!--                            <input class="form-check-input" type="checkbox"-->
-<!--                                   th:field="*{categoryList}"-->
-<!--                                   th:id="'inlineCheckbox'+ ${category.id}"-->
-<!--                                   th:value="${category.id}">-->
-<!--                            <label class="custom-control-label"-->
-<!--                                   th:for="'inlineCheckbox'+ ${category.id}"-->
-<!--                                   th:text="${category.name}"></label>-->
-<!--                        </div>-->
-<!--                    </section>-->
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
+    <section class="truyen-main">
+        <section class="container">
+            <section class="truyen-section section-featured">
+                <section class="featured-content">
                     <section class="row">
-                        <div class="custom-control custom-checkbox col-6 col-md-4 col-lg-2 mr-0" th:each="category : ${categorylist}">
-                            <input type="checkbox" class="custom-control-input" th:field="*{categoryList}"
-                                   th:id="'inlineCheckbox'+ ${category.id}"
-                                   th:value="${category.id}">
-                            <label class="custom-control-label" th:for="'inlineCheckbox'+ ${category.id}"
-                                   th:text="${category.name}" style="line-height: 1.8"></label>
-                        </div>
+                        <section class="col-12 col-md-6 col-lg-4">
+                            <section class="block block-editors-choice-slider">
+                                <section class="block-content">
+                                    <section class="editors-choice-slider js-editors-choice-slider">
+                                        <h2 class="shadow-1">ĐỌC NHIỀU TRONG TUẦN</h2>
+                                        <section class="swiper-container">
+                                            <section class="swiper-wrapper">
+                                                <section class="swiper-slide"
+                                                         th:each="topstory,iterStat : ${topStoryWeek}"
+                                                         th:if="${iterStat.index < 4}">
+                                                    <section class="item">
+                                                        <section class="thumb">
+                                                            <a th:href="@{'/truyen/'+${topstory.id}}"
+                                                               th:title="${topstory.vnName}">
+                                                                <img class="img-fluid lazyload" alt=""
+                                                                     th:data-src="${topstory.images}"
+                                                                     th:title="${topstory.vnName}">
+                                                            </a>
+                                                        </section>
+                                                        <section class="info" style="">
+                                                            <h2 class="title">
+                                                                <a th:href="@{'/truyen/'+${topstory.id}}"
+                                                                   th:title="${topstory.vnName}"
+                                                                   th:text="${topstory.vnName}"></a>
+                                                            </h2>
+                                                            <section class="description text-center"
+                                                                     style="-webkit-line-clamp: 3;"
+                                                                     th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></section>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                            <section
+                                                    class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+                                                <span class="swiper-pagination-bullet"></span>
+                                                <span class="swiper-pagination-bullet"></span>
+                                                <span class="swiper-pagination-bullet"></span>
+                                                <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+                                                <span class="swiper-pagination-bullet"></span>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="col-12 col-md-6 col-lg-4">
+                            <section class="block">
+                                <section class="block-content">
+                                    <section class="editors-choice-list">
+                                        <section class="row">
+                                            <th:block th:each="topstory,iterStat : ${topStoryWeek}"
+                                                      th:if="${(topStoryWeek.size()-6) le iterStat.index}">
+                                                <section class="col-12 col-sm-12 col-md-6 btv-2">
+                                                    <section class="item">
+                                                        <h2 class="title">
+                                                            <a th:href="@{'/truyen/'+${topstory.id}}"
+                                                               th:title="${topstory.vnName}"
+                                                               th:text="${topstory.vnName}"></a>
+                                                        </h2>
+                                                        <section class="view text-secondary"><span
+                                                                class="text-red fz-16" th:text="${topstory.cnt}"></span>
+                                                            người truy cập
+                                                        </section>
+                                                        <section class="description"
+                                                                 th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></section>
+                                                    </section>
+                                                </section>
+                                            </th:block>
+                                            <section class="clearfix hidden-xs"></section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="col-12 col-md-12 col-lg-4">
+                            <section class="block block-default block-readers-choice">
+                                <section class="block-header"><h2 class="title"> Top Đề Cử </h2></section>
+                                <section class="block-content">
+                                    <ul class="list-group">
+                                        <li ng-repeat="storyVM in topViewMonth"
+                                            class="list-group-item list-group-item-primary-me"
+                                            ng-class="$index==0?'item-featured':''">
+                                            <section class="content">
+                                                <section class="index index-{{$index+1}} index-star">{{$index+1}}
+                                                </section>
+                                                <section class="info">
+                                                    <h2 class="title">
+                                                        <a ng-href="/truyen/{{storyVM.id}}"
+                                                           ng-attr-title="{{storyVM.vnName}}">{{storyVM.vnName}}</a>
+                                                    </h2>
+                                                    <section class="view text-secondary" ng-if="$index == 0">
+                                                        <span class="text-red fz-16">{{storyVM.cnt}}</span> phiếu
+                                                    </section>
+                                                    <section class="view text-secondary" ng-if="$index != 0">
+                                                        {{storyVM.cnt}}
+                                                    </section>
+                                                    <section class="extra-info" ng-if="$index == 0">
+                                                        <p>Thể Loại:
+                                                            <a ng-href="/the-loai/{{storyVM.categoryId}}">{{storyVM.categoryName}}</a>
+                                                        </p>
+                                                        <p>Tác giả: <span>{{storyVM.author}}</span>
+                                                        </p>
+                                                    </section>
+                                                </section>
+                                                <section class="thumb" ng-if="$index == 0">
+                                                    <section class="book-cover">
+                                                        <a class="book-cover-link"
+                                                           ng-href="/truyen/{{storyVM.id}}"
+                                                           ng-attr-title="{{storyVM.vnName}}">
+                                                            <img ng-src="{{storyVM.images}}"
+                                                                 ng-alt="{{storyVM.vnName}}">
+                                                        </a> <span class="book-cover-shadow"></span>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </section>
+                        </section>
                     </section>
                 </section>
-                <section th:if="${#fields.hasErrors('categoryList')}"
-                         th:errors="*{categoryList}"
-                         class="col-12 help-error"></section>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-2 font-weight-bold">Hình Ảnh:</label>
-            <div class="col-sm-8">
-                <input class="form-control mb-2" type="file" id="inputFile"
-                       th:field="*{uploadfile}"
-                       accept="image/png, image/jpeg, image/jpg"/>
-                <section class="col-12 col-sm-3">
-                    <img id="imgLogo" class="img-fluid">
+            </section>
+
+            <section class="truyen-section">
+                <section class="container">
+                    <section class="row">
+                        <section class="col-12 col-md-12 col-lg-12">
+                            <section class="block block-default block-list-new">
+                                <section class="block-header">
+                                    <h2 class="title text-uppercase">Mới Cập Nhật</h2>
+                                </section>
+                                <section class="block-content" id="dataTable">
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-item-table"
+                                            ng-repeat="storyNU in storyNewUpdate">
+                                            <section class="content">
+                                                <a class="thumb" ng-href="/truyen/{{storyNU.id}}">
+                                                    <img class="img-fluid" ng-src="{{storyNU.images}}"
+                                                         ng-alt="{{storyNU.vnName}}">
+                                                </a>
+                                                <section class="info">
+                                                    <h2 class="title">
+                                                        <a ng-href="/truyen/{{storyNU.id}}"
+                                                           ng-attr-title="{{storyNU.vnName}}">
+                                                            <img class="img-fluid" src="/images/vip-vip.gif"
+                                                                 ng-show="storyNU.dealStatus === 1" alt="">
+                                                            <span ng-class="storyNU.dealStatus == 1?'shadow-2' : ''">{{storyNU.vnName}}</span>
+                                                        </a>
+                                                    </h2>
+                                                    <section class="chap">{{storyNU.author}}</section>
+                                                    <section class="author">
+                                                        <a ng-if="storyNU.chapterId != null"
+                                                           ng-href="/truyen/{{storyNU.id}}/chuong-{{storyNU.chapterId}}"
+                                                           ng-attr-title="Chương {{storyNU.chapterNumber}}">Chương
+                                                            {{storyNU.chapterNumber}}</a>
+                                                        <a ng-if="storyNU.chapterId == null">&nbsp;</a>
+                                                    </section>
+                                                    <section class="time">
+                                                        {{storyNU.displayName?storyNU.displayName:storyNU.username}}
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </li>
+                                    </ul>
+                                    <section>
+                                        <a th:href="@{/danh-muc/moi-cap-nhat}" class="float-right cnt-view">Xem
+                                            tiếp</a>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
                 </section>
-            </div>
-        </div>
-        <div class="form-group text-right">
-            <div class="col-sm-10">
-                <a class="btn btn-truyen pr-2" th:href="@{/tai-khoan/quan_ly_truyen}">Quay
-                    Lại</a>
-                <input type="reset" class="btn btn-truyen" value="Khôi Phục"/>
-                <input type="submit" class="btn btn-truyen" value="Đăng Truyện"/>
-            </div>
-        </div>
-    </form>
+            </section>
+        </section>
+
+        <section class="truyen-section section-featured">
+            <section class="container">
+                <section class="row">
+                    <section class="col-12 col-md-12 col-lg-8">
+                        <section class="block block-default">
+                            <section class="block-header">
+                                <h2 class="title text-uppercase">Truyện Vip</h2>
+                            </section>
+                            <section class="block-content">
+                                <section class="row">
+                                    <section class="col-12 col-md-12 col-lg-6">
+                                        <section class="truyen-slider js-truyen-slider">
+                                            <section class="slider-thumb">
+                                                <section class="swiper-container">
+                                                    <section class="swiper-wrapper">
+                                                        <section class="swiper-slide"
+                                                                 th:each="storyVip,iterStat : ${vipStory}"
+                                                                 th:if="${iterStat.index < 4}">
+                                                            <a class="item" th:href="@{'/truyen/'+${storyVip.id}}"
+                                                               th:title="${storyVip.vnName}">
+                                                                <img th:src="${storyVip.images}"
+                                                                     th:alt="${storyVip.vnName}"
+                                                                     class="img-fluid img-thumbnail">
+                                                            </a>
+                                                        </section>
+                                                    </section>
+                                                    <section class="swiper-button-prev"><i
+                                                            class="truyen-icon icon-prev"></i></section>
+                                                    <section class="swiper-button-next"><i
+                                                            class="truyen-icon icon-next"></i></section>
+                                                </section>
+                                            </section>
+                                            <section class="slider-info">
+                                                <section class="swiper-container">
+                                                    <section class="swiper-wrapper">
+                                                        <section class="swiper-slide"
+                                                                 th:each="storyVip,iterStat : ${vipStory}"
+                                                                 th:if="${iterStat.index < 4}">
+                                                            <section class="item text-center">
+                                                                <h2 class="title" th:text="${storyVip.vnName}"></h2>
+                                                                <section class="view text-secondary"
+                                                                         th:text="${storyVip.author}"></section>
+                                                                <p class="description"
+                                                                   th:text="${T(org.jsoup.Jsoup).parse(storyVip.infomation).text()}"></p>
+                                                                <a th:href="@{'/truyen/'+${storyVip.id}}"
+                                                                   class="btn btn-truyen" title="xem tiếp">
+                                                                    Xem chi tiết
+                                                                </a>
+                                                            </section>
+                                                        </section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                    <section class="col-12 col-md-12 col-lg-6">
+                                        <section class="block">
+                                            <section class="block-content">
+                                                <section class="editors-choice-list" style="border-bottom: none;">
+                                                    <section class="row">
+                                                        <th:block th:each="vStory,iterStat : ${vipStory}"
+                                                                  th:if="${(vipStory.size()-6) le iterStat.index}">
+                                                            <section class="col-12 col-sm-12 col-md-6 btv-2">
+                                                                <section class="item">
+                                                                    <h2 class="title">
+                                                                        <a th:href="@{'/truyen/'+${vStory.id}}"
+                                                                           th:title="${vStory.vnName}"
+                                                                           th:text="${vStory.vnName}"></a>
+                                                                    </h2>
+                                                                    <section class="view text-secondary"><span
+                                                                            class="text-red fz-16"
+                                                                            th:text="${vStory.author}"></span>
+                                                                    </section>
+                                                                    <p class="description"
+                                                                       th:text="${T(org.jsoup.Jsoup).parse(vStory.infomation).text()}"></p>
+                                                                </section>
+                                                            </section>
+                                                        </th:block>
+                                                        <section class="clearfix hidden-xs"></section>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <section class="col-12 col-md-12 col-lg-4">
+                        <section class="block block-default block-readers-choice">
+                            <section class="block-header"><h2 class="title"> Top Conveter</h2></section>
+                            <section class="block-content">
+                                <ul class="list-group">
+                                    <li ng-repeat="conveter in topConveter"
+                                        class="list-group-item list-group-item-primary-me"
+                                        ng-class="$index==0?'item-featured':''">
+                                        <section class="content">
+                                            <section class="index index-{{$index+1}} index-star">{{$index+1}}</section>
+                                            <section class="info">
+                                                <h2 class="title">
+                                                    <a ng-href="/member/{{conveter.id}}"
+                                                       ng-attr-title="{{conveter.displayName}}">{{conveter.displayName}}</a>
+                                                </h2>
+                                                <section class="view text-secondary" ng-if="$index == 0">
+                                                    Số Truyện: <span class="text-red fz-16">{{conveter.scnt}}</span>
+                                                </section>
+                                                <section class="view text-secondary" ng-if="$index != 0">
+                                                    {{conveter.cnt}} Chương
+                                                </section>
+                                                <section class="extra-info" ng-if="$index == 0">
+                                                    <p>Số Chương đã đăng: {{conveter.cnt}}</p>
+                                                </section>
+                                            </section>
+                                            <section class="thumb" ng-if="$index == 0">
+                                                <section class="book-cover">
+                                                    <a class="book-cover-link"
+                                                       ng-href="/member/{{conveter.id}}"
+                                                       ng-attr-title="{{conveter.displayName}}">
+                                                        <img ng-src="{{conveter.avatar?conveter.avatar:noImage}}"
+                                                             ng-alt="{{conveter.displayName}}">
+                                                    </a> <span class="book-cover-shadow"></span>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </li>
+                                </ul>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
 </section>
+<section th:replace="/fragments/footer"></section>
 </body>
 </html>

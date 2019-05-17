@@ -11,7 +11,7 @@
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
-<body class="page-read" ng-app="ngApp" ng-controller="chapterCtrl" th:ng-init="|init(${chapter.story.id})|">
+<body class="page-read" ng-app="ngApp" ng-controller="chapterCtrl" th:ng-init="|init(${chapter.story.id}, ${chapter.id})|">
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>
@@ -66,10 +66,9 @@
                            data-toggle="tooltip" data-placement="bottom" title="Chương trước">
                             <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
                         </a>
-                        <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
-                           onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
-                                class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
-                                title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
+                        <a th:href="@{'/truyen/' + ${chapter.story.id}}" class="btn btn-transparent btn-outline-primary waves-effect">
+                            <span class="btn-icon js-tooltip " data-toggle="tooltip" data-placement="bottom"
+                                  title="Mục lục"> <i class="truyen-icon icon-list"></i> </span> </a>
                         <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
                            class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
                            data-toggle="tooltip" data-placement="bottom" title="Chương sau">
@@ -110,10 +109,12 @@
                            data-toggle="tooltip" data-placement="bottom" title="Chương trước">
                             <span class="btn-icon"> <i class="truyen-icon icon-prev-bold"></i> </span>
                         </a>
-                        <a href="#modal-chap" data-toggle="modal" class="btn btn-transparent"
-                           onclick="showChapter(16214,2,2,'cuc pham manh nhat cao thu')"> <span
-                                class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
-                                title="Danh sách chương"> <i class="truyen-icon icon-list"></i> </span> </a>
+                        <a th:href="@{'/truyen/' + ${chapter.story.id}}" class="btn btn-transparent btn-outline-primary waves-effect">
+                            <span class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                  title="Mục Lục"> <i class="truyen-icon icon-list"></i> </span> </a>
+                        <a href="#modal-report" data-toggle="modal" class="btn btn-transparent btn-outline-primary waves-effect">
+                            <span class="btn-icon js-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                  title="Báo lỗi"> <i class="truyen-icon icon-warning"></i> </span> </a>
                         <a th:href="@{'/truyen/' + ${chapter.story.id} + '/chuong-' + ${nextChapter}}"
                            class="btn btn-primary" th:classappend="${nextChapter!=0} ? '': 'disabled'"
                            data-toggle="tooltip" data-placement="bottom" title="Chương sau">
@@ -137,4 +138,38 @@
 <!--Footer-->
 <section th:replace="/fragments/footer"></section>
 </body>
+
+<!-- Modal đăng ký rút tiền-->
+<div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-notify modal-primary" role="document">
+        <!-- Content -->
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <p class="heading lead">Báo Lỗi</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+            <form ng-submit="submitReport()">
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <textarea type="text" id="infomation" name="infomation" rows="6" class="form-control md-textarea" ng-model="reportMss"
+                                  placeholder="Nội dung báo lỗi không được để trống"></textarea>
+                        <label for="infomation" class="text-primary">Nội dung báo lỗi</label>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer justify-content-center">
+                    <input type="submit" class="btn btn-primary waves-effect waves-light" value="Báo Lỗi" id="submitWD">
+                </div>
+            </form>
+        </div>
+        <!-- Content -->
+    </div>
+</div>
 </html>

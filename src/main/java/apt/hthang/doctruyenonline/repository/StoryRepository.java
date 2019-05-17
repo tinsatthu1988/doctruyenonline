@@ -225,4 +225,19 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
      */
     Page< StoryUser > findByUser_IdAndStatusOrderByUpdateDateDesc(Long id, Integer status, Pageable pageable);
     
+//    /**
+//     * Lấy Danh sách Truyện Top Đề Cử
+//     *
+//     * @param listStatus
+//     * @param pageable
+//     * @return Page<TopStory>
+//     */
+//    @Query(value = ConstantsQueryUtils.STORY_TOP_APPOIND,
+//            countQuery = ConstantsQueryUtils.STORY_TOP_APPOIND,
+//            nativeQuery = true)
+//    Page< StoryTop > findTopStoryAppoind(@Param("storyStatus") List< Integer > listStatus,
+//                                         @Param("startDate") Date startDate,
+//                                         @Param("endDate") Date endDate,
+//                                        Pageable pageable);
+    
 }

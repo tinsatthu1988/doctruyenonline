@@ -1,5 +1,7 @@
 package apt.hthang.doctruyenonline.entity;
 
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.DateUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,5 +38,15 @@ public class Report implements Serializable {
     private User user;
     @Column(name = "status")
     private Integer status;
+    
+    @PrePersist
+    public void prePersist() {
+        if (createDate == null) {
+            createDate = DateUtils.getCurrentDate();
+        }
+        if (status == null) {
+            status = ConstantsStatusUtils.REPORT_WAIT;
+        }
+    }
     
 }

@@ -1,8 +1,20 @@
 package apt.hthang.doctruyenonline.service;
 
+import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.Report;
+import apt.hthang.doctruyenonline.entity.User;
+
 /**
  * @author Huy Thang
  * @project doctruyenonline
  */
 public interface ReportService {
+    /**
+     *
+     * @param chapter
+     * @param user
+     * @param content
+     * @return
+     */
+    Report saveReport(Chapter chapter, User user, String content);
 }

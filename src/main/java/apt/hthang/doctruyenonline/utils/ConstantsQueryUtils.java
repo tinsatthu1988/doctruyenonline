@@ -235,4 +235,36 @@ public class ConstantsQueryUtils {
             + " WHERE s.status IN :storyStatus AND s.dealStatus = :storyDealStatus"
             + " GROUP BY s.id"
             + " ORDER BY s.updateDate DESC";
+    
+    public static final String STORY_TOP_APPOIND = "SELECT s.id, s.vnName, s.images, s.author, s.infomation, s.dealStatus, "
+            + " COALESCE(s.countAppoint,0) AS cnt, ca.id as categoryId, ca.name as categoryName"
+            + " FROM Story s "
+            + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
+            + " LEFT JOIN Category ca on sc.categoryId = ca.id"
+            + " WHERE  s.status IN :storyStatus"
+            + " GROUP BY s.id"
+            + " ORDER BY cnt DESC, s.countView DESC";
+    
+    public static final String TOP_CONVERTER = "SELECT u.id, u.username, u.displayName, u.avatar,"
+            + " COALESCE(d.cntc ,0) AS cnt, COALESCE(e.cnts ,0) AS scnt"
+            + " FROM User u"
+            + " LEFT JOIN (SELECT c.userPosted as userChapterPosted, COUNT(c.userPosted) as cntc FROM Chapter c"
+            + " WHERE c.status IN :chapterStatus"
+            + " GROUP BY c.userPosted) d ON u.id = d.userChapterPosted"
+            + " LEFT JOIN (SELECT s.userPosted as userStoryPosted, COUNT(s.userPosted) as cnts FROM Story s"
+            + " WHERE s.status IN :storyStatus"
+            + " GROUP BY s.userPosted) e ON u.id = e.userStoryPosted"
+            + " WHERE u.status = :userStatus"
+            + " ORDER BY cnt DESC, scnt DESC";
+    
+    public static final String COUNT_TOP_CONVERTER = "SELECT COUNT(*) FROM User u"
+            + " LEFT JOIN (SELECT c.userPosted as userChapterPosted, COALESCE(COUNT(c.userPosted),0) as cnt FROM Chapter c"
+            + " WHERE c.status IN :chapterStatus"
+            + " GROUP BY c.userPosted) d ON u.id = d.userChapterPosted"
+            + " LEFT JOIN (SELECT s.userPosted as userStoryPosted, COALESCE(COUNT(s.userPosted),0) as scnt FROM Story s"
+            + " WHERE s.status IN :storyStatus"
+            + " GROUP BY s.userPosted) e ON u.id = e.userStoryPosted"
+            + " WHERE u.status = :userStatus"
+            + " ORDER BY cnt DESC, scnt DESC";
+    
 }

@@ -6,6 +6,7 @@ import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.HttpNotLoginException;
 import apt.hthang.doctruyenonline.exception.HttpUserLockedException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
+import apt.hthang.doctruyenonline.projections.TopConverter;
 import apt.hthang.doctruyenonline.service.CloudinaryUploadService;
 import apt.hthang.doctruyenonline.service.PayService;
 import apt.hthang.doctruyenonline.service.UserService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * @author Huy Thang
@@ -164,5 +166,15 @@ public class UserRestfulController {
         //Cập Nhật Thông Tin User
         userService.updateUser(user);
         return new ResponseEntity<>(url, HttpStatus.OK);
+    }
+    
+    
+    @PostMapping(value = "/topConveter")
+    public ResponseEntity< ? > loadStoryOfConverter() {
+        // Lấy Danh Sách Top Converter
+        List< TopConverter > topConverters = userService
+                .findTopConverter(ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE);
+        
+        return new ResponseEntity<>(topConverters, HttpStatus.OK);
     }
 }

@@ -59,4 +59,8 @@ public class ConstantsStatusUtils {
     
     // Trạng Thái User bị khóa
     public static final Integer USER_DENIED = 0;
+    
+    public static final Integer REPORT_DENIED = 0;
+    public static final Integer REPORT_WAIT = 2;
+    public static final Integer USER_SUCCESS = 1;
 }
