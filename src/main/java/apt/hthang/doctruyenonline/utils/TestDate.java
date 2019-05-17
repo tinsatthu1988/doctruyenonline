@@ -13,20 +13,26 @@ import java.io.IOException;
 public class TestDate {
     
     public static void main(String[] args) throws IOException {
-        Document doc = Jsoup.connect("https://truyencv.com/ta-se-chi-dai-chieu/chuong-1").timeout(5000).get();
-        String[] title = doc.title().split("-");
-        // Lấy Tên Chương
-        String[] titleText = title[1].trim().split(" ");
-        StringBuilder nameChapter = new StringBuilder();
-        String chapterNumber = "";
-        for (int i = 0; i < titleText.length; i++) {
-            if (i == 1)
-                chapterNumber = titleText[i];
-            if (i > 1)
-                nameChapter.append(titleText[i]).append(" ");
-        }
-        System.out.println(chapterNumber.trim());
-        System.out.println(StringUtils.capitalize(nameChapter.toString().trim()));
+        float a = (float) 3.1;
+        float b = (float) 4.9;
+        System.out.println((int) a);
+        System.out.println((int) b);
+        System.out.println(a/1);
+        System.out.println(b/1);
+//        Document doc = Jsoup.connect("https://truyencv.com/ta-se-chi-dai-chieu/chuong-1").timeout(5000).get();
+//        String[] title = doc.title().split("-");
+//        // Lấy Tên Chương
+//        String[] titleText = title[1].trim().split(" ");
+//        StringBuilder nameChapter = new StringBuilder();
+//        String chapterNumber = "";
+//        for (int i = 0; i < titleText.length; i++) {
+//            if (i == 1)
+//                chapterNumber = titleText[i];
+//            if (i > 1)
+//                nameChapter.append(titleText[i]).append(" ");
+//        }
+//        System.out.println(chapterNumber.trim());
+//        System.out.println(StringUtils.capitalize(nameChapter.toString().trim()));
 //        Element page = doc.select("div#js-truyencv-content").first();
 //        String cleanString = Jsoup.parse(page.html()).wholeText();
 ////        System.out.println(cleanString);

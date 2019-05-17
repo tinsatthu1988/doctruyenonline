@@ -141,7 +141,7 @@ public class AccountStoryController {
         getMenuAndInfo(model, "Sửa Truyện", -1);
         
         if (!model.containsAttribute("story")) {
-            story.setInfomation(story.getInfomation().replaceAll("<br />", "\n"));
+            story.setInfomation(story.getInfomation().replaceAll("(?i)<br */?>", "\n"));
             model.addAttribute("story", story);
         }
         model.addAttribute("statusList", ConstantsListUtils.LIST_STORY_STATUS_CONVERTER);

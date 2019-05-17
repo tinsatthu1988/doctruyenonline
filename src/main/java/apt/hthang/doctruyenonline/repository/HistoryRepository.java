@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,7 @@ public interface HistoryRepository extends JpaRepository< History, Long > {
      * @param storyId
      * @return Optional<History>
      */
-    Optional< History > findTopByUser_IdAndChapter_Story_IdOrderByDateViewDesc(Long userId, Long storyId);
+    Optional< History > findTopByUser_IdAndChapter_Story_IdAndChapter_StatusOrderByDateViewDesc(Long userId, Long storyId, List< Integer > status);
     
     /**
      * Kiểm tra tồn tại Favorites trong khoảng

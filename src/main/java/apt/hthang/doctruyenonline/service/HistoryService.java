@@ -40,4 +40,5 @@ public interface HistoryService {
      * @return void
      */
     void saveHistory(Chapter chapter, User user, String LocationIP, Integer uView);
+    
 }

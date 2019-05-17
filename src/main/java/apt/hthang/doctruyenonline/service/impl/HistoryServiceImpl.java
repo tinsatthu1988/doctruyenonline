@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.entity.History;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.repository.HistoryRepository;
 import apt.hthang.doctruyenonline.service.HistoryService;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public Chapter findChapterReadByUser(Long userId, Long storyId) {
         Optional< History > ufavorites = historyRepository
-                .findTopByUser_IdAndChapter_Story_IdOrderByDateViewDesc(userId, storyId);
+                .findTopByUser_IdAndChapter_Story_IdAndChapter_StatusOrderByDateViewDesc(userId, storyId, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
         return ufavorites.map(History::getChapter).orElse(null);
     }
     
@@ -72,4 +73,5 @@ public class HistoryServiceImpl implements HistoryService {
         history.setLocationIP(LocationIP);
         historyRepository.save(history);
     }
+    
 }

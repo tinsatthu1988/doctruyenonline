@@ -4,6 +4,7 @@ import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
+import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
@@ -154,10 +155,10 @@ public class StoryController {
     // null - Nếu người dùng chưa đăng nhập hoặc chưa đọc
     // chapter - Nếu tìm thấy dữ liệu phù hợp
     private void getChapterReadByUser(User user, Long sID, Model model) {
-        Chapter chapter = null;
-        if (user != null) {
-            chapter = historyService.findChapterReadByUser(user.getId(), sID);
-        }
-        model.addAttribute("readChapter", chapter);
+//        Chapter chapter = null;
+//        if (user != null) {
+//            chapter = historyService.findChapterReadByUser(user.getId(), sID);
+//        }
+//        model.addAttribute("readChapter", chapter);
     }
 }

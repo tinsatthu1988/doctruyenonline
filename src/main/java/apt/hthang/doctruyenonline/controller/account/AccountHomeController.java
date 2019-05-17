@@ -145,4 +145,22 @@ public class AccountHomeController {
         model.addAttribute("success", true);
         return "view/account/accPasswordPage";
     }
+    
+    @GetMapping(value = "/theo_doi")
+    private String followPage(Model model, Principal principal) throws NotFoundException {
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
+        if (user == null) {
+            throw new NotFoundException("Tài khoản không tồn tại mời liên hệ admin để biết thêm thông tin");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        String title = "Danh Sách Theo Dõi";
+        
+        getMenuAndInfo(model, title, 7);
+        model.addAttribute("id", user.getId());
+        
+        return "view/account/accFollowPage";
+    }
 }

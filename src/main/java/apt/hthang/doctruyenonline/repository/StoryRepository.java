@@ -19,8 +19,7 @@ import java.util.Optional;
  */
 
 @Repository
-public interface
-StoryRepository extends JpaRepository< Story, Long > {
+public interface StoryRepository extends JpaRepository< Story, Long > {
     
     /**
      * Lấy Danh sách Truyện Mới Theo Thể Loại

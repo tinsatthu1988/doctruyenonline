@@ -132,4 +132,29 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      */
     Long countChapterByStory_Id(Long id);
     
+    /**
+     *
+     * @param userId
+     * @param storyId
+     * @param pageable
+     * @return
+     */
+    Page<ChapterOfStory> findByUser_IdAndStory_Id(Long userId, Long storyId, Pageable pageable);
+    
+    /**
+     *
+     * @param chapterId
+     * @param storyId
+     * @param number
+     * @return
+     */
+    boolean existsByIdNotAndStory_IdAndSerial(long chapterId, Long storyId, float number);
+    
+    /**
+     *
+     * @param id
+     * @param number
+     * @return
+     */
+    boolean existsByStory_IdAndSerial(Long id, float number);
 }

@@ -6,14 +6,12 @@ import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ChapterOfStory;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.repository.ChapterRepository;
+import apt.hthang.doctruyenonline.repository.StoryRepository;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,13 +26,10 @@ import static java.lang.Long.valueOf;
 @Service
 @Transactional
 public class ChapterServiceImpl implements ChapterService {
-    
-    private final ChapterRepository chapterRepository;
-    
     @Autowired
-    public ChapterServiceImpl(ChapterRepository chapterRepository) {
-        this.chapterRepository = chapterRepository;
-    }
+    private ChapterRepository chapterRepository;
+    @Autowired
+    private StoryRepository storyRepository;
     
     /**
      * Lấy Chapter ID Chương Đầu
@@ -174,7 +169,7 @@ public class ChapterServiceImpl implements ChapterService {
                 .orElse(null);
     }
     
-        /**
+    /**
      * Đếm Số Chương Của Truyện
      *
      * @param id
@@ -186,7 +181,88 @@ public class ChapterServiceImpl implements ChapterService {
     }
     
     @Override
-    public Chapter saveNewChapter(Chapter chapter) {
-        return chapterRepository.save(chapter);
+    public boolean saveNewChapter(Chapter chapter) {
+        chapter.setContent(chapter.getContent().replaceAll("\n", "<br />"));
+        Chapter newChapter = chapterRepository.save(chapter);
+        if (newChapter.getId() != null) {
+            Story story = storyRepository.findById(newChapter.getStory().getId()).get();
+            story.setUpdateDate(newChapter.getCreateDate());
+            storyRepository.save(story);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Tìm Kiếm Chapter theo
+     *
+     * @param storyId
+     * @param userId
+     * @param type
+     * @return
+     */
+    @Override
+    public Page< ChapterOfStory > findByStoryIdAndUserId(Long storyId, Long userId, Integer type, Integer pagenumber) {
+        Pageable pageable;
+        if (type == 1)
+            pageable = PageRequest.of(pagenumber - 1, ConstantsUtils.PAGE_SIZE_DEFAULT, Sort.by("serial"));
+        else if (type == 2)
+            pageable = PageRequest.of(pagenumber - 1, ConstantsUtils.PAGE_SIZE_DEFAULT, Sort.by("createDate").descending());
+        else if (type == 3)
+            pageable = PageRequest.of(pagenumber - 1, ConstantsUtils.PAGE_SIZE_DEFAULT, Sort.by("createDate"));
+        else
+            pageable = PageRequest.of(pagenumber - 1, ConstantsUtils.PAGE_SIZE_DEFAULT, Sort.by("serial").descending());
+        return chapterRepository.findByUser_IdAndStory_Id(userId, storyId, pageable);
+    }
+    
+    /**
+     * @param chapterId
+     * @param storyId
+     * @param number
+     * @return
+     */
+    @Override
+    public boolean checkChapterBySerialAndId(long chapterId, Long storyId, float number) {
+        return chapterRepository.existsByIdNotAndStory_IdAndSerial(chapterId, storyId, number);
+    }
+    
+    /**
+     * @param id
+     * @param number
+     * @return
+     */
+    @Override
+    public boolean checkChapterBySerial(Long id, float number) {
+        return chapterRepository.existsByStory_IdAndSerial(id, number);
+    }
+    
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Chapter findChapterById(Long id) {
+        return chapterRepository.findById(id).orElse(null);
+    }
+    
+    /**
+     * @param chapter
+     * @return
+     */
+    @Override
+    public boolean updateChapter(Chapter chapter) {
+        try {
+            Chapter editChapter = chapterRepository.findById(chapter.getId()).get();
+            editChapter.setSerial(chapter.getSerial());
+            editChapter.setStatus(chapter.getStatus());
+            editChapter.setName(chapter.getName());
+            editChapter.setChapterNumber(chapter.getChapterNumber());
+            editChapter.setContent(chapter.getContent());
+            chapterRepository.save(editChapter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

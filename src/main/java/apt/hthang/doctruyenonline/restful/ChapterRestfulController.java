@@ -98,4 +98,27 @@ public class ChapterRestfulController {
         }
     }
     
+    @PostMapping(value = "/chapterOfUser")
+    public ResponseEntity< ? > loadChapterOfStoryWithUser(@RequestParam("storyId") String storyId,
+                                                          @RequestParam("pagenumber") Integer pagenumber,
+                                                          @RequestParam("type") Integer type, Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        if (storyId == null || WebUtils.checkLongNumber(storyId)) {
+            throw new HttpMyException("Có lỗi xảy ra! Mong bạn quay lại sau.");
+        }
+        return new ResponseEntity<>(chapterService
+                .findByStoryIdAndUserId(Long.parseLong(storyId), user.getId(), type, pagenumber),
+                HttpStatus.OK);
+    }
 }

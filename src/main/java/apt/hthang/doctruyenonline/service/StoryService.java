@@ -216,4 +216,5 @@ public interface StoryService {
      * @return
      */
     boolean updateStory(Story storyEdit);
+    
 }

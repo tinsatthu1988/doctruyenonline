@@ -2,11 +2,14 @@ package apt.hthang.doctruyenonline.component;
 
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.ChapterService;
+import apt.hthang.doctruyenonline.service.HistoryService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
 import apt.hthang.doctruyenonline.utils.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,15 +22,13 @@ import java.util.Date;
 
 @Component
 public class MyComponent {
-    
-    private final ChapterService chapterService;
-    private final StoryService storyService;
-    
+    private final static Logger logger = LoggerFactory.getLogger(MyComponent.class);
     @Autowired
-    public MyComponent(ChapterService chapterService, StoryService storyService) {
-        this.chapterService = chapterService;
-        this.storyService = storyService;
-    }
+    private ChapterService chapterService;
+    @Autowired
+    private StoryService storyService;
+    @Autowired
+    private HistoryService historyService;
     
     public String getDisplayName(String username, String displayName) {
         return (displayName != null && !displayName.isEmpty()) ? displayName : username;
@@ -78,4 +79,5 @@ public class MyComponent {
         }
         return avatar;
     }
+    
 }

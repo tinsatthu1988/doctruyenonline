@@ -16,7 +16,7 @@
     <script th:if="${checkAddStory != null && checkAddStory == true}">
         $(document).ready(function () {
             toastr.success('Đăng truyện mới thành công!', 'Thông báo', {
-                "positionClass": "md-toast-top-left"
+                "positionClass": "md-toast-top-right"
             });
             $('.toast').toast({
                 delay: 10000
@@ -26,7 +26,7 @@
     <script th:if="${checkAddStory != null && checkAddStory == false}">
         $(document).ready(function () {
             toastr.danger('Có lỗi xảy ra, Đăng truyện thất bại!', 'Thông báo', {
-                "positionClass": "md-toast-top-left"
+                "positionClass": "md-toast-top-right"
             });
             $('.toast').toast({
                 delay: 10000
@@ -37,7 +37,7 @@
         $(document).ready(function () {
             var message = /*[[${checkEditStoryFalse}]]*/ '';
             toastr.danger(message, 'Thông báo', {
-                "positionClass": "md-toast-top-left"
+                "positionClass": "md-toast-top-right"
             });
             $('.toast').toast({
                 delay: 10000
@@ -48,7 +48,7 @@
         $(document).ready(function () {
             var message = /*[[${checkEditStoryTrue}]]*/ '';
             toastr.success(message, 'Thông báo', {
-                "positionClass": "md-toast-top-left"
+                "positionClass": "md-toast-top-right"
             });
             $('.toast').toast({
                 delay: 10000
@@ -118,7 +118,7 @@
                                                             <tr ng-show="listOnGoing.length !== 0" ng-repeat="item in listOnGoing">
                                                                 <td>{{item.id}}</td>
                                                                 <td>
-                                                                    <a ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
+                                                                    <a target="_blank" ng-href="/truyen/{{item.id}}" class="align-items-center d-flex">
                                                                         {{item.vnName}}
                                                                     </a>
                                                                 </td>

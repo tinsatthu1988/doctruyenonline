@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="/fragments/header"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/accFollowController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+</head>
+<body ng-app="ngApp" ng-controller="accFollowCtrl" th:ng-init="|init(${id})|">
+<section class="page-wrapper">
+    <!--NavBar-->
+    <section th:replace="/fragments/navbar"></section>
+
+    <!--Body-->
+    <section class="truyen-main">
+        <section class="truyen-section section-featured">
+            <section class="container container-full mb-4 mt-5">
+                <section class="featured-content">
+                    <section class="container-fluid">
+                        <section class="featured-content" id="content">
+                            <section class="row">
+                                <th:block th:include="/nav-tabs/navbar_left"></th:block>
+                                <section class="col-lg-10 col-md-9">
+                                    <div class="card">
+                                        <h3 class="card-header primary-color white-text text-center">
+                                            Danh sách Theo dõi
+                                        </h3>
+                                        <div class="card-body table-responsive">
+                                            <table class="table table-striped" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th class="font-weight-bolder">Truyện
+                                                    </th>
+                                                    <th class="font-weight-bolder">
+                                                    </th>
+                                                    <th class="font-weight-bolder">
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-show="listStory.length === 0" class="text-center">
+                                                    <td colspan="2">Bạn chưa theo dõi truyện nào</td>
+                                                </tr>
+                                                <tr ng-show="listStory.length !== 0" ng-repeat="item in listStory">
+                                                    <td>
+                                                        <a ng-href="/truyen/{{item.story.id}}" target="_blank">{{item.story.vnName}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <a ng-href="/truyen/{{item.story.id}}" target="_blank" class="float-right badge badge-pill badge-secondary">Đọc Truyện</a>
+                                                    </td>
+                                                    <td>
+                                                        <a ng-click="deleteFollow(item.story.id, item.story.vnName)" title="Bỏ Theo Dõi" class="float-right badge badge-pill badge-danger"><i
+                                                                class="fas fa-times mx-1"></i> Bỏ Theo dõi</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div aria-label="Page navigation example" ng-show="totalPages>1">
+                                                <ul class="pagination pg-blue justify-content-end">
+                                                    <li class="page-item" ng-show="currentPage != 1">
+                                                        <a class="page-link" ng-click="getPage(currentPage - 1)">
+                                                            <i class="fas fa-step-backward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                                        <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                                           ng-click="getPage(i)">{{i}}</a>
+                                                    </li>
+                                                    <li class="page-item" ng-show="currentPage != totalPages">
+                                                        <a class="page-link" ng-click="getPage(currentPage + 1)">
+                                                            <i class="fas fa-step-forward fa-sm"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+<!--Footer-->
+<section th:replace="/fragments/footer"></section>
+</body>
+</html>

@@ -105,10 +105,56 @@ public interface ChapterService {
     
     /**
      * Đếm Số Chương Của Truyện
+     *
      * @param id
      * @return
      */
     Long countChapterByStory(Long id);
     
-    Chapter saveNewChapter(Chapter chapter);
+    /**
+     * @param chapter
+     * @return
+     */
+    boolean saveNewChapter(Chapter chapter);
+    
+    /**
+     * Tìm Kiếm Chapter theo
+     * @param storyId
+     * @param userId
+     * @param type
+     * @return
+     */
+    Page< ChapterOfStory > findByStoryIdAndUserId(Long storyId, Long userId, Integer type,Integer pagenumber);
+    
+    /**
+     *
+     * @param chapterId
+     * @param storyId
+     * @param number
+     * @return
+     */
+    boolean checkChapterBySerialAndId(long chapterId, Long storyId, float number);
+    
+    /**
+     *
+     * @param id
+     * @param number
+     * @return
+     */
+    boolean checkChapterBySerial(Long id, float number);
+    
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Chapter findChapterById(Long id);
+    
+    /**
+     *
+     * @param chapter
+     * @return
+     */
+    boolean updateChapter(Chapter chapter);
+    
 }

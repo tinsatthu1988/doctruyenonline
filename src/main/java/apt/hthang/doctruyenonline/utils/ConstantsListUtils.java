@@ -35,32 +35,14 @@ public class ConstantsListUtils {
 //                add(new Status(ConstantsUtils.STORY_STATUS_HIDDEN, "Ẩn"));
 //            }}
 //    );
-//    public static final List< Status > LIST_STORY_STATUS_SELECTED = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(-1, "--Tất Cả --"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_GOING_ON, "Đang ra"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_STOP, "Tạm Dừng"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_HIDDEN, "Bị Ẩn"));
-//            }}
-//    );
-//    public static final List< Status > LIST_CHAPTER = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(ConstantsUtils.CHAPTER_VIP_ACTIVED, "Vip - Hiển Thị"));
-//                add(new Status(ConstantsUtils.CHAPTER_ACTIVED, "Hiển Thị"));
-//                add(new Status(ConstantsUtils.CHAPTER_DENIED, "Ẩn"));
-//            }}
-//    );
-//
-//    public static final List< Status > LIST_PAY_STATUS_SELECTED = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(-1, "--Tất Cả --"));
-//                add(new Status(ConstantsUtils.PAY_RECHARGE_TYPE, "Nạp Tiền"));
-//                add(new Status(ConstantsUtils.PAY_DNAME_TYPE, "Đổi Ngoại Hiệu"));
-//                add(new Status(ConstantsUtils.PAY_CHAPTER_VIP_TYPE, "Trả Vip"));
-//                add(new Status(ConstantsUtils.PAY_STORY_APPOINT_TYPE, "Ủng Hộ"));
-//            }}
-//    );
+    
+    public static final List< Status > LIST_CHAPTER_STATUS_VIEW_ALL = Collections.unmodifiableList(
+            new ArrayList< Status >() {{
+                add(new Status(ConstantsStatusUtils.CHAPTER_DENIED, "Khóa"));
+                add(new Status(ConstantsStatusUtils.CHAPTER_ACTIVED, "Free"));
+                add(new Status(ConstantsStatusUtils.CHAPTER_VIP_ACTIVED, "Vip"));
+            }}
+    );
     
     //List Status của chapter có trạng thái hiển thị
     public static final List< Integer > LIST_STORY_DISPLAY = Collections.unmodifiableList(
@@ -92,7 +74,15 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.CHAPTER_VIP_ACTIVED);
             }}
     );
-
+    
+    //List Status của chapter có trạng thái hiển thị
+    public static final List< Integer > LIST_CHAPTER_STATUS_ALL = Collections.unmodifiableList(
+            new ArrayList< Integer >() {{
+                add(ConstantsStatusUtils.CHAPTER_ACTIVED);
+                add(ConstantsStatusUtils.CHAPTER_VIP_ACTIVED);
+                add(ConstantsStatusUtils.CHAPTER_DENIED);
+            }}
+    );
 
 //    public static final List< Integer > LIST_PAY_TYPE = Collections.unmodifiableList(
 //            new ArrayList< Integer >() {{

@@ -1,13 +1,14 @@
 package apt.hthang.doctruyenonline.entity;
 
+import apt.hthang.doctruyenonline.annotations.FormatFloat;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
-import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 @Table(name = "chapter")
 @Data
 @NoArgsConstructor
+@FormatFloat(baseField = "story", idField = "id", matchField = "serial")
 public class Chapter implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -26,6 +28,7 @@ public class Chapter implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
     @Column(name = "chapterNumber", nullable = false)
+    @NotEmpty(message = "{hthang.truyenonline.chapter.chapterNumber.empty.message}")
     private String chapterNumber;
     @Column(name = "serial", nullable = false, precision = 12, scale = 0)
     private Float serial;
@@ -55,6 +58,7 @@ public class Chapter implements Serializable {
     @JoinColumn(name = "userPosted", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+    
     @PrePersist
     public void prePersist() {
         if (createDate == null) {
@@ -69,9 +73,9 @@ public class Chapter implements Serializable {
         if (wordCount == null) {
             wordCount = 0;
         }
-        if(countView == null){
+        if (countView == null) {
             countView = 0;
         }
     }
-
+    
 }
