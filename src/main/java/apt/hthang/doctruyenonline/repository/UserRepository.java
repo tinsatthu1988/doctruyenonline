@@ -91,6 +91,6 @@ public interface UserRepository extends JpaRepository< User, Long > {
             nativeQuery = true)
     Page< TopConverter > getTopConverter(@Param("chapterStatus") List< Integer > listChapterStatus,
                                          @Param("storyStatus") List< Integer > listStoryStatus,
-                                         @Param("userStatus") Integer uStatus, Pageable pageable);
+                                         @Param("userStatus") Integer uStatus, @Param("roleList") List< Integer > listRole,Pageable pageable);
     
 }

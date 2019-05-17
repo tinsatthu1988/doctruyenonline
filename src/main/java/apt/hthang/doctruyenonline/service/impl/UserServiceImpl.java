@@ -195,8 +195,7 @@ public class UserServiceImpl implements UserService {
         Page< TopConverter > result = userRepository
                 .getTopConverter(ConstantsListUtils.LIST_CHAPTER_DISPLAY,
                         ConstantsListUtils.LIST_STORY_DISPLAY,
-                        ConstantsStatusUtils.USER_ACTIVED,
-                        pageable);
+                        ConstantsStatusUtils.USER_ACTIVED, ConstantsListUtils.LIST_ROLE_CON, pageable);
         return result.getContent();
     }
 }

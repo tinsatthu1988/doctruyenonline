@@ -254,7 +254,8 @@ public class ConstantsQueryUtils {
             + " LEFT JOIN (SELECT s.userPosted as userStoryPosted, COUNT(s.userPosted) as cnts FROM Story s"
             + " WHERE s.status IN :storyStatus"
             + " GROUP BY s.userPosted) e ON u.id = e.userStoryPosted"
-            + " WHERE u.status = :userStatus"
+            + " LEFT JOIN user_role ur ON u.id = ur.userId"
+            + " WHERE u.status = :userStatus AND ur.roleId IN :roleList"
             + " ORDER BY cnt DESC, scnt DESC";
     
     public static final String COUNT_TOP_CONVERTER = "SELECT COUNT(*) FROM User u"
@@ -264,7 +265,8 @@ public class ConstantsQueryUtils {
             + " LEFT JOIN (SELECT s.userPosted as userStoryPosted, COALESCE(COUNT(s.userPosted),0) as scnt FROM Story s"
             + " WHERE s.status IN :storyStatus"
             + " GROUP BY s.userPosted) e ON u.id = e.userStoryPosted"
-            + " WHERE u.status = :userStatus"
+            + " LEFT JOIN user_role ur ON u.id = ur.userId"
+            + " WHERE u.status = :userStatus AND ur.roleId IN :roleList"
             + " ORDER BY cnt DESC, scnt DESC";
     
 }

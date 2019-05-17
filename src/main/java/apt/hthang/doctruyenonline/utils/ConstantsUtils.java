@@ -16,6 +16,8 @@ public class ConstantsUtils {
     
     //Giá cập nhật Ngoại Hiệu
     public static final Double PRICE_UPDATE_NICK = Double.valueOf(2000);
+    public static final Integer ROLE_ADMIN = 1;
+    public static final Integer ROLE_CONVERTER = 3;
     
     // Page Default
     public static Integer PAGE_DEFAULT = 1;
@@ -37,7 +39,7 @@ public class ConstantsUtils {
     
     //Page size Top View
     public static Integer PAGE_SIZE_TOP_VIEW_DEFAULT = 10;
-
+    
     //Thời Gian Một Ngày Theo Giờ
     public static Long TIME_DAY = valueOf(24);
     
