@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.projections.ChapterOfStory;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import org.springframework.data.domain.Page;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -157,4 +158,15 @@ public interface ChapterService {
      */
     boolean updateChapter(Chapter chapter);
     
+    /**
+     *
+     */
+    void updateStatusChapterVip();
+    
+    /**
+     *
+     * @param date
+     * @return
+     */
+    Long countNewChapterInDate(Date date);
 }

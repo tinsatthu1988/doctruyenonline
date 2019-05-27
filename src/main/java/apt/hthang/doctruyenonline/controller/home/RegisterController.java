@@ -79,9 +79,6 @@ public class RegisterController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/dang-ky";
-//            getMenuAndInfo(model, titleRegisterPage);
-//            model.addAttribute("user", user);
-//            return "view/registerPage";
         }
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);

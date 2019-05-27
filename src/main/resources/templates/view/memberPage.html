@@ -11,7 +11,7 @@
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
 </head>
-<body class="page-read" ng-app="ngApp" ng-controller="memberCtrl" th:ng-init="|init(${user.id})|">
+<body class="page-read body-home" ng-app="ngApp" ng-controller="memberCtrl" th:ng-init="|init(${user.id})|">
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>

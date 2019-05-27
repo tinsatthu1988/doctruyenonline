@@ -13,7 +13,7 @@
     <!--Rating-->
     <script th:src="@{/js/jRating.js}"></script>
 </head>
-<body ng-app="ngApp" ng-controller="storyCtrl" th:ng-init="|init(${story.id}, ${story.userId})|">
+<body class="body-home" ng-app="ngApp" ng-controller="storyCtrl" th:ng-init="|init(${story.id}, ${story.userId})|">
 <section class="page-wrapper">
     <!--NavBar-->
     <section th:replace="/fragments/navbar"></section>

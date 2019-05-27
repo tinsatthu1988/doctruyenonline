@@ -225,19 +225,41 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
      */
     Page< StoryUser > findByUser_IdAndStatusOrderByUpdateDateDesc(Long id, Integer status, Pageable pageable);
     
-//    /**
-//     * Lấy Danh sách Truyện Top Đề Cử
-//     *
-//     * @param listStatus
-//     * @param pageable
-//     * @return Page<TopStory>
-//     */
-//    @Query(value = ConstantsQueryUtils.STORY_TOP_APPOIND,
-//            countQuery = ConstantsQueryUtils.STORY_TOP_APPOIND,
-//            nativeQuery = true)
-//    Page< StoryTop > findTopStoryAppoind(@Param("storyStatus") List< Integer > listStatus,
-//                                         @Param("startDate") Date startDate,
-//                                         @Param("endDate") Date endDate,
-//                                        Pageable pageable);
+    /**
+     * Lấy Danh sách Truyện Top Đề Cử
+     *
+     * @param listStatus
+     * @param startDate
+     * @param endDate
+     * @param payType
+     * @param payStatus
+     * @param pageable
+     * @return
+     */
+    @Query(value = ConstantsQueryUtils.STORY_TOP_APPOIND,
+            countQuery = ConstantsQueryUtils.COUNT_STORY_TOP_APPOIND,
+            nativeQuery = true)
+    Page< StoryTop > findTopStoryAppoind(@Param("storyStatus") List< Integer > listStatus,
+                                         @Param("startDate") Date startDate,
+                                         @Param("endDate") Date endDate,
+                                         @Param("payType") Integer payType, @Param("payStatus") Integer payStatus,
+                                         Pageable pageable);
     
+    /**
+     * @param date
+     * @return
+     */
+    Long countByCreateDateGreaterThanEqual(Date date);
+    
+    Page< StoryTop > findByOrderByIdDesc(Pageable pageable);
+    
+    Page< StoryTop > findByVnNameContainingOrderByIdDesc(String search, Pageable pageable);
+    
+    Page< StoryTop > findByDealStatusOrderByIdDesc(Integer stauts, Pageable pageable);
+    
+    Page< StoryTop > findByDealStatusAndVnNameContainingOrderByIdDesc(Integer status, String search, Pageable pageable);
+    
+    Page< StoryTop > findByVnNameContainingAndStatusOrderByIdDesc(String search, Integer status, Pageable pageable);
+    
+    Page< StoryTop > findByStatusOrderByIdDesc(Integer status, Pageable pageable);
 }

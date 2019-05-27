@@ -4,6 +4,8 @@ import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.Report;
 import apt.hthang.doctruyenonline.entity.User;
 
+import java.util.Date;
+
 /**
  * @author Huy Thang
  * @project doctruyenonline
@@ -17,4 +19,12 @@ public interface ReportService {
      * @return
      */
     Report saveReport(Chapter chapter, User user, String content);
+    
+    /**
+     *
+     * @param date
+     * @return
+     */
+    Long countNewReportInDay(Date date);
+    
 }

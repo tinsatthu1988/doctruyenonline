@@ -218,10 +218,19 @@ public interface StoryService {
     boolean updateStory(Story storyEdit);
     
     /**
+     * Lấy List Truyện Top Đề cử Trong Khoảng
      *
-     * @param pageDefault
-     * @param rankSize
+     * @param page
+     * @param size
+     * @return Page<TopStory>
+     */
+    public Page< StoryTop > getTopStoryAppoind(int page, int size, Date startDate, Date endDate);
+    
+    /**
+     * @param date
      * @return
      */
-    Page<StoryTop> getTopStoryAppoind(Integer pageDefault, Integer rankSize);
+    Long countNewUserInDate(Date date);
+    
+    Page< StoryTop > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search);
 }

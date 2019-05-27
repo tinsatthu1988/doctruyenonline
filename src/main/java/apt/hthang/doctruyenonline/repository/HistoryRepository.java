@@ -21,7 +21,7 @@ public interface HistoryRepository extends JpaRepository< History, Long > {
      * @param storyId
      * @return Optional<History>
      */
-    Optional< History > findTopByUser_IdAndChapter_Story_IdAndChapter_StatusOrderByDateViewDesc(Long userId, Long storyId, List< Integer > status);
+    Optional< History > findTopByUser_IdAndChapter_Story_IdAndChapter_StatusInOrderByDateViewDesc(Long userId, Long storyId, List< Integer > status);
     
     /**
      * Kiểm tra tồn tại Favorites trong khoảng

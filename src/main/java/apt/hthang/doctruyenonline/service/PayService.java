@@ -5,7 +5,6 @@ import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.PaySummary;
-import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
@@ -27,7 +26,7 @@ public interface PayService {
      * @return false - nếu thất bại hoặc có lỗi xảy ra
      */
     boolean savePay(Story story, Chapter chapter,
-                    User userSend, User userReceived,
+                    User userSend, User userReceived, Integer vote,
                     Double money, Integer payType);
     
     /**
@@ -71,12 +70,14 @@ public interface PayService {
     
     /**
      * Thực Hiện Lệnh Hủy/ Từ Chối Giao dịch
+     *
      * @param id
      */
     boolean cancelWithDraw(Long id);
     
     /**
      * Tạo mới đăng ký rút tiền
+     *
      * @param userId
      * @param money
      * @return
@@ -85,8 +86,38 @@ public interface PayService {
     
     /**
      * Đếm số thanh toán của Truyện
+     *
      * @param id
      * @return
      */
     Long countPayOfStory(Long id);
+    
+    /**
+     * Thực Hiện giao dịch đọc chapter Vip
+     *
+     * @param userSend
+     * @param chapter
+     */
+    void saveReadingVipPay(User userSend, Chapter chapter);
+    
+    /**
+     * Thực hiện giao dịch đăng ký rút tiền
+     *
+     * @param user
+     * @param money
+     */
+    Long savePayDraw(User user, Double money);
+    
+    /**
+     * Thực Hiện Giao Dịch Nạp Tiền cho User
+     *
+     * @param userSend     - Người Nạp
+     * @param money        - Số đậu nạp
+     * @param userReceived - Người nhận
+     */
+    void savePayChange(User userSend, Double money, User userReceived);
+    
+    boolean saveNew(Pay pay);
+    
+    void setPay(User user, Double valueOf);
 }

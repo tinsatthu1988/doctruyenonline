@@ -2,6 +2,8 @@ package apt.hthang.doctruyenonline.repository;
 
 import apt.hthang.doctruyenonline.entity.Category;
 import apt.hthang.doctruyenonline.projections.CategorySummary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -30,4 +32,8 @@ public interface CategoryRepository extends JpaRepository< Category, Integer > {
      * @return Optional<CategorySummary>
      */
     Optional< CategorySummary > findByIdAndStatus(Integer id, Integer status);
+    
+    Page< Category > findAllByNameContaining(String search, Pageable pageable);
+    
+    boolean existsByName(String name);
 }

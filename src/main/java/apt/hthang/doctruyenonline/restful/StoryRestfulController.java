@@ -173,10 +173,11 @@ public class StoryRestfulController {
     //Lấy Top 3 Truyện Mới Của Converter
     @PostMapping(value = "/topAppoidMonth")
     public ResponseEntity< ? > loadStoryTopViewMonth() {
-        
+        Date startDate = DateUtils.getFirstDayOfMonth();
+        Date endDate = DateUtils.getLastDayOfMonth();
         // Lấy Danh Sách Truyện Top View trong tháng
         List< StoryTop > topstory = storyService
-                .getTopStoryAppoind(ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE)
+                .getTopStoryAppoind(ConstantsUtils.PAGE_DEFAULT, ConstantsUtils.RANK_SIZE, startDate, endDate)
                 .getContent();
         return new ResponseEntity<>(topstory, HttpStatus.OK);
     }
@@ -192,4 +193,38 @@ public class StoryRestfulController {
         return new ResponseEntity<>(listNewStory, HttpStatus.OK);
     }
     
+    
+    @DeleteMapping(value = "/admin/delete/{id}")
+    public ResponseEntity< ? > deleteStoryAdmin(@PathVariable("id") Long id, Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        Story story = storyService.findStoryById(id);
+        if (story == null)
+            throw new HttpMyException("Truyện Không Tồn Tại hoặc Đã Bị Xóa");
+        Long countChapter = chapterService.countChapterByStory(story.getId());
+        Long countPay = payService.countPayOfStory(id);
+        Long countRating = userRatingService.countRatingStory(id);
+        if (countChapter > 0 || countPay > 0 || countRating > 0
+                || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_COMPLETED)
+                || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_GOING_ON))
+            throw new HttpMyException("Không thể xóa truyện!");
+        storyService.deleteStoryById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @PostMapping(value = "/admin/listStory")
+    public ResponseEntity< ? > loadStoryAdmin(@PathVariable("pagenumber") Integer pagenumber, @PathVariable("search") String search,
+                                              @PathVariable("type") Integer type) {
+        return new ResponseEntity<>(storyService.findStoryInAdmin(pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT, type, search), HttpStatus.OK);
+    }
 }

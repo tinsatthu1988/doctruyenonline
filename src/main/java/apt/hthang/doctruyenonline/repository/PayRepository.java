@@ -34,6 +34,7 @@ public interface PayRepository extends JpaRepository< Pay, Long > {
                                @Param("chapterID") Long chapterID,
                                @Param("storyID") Long storyID,
                                @Param("price") Double price,
+                               @Param("vote") Integer vote,
                                @Param("payType") Integer payType);
     
     /**

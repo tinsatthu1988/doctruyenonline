@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <th:block th:insert="/fragments/adminHeader"></th:block>
+</head>
+<body class="fixed-sn white-skin body-none">
+<!--NavBar-->
+<section th:replace="/fragments/adminNavbar"></section>
+<main>
+
+    <div class="container-fluid">
+
+        <!-- Section: Intro -->
+        <section class="mt-md-4 pt-md-2 mb-5 pb-4">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <section class="col-lg-10 col-md-9">
+                    <section class="row">
+                        <div class="col-md-9 mb-5">
+                            <div class="card">
+                                <h3 class="card-header primary-color white-text">
+                                    <span class="oi oi-book"></span> Cập Nhật Thể Loại</h1>
+                                </h3>
+                                <div class="card-body">
+                                    <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${category}"
+                                          th:action="@{/quan-tri/sua_the_loai/save}" id="resetForm">
+                                        <!--Grid row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="id" name="id" th:value="*{id}" readonly>
+                                                    <label for="oldpass" class="">Mã Thể Loại</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Grid row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="name" name="name" th:value="*{name}"
+                                                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+                                                    <label for="oldpass" class="">Tên Thể Loại</label>
+                                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></em>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Grid row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="metatitle" name="metatitle" th:value="*{metatitle}" readonly>
+                                                    <label for="oldpass" class="">Metatitle</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:value="*{createDate}" readonly>
+                                                    <label for="createDate" class="text-primary">Ngày Tạo </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="createBy" name="createBy" th:value="*{createBy}" readonly>
+                                                    <label for="createDate" class="text-primary">Người Tạo </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="modifiedDate" name="modifiedDate" th:value="*{modifiedDate}" readonly>
+                                                    <label for="createDate" class="text-primary">Ngày Cập Nhât </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="md-form mb-0">
+                                                    <input type="text" class="form-control" id="modifiedBy" name="modifiedBy" th:value="*{modifiedBy}" readonly>
+                                                    <label for="createDate" class="text-primary">Người Cập Nhật </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Grid row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <select class="mdb-select md-form colorful-select dropdown-primary" th:field="*{status}">
+                                                    <option th:each="chapterStatus : ${statusList}" th:value="${chapterStatus.id}" th:text="${chapterStatus.name}"></option>
+                                                </select>
+                                                <label class="md-label-cs text-primary mt-1 form-label">Trạng Thái</label>
+                                            </div>
+                                        </div>
+                                        <!--Grid row-->
+                                        <div class="row text-right">
+                                            <div class="col-12">
+                                                <input type="reset" class="btn btn-outline-primary btn-rounded waves-effect" value="Khôi Phục"/>
+                                                <input type="submit" class="btn btn-outline-primary btn-rounded waves-effect" value="Cập Nhật"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Intro -->
+    </div>
+</main>
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });
+</script>
+</body>
+</html>

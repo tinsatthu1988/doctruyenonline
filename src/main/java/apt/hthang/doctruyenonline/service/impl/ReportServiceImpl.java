@@ -8,6 +8,8 @@ import apt.hthang.doctruyenonline.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author Huy Thang
  * @project doctruyenonline
@@ -25,5 +27,14 @@ public class ReportServiceImpl implements ReportService {
         report.setContent(content);
         report.setUser(user);
         return reportRepository.save(report);
+    }
+    
+    /**
+     * @param date
+     * @return
+     */
+    @Override
+    public Long countNewReportInDay(Date date) {
+        return reportRepository.countByCreateDateGreaterThanEqual(date);
     }
 }

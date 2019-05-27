@@ -4,8 +4,10 @@ import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
 import apt.hthang.doctruyenonline.projections.TopConverter;
+import apt.hthang.doctruyenonline.projections.UserAdmin;
 import org.springframework.data.domain.Page;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,10 +91,23 @@ public interface UserService extends FieldValueExists {
     InfoSummary findInfoUserById(Long id);
     
     /**
-     *
      * @param page
      * @param size
      * @return
      */
-    List< TopConverter > findTopConverter(int page, int size);;
+    List< TopConverter > findTopConverter(int page, int size);
+    
+    ;
+    
+    /**
+     * @param date
+     * @return
+     */
+    Long countUserNewInDate(Date date);
+    
+    Page< UserAdmin > findByType(String search, Integer type, Integer pagenumber, Integer size);
+    
+    boolean deleteUser(User deleteUser);
+    
+    boolean updateGoldUser(Long id, Double gold);
 }

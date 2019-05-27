@@ -7,10 +7,13 @@ import apt.hthang.doctruyenonline.utils.ConstantsQueryUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -157,4 +160,24 @@ public interface ChapterRepository extends JpaRepository< Chapter, Long > {
      * @return
      */
     boolean existsByStory_IdAndSerial(Long id, float number);
+    
+    /**
+     * Cập Nhật Status Chapter Vip Khi Đến Hạn Dealine
+     *
+     * @param status
+     * @param vipStatus
+     */
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query(value = "UPDATE chapter ch SET ch.status = :status"
+            + " WHERE ch.status= :vipStatus AND ch.dealine<=NOW()", nativeQuery = true)
+    void updateStatusChapterVip(@Param("status") Integer status,
+                                @Param("vipStatus") Integer vipStatus);
+    
+    /**
+     *
+     * @param date
+     * @return
+     */
+    Long countByCreateDateGreaterThanEqual(Date date);
 }

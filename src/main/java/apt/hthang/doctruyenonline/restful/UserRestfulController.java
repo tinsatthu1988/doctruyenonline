@@ -1,6 +1,7 @@
 package apt.hthang.doctruyenonline.restful;
 
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
+import apt.hthang.doctruyenonline.entity.Role;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.HttpNotLoginException;
@@ -17,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -89,7 +87,7 @@ public class UserRestfulController {
                 throw new HttpMyException("Số dư của bạn không đủ để thanh toán!");
             }
             userService.updateDisplayName(user.getId(), money, newNick);
-            payService.savePay(null, null, user, null,
+            payService.savePay(null, null, user, null, 0,
                     ConstantsUtils.PRICE_UPDATE_NICK, ConstantsPayTypeUtils.PAY_DISPLAY_NAME_TYPE);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -177,4 +175,65 @@ public class UserRestfulController {
         
         return new ResponseEntity<>(topConverters, HttpStatus.OK);
     }
+    
+    @PostMapping(value = "/admin/listUser")
+    public ResponseEntity< ? > loadStoryOfConverter(@RequestParam(value = "search", defaultValue = "") String search,
+                                                    @RequestParam("type") Integer type,
+                                                    @RequestParam("pagenumber") Integer pagenumer,
+                                                    Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        return new ResponseEntity<>(userService.findByType(search, type, pagenumer, ConstantsUtils.PAGE_SIZE_DEFAULT), HttpStatus.OK);
+    }
+    
+    @DeleteMapping(value = "/admin/delete/{id}")
+    public ResponseEntity deleteUsser(@PathVariable("id") Long id, Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        User deleteUser = userService.findUserById(id);
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (deleteUser == null)
+            throw new HttpMyException("Tài khoản không tồn tại");
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        boolean checkAdminLogin = checkRole(user, ConstantsUtils.ROLE_ADMIN);
+        boolean checkAdminUser = checkRole(deleteUser, ConstantsUtils.ROLE_ADMIN);
+        boolean checkModLogin = checkRole(user, ConstantsUtils.ROLE_SMOD);
+        boolean checkModnUser = checkRole(deleteUser, ConstantsUtils.ROLE_SMOD);
+        System.out.println(checkAdminLogin +" : " +checkAdminUser + " = "+ checkModLogin+": "+ checkModnUser);
+        if ((checkAdminLogin == true && checkAdminUser == false) || (checkModLogin == true && checkModnUser == false && checkAdminUser == false)) {
+            boolean check = userService.deleteUser(deleteUser);
+            if (check)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else
+                throw new HttpMyException("Không Thể Xóa Người Dùng Này");
+        } else
+            throw new HttpMyException("Bạn không đủ quyền xóa người dùng này");
+    }
+    
+    private boolean checkRole(User use, Integer id) {
+        for (Role role : use.getRoleList()) {
+            if (role.getId() == id)
+                return true;
+        }
+        return false;
+    }
+    
 }

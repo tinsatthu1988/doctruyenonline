@@ -1,17 +1,16 @@
 var app = angular.module('ngApp', []);
 
-app.controller('adminCategoryController', adminChapterCtrl);
+app.controller('adCategoryCtrl', adCategoryCtrl);
 
-adminChapterCtrl.$inject = ['$scope', 'HomeService'];
+adCategoryCtrl.$inject = ['$scope', 'WebService'];
 
-function adminChapterCtrl($scope, HomeService) {
+function adCategoryCtrl($scope, WebService) {
 
-    $scope.listChapter = [];
+    $scope.listCategory = [];
     $scope.totalPages = 0;
     $scope.currentPage = 1;
     $scope.page = [];
     $scope.search = '';
-    $scope.storyId = 0;
 
     $scope.init = function () {
         $scope.getAdListChapter(1);
@@ -21,12 +20,12 @@ function adminChapterCtrl($scope, HomeService) {
         if (pagenumber === undefined) {
             pagenumber = 1;
         }
-
-        var url = window.location.origin + '/api/theloaiList';
+        var url = window.location.origin + '/api/category/list';
         var data = new FormData();
         data.append('pagenumber', pagenumber);
-        HomeService.getData(url, data).then(function (response) {
-            $scope.listChapter = response.data.content;
+        data.append('content', $scope.search.trim());
+        WebService.getData(url, data).then(function (response) {
+            $scope.listCategory = response.data.content;
             $scope.totalPages = response.data.totalPages;
             $scope.currentPage = response.data.number + 1;
             var startPage = Math.max(1, $scope.currentPage - 2);
@@ -47,24 +46,43 @@ function adminChapterCtrl($scope, HomeService) {
         })
     };
 
-    $scope.deleteAdChapter = function (id) {
-        var url = window.location.origin + '/api/deleteAdCategory/' + id;
-        HomeService.deleteData(url).then(function (response) {
-            swal({
-                text: 'Xóa Thể Loại Thành Công',
-                type: 'success',
-                confirmButtonText: 'Ok'
-            }).then(function () {
-                $scope.getAdListChapter(1);
-            })
-        }, function errorCallback(errResponse) {
-            swal({
-                text: errResponse.data.messageError,
-                type: 'warning',
-                confirmButtonText: 'Ok'
-            }).then(function () {
-                $scope.getAdListChapter(1);
-            })
+    $scope.deleteCategory = function (id) {
+        swal({
+            title: 'Bạn có chắc?',
+            text: "Bạn muốn hủy xóa thể loại",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng Ý',
+            cancelButtonText: 'Hủy'
+        }).then(function (result) {
+            if (result.value) {
+                var url = window.location.origin + '/api/category/delete/' + id;
+                WebService.deleteData(url).then(function (response) {
+                    swal({
+                        text: 'Xóa Thể Loại Thành Công',
+                        type: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then(function () {
+                        $scope.getAdListChapter(1);
+                    })
+                }, function errorCallback(errResponse) {
+                    swal({
+                        text: errResponse.data.messageError,
+                        type: 'warning',
+                        confirmButtonText: 'Ok'
+                    }).then(function () {
+                        if (errResponse.status === 403) {
+                            window.location.reload(true);
+                        }
+                        if (errResponse.status === 500) {
+                            var url = window.location.origin + '/logout';
+                            window.location.href = url;
+                        }
+                    })
+                })
+            }
         })
-    };
+    }
 }

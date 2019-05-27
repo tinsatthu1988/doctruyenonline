@@ -236,15 +236,28 @@ public class ConstantsQueryUtils {
             + " GROUP BY s.id"
             + " ORDER BY s.updateDate DESC";
     
-    public static final String STORY_TOP_APPOIND = "SELECT s.id, s.vnName, s.images, s.author, s.infomation, s.dealStatus, "
-            + " COALESCE(s.countAppoint,0) AS cnt, ca.id as categoryId, ca.name as categoryName"
-            + " FROM Story s "
-            + " LEFT JOIN `story_category` sc on s.id = sc.storyId"
-            + " LEFT JOIN Category ca on sc.categoryId = ca.id"
-            + " WHERE  s.status IN :storyStatus"
-            + " GROUP BY s.id"
-            + " ORDER BY cnt DESC, s.countView DESC";
+    public static final String STORY_TOP_APPOIND = "SELECT s.id, s.vnName, s.images, s.author, COALESCE(d.sumVote, 0) AS cnt, ca.id as categoryId, ca.name as categoryName, s.infomation , s.dealStatus" +
+            " FROM Story s" +
+            " LEFT JOIN (SELECT pa.storyId, COALESCE(SUM(pa.vote), 0) AS sumVote FROM pay pa" +
+            " WHERE pa.createDate BETWEEN :startDate AND :endDate" +
+            " AND pa.type = :payType AND pa.status = :payStatus" +
+            " GROUP BY pa.storyId) d ON s.id = d.storyId" +
+            " LEFT JOIN `story_category` sc on s.id = sc.storyId" +
+            " LEFT JOIN Category ca on sc.categoryId = ca.id" +
+            " WHERE s.status IN :storyStatus" +
+            " GROUP BY s.id" +
+            " ORDER BY cnt DESC, s.countAppoint DESC";
     
+    public static final String COUNT_STORY_TOP_APPOIND = "SELECT COUNT(*) FROM Story s" +
+            " LEFT JOIN (SELECT pa.storyId, COALESCE(SUM(pa.vote), 0) AS sumVote FROM Pay pa" +
+            " WHERE pa.createDate BETWEEN :startDate AND :endDate" +
+            " AND pa.type = :payType AND pa.status = :payStatus" +
+            " GROUP BY pa.storyId) d ON s.id = d.storyId" +
+            " LEFT JOIN `story_category` sc on s.id = sc.storyId" +
+            " LEFT JOIN Category ca on sc.categoryId = ca.id" +
+            " WHERE s.status IN :storyStatus" +
+            " GROUP BY s.id" +
+            " ORDER BY d.countVote DESC, s.countAppoint DESC";
     public static final String TOP_CONVERTER = "SELECT u.id, u.username, u.displayName, u.avatar,"
             + " COALESCE(d.cntc ,0) AS cnt, COALESCE(e.cnts ,0) AS scnt"
             + " FROM User u"

@@ -3,18 +3,10 @@ package apt.hthang.doctruyenonline.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.DateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -56,5 +48,18 @@ public class Pay implements Serializable {
     private Integer type;
     @Column(name = "status")
     private Integer status;
-
+    
+    
+    @PrePersist
+    public void prePersist() {
+        if (createDate == null) {
+            createDate = DateUtils.getCurrentDate();
+        }
+        if (status == null) {
+            status = ConstantsStatusUtils.PAY_COMPLETED;
+        }
+        if (vote == null) {
+            vote = (Integer) 0;
+        }
+    }
 }

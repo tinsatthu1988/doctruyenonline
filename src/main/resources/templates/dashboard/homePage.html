@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <th:block th:insert="/fragments/adminHeader"></th:block>
+</head>
+<body class="fixed-sn white-skin body-none">
+<!--NavBar-->
+<section th:replace="/fragments/adminNavbar"></section>
+<main>
+
+    <div class="container-fluid">
+
+        <!-- Section: Intro -->
+        <section class="mt-md-4 pt-md-2 mb-5 pb-4">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+                    <!-- Card -->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!-- Card Data -->
+                        <div class="admin-up">
+                            <i class="far fa-money-bill-alt primary-color mr-3 z-depth-2"></i>
+                            <div class="data">
+                                <p class="text-uppercase">Truyện Mới</p>
+                                <h4 class="font-weight-bold dark-grey-text" th:text="${newStory}"></h4>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+                    <!-- Card -->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!-- Card Data -->
+                        <div class="admin-up">
+                            <i class="fas fa-chart-line warning-color mr-3 z-depth-2"></i>
+                            <div class="data">
+                                <p class="text-uppercase">Chương Mới</p>
+                                <h4 class="font-weight-bold dark-grey-text" th:text="${newChapter}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-xl-3 col-md-6 mb-md-0 mb-4">
+
+                    <!-- Card -->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!-- Card Data -->
+                        <div class="admin-up">
+                            <i class="fas fa-chart-pie light-blue lighten-1 mr-3 z-depth-2"></i>
+                            <div class="data">
+                                <p class="text-uppercase">Thành Viên Mới</p>
+                                <h4 class="font-weight-bold dark-grey-text" th:text="${newUser}">
+
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-xl-3 col-md-6 mb-0">
+
+                    <!-- Card -->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!-- Card Data -->
+                        <div class="admin-up">
+                            <i class="fas fa-chart-bar red accent-2 mr-3 z-depth-2"></i>
+                            <div class="data">
+                                <p class="text-uppercase">Báo Lỗi Mới</p>
+                                <h4 class="font-weight-bold dark-grey-text" th:text="${newReport}"></h4>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Intro -->
+    </div>
+</main>
+</body>
+</html>

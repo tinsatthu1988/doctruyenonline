@@ -14,7 +14,7 @@ import java.util.Date;
  * @author Huy Thang
  */
 @Entity
-@Table(name = "report")
+@Table(name = "report", schema = "")
 @Data
 @NoArgsConstructor
 public class Report implements Serializable {

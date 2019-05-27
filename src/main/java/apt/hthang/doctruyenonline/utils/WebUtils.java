@@ -3,7 +3,9 @@ package apt.hthang.doctruyenonline.utils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.Normalizer;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class WebUtils {
     
@@ -34,6 +36,38 @@ public class WebUtils {
             if (result < 0) {
                 return true;
             }
+        } catch (Exception e) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Kiểm tra string có phải Float number và là số dương
+     *
+     * @param number
+     * @return true - nếu sai / false - nếu đúng
+     */
+    public static boolean checkDoubleNumber(String number) {
+        try {
+            Double result = Double.parseDouble(number);
+            return true;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+    
+    /**
+     * Kiểm tra string có phải Double number và là số dương
+     *
+     * @param number
+     * @return true - nếu sai / false - nếu đúng
+     */
+    public static boolean checkMoney(String number) {
+        try {
+            Double result = Double.parseDouble(number);
+            if (result <= 0)
+                return true;
         } catch (Exception e) {
             return true;
         }
@@ -161,5 +195,16 @@ public class WebUtils {
         return strText.substring(0, start)
                 + sbMaskString.toString()
                 + strText.substring(end);
+    }
+    
+    public static String convertStringToMetaTitle(String name) {
+        try {
+            name = name.replaceAll("[+.^:,^$|?*+()!]", "");
+            String temp = Normalizer.normalize(name, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("Ã„â€˜", "d");
+        } catch (Exception e) {
+            return " ";
+        }
     }
 }

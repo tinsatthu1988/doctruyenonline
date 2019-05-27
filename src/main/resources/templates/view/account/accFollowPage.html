@@ -44,6 +44,8 @@
                                                     </th>
                                                     <th class="font-weight-bolder">
                                                     </th>
+                                                    <th class="font-weight-bolder">
+                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -56,7 +58,11 @@
                                                     </td>
                                                     <td> {{item.story.updateDate | date:'dd/MM/yyyy HH:mm' }}</td>
                                                     <td>
-                                                        <a ng-href="/truyen/{{item.story.id}}" target="_blank" class="float-right badge badge-pill badge-secondary">Đọc Truyện</a>
+                                                        <a ng-href="/truyen/{{item.story.id}}" target="_blank" class="float-right badge badge-pill badge-secondary">Xem Truyện</a>
+                                                    </td>
+                                                    <td>
+                                                        <a ng-show="item.chapterId !== null" ng-href="/truyen/{{item.story.id}}/chuong-{{item.chapterId}}"
+                                                           class="float-right badge badge-pill badge-primary">Đọc Tiếp</a>
                                                     </td>
                                                     <td>
                                                         <a ng-click="deleteFollow(item.story.id, item.story.vnName)" title="Bỏ Theo Dõi" class="float-right badge badge-pill badge-danger"><i

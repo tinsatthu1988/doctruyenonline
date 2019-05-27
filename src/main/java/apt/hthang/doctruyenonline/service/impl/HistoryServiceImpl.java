@@ -36,7 +36,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public Chapter findChapterReadByUser(Long userId, Long storyId) {
         Optional< History > ufavorites = historyRepository
-                .findTopByUser_IdAndChapter_Story_IdAndChapter_StatusOrderByDateViewDesc(userId, storyId, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
+                .findTopByUser_IdAndChapter_Story_IdAndChapter_StatusInOrderByDateViewDesc(userId, storyId, ConstantsListUtils.LIST_CHAPTER_DISPLAY);
         return ufavorites.map(History::getChapter).orElse(null);
     }
     

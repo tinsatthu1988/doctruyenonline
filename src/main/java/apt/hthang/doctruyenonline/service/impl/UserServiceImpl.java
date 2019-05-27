@@ -6,13 +6,13 @@ import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.ConveterSummary;
 import apt.hthang.doctruyenonline.projections.InfoSummary;
 import apt.hthang.doctruyenonline.projections.TopConverter;
+import apt.hthang.doctruyenonline.projections.UserAdmin;
 import apt.hthang.doctruyenonline.repository.RoleRepository;
 import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsRoleUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
-import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -197,5 +198,46 @@ public class UserServiceImpl implements UserService {
                         ConstantsListUtils.LIST_STORY_DISPLAY,
                         ConstantsStatusUtils.USER_ACTIVED, ConstantsListUtils.LIST_ROLE_CON, pageable);
         return result.getContent();
+    }
+    
+    /**
+     * @param date
+     * @return
+     */
+    @Override
+    public Long countUserNewInDate(Date date) {
+        return userRepository.countByCreateDateGreaterThanEqual(date);
+    }
+    
+    @Override
+    public Page< UserAdmin > findByType(String search, Integer type, Integer pagenumber, Integer size) {
+        Pageable pageable = PageRequest.of(pagenumber - 1, size);
+        Role role = roleRepository.findById(type).orElse(null);
+        if (search.trim().length() != 0)
+            return userRepository.findByUsernameContainingAndRoleList(search, role, pageable);
+        return userRepository.findByRoleList(role, pageable);
+        
+    }
+    
+    @Override
+    public boolean deleteUser(User deleteUser) {
+        try {
+            userRepository.delete(deleteUser);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean updateGoldUser(Long id, Double gold) {
+        try {
+            User user = userRepository.findById(id).get();
+            user.setGold(user.getGold() + gold);
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

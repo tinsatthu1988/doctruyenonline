@@ -19,5 +19,8 @@ public class SecurityUtils {
     };
     public static final String[] ROLE_CONANDMOD_LINK = {"/tai-khoan/rut_tien"};
     
-    public static final String[] ROLE_ADMIN_LINK = {"/admin"};
+    public static final String[] ROLE_ADMIN_MOD_LINK = {"/quan-tri",
+            "/quan-tri/list_user",
+            "/quan-tri/the_loai",
+            "/quan-tri/them_the_loai"};
 }

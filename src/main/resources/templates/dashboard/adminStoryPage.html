@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <th:block th:insert="/fragments/adminHeader"></th:block>
+    <!--Angular JS-->
+    <script th:src="@{/bower/angular/angular.min.js}"></script>
+    <!--Angular Sanitize JS-->
+    <script th:src="@{/bower/angular-sanitize/angular-sanitize.min.js}"></script>
+    <!--My AngularJS Controller-->
+    <script th:src="@{/js/controller/adminStoryController.js}"></script>
+    <!--Home AngularJS Service-->
+    <script th:src="@{/js/service/WebService.js}"></script>
+    <!-- Toastr -->
+    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
+    <script th:if="${checkAddCategory != null && checkAddCategory == true}">
+        $(document).ready(function () {
+            toastr.success('Thêm Mới Thể Loại thành công!', 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkAddCategory != null && checkAddCategory == false}">
+        $(document).ready(function () {
+            toastr.danger('Có lỗi xảy ra,Thêm Mới Thể Loại thất bại!', 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditCategory != null && checkEditCategory == true}">
+        $(document).ready(function () {
+            toastr.success('Cập Nhật Thể Loại thành công!', 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditCategoryFalse != null }" th:inline="javascript">
+        $(document).ready(function () {
+            var message = /*[[${checkEditCategoryTrue}]]*/ '';
+            toastr.danger(message, 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditCategory != null && checkAddCategory == false}">
+        $(document).ready(function () {
+            toastr.danger('Có lỗi xảy ra! Cập Nhật Thể Loại thất bại!', 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditCategoryTrue != null }" th:inline="javascript">
+        $(document).ready(function () {
+            var message = /*[[${checkEditCategoryTrue}]]*/ '';
+            toastr.success(message, 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+</head>
+<body class="fixed-sn white-skin body-none" ng-app="ngApp" ng-controller="adStoryCtrl" th:ng-init="|init()|">
+<!--NavBar-->
+<section th:replace="/fragments/adminNavbar"></section>
+<main>
+
+    <div class="container-fluid">
+
+        <!-- Section: Intro -->
+        <section class="mt-md-4 pt-md-2 mb-5 pb-4">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <div class="card col-12">
+                    <h3 class="card-header primary-color white-text text-center">
+                        Danh sách Truyện
+                    </h3>
+                    <div class="card-body table-responsive">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-12">
+                                <div class="md-form mb-0 mt-0">
+                                    <input type="text" class="form-control" length="255" ng-model="search" ng-change="getAdListChapter(1)">
+                                    <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-12">
+                                <select class="mdb-select md-form colorful-select dropdown-primary mt-0" ng-change="getAdListUser(1)"
+                                        ng-options="opt.label for opt in typeList track by opt.id" ng-model="type">
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table table-striped" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="font-weight-bolder">ID
+                                </th>
+                                <th class="font-weight-bolder">Tên
+                                </th>
+                                <th class="font-weight-bolder">Ngày Tạo</th>
+                                <th class="font-weight-bolder">Người Tạo
+                                </th>
+                                <th class="font-weight-bolder">Trạng Thái
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-show="listCategory.length === 0" class="text-center">
+                                <td colspan="6">Chưa Có Thể Loại nào</td>
+                            </tr>
+                            <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
+                                <td>{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                                <td>{{item.createBy}}</td>
+                                <td>
+                                    <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
+                                    <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
+                                </td>
+                                <td>
+                                    <a title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}" class="badge badge-pill badge-danger"><i class="fas fa-edit mx-1"></i></a>
+                                    <a ng-click="deleteUser(item.id)" title="Xóa Chapter" class="badge badge-pill badge-danger"><i class="fas fa-trash mx-1"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div aria-label="Page navigation example" ng-show="totalPages>1">
+                            <ul class="pagination pg-blue justify-content-end">
+                                <li class="page-item" ng-show="currentPage != 1">
+                                    <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
+                                        <i class="fas fa-step-backward fa-sm"></i>
+                                    </a>
+                                </li>
+                                <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                    <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                       ng-click="getAdListChapter(i)">{{i}}</a>
+                                </li>
+                                <li class="page-item" ng-show="currentPage != totalPages">
+                                    <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
+                                        <i class="fas fa-step-forward fa-sm"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Intro -->
+    </div>
+</main>
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });
+</script>
+</body>
+</html>

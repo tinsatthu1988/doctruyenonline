@@ -5,12 +5,14 @@ import apt.hthang.doctruyenonline.annotations.Unique;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
+import apt.hthang.doctruyenonline.validator.OnUpdate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -36,7 +38,7 @@ public class User implements Serializable {
     private Long id;
     @NotEmpty(message = "{hthang.truyenonline.user.username.empty.message}")
     @Unique(service = UserService.class, fieldName = "username",
-            message = "{hthang.truyenonline.user.username.unique.message}")
+            message = "{hthang.truyenonline.user.username.unique.message}", groups = OnUpdate.class)
     @Column(name = "username", unique = true, nullable = false, length = 30)
     private String username;
     @Column(name = "password", nullable = false, length = 60)
@@ -47,18 +49,15 @@ public class User implements Serializable {
     @NotEmpty(message = "{hthang.truyenonline.user.email.empty.message}")
     @Email(message = "{hthang.truyenonline.user.email.email.message}")
     @Unique(service = UserService.class, fieldName = "email",
-            message = "{hthang.truyenonline.user.email.unique.message}")
+            message = "{hthang.truyenonline.user.email.unique.message}", groups = OnUpdate.class)
     private String email;
     @Column(name = "notification")
     private String notification;
+    @Min(value = 0)
     @Column(name = "gold", precision = 22, scale = 0)
     private Double gold;
     @Column(name = "avatar")
     private String avatar;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    @Column(name = "modifiedDate", length = 19)
-    private Date modifiedDate;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "createDate", length = 19)
@@ -88,13 +87,6 @@ public class User implements Serializable {
         }
         if (gold == null) {
             gold = (double) 0;
-        }
-    }
-    
-    @PreUpdate
-    public void preUpdate() {
-        if (modifiedDate == null) {
-            modifiedDate = DateUtils.getCurrentDate();
         }
     }
 }

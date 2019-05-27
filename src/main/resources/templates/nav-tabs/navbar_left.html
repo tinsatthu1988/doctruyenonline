@@ -7,7 +7,7 @@
             <a class="list-group-item" th:classappend="${typePage ==2?'active':''}" th:href="@{/tai-khoan/nap_dau}">Nạp Đậu</a>
             <a class="list-group-item" th:classappend="${typePage ==3?'active':''}" th:href="@{/tai-khoan/giao_dich}">Log Giao Dịch</a>
             <a class="list-group-item" th:classappend="${typePage ==4?'active':''}" th:href="@{/tai-khoan/rut_tien}"
-               sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER','ROLE_SMOD')">Rút Tiền</a>
+               sec:authorize="hasAnyRole('ROLE_CONVERTER','ROLE_SMOD')">Rút Tiền</a>
             <a class="list-group-item" th:classappend="${typePage ==5?'active':''}" th:href=" @{/tai-khoan/them_truyen}">Đăng Truyện</a>
             <a class="list-group-item" th:classappend="${typePage ==6?'active':''}" th:href="@{/tai-khoan/quan_ly_truyen}">Quản
                 lý Truyện</a>

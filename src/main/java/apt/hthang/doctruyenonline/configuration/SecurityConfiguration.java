@@ -49,20 +49,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         
         http.csrf().disable();
-    
+        
         // Các trang không yêu cầu login
         http.authorizeRequests()
                 .antMatchers(SecurityUtils.PERMIT_ALL_LINK).permitAll();
-    
+        
         // Trang /userInfo yêu cầu phải login với tối thiểu là vai trò ROLE_USER
         // Nếu chưa login, nó sẽ redirect tới trang /login.
         http.authorizeRequests().antMatchers(SecurityUtils.ROLE_USER_LINK).access("hasAnyRole('ROLE_USER')");
-    
+        
         // Trang /userInfo yêu cầu phải login với tối thiểu là vai trò ROLE_USER
         // Nếu chưa login, nó sẽ redirect tới trang /login.
         http.authorizeRequests().antMatchers(SecurityUtils.ROLE_CONANDMOD_LINK).access("hasAnyRole('ROLE_CONVERTER', 'ROLE_SMOD')");
         // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers(SecurityUtils.ROLE_ADMIN_LINK).access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers(SecurityUtils.ROLE_ADMIN_MOD_LINK).access("hasAnyRole('ROLE_ADMIN', 'ROLE_SMOD')");
         
         // Khi người dùng đã login, với vai trò XX.
         // Nhưng truy cập vào trang yêu cầu vai trò YY,

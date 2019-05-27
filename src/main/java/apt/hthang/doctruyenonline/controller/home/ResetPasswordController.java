@@ -85,8 +85,6 @@ public class ResetPasswordController {
     @GetMapping
     public String showForgotForm(final Model model) {
         
-        logger.info("Get Quen Mat Khau");
-        
         // Lấy List Category Menu
         getMenuAndInfo(model, titleForgot);
         

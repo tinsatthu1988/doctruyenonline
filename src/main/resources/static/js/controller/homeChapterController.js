@@ -26,17 +26,9 @@ function chapterCtrl($http, $scope, WebService) {
     $scope.chapterVip = function (chID) {
         var data = new FormData();
         data.append('chapterId', chID);
-        var url = window.location.origin + '/api/chapter/pay';
+        var url = window.location.origin + '/api/pay/readingVip';
         WebService.submitForm(url, data).then(function successCallback(response) {
-            swal({
-                text: 'Thanh toán thành công',
-                type: 'success',
-                confirmButtonText: 'Ok'
-            }).then(
-                function () {
-                    window.location.reload();
-                }
-            );
+            window.location.reload();
         }, function errorCallback(errResponse) {
             callWarningSweetalert(errResponse.data.messageError);
         });
@@ -84,7 +76,7 @@ function chapterCtrl($http, $scope, WebService) {
             var data = new FormData();
             data.append('chapterId', $scope.chapterId);
             data.append('content', $scope.reportMss);
-            var url =  window.location.origin + '/api/report/add';
+            var url = window.location.origin + '/api/report/add';
             WebService.submitForm(url, data).then(function successCallback(response) {
                 swal({
                     text: 'Báo Lỗi thành công',

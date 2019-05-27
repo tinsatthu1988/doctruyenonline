@@ -17,7 +17,9 @@ public class ConstantsUtils {
     //Giá cập nhật Ngoại Hiệu
     public static final Double PRICE_UPDATE_NICK = Double.valueOf(2000);
     public static final Integer ROLE_ADMIN = 1;
+    public static final Integer ROLE_SMOD = 2;
     public static final Integer ROLE_CONVERTER = 3;
+    public static final Integer ROLE_USER = 4;
     
     // Page Default
     public static Integer PAGE_DEFAULT = 1;

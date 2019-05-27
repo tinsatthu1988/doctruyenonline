@@ -8,9 +8,15 @@ body {
     font-size: 14px;
     line-height: 1.28571429;
     color: #333;
+}
+
+.body-home {
     background-color: #fff !important;
 }
 
+.body-none{
+    background-image:none;
+}
 .container-full {
     max-width: 100% !important;
 }

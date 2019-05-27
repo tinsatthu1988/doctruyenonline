@@ -5,6 +5,8 @@ import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.projections.*;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
 import apt.hthang.doctruyenonline.service.StoryService;
+import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsPayTypeUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -333,8 +335,46 @@ public class StoryServiceImpl implements StoryService {
         return true;
     }
     
+    /**
+     * Lấy List Truyện Top Đề cử Trong Khoảng
+     *
+     * @param page
+     * @param size
+     * @param startDate
+     * @param endDate
+     * @return Page<TopStory>
+     */
     @Override
-    public Page< StoryTop > getTopStoryAppoind(Integer pageDefault, Integer rankSize) {
-        return null;
+    public Page< StoryTop > getTopStoryAppoind(int page, int size, Date startDate, Date endDate) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return storyRepository
+                .findTopStoryAppoind(ConstantsListUtils.LIST_STORY_DISPLAY, startDate, endDate, ConstantsPayTypeUtils.PAY_APPOINT_TYPE, ConstantsStatusUtils.PAY_COMPLETED, pageable);
+    }
+    
+    /**
+     * @param date
+     * @return
+     */
+    @Override
+    public Long countNewUserInDate(Date date) {
+        return storyRepository.countByCreateDateGreaterThanEqual(date);
+    }
+    
+    @Override
+    public Page< StoryTop > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search) {
+        Pageable pageable = PageRequest.of(pagenumber, size);
+        if (type == -1) {
+            if (search.trim().isEmpty())
+                return storyRepository.findByOrderByIdDesc(pageable);
+            return storyRepository.findByVnNameContainingOrderByIdDesc(search, pageable);
+        } else if (type == 3) {
+            if (search.trim().isEmpty())
+                return storyRepository.findByDealStatusOrderByIdDesc(ConstantsStatusUtils.STORY_STATUS_GOING_ON, pageable);
+            return storyRepository.findByDealStatusAndVnNameContainingOrderByIdDesc(ConstantsStatusUtils.STORY_STATUS_GOING_ON, search, pageable);
+        } else {
+            if (search.trim().isEmpty())
+                return storyRepository.findByStatusOrderByIdDesc(type, pageable);
+            return storyRepository.findByVnNameContainingAndStatusOrderByIdDesc(search, type, pageable);
+        }
     }
 }

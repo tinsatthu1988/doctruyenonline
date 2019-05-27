@@ -90,6 +90,12 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.CHAPTER_DENIED);
             }}
     );
+    public static final Object LIST_CATEGORY_STATUS_VIEW_ALL = Collections.unmodifiableList(
+            new ArrayList< Status >() {{
+                add(new Status(ConstantsStatusUtils.CATEGORY_ACTIVED, "Mở"));
+                add(new Status(ConstantsStatusUtils.CATEGORY_DENIED, "Kgoa"));
+            }}
+    );;
 
 //    public static final List< Integer > LIST_PAY_TYPE = Collections.unmodifiableList(
 //            new ArrayList< Integer >() {{

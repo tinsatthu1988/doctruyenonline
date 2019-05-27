@@ -9,12 +9,14 @@ import apt.hthang.doctruyenonline.repository.ChapterRepository;
 import apt.hthang.doctruyenonline.repository.StoryRepository;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -264,5 +266,23 @@ public class ChapterServiceImpl implements ChapterService {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    /**
+     *
+     */
+    @Override
+    public void updateStatusChapterVip() {
+        chapterRepository.updateStatusChapterVip(ConstantsStatusUtils.CHAPTER_ACTIVED,
+                ConstantsStatusUtils.CHAPTER_VIP_ACTIVED);
+    }
+    
+    /**
+     * @param date
+     * @return
+     */
+    @Override
+    public Long countNewChapterInDate(Date date) {
+        return chapterRepository.countByCreateDateGreaterThanEqual(date);
     }
 }

@@ -67,7 +67,7 @@ public class AppointRestfulController {
         }
         if (user.getGold() < (coupon * 1000))
             throw new HttpMyException("Số dư của bạn không đủ để đề cử");
-        boolean check = payService.savePay(story, null, user, null,
+        boolean check = payService.savePay(story, null, user, null,coupon,
                 (double) (coupon * 1000), ConstantsPayTypeUtils.PAY_APPOINT_TYPE);
         if (check)
             return new ResponseEntity<>(HttpStatus.OK);

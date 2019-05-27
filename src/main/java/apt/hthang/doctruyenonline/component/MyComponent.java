@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.component;
 
+import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.service.HistoryService;
@@ -78,6 +79,14 @@ public class MyComponent {
             return ConstantsUtils.AVATAR_DEFAULT;
         }
         return avatar;
+    }
+    
+    public Long getChapterReading(Long storyId, Long userId) {
+        Chapter chapter = historyService.findChapterReadByUser(userId, storyId);
+        if (chapter != null)
+            return chapter.getId();
+        return null;
+//        return Long.valueOf(0);
     }
     
 }

@@ -28,22 +28,17 @@ import java.util.Date;
 @RequestMapping("/truyen")
 public class ChapterController {
     
-    private final InformationService informationService;
-    private final CategoryService categoryService;
-    private final ChapterService chapterService;
-    private final PayService payService;
-    private final HistoryService historyService;
     Logger logger = LoggerFactory.getLogger(ChapterController.class);
-    
     @Autowired
-    public ChapterController(InformationService informationService, CategoryService categoryService,
-                             ChapterService chapterService, PayService payService, HistoryService historyService) {
-        this.informationService = informationService;
-        this.categoryService = categoryService;
-        this.chapterService = chapterService;
-        this.payService = payService;
-        this.historyService = historyService;
-    }
+    private InformationService informationService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ChapterService chapterService;
+    @Autowired
+    private PayService payService;
+    @Autowired
+    private HistoryService historyService;
     
     private void getMenuAndInfo(Model model, String title) {
         

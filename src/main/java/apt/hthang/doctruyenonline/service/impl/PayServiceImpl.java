@@ -4,16 +4,21 @@ import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.Story;
 import apt.hthang.doctruyenonline.entity.User;
+import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.projections.PaySummary;
 import apt.hthang.doctruyenonline.repository.PayRepository;
+import apt.hthang.doctruyenonline.repository.UserRepository;
 import apt.hthang.doctruyenonline.service.PayService;
 import apt.hthang.doctruyenonline.utils.ConstantsPayTypeUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -22,7 +27,9 @@ import java.util.Date;
  */
 @Service
 public class PayServiceImpl implements PayService {
-    
+    Logger logger = LoggerFactory.getLogger(PayServiceImpl.class);
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private PayRepository payRepository;
     
@@ -38,7 +45,8 @@ public class PayServiceImpl implements PayService {
      * @return false - nếu thất bại hoặc có lỗi xảy ra
      */
     @Override
-    public boolean savePay(Story story, Chapter chapter, User userSend, User userReceived, Double money, Integer payType) {
+    @Transactional(noRollbackFor = HttpMyException.class)
+    public boolean savePay(Story story, Chapter chapter, User userSend, User userReceived, Integer vote, Double money, Integer payType) {
         Long chapterID = null;
         Long storyID = null;
         if (chapter != null)
@@ -50,7 +58,7 @@ public class PayServiceImpl implements PayService {
                         userReceived.getId(),
                         chapterID,
                         storyID,
-                        money,
+                        money, vote,
                         payType);
     }
     
@@ -140,5 +148,117 @@ public class PayServiceImpl implements PayService {
     @Override
     public Long countPayOfStory(Long id) {
         return payRepository.countByStory_IdOrChapter_Story_Id(id, id);
+    }
+    
+    @Override
+    public boolean saveNew(Pay pay) {
+        pay = payRepository.save(pay);
+        return pay.getId() != null;
+    }
+    
+    @Override
+    @Transactional
+    public void setPay(User user, Double valueOf) {
+        Pay pay = new Pay();
+        pay.setUserSend(user);
+        pay.setMoney(valueOf);
+        pay.setType(ConstantsPayTypeUtils.PAY_WITHDRAW_TYPE);
+        pay.setStatus(ConstantsStatusUtils.PAY_WAIT);
+        payRepository.save(pay);
+        user.setGold(user.getGold() - valueOf);
+        userRepository.save(user);
+    }
+    
+    /**
+     * Thực Hiện giao dịch đọc chapter Vip
+     *
+     * @param userSend
+     * @param chapter
+     */
+    @Override
+    @Transactional
+    public void saveReadingVipPay(User userSend, Chapter chapter) {
+        Pay pay = new Pay();
+        pay.setUserSend(userSend);
+        pay.setChapter(chapter);
+        pay.setUserReceived(chapter.getUser());
+        pay.setMoney(chapter.getPrice());
+        pay.setType(ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE);
+//        payRepository.save(pay);
+        savePay(pay);
+        logger.info("đã thanh toán");
+        //Lấy Thông Tin Mới Nhất của Người Thanh Toán
+        userSend = userRepository.findById(userSend.getId()).get();
+        logger.info("Trước Trừ: " + userSend.getGold());
+        logger.info("Số Tiền Trừ: " + chapter.getPrice());
+        logger.info("Email :" + userSend.getEmail() + " - Username: " + userSend.getUsername());
+        userSend.setGold(userSend.getGold() - chapter.getPrice());
+//        userRepository.save(userSend);
+        logger.info("Sau Trừ: " + userSend.getGold());
+        saveUser(userSend);
+        logger.info("đã trừ tiền");
+        //Lấy Thông tin mới nhất của người nhận
+        User userReceived = userRepository.findById(chapter.getUser().getId()).get();
+        logger.info("Trước Cộng: " + userSend.getGold());
+        logger.info("Số Tiền Cộng: " + chapter.getPrice());
+        logger.info("Email :" + userSend.getEmail() + " - Username: " + userSend.getUsername());
+        userSend.setGold(userSend.getGold() - chapter.getPrice());
+        userReceived.setGold(userReceived.getGold() + chapter.getPrice());
+        logger.info(userReceived.getId() + " - " + userReceived.getGold());
+//        userRepository.save(userReceived);
+        saveUser(userReceived);
+        logger.info("đã cộng tiền");
+    }
+    
+    /**
+     * Thực hiện giao dịch đăng ký rút tiền
+     *
+     * @param user
+     * @param money
+     */
+    @Override
+    @Transactional
+    public Long savePayDraw(User user, Double money) {
+        Pay pay = new Pay();
+        pay.setUserSend(user);
+        pay.setMoney(money);
+        pay.setType(ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE);
+        payRepository.save(pay);
+        //Lấy Thông Tin Mới Nhất của Người Thanh Toán
+        user = userRepository.findById(user.getId()).get();
+        user.setGold(user.getGold() - money);
+        userRepository.save(user);
+        return pay.getId();
+    }
+    
+    /**
+     * Thực Hiện Giao Dịch Nạp Tiền cho User
+     *
+     * @param userSend     - Người Nạp
+     * @param money        - Số đậu nạp
+     * @param userReceived - Người nhận
+     */
+    @Override
+    @Transactional
+    public void savePayChange(User userSend, Double money, User userReceived) {
+        Pay pay = new Pay();
+        pay.setUserSend(userSend);
+        pay.setUserReceived(userReceived);
+        pay.setMoney(money);
+        pay.setType(ConstantsPayTypeUtils.PAY_RECHARGE_TYPE);
+        savePay(pay);
+//        payRepository.save(pay);
+        //Lấy Thông Tin Mới Nhất của Người Thanh Toán
+        userReceived = userRepository.findById(userReceived.getId()).get();
+        userReceived.setGold(userReceived.getGold() + money);
+        userRepository.save(userReceived);
+    }
+    
+    private void savePay(Pay pay) {
+        payRepository.save(pay);
+    }
+    
+    private void saveUser(User user) {
+        userRepository.save(user);
     }
 }
