@@ -185,9 +185,9 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         if (fieldName.equals("email")) {
-            return this.userRepository.existsUserByEmail(value.toString());
+            return this.userRepository.existsUserByEmailIgnoreCase(value.toString());
         }
-        return this.userRepository.existsUserByUsername(value.toString());
+        return this.userRepository.existsUserByUsernameIgnoreCase(value.toString());
     }
     
     @Override

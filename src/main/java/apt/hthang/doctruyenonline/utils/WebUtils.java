@@ -202,7 +202,7 @@ public class WebUtils {
             name = name.replaceAll("[+.^:,^$|?*+()!]", "");
             String temp = Normalizer.normalize(name, Normalizer.Form.NFD);
             Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("Ã„â€˜", "d");
+            return pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("đĐÃ„â€˜", "d");
         } catch (Exception e) {
             return " ";
         }

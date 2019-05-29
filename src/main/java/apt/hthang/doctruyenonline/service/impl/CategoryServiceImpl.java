@@ -99,25 +99,26 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
         Assert.notNull(fieldName);
-    
+        
         if (!fieldName.equals("name")) {
             throw new UnsupportedOperationException("Field name not supported");
         }
-    
+        
         if (value == null) {
             return true;
         }
         return this.categoryRepository.existsByNameIgnoreCase(value.toString());
     }
-
+    
     /**
-    *   Kiểm tra sự tồn tại của Thể loại theo name và Id
-    * @param id
-    * @param name
-    *   @return 
-    */
+     * Kiểm tra sự tồn tại của Thể loại theo name và Id
+     *
+     * @param id
+     * @param name
+     * @return
+     */
     @Override
-    public boolean exitsCategoryName(Integer id, String name){
+    public boolean exitsCategoryName(Integer id, String name) {
         return categoryRepository.existsByNameIgnoreCaseAndIdNot(name, id);
     }
 }

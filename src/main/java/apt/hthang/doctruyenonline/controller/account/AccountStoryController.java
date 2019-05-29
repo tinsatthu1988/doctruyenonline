@@ -164,8 +164,8 @@ public class AccountStoryController {
             return "redirect:/tai-khoan/quan_ly_truyen";
         }
         if (hasError) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
-            redirectAttributes.addFlashAttribute("story", story);
+            redirectAttrs.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
+            redirectAttrs.addFlashAttribute("story", story);
             return "redirect:/tai-khoan/sua_truyen/" + story.getId();
         }
         Story storyEdit = storyService.findStoryById(story.getId());

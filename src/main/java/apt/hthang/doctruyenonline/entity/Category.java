@@ -5,6 +5,7 @@ import apt.hthang.doctruyenonline.service.CategoryService;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.DateUtils;
 import apt.hthang.doctruyenonline.validator.OnUpdate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,18 +37,12 @@ public class Category implements Serializable {
     private String name;
     @Column(name = "metatitle", nullable = false, length = 150)
     private String metatitle;
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "createDate", length = 19)
     private Date createDate;
     @Column(name = "createBy", length = 150)
     private String createBy;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    @Column(name = "modifiedDate", length = 19)
-    private Date modifiedDate;
-    @Column(name = "modifiedBy", length = 150)
-    private String modifiedBy;
     @Column(name = "status")
     private Integer status;
     

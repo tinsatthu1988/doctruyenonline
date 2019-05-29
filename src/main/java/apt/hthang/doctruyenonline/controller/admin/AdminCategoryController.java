@@ -10,12 +10,15 @@ import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +38,7 @@ import java.time.LocalDate;
 @RequestMapping(value = "/quan-tri")
 public class AdminCategoryController {
     
+    private final Logger logger = LoggerFactory.getLogger(AdminCategoryController.class);
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -115,9 +119,9 @@ public class AdminCategoryController {
             model.addAttribute("category", category);
         }
         model.addAttribute("statusList", ConstantsListUtils.LIST_CATEGORY_STATUS_VIEW_ALL);
-    
+        
         getUser(model, principal);
-    
+        
         return "dashboard/editCategoryPage";
     }
     
@@ -131,19 +135,22 @@ public class AdminCategoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
-        if(category.exitsCategoryName(category.getId(), category.getName))
+        logger.info("Kiểm Tra: " +categoryService.exitsCategoryName(category.getId(), category.getName()));
+        if (categoryService.exitsCategoryName(category.getId(), category.getName()))
             result.addError(new FieldError("category", "name", "Đã tồn tại Thể Loại có tên này"));
-        boolean hasError = result.hasErrors();        
-        if (hasError) {
+        boolean hasError = result.hasErrors();
+        logger.info(result.getAllErrors().toString());
+        if (!hasError) {
+            logger.info("Có lỗi");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
             return "redirect:/quan-tri/sua_the_loai/" + category.getId();
         }
+        logger.info("không có lỗi");
         category.setMetatitle(WebUtils.convertStringToMetaTitle(category.getName()));
-        category.setModifiedBy(user.getUsername());
         boolean check = categoryService.newCategory(category);
+        logger.info("Kết quả cập nhật:" + check);
         redirectAttributes.addFlashAttribute("checkEditCategory", check);
-        
         return "redirect:/quan-tri/the_loai";
     }
 }

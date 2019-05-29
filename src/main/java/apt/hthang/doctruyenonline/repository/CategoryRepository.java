@@ -42,6 +42,12 @@ public interface CategoryRepository extends JpaRepository< Category, Integer > {
     * @return true - nếu đã tồn tại name / false - nếu chưa tồn tại tên
     */
     boolean existsByNameIgnoreCase(String name);
-
     
+    /**
+     * Kiểm Tra đã tồn tại thể loại có tên với Id khác
+     * @param name
+     * @param id
+     * @return
+     */
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Integer id);
 }
