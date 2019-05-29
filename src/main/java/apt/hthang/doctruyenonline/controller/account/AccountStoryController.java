@@ -149,7 +149,7 @@ public class AccountStoryController {
     }
     
     @PostMapping("/sua_truyen/save")
-    public String saveStoryEditPage(@Valid Story storyEdit, BindingResult result, Model model, Principal principal, RedirectAttributes redirectAttrs) throws NotFoundException {
+    public String saveStoryEditPage(@Valid Story story, BindingResult result, Model model, Principal principal, RedirectAttributes redirectAttrs) throws NotFoundException {
         boolean hasError = result.hasErrors();
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
@@ -159,33 +159,32 @@ public class AccountStoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
-        if (!storyEdit.getUser().getId().equals(loginedUser.getUser().getId())) {
+        if (!story.getUser().getId().equals(loginedUser.getUser().getId())) {
             redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Bạn không có quyền sửa truyện không do bạn đăng!");
             return "redirect:/tai-khoan/quan_ly_truyen";
         }
         if (hasError) {
-            getMenuAndInfo(model, "Sửa Truyện", -1);
-            model.addAttribute("statusList", ConstantsListUtils.LIST_STORY_STATUS_CONVERTER);
-            model.addAttribute("story", storyEdit);
-            return "view/account/editStoryPage";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
+            redirectAttributes.addFlashAttribute("story", story);
+            return "redirect:/tai-khoan/sua_truyen/" + story.getId();
         }
-        Story story = storyService.findStoryById(storyEdit.getId());
-        if ((story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_COMPLETED) || story.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN))
-                && !story.getStatus().equals(storyEdit.getStatus())) {
-            redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật Trạng Thái Truyện " + storyEdit.getVnName() + " không thành công! Do Truyện đã hoàn thành hoặc bị khóa!");
+        Story storyEdit = storyService.findStoryById(story.getId());
+        if ((storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_COMPLETED) || storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN))
+                && !storyEdit.getStatus().equals(story.getStatus())) {
+            redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật Trạng Thái Truyện " + story.getVnName() + " không thành công! Do Truyện đã hoàn thành hoặc bị khóa!");
             return "redirect:/tai-khoan/quan_ly_truyen";
         }
-        storyEdit.setInfomation(storyEdit.getInfomation().replaceAll("\n", "<br />"));
-        if (!storyEdit.getEditfile().isEmpty() && storyEdit.getEditfile() != null) {
+        story.setInfomation(story.getInfomation().replaceAll("\n", "<br />"));
+        if (!story.getEditfile().isEmpty() && story.getEditfile() != null) {
             String url = cloudinaryUploadService
-                    .upload(storyEdit.getEditfile(), loginedUser.getUser().getUsername() + "-" + System.nanoTime());
-            storyEdit.setImages(url);
+                    .upload(story.getEditfile(), loginedUser.getUser().getUsername() + "-" + System.nanoTime());
+            story.setImages(url);
         }
-        boolean check = storyService.updateStory(storyEdit);
+        boolean check = storyService.updateStory(story);
         if (check)
             redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật không thành công! Có lỗi xảy ra, mong bạn thử lại sau!");
         else
-            redirectAttrs.addFlashAttribute("checkEditStoryTrue", "Cập nhật truyện " + storyEdit.getVnName() + " thành công!");
+            redirectAttrs.addFlashAttribute("checkEditStoryTrue", "Cập nhật truyện " + story.getVnName() + " thành công!");
         return "redirect:/tai-khoan/quan_ly_truyen";
     }
 }
