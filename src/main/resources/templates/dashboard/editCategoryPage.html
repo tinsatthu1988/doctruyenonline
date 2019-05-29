@@ -31,7 +31,7 @@
                                             <div class="col-md-12">
                                                 <div class="md-form mb-0">
                                                     <input type="text" class="form-control" id="id" name="id" th:value="*{id}" readonly>
-                                                    <label for="oldpass" class="">Mã Thể Loại</label>
+                                                    <label for="oldpass" class="text-primary">Mã Thể Loại</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -41,7 +41,7 @@
                                                 <div class="md-form mb-0">
                                                     <input type="text" class="form-control" id="name" name="name" th:value="*{name}"
                                                            th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
-                                                    <label for="oldpass" class="">Tên Thể Loại</label>
+                                                    <label for="oldpass" class="text-primary">Tên Thể Loại</label>
                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></em>
                                                 </div>
                                             </div>
@@ -51,14 +51,14 @@
                                             <div class="col-md-12">
                                                 <div class="md-form mb-0">
                                                     <input type="text" class="form-control" id="metatitle" name="metatitle" th:value="*{metatitle}" readonly>
-                                                    <label for="oldpass" class="">Metatitle</label>
+                                                    <label for="oldpass" class="text-primary">Metatitle</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="md-form mb-0">
-                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:value="*{createDate}" readonly>
+                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:field="*{createDate}" readonly>
                                                     <label for="createDate" class="text-primary">Ngày Tạo </label>
                                                 </div>
                                             </div>

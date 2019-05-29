@@ -124,17 +124,17 @@
                         <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
                             <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                            <td>{{item.createDate | date:'dd/MM/yyyy HH:mm ' }}</td>
                             <td>{{item.createBy}}</td>
                             <td>
                                 <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
                                 <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
                             </td>
                             <td>
-                                <a class="blue-text" data-toggle="tooltip" data-placement="top" title="See results"><i
+                                <a class="blue-text pr-2" data-toggle="tooltip" data-placement="top" title="See results"><i
                                         class="fas fa-user"></i></a>
-                                <a class="teal-text" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
-                                <a class="red-text" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
+                                <a class="teal-text pr-2"  data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="red-text pr-2" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
                             </td>
                         </tr>
                         </tbody>

@@ -140,7 +140,7 @@ public class AdminCategoryController {
             result.addError(new FieldError("category", "name", "Đã tồn tại Thể Loại có tên này"));
         boolean hasError = result.hasErrors();
         logger.info(result.getAllErrors().toString());
-        if (!hasError) {
+        if (hasError) {
             logger.info("Có lỗi");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
