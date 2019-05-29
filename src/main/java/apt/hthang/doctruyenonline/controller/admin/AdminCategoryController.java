@@ -131,7 +131,9 @@ public class AdminCategoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
-        boolean hasError = result.hasErrors();
+        if(category.exitsCategoryName(category.getId(), category.getName))
+            result.addError(new FieldError("category", "name", "Đã tồn tại Thể Loại có tên này"));
+        boolean hasError = result.hasErrors();        
         if (hasError) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
