@@ -107,7 +107,18 @@ public class CategoryServiceImpl implements CategoryService {
         if (value == null) {
             return true;
         }
-        return this.categoryRepository.existsByName(value.toString());
+        return this.categoryRepository.existsByNameIgnoreCase(value.toString());
+    }
+
+    /**
+    *   Kiểm tra sự tồn tại của Thể loại theo name và Id
+    * @param id
+    * @param name
+    *   @return 
+    */
+    @Override
+    public boolean exitsCategoryName(Integer id, String name){
+        return categoryRepository.existsByNameIgnoreCaseAndIdNot(name, id);
     }
 }
 

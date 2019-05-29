@@ -35,5 +35,13 @@ public interface CategoryRepository extends JpaRepository< Category, Integer > {
     
     Page< Category > findAllByNameContaining(String search, Pageable pageable);
     
-    boolean existsByName(String name);
+    /**
+    *   Kiểm Tra đã tồn tại thể loại có tên
+    *   @param name
+    *
+    * @return true - nếu đã tồn tại name / false - nếu chưa tồn tại tên
+    */
+    boolean existsByNameIgnoreCase(String name);
+
+    
 }

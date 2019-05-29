@@ -79,7 +79,7 @@ public interface UserRepository extends JpaRepository< User, Long > {
      * @param email
      * @return
      */
-    boolean existsUserByEmail(String email);
+    boolean existsUserByEmailIgnoreCase(String email);
     
     /**
      * Kiểm Tra đã tồn tại username
@@ -87,7 +87,7 @@ public interface UserRepository extends JpaRepository< User, Long > {
      * @param username
      * @return
      */
-    boolean existsUserByUsername(String username);
+    boolean existsUserByUsernameIgnoreCase(String username);
     
     @Query(value = ConstantsQueryUtils.TOP_CONVERTER,
             countQuery = ConstantsQueryUtils.COUNT_TOP_CONVERTER,

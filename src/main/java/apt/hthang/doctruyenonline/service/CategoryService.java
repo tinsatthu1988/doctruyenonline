@@ -30,6 +30,14 @@ public interface CategoryService extends FieldValueExists {
      */
     CategorySummary getCategoryByID(Integer id, Integer status) throws Exception;
     
+    /**
+     * Tìm Category theo search
+     *
+     * @param search
+     * @param pagenumber
+     * @param size
+     * @return 
+     */
     Page<Category> findCategoryBySearch(String search, Integer pagenumber, Integer size);
     
     /**
@@ -39,7 +47,17 @@ public interface CategoryService extends FieldValueExists {
      */
     Category findCategoryById(Integer id);
     
+
+    /**
+    *   Kiểm tra sự tồn tại của Thể loại theo name và Id
+    * @param id
+    * @param name
+    *   @return 
+    */
+    boolean exitsCategoryName(Integer id, String name);
+
     boolean deleteCategory(Category category);
     
+
     boolean newCategory(Category category);
 }
