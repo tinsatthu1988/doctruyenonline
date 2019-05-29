@@ -184,30 +184,16 @@ public class PayServiceImpl implements PayService {
         pay.setUserReceived(chapter.getUser());
         pay.setMoney(chapter.getPrice());
         pay.setType(ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE);
-//        payRepository.save(pay);
         savePay(pay);
-        logger.info("đã thanh toán");
         //Lấy Thông Tin Mới Nhất của Người Thanh Toán
         userSend = userRepository.findById(userSend.getId()).get();
-        logger.info("Trước Trừ: " + userSend.getGold());
-        logger.info("Số Tiền Trừ: " + chapter.getPrice());
-        logger.info("Email :" + userSend.getEmail() + " - Username: " + userSend.getUsername());
         userSend.setGold(userSend.getGold() - chapter.getPrice());
-//        userRepository.save(userSend);
-        logger.info("Sau Trừ: " + userSend.getGold());
         saveUser(userSend);
-        logger.info("đã trừ tiền");
         //Lấy Thông tin mới nhất của người nhận
         User userReceived = userRepository.findById(chapter.getUser().getId()).get();
-        logger.info("Trước Cộng: " + userSend.getGold());
-        logger.info("Số Tiền Cộng: " + chapter.getPrice());
-        logger.info("Email :" + userSend.getEmail() + " - Username: " + userSend.getUsername());
         userSend.setGold(userSend.getGold() - chapter.getPrice());
         userReceived.setGold(userReceived.getGold() + chapter.getPrice());
-        logger.info(userReceived.getId() + " - " + userReceived.getGold());
-//        userRepository.save(userReceived);
         saveUser(userReceived);
-        logger.info("đã cộng tiền");
     }
     
     /**

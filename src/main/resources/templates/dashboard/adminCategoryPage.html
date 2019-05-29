@@ -86,86 +86,101 @@
         <section class="mt-md-4 pt-md-2 mb-5 pb-4">
 
             <!-- Grid row -->
-            <div class="row">
-
-                <div class="card col-12">
-                    <h3 class="card-header primary-color white-text text-center">
-                        Danh sách Thể Loại
-                    </h3>
-                    <div class="card-body table-responsive">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6 col-12">
-                                <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/them_the_loai}">THÊM MỚI</a>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-12">
-                                <div class="md-form mb-0">
-                                    <input type="text" class="form-control" length="255" ng-model="search" ng-change="getAdListChapter(1)">
-                                    <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
-                                </div>
-                            </div>
+            <div class="card">
+                <h3 class="card-header primary-color white-text text-center">
+                    Danh sách Thể Loại
+                </h3>
+                <div class="card-body table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-12">
+                            <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/them_the_loai}">THÊM MỚI</a>
                         </div>
-                        <table class="table table-striped" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th class="font-weight-bolder">ID
-                                </th>
-                                <th class="font-weight-bolder">Tên
-                                </th>
-                                <th class="font-weight-bolder">Ngày Tạo</th>
-                                <th class="font-weight-bolder">Người Tạo
-                                </th>
-                                <th class="font-weight-bolder">Trạng Thái
-                                </th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-show="listCategory.length === 0" class="text-center">
-                                <td colspan="6">Chưa Có Thể Loại nào</td>
-                            </tr>
-                            <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
-                                <td>{{item.id}}</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
-                                <td>{{item.createBy}}</td>
-                                <td>
-                                    <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
-                                    <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
-                                </td>
-                                <td>
-                                    <a title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}" class="badge badge-pill badge-danger"><i class="fas fa-edit mx-1"></i></a>
-                                    <a ng-click="deleteCategory(item.id)" title="Xóa Chapter" class="badge badge-pill badge-danger"><i class="fas fa-trash mx-1"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div aria-label="Page navigation example" ng-show="totalPages>1">
-                            <ul class="pagination pg-blue justify-content-end">
-                                <li class="page-item" ng-show="currentPage != 1">
-                                    <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
-                                        <i class="fas fa-step-backward fa-sm"></i>
-                                    </a>
-                                </li>
-                                <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
-                                    <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
-                                       ng-click="getAdListChapter(i)">{{i}}</a>
-                                </li>
-                                <li class="page-item" ng-show="currentPage != totalPages">
-                                    <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
-                                        <i class="fas fa-step-forward fa-sm"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                        <div class="col-sm-12 col-md-6 col-12">
+                            <div class="md-form mb-0">
+                                <input type="text" class="form-control" length="255" ng-model="search" ng-change="getAdListChapter(1)">
+                                <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
+                            </div>
                         </div>
                     </div>
+                    <table class="table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th class="font-weight-bolder">ID
+                            </th>
+                            <th class="font-weight-bolder">Tên
+                            </th>
+                            <th class="font-weight-bolder">Ngày Tạo</th>
+                            <th class="font-weight-bolder">Người Tạo
+                            </th>
+                            <th class="font-weight-bolder">Trạng Thái
+                            </th>
+                            <th>Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-show="listCategory.length === 0" class="text-center">
+                            <td colspan="6">Chưa Có Thể Loại nào</td>
+                        </tr>
+                        <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                            <td>{{item.createBy}}</td>
+                            <td>
+                                <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
+                                <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
+                            </td>
+                            <td>
+                                <a class="blue-text" data-toggle="tooltip" data-placement="top" title="See results"><i
+                                        class="fas fa-user"></i></a>
+                                <a class="teal-text" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="red-text" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div aria-label="Page navigation example" ng-show="totalPages>1">
+                        <ul class="pagination pg-blue justify-content-end">
+                            <li class="page-item" ng-show="currentPage != 1">
+                                <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
+                                    <i class="fas fa-step-backward fa-sm"></i>
+                                </a>
+                            </li>
+                            <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                   ng-click="getAdListChapter(i)">{{i}}</a>
+                            </li>
+                            <li class="page-item" ng-show="currentPage != totalPages">
+                                <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
+                                    <i class="fas fa-step-forward fa-sm"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
             </div>
+
             <!-- Grid row -->
 
         </section>
         <!-- Section: Intro -->
     </div>
+
+    <!-- Custom scripts -->
+    <script>
+        var container = document.querySelector('.custom-scrollbar');
+        Ps.initialize(container, {
+            wheelSpeed: 2,
+            wheelPropagation: true,
+            minScrollbarLength: 20
+        });
+
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    </script>
 </main>
 </body>
 </html>

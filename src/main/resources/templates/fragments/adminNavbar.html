@@ -5,12 +5,14 @@
         <ul class="custom-scrollbar">
 
             <!-- Logo -->
-            <li class="logo-sn waves-effect py-3">
+            <li class="logo-sn waves-effect pt-3">
                 <div class="text-center">
-                    <a href="#" class="pl-0"><span class="text-logo">TRUYỆN ONLINE</span></a>
+                    <a class="pl-0" style="height: auto;margin-bottom: 5px;">
+                        <img style="max-width: 12rem;" th:src="${avatar}" class="img-fluid rounded-circle">
+                    </a>
+                    <h4 class="pt-1 text-primary" th:text="${displayname}"></h4>
                 </div>
-            </li>
-            <!-- Side navigation links -->
+                <!-- Side navigation links -->
             <li>
                 <ul class="collapsible collapsible-accordion">
 
@@ -106,7 +108,6 @@
 
         // SideNav Initialization
         $(".button-collapse").sideNav('show');
-
 
     </script>
 </header>

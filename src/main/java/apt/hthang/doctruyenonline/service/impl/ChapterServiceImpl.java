@@ -11,6 +11,9 @@ import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+import apt.hthang.doctruyenonline.utils.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,8 @@ import static java.lang.Long.valueOf;
 @Service
 @Transactional
 public class ChapterServiceImpl implements ChapterService {
+    
+    private final static Logger logger = LoggerFactory.getLogger(ChapterServiceImpl.class);
     @Autowired
     private ChapterRepository chapterRepository;
     @Autowired
@@ -184,6 +189,7 @@ public class ChapterServiceImpl implements ChapterService {
     
     @Override
     public boolean saveNewChapter(Chapter chapter) {
+        chapter.setWordCount(WebUtils.countWords(chapter.getContent()));
         chapter.setContent(chapter.getContent().replaceAll("\n", "<br />"));
         Chapter newChapter = chapterRepository.save(chapter);
         if (newChapter.getId() != null) {

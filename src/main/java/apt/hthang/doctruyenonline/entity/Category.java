@@ -19,8 +19,7 @@ import java.util.Date;
  * @project truyenonline-multi-model
  */
 @Entity
-@Table(name = "category", uniqueConstraints = {@UniqueConstraint(columnNames = "metatitle"),
-        @UniqueConstraint(columnNames = "name")})
+@Table(name = "category", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 @Data
 @NoArgsConstructor
 public class Category implements Serializable {
@@ -32,7 +31,7 @@ public class Category implements Serializable {
     private Integer id;
     @NotEmpty(message = "Tên Thể Loại Không Được để trống")
     @Unique(service = CategoryService.class, fieldName = "name",
-            message = "Đã có thể loại tên này")
+            message = "Đã có thể loại tên này", groups = OnUpdate.class)
     @Column(name = "name", unique = true, nullable = false, length = 150)
     private String name;
     @Column(name = "metatitle", nullable = false, length = 150)
@@ -51,7 +50,6 @@ public class Category implements Serializable {
     private String modifiedBy;
     @Column(name = "status")
     private Integer status;
-    
     
     @PrePersist
     public void prePersist() {

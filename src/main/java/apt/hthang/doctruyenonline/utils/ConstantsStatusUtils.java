@@ -10,7 +10,7 @@ public class ConstantsStatusUtils {
     public static final Integer CATEGORY_ACTIVED = 1;
     
     // Trạng thái category bị khóa
-    public static final Integer CATEGORY_DENIED = 1;
+    public static final Integer CATEGORY_DENIED = 0;
     
     //Trạng Thái Chapter Bị Ẩn
     public static final Integer CHAPTER_DENIED = 0;
@@ -62,5 +62,4 @@ public class ConstantsStatusUtils {
     
     public static final Integer REPORT_DENIED = 0;
     public static final Integer REPORT_WAIT = 2;
-    public static final Integer USER_SUCCESS = 1;
 }

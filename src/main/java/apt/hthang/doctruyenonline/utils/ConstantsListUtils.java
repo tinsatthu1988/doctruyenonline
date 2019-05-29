@@ -93,7 +93,7 @@ public class ConstantsListUtils {
     public static final Object LIST_CATEGORY_STATUS_VIEW_ALL = Collections.unmodifiableList(
             new ArrayList< Status >() {{
                 add(new Status(ConstantsStatusUtils.CATEGORY_ACTIVED, "Mở"));
-                add(new Status(ConstantsStatusUtils.CATEGORY_DENIED, "Kgoa"));
+                add(new Status(ConstantsStatusUtils.CATEGORY_DENIED, "Khóa"));
             }}
     );;
 

@@ -32,10 +32,12 @@ public class Chapter implements Serializable {
     private String chapterNumber;
     @Column(name = "serial", nullable = false, precision = 12, scale = 0)
     private Float serial;
+    @NotEmpty(message = "{hthang.truyenonline.chapter.name.empty.message}")
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "countView")
     private Integer countView;
+    @NotEmpty(message = "{hthang.truyenonline.chapter.content.empty.message}")
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
     @Temporal(TemporalType.TIMESTAMP)
@@ -69,9 +71,6 @@ public class Chapter implements Serializable {
         }
         if (status == null) {
             status = ConstantsStatusUtils.CHAPTER_ACTIVED;
-        }
-        if (wordCount == null) {
-            wordCount = 0;
         }
         if (countView == null) {
             countView = 0;

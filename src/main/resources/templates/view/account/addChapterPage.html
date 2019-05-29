@@ -40,6 +40,7 @@
                                                     <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${chapter}"
                                                           th:action="@{'/tai-khoan/them_chuong/' + ${chapter.story.id}}" id="resetForm">
                                                         <!--Grid row-->
+                                                        <input type="text" class="form-control" th:field="*{story.id}">
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">

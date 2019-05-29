@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.controller.admin;
 
+import apt.hthang.doctruyenonline.component.MyComponent;
 import apt.hthang.doctruyenonline.entity.Category;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
@@ -38,22 +39,40 @@ public class AdminCategoryController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MyComponent myComponent;
+    
+    //Lấy Thông Tin Tên User Login, Avatar User Login
+    private void getUser(Model model, Principal principal) throws NotFoundException {
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
+        model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
+    }
     
     @RequestMapping("/the_loai")
-    public String defaultAdmiHome(Model model) {
+    public String defaultAdmiHome(Model model, Principal principal) throws Exception {
         LocalDate today = LocalDate.now();
         model.addAttribute("title", "Danh Sách Thể Loại");
+        
+        getUser(model, principal);
+        
         return "/dashboard/adminCategoryPage";
     }
     
     @GetMapping("/them_the_loai")
-    public String addStoryPage(Model model) {
+    public String addStoryPage(Model model, Principal principal) throws Exception {
         
         model.addAttribute("title", "Thêm Thể Loại");
         
         if (!model.containsAttribute("category")) {
             model.addAttribute("category", new Category());
         }
+        
+        getUser(model, principal);
         
         return "dashboard/addCategoryPage";
     }
@@ -83,7 +102,7 @@ public class AdminCategoryController {
     }
     
     @GetMapping("/sua_the_loai/{id}")
-    public String editStoryPage(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs) {
+    public String editStoryPage(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs, Principal principal) throws Exception {
         
         model.addAttribute("title", "Thêm Thể Loại");
         Category category = categoryService.findCategoryById(id);
@@ -96,6 +115,9 @@ public class AdminCategoryController {
             model.addAttribute("category", category);
         }
         model.addAttribute("statusList", ConstantsListUtils.LIST_CATEGORY_STATUS_VIEW_ALL);
+    
+        getUser(model, principal);
+    
         return "dashboard/editCategoryPage";
     }
     
