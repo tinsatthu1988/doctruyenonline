@@ -7,10 +7,12 @@
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 <!-- Required meta tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" th:href="@{/bower/MDB-4.7.5/css/bootstrap.min.css}"/>
 <!-- Font Awesome CSS -->
 <link rel="stylesheet" type="text/css" th:href="@{/bower/Font-Awesome/css/all.css}">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/mdbootstrap/css/bootstrap.min.css}"/>
+<!-- Material Design Bootstrap -->
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
 <!--  Swiper CSS -->
 <link rel="stylesheet" type="text/css" th:href="@{/bower/swiper/dist/css/swiper.min.css}"/>
 <!--  Custom CSS -->
@@ -32,11 +34,14 @@
 <!-- JQuery Lazy Load -->
 <script type="text/javascript" th:src="@{/bower/jquery-lazy/jquery.lazy.min.js}"></script>
 <script type="text/javascript" th:src="@{/bower/jquery-lazy/jquery.lazy.plugins.min.js}"></script>
+<!-- Bootstrap tooltips -->
+<script th:src="@{/mdbootstrap/js/popper.min.js}"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Bootstrap JS -->
-<script th:src="@{/bower/MDB-4.7.5/js/bootstrap.min.js}"></script>
+<script th:src="@{/mdbootstrap/js/bootstrap.min.js}"></script>
 <!--jQuert UI-->
 <script type="text/javascript" th:src="@{/bower/jquery-ui/jquery-ui.js}"></script>
+<!-- Encrypt Aes -->
 <script type="text/javascript" th:src="@{/js/aes.js}"></script>
 <script type="text/javascript" th:src="@{/js/pbkdf2.js}"></script>
 <script type="text/javascript" th:src="@{/js/AesUtil.js}"></script>
@@ -46,7 +51,12 @@
 <script type="text/javascript" th:src="@{/js/myApp.js}"></script>
 <!-- My JavaScript -->
 <script type="text/javascript" th:src="@{/js/backToTop.js}"></script>
-<!-- Material Design Bootstrap -->
-<link th:href="@{/bower/MDB-4.7.5/css/mdb.min.css}" rel="stylesheet">
 <!-- MDB core JavaScript -->
-<script type="text/javascript" th:src="@{/bower/MDB-4.7.5/js/mdb.js}" defer></script>
+<script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}" defer></script>
+<script>
+    // Tooltips Initialization
+    $(function () {
+    	$('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>

@@ -8,7 +8,7 @@
             <li class="logo-sn waves-effect pt-3">
                 <div class="text-center">
                     <a class="pl-0" style="height: auto;margin-bottom: 5px;">
-                        <img style="max-width: 12rem;" th:src="${avatar}" class="img-fluid rounded-circle">
+                        <img style="max-width: 10rem;" th:src="${avatar}" class="img-fluid rounded-circle">
                     </a>
                     <h4 class="pt-1 text-primary" th:text="${displayname}"></h4>
                 </div>
@@ -79,7 +79,7 @@
 
         <!-- Breadcrumb -->
         <div class="breadcrumb-dn mr-auto">
-            <p>Menu</p>
+            <p th:text="${titleMenu}"></p>
         </div>
 
         <div class="d-flex change-mode">
@@ -88,7 +88,7 @@
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block" sec:authentication="name"></span>
+                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block" th:text="${displayname}"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" th:href="@{/tai-khoan}">Hồ Sơ</a>
@@ -103,11 +103,4 @@
 
     </nav>
     <!-- Navbar -->
-
-    <script>
-
-        // SideNav Initialization
-        $(".button-collapse").sideNav('show');
-
-    </script>
 </header>

@@ -47,6 +47,7 @@ public class AdminUserController {
         }
         model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
+        model.addAttribute("titleMenu", "Quản Lý Người Dùng");
     }
     
     @RequestMapping("/list_user")

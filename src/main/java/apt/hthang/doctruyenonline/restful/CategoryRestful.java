@@ -2,7 +2,6 @@ package apt.hthang.doctruyenonline.restful;
 
 import apt.hthang.doctruyenonline.entity.Category;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
-import apt.hthang.doctruyenonline.entity.Pay;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.HttpMyException;
 import apt.hthang.doctruyenonline.exception.HttpNotLoginException;
@@ -67,13 +66,34 @@ public class CategoryRestful {
             throw new HttpUserLockedException();
         }
         Category category = categoryService.findCategoryById(id);
-        if (category== null)
+        if (category == null)
             throw new HttpMyException("Thể Loại Không Tồn tại!");
         boolean result = categoryService.deleteCategory(category);
         if (result)
             return new ResponseEntity<>(HttpStatus.OK);
         else
             throw new HttpMyException("Không Thể Xóa Thể Loại!");
+    }
+    
+    @PostMapping(value = "/detail")
+    public ResponseEntity< ? > getDetailCategoryById(@PathVariable("id") Integer id,
+                                                     Principal principal) throws Exception {
+        if (principal == null) {
+            throw new HttpNotLoginException();
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            throw new HttpNotLoginException("Tài khoản không tồn tại");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new HttpUserLockedException();
+        }
+        Category category = categoryService.findCategoryById(id);
+        if (category == null)
+            throw new HttpMyException("Thể Loại Không Tồn tại!");
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 }
 

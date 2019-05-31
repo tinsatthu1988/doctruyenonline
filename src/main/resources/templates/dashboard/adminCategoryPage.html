@@ -105,16 +105,12 @@
                     <table class="table table-striped" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th class="font-weight-bolder">ID
-                            </th>
-                            <th class="font-weight-bolder">Tên
-                            </th>
+                            <th class="font-weight-bolder">ID</th>
+                            <th class="font-weight-bolder">Tên</th>
                             <th class="font-weight-bolder">Ngày Tạo</th>
-                            <th class="font-weight-bolder">Người Tạo
-                            </th>
-                            <th class="font-weight-bolder">Trạng Thái
-                            </th>
-                            <th>Hành Động</th>
+                            <th class="font-weight-bolder">Người Tạo</th>
+                            <th class="font-weight-bolder">Trạng Thái</th>
+                            <th class="font-weight-bolder text-center">Hành Động</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -130,10 +126,9 @@
                                 <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
                                 <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
                             </td>
-                            <td>
-                                <a class="blue-text pr-2" data-toggle="tooltip" data-placement="top" title="See results"><i
-                                        class="fas fa-user"></i></a>
-                                <a class="teal-text pr-2"  data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
+                            <td class="text-center">
+                                <a class="blue-text pr-2" data-toggle="tooltip" data-placement="top" title="Thông Tin" ng-click="detailCategory(item.id)"><i class="fas fa-user"></i></a>
+                                <a class="teal-text pr-2" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
                                 <a class="red-text pr-2" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
                             </td>
                         </tr>
@@ -169,17 +164,10 @@
     <!-- Custom scripts -->
     <script>
         var container = document.querySelector('.custom-scrollbar');
-        Ps.initialize(container, {
-            wheelSpeed: 2,
-            wheelPropagation: true,
-            minScrollbarLength: 20
-        });
-
         // Tooltips Initialization
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
-
     </script>
 </main>
 </body>

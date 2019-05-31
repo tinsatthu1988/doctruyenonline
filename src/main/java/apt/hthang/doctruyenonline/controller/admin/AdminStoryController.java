@@ -41,6 +41,7 @@ public class AdminStoryController {
         }
         model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
+        model.addAttribute("titleMenu", "Quản Lý Truyện");
     }
     
     @RequestMapping("/quan_ly_truyen")

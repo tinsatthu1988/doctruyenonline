@@ -55,6 +55,7 @@ public class AdminCategoryController {
         }
         model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
+        model.addAttribute("titleMenu", "Quản Lý Thể Loại");
     }
     
     @RequestMapping("/the_loai")

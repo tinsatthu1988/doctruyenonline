@@ -48,6 +48,7 @@ public class AdminHomeController {
         }
         model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
+        model.addAttribute("titleMenu", "Trang Quản Trị");
     }
     
     @RequestMapping
