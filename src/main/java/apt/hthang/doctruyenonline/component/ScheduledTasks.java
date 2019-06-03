@@ -18,14 +18,8 @@ public class ScheduledTasks {
     
     private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
     
-    private final ChapterService chapterService;
-    private final StoryService storyService;
-    
     @Autowired
-    public ScheduledTasks(ChapterService chapterService, StoryService storyService) {
-        this.chapterService = chapterService;
-        this.storyService = storyService;
-    }
+    private ChapterService chapterService;
     
     @Scheduled(fixedRate = 300000)
     public void updateStatusVipChapter() {

@@ -29,4 +29,11 @@ public interface UserFollowRepository extends JpaRepository< UserFollow, UserFol
      * @return
      */
     Optional<UserFollow> findByUser_IdAndStory_Id(Long userId, Long storyId);
+
+    /**
+     * @param userId - Id của người dùng
+     * @param storyId- Id của Truyện
+     * @return {@code true} nếu tồn tại, nếu không tồn tại thì {@code false}
+     */
+    boolean existsByUser_IdAndStory_Id(Long userId, Long storyId);
 }

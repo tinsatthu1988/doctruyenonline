@@ -1,10 +1,9 @@
 package apt.hthang.doctruyenonline.service;
 
-import apt.hthang.doctruyenonline.entity.UserFollow;
-import apt.hthang.doctruyenonline.projections.FollowSummar;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
+import apt.hthang.doctruyenonline.entity.UserFollow;
+import apt.hthang.doctruyenonline.projections.FollowSummar;
 
 /**
  * @author Huy Thang
@@ -15,17 +14,24 @@ public interface UserFollowService {
     /**
      * @param id
      * @param pagenumber
-     * @return
+     * @return Page< FollowSummar >
      */
     Page< FollowSummar > findAllStoryFollowByUserId(Long id, Integer pagenumber, Integer size);
     
     /**
      * @param userId
      * @param storyId
-     * @return
+     * @return UserFollow
      */
     UserFollow findByUserIdAndStoryId(Long userId, Long storyId);
     
+    /**
+     * @param userId - Id của người dùng
+     * @param storyId- Id của Truyện
+     * @return {@code true} nếu tồn tại, nếu không tồn tại thì {@code false}
+     */
+    boolean existsUserFollow(Long userId, Long storyId);
+
     /**
      * @param userFollow
      */

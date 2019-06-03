@@ -27,16 +27,17 @@ import java.security.Principal;
 @RestController
 @RequestMapping(value = "/api/follow")
 public class FollowRestfulController {
-    
+
     @Autowired
     private UserService userService;
     @Autowired
     private UserFollowService userFollowService;
     @Autowired
     private StoryService storyService;
+
     @PostMapping(value = "/followOfUser")
-    public ResponseEntity< ? > loadChapterOfStory(@RequestParam("pagenumber") Integer pagenumber,
-                                                  Principal principal) throws Exception {
+    public ResponseEntity<?> loadChapterOfStory(@RequestParam("pagenumber") Integer pagenumber, Principal principal)
+            throws Exception {
         if (principal == null) {
             throw new HttpNotLoginException();
         }
@@ -49,14 +50,13 @@ public class FollowRestfulController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new HttpUserLockedException();
         }
-        return new ResponseEntity<>(userFollowService
-                .findAllStoryFollowByUserId(user.getId(), pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT), HttpStatus.OK);
+        return new ResponseEntity<>(userFollowService.findAllStoryFollowByUserId(user.getId(), pagenumber,
+                ConstantsUtils.PAGE_SIZE_DEFAULT), HttpStatus.OK);
     }
-    
+
     @DeleteMapping(value = "/cancel_follow/{storyId}/{userId}")
-    public ResponseEntity< ? > deletePayDraw(@PathVariable("storyId") Long storyId,
-                                             @PathVariable("userId") Long userId,
-                                             Principal principal) throws Exception {
+    public ResponseEntity<?> deletePayDraw(@PathVariable("storyId") Long storyId, @PathVariable("userId") Long userId,
+            Principal principal) throws Exception {
         if (principal == null) {
             throw new HttpNotLoginException();
         }
@@ -77,10 +77,10 @@ public class FollowRestfulController {
         userFollowService.deleteFollow(userFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     @PostMapping(value = "/add")
-    public ResponseEntity< ? > loadChapterOfStory(@RequestParam("storyId") Long storyId,
-                                                  Principal principal) throws Exception {
+    public ResponseEntity<?> loadChapterOfStory(@RequestParam("storyId") Long storyId, Principal principal)
+            throws Exception {
         if (principal == null) {
             throw new HttpNotLoginException();
         }
@@ -103,6 +103,24 @@ public class FollowRestfulController {
         newUserFollow.setStory(story);
         newUserFollow.setUser(user);
         userFollowService.saveFollow(newUserFollow);
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/checkFollow")
+    public ResponseEntity<?> checkFollowStoryOfUser(Principal principal, @RequestParam("storyId") Long storyId)
+            throws Exception {
+        if (principal == null) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = myUser.getUser();
+        user = userService.findUserById(user.getId());
+        if (user == null) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(userFollowService.existsUserFollow(user.getId(), storyId), HttpStatus.OK);
     }
 }

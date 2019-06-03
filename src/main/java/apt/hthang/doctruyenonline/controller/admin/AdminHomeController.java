@@ -59,7 +59,6 @@ public class AdminHomeController {
         model.addAttribute("newStory", storyService.countNewUserInDate(java.sql.Date.valueOf(today)));
         model.addAttribute("newReport", reportService.countNewReportInDay(java.sql.Date.valueOf(today)));
         model.addAttribute("newChapter", chapterService.countNewChapterInDate(java.sql.Date.valueOf(today)));
-        
         getUser(model, principal);
         return "/dashboard/homePage";
     }

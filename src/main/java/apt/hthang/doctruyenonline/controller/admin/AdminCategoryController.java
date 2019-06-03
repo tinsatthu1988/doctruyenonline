@@ -37,7 +37,7 @@ import java.time.LocalDate;
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
 @RequestMapping(value = "/quan-tri")
 public class AdminCategoryController {
-    
+
     private final Logger logger = LoggerFactory.getLogger(AdminCategoryController.class);
     @Autowired
     private CategoryService categoryService;
@@ -45,8 +45,8 @@ public class AdminCategoryController {
     private UserService userService;
     @Autowired
     private MyComponent myComponent;
-    
-    //Lấy Thông Tin Tên User Login, Avatar User Login
+
+    // Lấy Thông Tin Tên User Login, Avatar User Login
     private void getUser(Model model, Principal principal) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
@@ -57,33 +57,34 @@ public class AdminCategoryController {
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
         model.addAttribute("titleMenu", "Quản Lý Thể Loại");
     }
-    
+
     @RequestMapping("/the_loai")
     public String defaultAdmiHome(Model model, Principal principal) throws Exception {
         LocalDate today = LocalDate.now();
         model.addAttribute("title", "Danh Sách Thể Loại");
-        
+
         getUser(model, principal);
-        
+
         return "/dashboard/adminCategoryPage";
     }
-    
+
     @GetMapping("/them_the_loai")
     public String addStoryPage(Model model, Principal principal) throws Exception {
-        
+
         model.addAttribute("title", "Thêm Thể Loại");
-        
+
         if (!model.containsAttribute("category")) {
             model.addAttribute("category", new Category());
         }
-        
+
         getUser(model, principal);
-        
+
         return "dashboard/addCategoryPage";
     }
-    
+
     @PostMapping("/them_the_loai/save")
-    public String saveStoryPage(@Valid Category category, BindingResult result, Principal principal, RedirectAttributes redirectAttributes) throws NotFoundException {
+    public String saveStoryPage(@Valid Category category, BindingResult result, Principal principal,
+            RedirectAttributes redirectAttributes) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
         if (user == null) {
@@ -102,32 +103,34 @@ public class AdminCategoryController {
         category.setCreateBy(user.getUsername());
         boolean check = categoryService.newCategory(category);
         redirectAttributes.addFlashAttribute("checkAddCategory", check);
-        
+
         return "redirect:/quan-tri/the_loai";
     }
-    
+
     @GetMapping("/sua_the_loai/{id}")
-    public String editStoryPage(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs, Principal principal) throws Exception {
-        
+    public String editStoryPage(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs,
+            Principal principal) throws Exception {
+
         model.addAttribute("title", "Thêm Thể Loại");
         Category category = categoryService.findCategoryById(id);
         if (category == null) {
             redirectAttrs.addFlashAttribute("checkEditCategoryFalse", "Thể Loại không tồn tại");
             return "redirect:/quan-tri/the_loai";
         }
-        
+
         if (!model.containsAttribute("category")) {
             model.addAttribute("category", category);
         }
         model.addAttribute("statusList", ConstantsListUtils.LIST_CATEGORY_STATUS_VIEW_ALL);
-        
+
         getUser(model, principal);
-        
+
         return "dashboard/editCategoryPage";
     }
-    
+
     @PostMapping("/sua_the_loai/save")
-    public String saveEditStoryPage(@Valid Category category, BindingResult result, Principal principal, RedirectAttributes redirectAttributes) throws NotFoundException {
+    public String saveEditStoryPage(@Valid Category category, BindingResult result, Principal principal,
+            RedirectAttributes redirectAttributes) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
         User user = userService.findUserById(loginedUser.getUser().getId());
         if (user == null) {
@@ -136,21 +139,18 @@ public class AdminCategoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
-        logger.info("Kiểm Tra: " +categoryService.exitsCategoryName(category.getId(), category.getName()));
-        if (categoryService.exitsCategoryName(category.getId(), category.getName()))
+        logger.info("Kiểm Tra: " + categoryService.exitsCategoryName(category.getId(), category.getName()));
+        if (categoryService.exitsCategoryName(category.getId(), category.getName()) && category.getName() != null
+                && !category.getName().isEmpty())
             result.addError(new FieldError("category", "name", "Đã tồn tại Thể Loại có tên này"));
         boolean hasError = result.hasErrors();
-        logger.info(result.getAllErrors().toString());
         if (hasError) {
-            logger.info("Có lỗi");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
             return "redirect:/quan-tri/sua_the_loai/" + category.getId();
         }
-        logger.info("không có lỗi");
         category.setMetatitle(WebUtils.convertStringToMetaTitle(category.getName()));
         boolean check = categoryService.newCategory(category);
-        logger.info("Kết quả cập nhật:" + check);
         redirectAttributes.addFlashAttribute("checkEditCategory", check);
         return "redirect:/quan-tri/the_loai";
     }
