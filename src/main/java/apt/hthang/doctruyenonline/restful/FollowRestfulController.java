@@ -106,6 +106,30 @@ public class FollowRestfulController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/delete")
+    public ResponseEntity<?> loadChapterOfStory(@RequestParam("storyId") Long storyId, Principal principal)
+            throws Exception {
+                if (principal == null) {
+                    throw new HttpNotLoginException();
+                }
+                MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+                User user = myUser.getUser();
+                user = userService.findUserById(user.getId());
+                if (user == null) {
+                    throw new HttpNotLoginException("Tài khoản không tồn tại");
+                }
+                if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+                    throw new HttpUserLockedException();
+                }
+                if (user.getId() != userId)
+                    throw new HttpNotLoginException("Bạn không có quyền hủy theo dõi truyện không phải của bản thân!");
+                UserFollow userFollow = userFollowService.findByUserIdAndStoryId(userId, storyId);
+                if (userFollow == null)
+                    throw new HttpNotLoginException("Bạn không theo dõi truyện!");
+                userFollowService.deleteFollow(userFollow);
+                return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(value = "/checkFollow")
     public ResponseEntity<?> checkFollowStoryOfUser(Principal principal, @RequestParam("storyId") Long storyId)
             throws Exception {

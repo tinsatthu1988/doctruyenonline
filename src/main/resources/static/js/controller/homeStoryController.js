@@ -23,6 +23,7 @@ function storyCtrl(WebService, $scope) {
     $scope.totalComment = 0;
     $scope.noImage = 'https://res.cloudinary.com/thang1988/image/upload/v1544258290/truyenmvc/noImages.png';
     $scope.coupon = null;
+    $scope.follow = false;
 
     //Lấy danh sách Chapter Theo storyId, pagenumber, type
     $scope.getListChapter = function (pagenumber, type) {
@@ -121,12 +122,13 @@ function storyCtrl(WebService, $scope) {
         }
     };
 
-    $scope.registRecentReadingStory = function(){
+    //Thực Hiện Đăng Ký Theo dõi truyện
+    $scope.registRecentReadingStory = function () {
         var url = window.location.origin + '/api/follow/add';
         var data = new FormData();
         data.append('storyId', $scope.sid);
         WebService.submitForm(url, data).then(function (response) {
-            window.location.reload(true);
+            $scope.getFollowUser();
         }, function errorCallback(errResponse) {
             swal({
                 text: errResponse.data.messageError,
@@ -135,6 +137,32 @@ function storyCtrl(WebService, $scope) {
             })
         });
     };
+
+    //Thực Hiện Hủy Đăng Ký Theo dõi truyện
+    $scope.unRecentReadingStory = function () {
+        var url = window.location.origin + '/api/follow/delete';
+        var data = new FormData();
+        data.append('storyId', $scope.sid);
+        WebService.submitForm(url, data).then(function (response) {
+            $scope.getFollowUser();
+        }, function errorCallback(errResponse) {
+            swal({
+                text: errResponse.data.messageError,
+                type: 'warning',
+                confirmButtonText: 'Ok'
+            })
+        });
+    };
+
+    // Lấy Thông Tin Theo dõi Truyện của người dùng
+    $scope.getFollowUser = function () {
+        var url = window.location.origin + '/api/follow/checkFollow';
+        var data = new FormData();
+        data.append('storyId', sID);
+        WebService.getData(url, data).then(function (response) {
+            $scope.follow = response.data;
+        });
+    }
 
     $scope.init = function (sID, uID) {
         $scope.sid = sID;
