@@ -85,19 +85,4 @@ function adCategoryCtrl($scope, WebService) {
             }
         })
     };
-
-    $scope.detailCategory = function (id) {
-        var url = window.location.origin + '/api/category/detail';
-        var data = new FormData();
-        data.append('id', id);
-        WebService.getData(url, data).then(function (response) {
-            $scope.categoryDetail = response.data;
-        }, function errorCallback(errResponse) {
-            swal({
-                text: errResponse.data.messageError,
-                type: 'warning',
-                confirmButtonText: 'Ok'
-            })
-        })
-    }
 }

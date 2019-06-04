@@ -76,7 +76,7 @@ public class CategoryRestful {
     }
     
     @PostMapping(value = "/detail")
-    public ResponseEntity< ? > getDetailCategoryById(@PathVariable("id") Integer id,
+    public ResponseEntity< ? > getDetailCategoryById(@RequestParam("id") Integer id,
                                                      Principal principal) throws Exception {
         if (principal == null) {
             throw new HttpNotLoginException();

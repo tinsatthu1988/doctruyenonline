@@ -28,33 +28,26 @@
                                         <h2 class="shadow-1">ĐỌC NHIỀU TRONG TUẦN</h2>
                                         <section class="swiper-container">
                                             <section class="swiper-wrapper">
-                                                <section class="swiper-slide"
-                                                         th:each="topstory,iterStat : ${topStoryWeek}"
-                                                         th:if="${iterStat.index < 4}">
+                                                <section class="swiper-slide" th:each="topstory,iterStat : ${topStoryWeek}" th:if="${iterStat.index < 4}">
                                                     <section class="item">
                                                         <section class="thumb">
-                                                            <a th:href="@{'/truyen/'+${topstory.id}}"
-                                                               th:title="${topstory.vnName}">
-                                                                <img class="img-fluid lazyload" alt=""
-                                                                     th:data-src="${topstory.images}"
-                                                                     th:title="${topstory.vnName}">
+                                                            <a th:href="@{'/truyen/'+${topstory.id}}" th:title="${topstory.vnName}">
+                                                                <img class="img-fluid lazyload" alt="" th:data-src="${topstory.images}" th:title="${topstory.vnName}">
                                                             </a>
                                                         </section>
                                                         <section class="info" style="">
                                                             <h2 class="title">
-                                                                <a th:href="@{'/truyen/'+${topstory.id}}"
-                                                                   th:title="${topstory.vnName}"
-                                                                   th:text="${topstory.vnName}"></a>
+                                                                <a th:href="@{'/truyen/'+${topstory.id}}" th:title="${topstory.vnName}" th:text="${topstory.vnName}"></a>
                                                             </h2>
-                                                            <section class="description text-center"
-                                                                     style="-webkit-line-clamp: 3;"
+                                                            <span>
+                                                                <span class="fz-16" th:text="${topstory.cnt}"></span> người truy cập</span>
+                                                            <section class="description text-center" style="-webkit-line-clamp: 2;"
                                                                      th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></section>
                                                         </section>
                                                     </section>
                                                 </section>
                                             </section>
-                                            <section
-                                                    class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+                                            <section class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
                                                 <span class="swiper-pagination-bullet"></span>
                                                 <span class="swiper-pagination-bullet"></span>
                                                 <span class="swiper-pagination-bullet"></span>
@@ -71,21 +64,16 @@
                                 <section class="block-content">
                                     <section class="editors-choice-list">
                                         <section class="row">
-                                            <th:block th:each="topstory,iterStat : ${topStoryWeek}"
-                                                      th:if="${(topStoryWeek.size()-6) le iterStat.index}">
+                                            <th:block th:each="topstory,iterStat : ${topStoryWeek}" th:if="${(topStoryWeek.size()-6) le iterStat.index}">
                                                 <section class="col-12 col-sm-12 col-md-6 btv-2">
                                                     <section class="item">
                                                         <h2 class="title">
-                                                            <a th:href="@{'/truyen/'+${topstory.id}}"
-                                                               th:title="${topstory.vnName}"
-                                                               th:text="${topstory.vnName}"></a>
+                                                            <a th:href="@{'/truyen/'+${topstory.id}}" th:title="${topstory.vnName}" th:text="${topstory.vnName}"></a>
                                                         </h2>
-                                                        <section class="view text-secondary"><span
-                                                                class="text-red fz-16" th:text="${topstory.cnt}"></span>
-                                                            người truy cập
+                                                        <section class="view text-secondary">
+                                                            <span class="text-red fz-16" th:text="${topstory.cnt}"></span>người truy cập
                                                         </section>
-                                                        <section class="description"
-                                                                 th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></section>
+                                                        <section class="description" th:text="${T(org.jsoup.Jsoup).parse(topstory.infomation).text()}"></section>
                                                     </section>
                                                 </section>
                                             </th:block>
@@ -100,16 +88,12 @@
                                 <section class="block-header"><h2 class="title"> Top Đề Cử </h2></section>
                                 <section class="block-content">
                                     <ul class="list-group">
-                                        <li ng-repeat="storyVM in topViewMonth"
-                                            class="list-group-item list-group-item-primary-me"
-                                            ng-class="$index==0?'item-featured':''">
+                                        <li ng-repeat="storyVM in topViewMonth" class="list-group-item list-group-item-primary-me" ng-class="$index==0?'item-featured':''">
                                             <section class="content">
-                                                <section class="index index-{{$index+1}} index-star">{{$index+1}}
-                                                </section>
+                                                <section class="index index-{{$index+1}} index-star">{{$index+1}}</section>
                                                 <section class="info">
                                                     <h2 class="title">
-                                                        <a ng-href="/truyen/{{storyVM.id}}"
-                                                           ng-attr-title="{{storyVM.vnName}}">{{storyVM.vnName}}</a>
+                                                        <a ng-href="/truyen/{{storyVM.id}}" ng-attr-title="{{storyVM.vnName}}">{{storyVM.vnName}}</a>
                                                     </h2>
                                                     <section class="view text-secondary" ng-if="$index == 0">
                                                         <span class="text-red fz-16">{{storyVM.cnt}}</span> phiếu
@@ -127,11 +111,8 @@
                                                 </section>
                                                 <section class="thumb" ng-if="$index == 0">
                                                     <section class="book-cover">
-                                                        <a class="book-cover-link"
-                                                           ng-href="/truyen/{{storyVM.id}}"
-                                                           ng-attr-title="{{storyVM.vnName}}">
-                                                            <img ng-src="{{storyVM.images}}"
-                                                                 ng-alt="{{storyVM.vnName}}">
+                                                        <a class="book-cover-link" ng-href="/truyen/{{storyVM.id}}" ng-attr-title="{{storyVM.vnName}}">
+                                                            <img ng-src="{{storyVM.images}}" ng-alt="{{storyVM.vnName}}">
                                                         </a> <span class="book-cover-shadow"></span>
                                                     </section>
                                                 </section>
@@ -155,28 +136,22 @@
                                 </section>
                                 <section class="block-content" id="dataTable">
                                     <ul class="list-group">
-                                        <li class="list-group-item list-group-item-table"
-                                            ng-repeat="storyNU in storyNewUpdate">
+                                        <li class="list-group-item list-group-item-table" ng-repeat="storyNU in storyNewUpdate">
                                             <section class="content">
                                                 <a class="thumb" ng-href="/truyen/{{storyNU.id}}">
-                                                    <img class="img-fluid" ng-src="{{storyNU.images}}"
-                                                         ng-alt="{{storyNU.vnName}}">
+                                                    <img class="img-fluid" ng-src="{{storyNU.images}}" ng-alt="{{storyNU.vnName}}">
                                                 </a>
                                                 <section class="info">
                                                     <h2 class="title">
-                                                        <a ng-href="/truyen/{{storyNU.id}}"
-                                                           ng-attr-title="{{storyNU.vnName}}">
-                                                            <img class="img-fluid" src="/images/vip-vip.gif"
-                                                                 ng-show="storyNU.dealStatus === 1" alt="">
+                                                        <a ng-href="/truyen/{{storyNU.id}}" ng-attr-title="{{storyNU.vnName}}">
+                                                            <img class="img-fluid" src="/images/vip-vip.gif" ng-show="storyNU.dealStatus === 1" alt="">
                                                             <span ng-class="storyNU.dealStatus == 1?'shadow-2' : ''">{{storyNU.vnName}}</span>
                                                         </a>
                                                     </h2>
                                                     <section class="chap">{{storyNU.author}}</section>
                                                     <section class="author">
-                                                        <a ng-if="storyNU.chapterId != null"
-                                                           ng-href="/truyen/{{storyNU.id}}/chuong-{{storyNU.chapterId}}"
-                                                           ng-attr-title="Chương {{storyNU.chapterNumber}}">Chương
-                                                            {{storyNU.chapterNumber}}</a>
+                                                        <a ng-if="storyNU.chapterId != null" ng-href="/truyen/{{storyNU.id}}/chuong-{{storyNU.chapterId}}"
+                                                           ng-attr-title="Chương {{storyNU.chapterNumber}}">Chương {{storyNU.chapterNumber}}</a>
                                                         <a ng-if="storyNU.chapterId == null">&nbsp;</a>
                                                     </section>
                                                     <section class="time">
@@ -187,8 +162,7 @@
                                         </li>
                                     </ul>
                                     <section>
-                                        <a th:href="@{/danh-muc/moi-cap-nhat}" class="float-right cnt-view">Xem
-                                            tiếp</a>
+                                        <a th:href="@{/danh-muc/moi-cap-nhat}" class="float-right cnt-view">Xem tiếp</a>
                                     </section>
                                 </section>
                             </section>
@@ -197,7 +171,6 @@
                 </section>
             </section>
         </section>
-
         <section class="truyen-section section-featured">
             <section class="container">
                 <section class="row">
@@ -213,37 +186,25 @@
                                             <section class="slider-thumb">
                                                 <section class="swiper-container">
                                                     <section class="swiper-wrapper">
-                                                        <section class="swiper-slide"
-                                                                 th:each="storyVip,iterStat : ${vipStory}"
-                                                                 th:if="${iterStat.index < 4}">
-                                                            <a class="item" th:href="@{'/truyen/'+${storyVip.id}}"
-                                                               th:title="${storyVip.vnName}">
-                                                                <img th:src="${storyVip.images}"
-                                                                     th:alt="${storyVip.vnName}"
-                                                                     class="img-fluid img-thumbnail">
+                                                        <section class="swiper-slide" th:each="storyVip,iterStat : ${vipStory}" th:if="${iterStat.index < 4}">
+                                                            <a class="item" th:href="@{'/truyen/'+${storyVip.id}}" th:title="${storyVip.vnName}">
+                                                                <img th:src="${storyVip.images}" th:alt="${storyVip.vnName}" class="img-fluid img-thumbnail">
                                                             </a>
                                                         </section>
                                                     </section>
-                                                    <section class="swiper-button-prev"><i
-                                                            class="truyen-icon icon-prev"></i></section>
-                                                    <section class="swiper-button-next"><i
-                                                            class="truyen-icon icon-next"></i></section>
+                                                    <section class="swiper-button-prev"><i class="truyen-icon icon-prev"></i></section>
+                                                    <section class="swiper-button-next"><i class="truyen-icon icon-next"></i></section>
                                                 </section>
                                             </section>
                                             <section class="slider-info">
                                                 <section class="swiper-container">
                                                     <section class="swiper-wrapper">
-                                                        <section class="swiper-slide"
-                                                                 th:each="storyVip,iterStat : ${vipStory}"
-                                                                 th:if="${iterStat.index < 4}">
+                                                        <section class="swiper-slide" th:each="storyVip,iterStat : ${vipStory}" th:if="${iterStat.index < 4}">
                                                             <section class="item text-center">
                                                                 <h2 class="title" th:text="${storyVip.vnName}"></h2>
-                                                                <section class="view text-secondary"
-                                                                         th:text="${storyVip.author}"></section>
-                                                                <p class="description"
-                                                                   th:text="${T(org.jsoup.Jsoup).parse(storyVip.infomation).text()}"></p>
-                                                                <a th:href="@{'/truyen/'+${storyVip.id}}"
-                                                                   class="btn btn-truyen" title="xem tiếp">
+                                                                <section class="view text-secondary" th:text="${storyVip.author}"></section>
+                                                                <p class="description" th:text="${T(org.jsoup.Jsoup).parse(storyVip.infomation).text()}"></p>
+                                                                <a th:href="@{'/truyen/'+${storyVip.id}}" class="btn btn-truyen" title="xem tiếp">
                                                                     Xem chi tiết
                                                                 </a>
                                                             </section>
@@ -258,21 +219,16 @@
                                             <section class="block-content">
                                                 <section class="editors-choice-list" style="border-bottom: none;">
                                                     <section class="row">
-                                                        <th:block th:each="vStory,iterStat : ${vipStory}"
-                                                                  th:if="${(vipStory.size()-6) le iterStat.index}">
+                                                        <th:block th:each="vStory,iterStat : ${vipStory}" th:if="${(vipStory.size()-6) le iterStat.index}">
                                                             <section class="col-12 col-sm-12 col-md-6 btv-2">
                                                                 <section class="item">
                                                                     <h2 class="title">
-                                                                        <a th:href="@{'/truyen/'+${vStory.id}}"
-                                                                           th:title="${vStory.vnName}"
-                                                                           th:text="${vStory.vnName}"></a>
+                                                                        <a th:href="@{'/truyen/'+${vStory.id}}" th:title="${vStory.vnName}" th:text="${vStory.vnName}"></a>
                                                                     </h2>
-                                                                    <section class="view text-secondary"><span
-                                                                            class="text-red fz-16"
-                                                                            th:text="${vStory.author}"></span>
+                                                                    <section class="view text-secondary">
+                                                                        <span class="text-red fz-16" th:text="${vStory.author}"></span>
                                                                     </section>
-                                                                    <p class="description"
-                                                                       th:text="${T(org.jsoup.Jsoup).parse(vStory.infomation).text()}"></p>
+                                                                    <p class="description" th:text="${T(org.jsoup.Jsoup).parse(vStory.infomation).text()}"></p>
                                                                 </section>
                                                             </section>
                                                         </th:block>
@@ -291,15 +247,12 @@
                             <section class="block-header"><h2 class="title"> Top Conveter</h2></section>
                             <section class="block-content">
                                 <ul class="list-group">
-                                    <li ng-repeat="conveter in topConveter"
-                                        class="list-group-item list-group-item-primary-me"
-                                        ng-class="$index==0?'item-featured':''">
+                                    <li ng-repeat="conveter in topConveter" class="list-group-item list-group-item-primary-me" ng-class="$index==0?'item-featured':''">
                                         <section class="content">
                                             <section class="index index-{{$index+1}} index-star">{{$index+1}}</section>
                                             <section class="info">
                                                 <h2 class="title">
-                                                    <a ng-href="/member/{{conveter.id}}"
-                                                       ng-attr-title="{{conveter.displayName}}">{{conveter.displayName}}</a>
+                                                    <a ng-href="/member/{{conveter.id}}" ng-attr-title="{{conveter.displayName}}">{{conveter.displayName}}</a>
                                                 </h2>
                                                 <section class="view text-secondary" ng-if="$index == 0">
                                                     Số Truyện: <span class="text-red fz-16">{{conveter.scnt}}</span>
@@ -313,11 +266,8 @@
                                             </section>
                                             <section class="thumb" ng-if="$index == 0">
                                                 <section class="book-cover">
-                                                    <a class="book-cover-link"
-                                                       ng-href="/member/{{conveter.id}}"
-                                                       ng-attr-title="{{conveter.displayName}}">
-                                                        <img ng-src="{{conveter.avatar?conveter.avatar:noImage}}"
-                                                             ng-alt="{{conveter.displayName}}">
+                                                    <a class="book-cover-link" ng-href="/member/{{conveter.id}}" ng-attr-title="{{conveter.displayName}}">
+                                                        <img ng-src="{{conveter.avatar?conveter.avatar:noImage}}" ng-alt="{{conveter.displayName}}">
                                                     </a> <span class="book-cover-shadow"></span>
                                                 </section>
                                             </section>

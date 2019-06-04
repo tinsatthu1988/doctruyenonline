@@ -158,9 +158,10 @@ function storyCtrl(WebService, $scope) {
     $scope.getFollowUser = function () {
         var url = window.location.origin + '/api/follow/checkFollow';
         var data = new FormData();
-        data.append('storyId', sID);
+        data.append('storyId', $scope.sid);
         WebService.getData(url, data).then(function (response) {
             $scope.follow = response.data;
+            console.log('Kết quả check: ' + $scope.follow );
         });
     }
 
@@ -169,6 +170,7 @@ function storyCtrl(WebService, $scope) {
         $scope.uID = uID;
         $scope.getConverter();
         $scope.getStoryOfConverter();
+        $scope.getFollowUser();
     };
 
 }

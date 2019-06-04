@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.entity;
 
+import apt.hthang.doctruyenonline.utils.DateUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class History implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +37,13 @@ public class History implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
+    
+    @PrePersist
+    public void prePersist() {
+        if (dateView == null) {
+            dateView = DateUtils.getCurrentDate();
+        }
+    }
+    
+    
 }

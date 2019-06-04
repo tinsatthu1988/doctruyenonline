@@ -4,7 +4,6 @@ import apt.hthang.doctruyenonline.entity.Chapter;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
-import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.projections.StorySummary;
 import apt.hthang.doctruyenonline.service.*;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
@@ -34,27 +33,18 @@ import java.util.Objects;
 public class StoryController {
     
     private static final Logger logger = LoggerFactory.getLogger(StoryController.class);
-    private final InformationService informationService;
-    private final CategoryService categoryService;
-    private final StoryService storyService;
-    private final UserRatingService userRatingService;
-    private final HistoryService historyService;
-    
     @Autowired
-    public StoryController(InformationService informationService,
-                           CategoryService categoryService,
-                           StoryService storyService,
-                           UserRatingService userRatingService,
-                           HistoryService historyService) {
-        this.informationService = informationService;
-        this.categoryService = categoryService;
-        this.storyService = storyService;
-        this.userRatingService = userRatingService;
-        this.historyService = historyService;
-    }
+    private InformationService informationService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private StoryService storyService;
+    @Autowired
+    private UserRatingService userRatingService;
+    @Autowired
+    private HistoryService historyService;
     
-    private void getMenuAndInfo(Model model,
-                                String title) {
+    private void getMenuAndInfo(Model model, String title) {
         
         // Lấy Title Cho Page
         model.addAttribute("title", title);

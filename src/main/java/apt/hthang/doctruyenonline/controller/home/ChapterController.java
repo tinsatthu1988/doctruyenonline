@@ -86,7 +86,6 @@ public class ChapterController {
         // Lấy thời gian 30 phút trước
         Date halfHourAgo = DateUtils.getMinutesAgo(now, ConstantsUtils.HALF_HOUR);
         
-        logger.info(halfHourAgo.toString());
         User user = checkUserLogin(principal);
         
         //Lấy LocationIP Client
@@ -140,7 +139,6 @@ public class ChapterController {
                 // Nếu chưa thanh toán rồi thì check = false
                 if (!checkUser) {
                     boolean checkPay = checkDealStory(chapter.getId(), user.getId(), dayAgo, now);
-                    logger.info(String.valueOf(checkPay));
                     if (!checkPay) {
                         check = false;
                     }

@@ -20,7 +20,7 @@ function homeCtrl(WebService, $scope) {
     $scope.getTopViewMonth = function () {
         var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tháng
-        var url = window.location.origin + '/api/story/topAppoidMonth';
+        var url = '/api/story/topAppoidMonth';
         WebService.getData(url, data).then(function (response) {
             $scope.topViewMonth = response.data;
         }, function errorCallback(errResponse) {
@@ -31,7 +31,7 @@ function homeCtrl(WebService, $scope) {
     $scope.getStoryNewUpdate = function () {
         var data = new FormData();
         //Lấy Top View 10 Truyện Trong Tuần
-        var url = window.location.origin + '/api/story/storyNewUpdate';
+        var url = '/api/story/storyNewUpdate';
         WebService.getData(url, data).then(function (response) {
             $scope.storyNewUpdate = response.data;
         }, function errorCallback(errResponse) {
@@ -42,11 +42,13 @@ function homeCtrl(WebService, $scope) {
     $scope.getTopConveter = function () {
         var data = new FormData();
         //Lấy Top Converter
-        var url = window.location.origin + '/api/user/topConveter';
+        var url = '/api/user/topConveter';
         WebService.getData(url, data).then(function (response) {
             $scope.topConveter = response.data;
         }, function errorCallback(errResponse) {
             console.log('Có lỗi xảy ra!');
         });
     };
+
+
 }

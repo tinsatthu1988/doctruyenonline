@@ -10,8 +10,94 @@
     <script th:src="@{/js/controller/adminCategoryController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
-    <!-- Toastr -->
-    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
+
+</head>
+<body class="fixed-sn white-skin body-none" ng-app="ngApp" ng-controller="adCategoryCtrl" th:ng-init="|init()|">
+<!--NavBar-->
+<section th:replace="/fragments/adminNavbar"></section>
+<main>
+
+    <div class="container-fluid">
+
+        <!-- Section: Intro -->
+        <section class="mt-md-4 pt-md-2 mb-5 pb-4">
+
+            <!-- Grid row -->
+            <div class="card">
+                <h3 class="card-header primary-color white-text text-center">
+                    Danh sách Thể Loại
+                </h3>
+                <div class="card-body table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-12">
+                            <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/them_the_loai}">THÊM MỚI</a>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-12">
+                            <div class="md-form mb-0">
+                                <input type="text" class="form-control" length="255" ng-model="search" ng-change="getAdListChapter(1)">
+                                <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th class="font-weight-bolder">ID</th>
+                            <th class="font-weight-bolder">Tên</th>
+                            <th class="font-weight-bolder">Ngày Tạo</th>
+                            <th class="font-weight-bolder">Người Tạo</th>
+                            <th class="font-weight-bolder">Trạng Thái</th>
+                            <th class="font-weight-bolder text-center">Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-show="listCategory.length === 0" class="text-center">
+                            <td colspan="6">Chưa Có Thể Loại nào</td>
+                        </tr>
+                        <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.createDate | date:'dd/MM/yyyy HH:mm ' }}</td>
+                            <td>{{item.createBy}}</td>
+                            <td>
+                                <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
+                                <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
+                            </td>
+                            <td class="text-center">
+                                <a class="teal-text pr-2" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="red-text pr-2" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div aria-label="Page navigation example" ng-show="totalPages>1">
+                        <ul class="pagination pg-blue justify-content-end">
+                            <li class="page-item" ng-show="currentPage != 1">
+                                <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
+                                    <i class="fas fa-step-backward fa-sm"></i>
+                                </a>
+                            </li>
+                            <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                   ng-click="getAdListChapter(i)">{{i}}</a>
+                            </li>
+                            <li class="page-item" ng-show="currentPage != totalPages">
+                                <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
+                                    <i class="fas fa-step-forward fa-sm"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Intro -->
+    </div>
+
+    <section th:replace="/fragments/adminFooter"></section>
     <script th:if="${checkAddCategory != null && checkAddCategory == true}">
         $(document).ready(function () {
             toastr.success('Thêm Mới Thể Loại thành công!', 'Thông báo', {
@@ -73,101 +159,6 @@
                 delay: 10000
             })
         });
-    </script>
-</head>
-<body class="fixed-sn white-skin body-none" ng-app="ngApp" ng-controller="adCategoryCtrl" th:ng-init="|init()|">
-<!--NavBar-->
-<section th:replace="/fragments/adminNavbar"></section>
-<main>
-
-    <div class="container-fluid">
-
-        <!-- Section: Intro -->
-        <section class="mt-md-4 pt-md-2 mb-5 pb-4">
-
-            <!-- Grid row -->
-            <div class="card">
-                <h3 class="card-header primary-color white-text text-center">
-                    Danh sách Thể Loại
-                </h3>
-                <div class="card-body table-responsive">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-12">
-                            <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/them_the_loai}">THÊM MỚI</a>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-12">
-                            <div class="md-form mb-0">
-                                <input type="text" class="form-control" length="255" ng-model="search" ng-change="getAdListChapter(1)">
-                                <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th class="font-weight-bolder">ID</th>
-                            <th class="font-weight-bolder">Tên</th>
-                            <th class="font-weight-bolder">Ngày Tạo</th>
-                            <th class="font-weight-bolder">Người Tạo</th>
-                            <th class="font-weight-bolder">Trạng Thái</th>
-                            <th class="font-weight-bolder text-center">Hành Động</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-show="listCategory.length === 0" class="text-center">
-                            <td colspan="6">Chưa Có Thể Loại nào</td>
-                        </tr>
-                        <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
-                            <td>{{item.id}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.createDate | date:'dd/MM/yyyy HH:mm ' }}</td>
-                            <td>{{item.createBy}}</td>
-                            <td>
-                                <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>
-                                <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
-                            </td>
-                            <td class="text-center">
-                                <a class="blue-text pr-2" data-toggle="tooltip" data-placement="top" title="Thông Tin" ng-click="detailCategory(item.id)"><i class="fas fa-user"></i></a>
-                                <a class="teal-text pr-2" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
-                                <a class="red-text pr-2" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div aria-label="Page navigation example" ng-show="totalPages>1">
-                        <ul class="pagination pg-blue justify-content-end">
-                            <li class="page-item" ng-show="currentPage != 1">
-                                <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
-                                    <i class="fas fa-step-backward fa-sm"></i>
-                                </a>
-                            </li>
-                            <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
-                                <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
-                                   ng-click="getAdListChapter(i)">{{i}}</a>
-                            </li>
-                            <li class="page-item" ng-show="currentPage != totalPages">
-                                <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
-                                    <i class="fas fa-step-forward fa-sm"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Grid row -->
-
-        </section>
-        <!-- Section: Intro -->
-    </div>
-
-    <!-- Custom scripts -->
-    <script>
-        var container = document.querySelector('.custom-scrollbar');
-        // Tooltips Initialization
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
     </script>
 </main>
 </body>
