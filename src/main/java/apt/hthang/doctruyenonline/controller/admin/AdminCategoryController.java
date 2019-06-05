@@ -35,7 +35,7 @@ import java.time.LocalDate;
  */
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
-@RequestMapping(value = "/quan-tri")
+@RequestMapping(value = "/quan-tri/the_loai")
 public class AdminCategoryController {
     
     private final Logger logger = LoggerFactory.getLogger(AdminCategoryController.class);
@@ -58,7 +58,7 @@ public class AdminCategoryController {
         model.addAttribute("titleMenu", "Quản Lý Thể Loại");
     }
     
-    @RequestMapping("/the_loai")
+    @RequestMapping
     public String defaultAdmiHome(Model model, Principal principal) throws Exception {
         LocalDate today = LocalDate.now();
         model.addAttribute("title", "Danh Sách Thể Loại");
@@ -68,7 +68,7 @@ public class AdminCategoryController {
         return "/dashboard/adminCategoryPage";
     }
     
-    @GetMapping("/them_the_loai")
+    @GetMapping("/them_moi")
     public String addStoryPage(Model model, Principal principal) throws Exception {
         
         model.addAttribute("title", "Thêm Thể Loại");
@@ -82,7 +82,7 @@ public class AdminCategoryController {
         return "dashboard/addCategoryPage";
     }
     
-    @PostMapping("/them_the_loai/save")
+    @PostMapping("/them_moi/save")
     public String saveStoryPage(@Valid Category category, BindingResult result, Principal principal,
                                 RedirectAttributes redirectAttributes) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
@@ -97,7 +97,7 @@ public class AdminCategoryController {
         if (hasError) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
-            return "redirect:/quan-tri/them_the_loai";
+            return "redirect:/quan-tri/the_loai/them_moi";
         }
         category.setMetatitle(WebUtils.convertStringToMetaTitle(category.getName()));
         category.setCreateBy(user.getUsername());
@@ -107,7 +107,7 @@ public class AdminCategoryController {
         return "redirect:/quan-tri/the_loai";
     }
     
-    @GetMapping("/sua_the_loai/{id}")
+    @GetMapping("/cap_nhat/{id}")
     public String editStoryPage(Model model, @PathVariable("id") Integer id, RedirectAttributes redirectAttrs,
                                 Principal principal) throws Exception {
         
@@ -128,7 +128,7 @@ public class AdminCategoryController {
         return "dashboard/editCategoryPage";
     }
     
-    @PostMapping("/sua_the_loai/save")
+    @PostMapping("/cap_nhat/save")
     public String saveEditStoryPage(@Valid Category category, BindingResult result, Principal principal,
                                     RedirectAttributes redirectAttributes) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
@@ -146,7 +146,7 @@ public class AdminCategoryController {
         if (hasError) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category", result);
             redirectAttributes.addFlashAttribute("category", category);
-            return "redirect:/quan-tri/sua_the_loai/" + category.getId();
+            return "redirect:/quan-tri/the_loai/cap_nhat/" + category.getId();
         }
         category.setMetatitle(WebUtils.convertStringToMetaTitle(category.getName()));
         boolean check = categoryService.newCategory(category);

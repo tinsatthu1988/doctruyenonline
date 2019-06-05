@@ -22,7 +22,7 @@ import java.security.Principal;
  */
 @Controller
 @PropertySource(value = "classpath:messages.properties", encoding = "UTF-8")
-@RequestMapping(value = "/quan-tri")
+@RequestMapping(value = "/quan-tri/truyen")
 public class AdminStoryController {
     
     @Autowired
@@ -44,7 +44,7 @@ public class AdminStoryController {
         model.addAttribute("titleMenu", "Quản Lý Truyện");
     }
     
-    @RequestMapping("/quan_ly_truyen")
+    @RequestMapping
     public String listStoryPage(Model model, Principal principal) throws Exception {
         
         model.addAttribute("title", "Danh Sách Truyện");

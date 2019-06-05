@@ -30,7 +30,7 @@
                 <div class="card-body table-responsive">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-12">
-                            <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/them_the_loai}">THÊM MỚI</a>
+                            <a class="btn btn-outline-primary btn-rounded waves-effect" th:href="@{/quan-tri/the_loai/them_moi}">THÊM MỚI</a>
                         </div>
                         <div class="col-sm-12 col-md-6 col-12">
                             <div class="md-form mb-0">
@@ -64,7 +64,7 @@
                                 <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
                             </td>
                             <td class="text-center">
-                                <a class="teal-text pr-2" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/sua_the_loai/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="teal-text pr-2" data-toggle="tooltip" data-placement="top" title="Sửa" ng-href="/quan-tri/the_loai/cap_nhat/{{item.id}}"><i class="fas fa-pencil-alt"></i></a>
                                 <a class="red-text pr-2" data-toggle="tooltip" data-placement="top" ng-click="deleteCategory(item.id)" title="Xóa Chapter"><i class="fas fa-times"></i></a>
                             </td>
                         </tr>

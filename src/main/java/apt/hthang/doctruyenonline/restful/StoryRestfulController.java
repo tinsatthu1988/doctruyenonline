@@ -228,5 +228,4 @@ public class StoryRestfulController {
         return new ResponseEntity<>(storyService.findStoryInAdmin(pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT, type, search), HttpStatus.OK);
     }
 
-    // @PostMapping(value = "check")
 }

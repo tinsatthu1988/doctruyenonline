@@ -18,7 +18,7 @@
                 </h3>
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${category}"
-                          th:action="@{/quan-tri/sua_the_loai/save}" id="resetForm">
+                          th:action="@{/quan-tri/the_loai/cap_nhat/save}" id="resetForm">
                         <!--Grid row-->
                         <div class="row">
                             <div class="col-md-12">
@@ -76,7 +76,7 @@
                         <!--Grid row-->
                         <div class="row text-right">
                             <div class="col-12">
-                                <input type="reset" class="btn btn-outline-primary btn-rounded waves-effect" value="Khôi Phục"/>
+                                <a class="btn btn-outline-secondary btn-rounded waves-effect" th:href="@{/quan-tri/the_loai}">Quay Lại</a>
                                 <input type="submit" class="btn btn-outline-primary btn-rounded waves-effect" value="Cập Nhật"/>
                             </div>
                         </div>

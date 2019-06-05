@@ -233,4 +233,13 @@ public interface StoryService {
     Long countNewUserInDate(Date date);
     
     Page< StoryTop > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search);
+
+    /**
+     * Lấy số lượng truyện đăng bởi User
+     *
+     * @param userId
+     * @param status
+     * @return Long
+     */
+    Long countStoryByUserWithStatus(Long userId, Integer status);
 }

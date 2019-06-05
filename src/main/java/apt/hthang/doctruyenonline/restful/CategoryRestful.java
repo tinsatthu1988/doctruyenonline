@@ -75,25 +75,5 @@ public class CategoryRestful {
             throw new HttpMyException("Không Thể Xóa Thể Loại!");
     }
     
-    @PostMapping(value = "/detail")
-    public ResponseEntity< ? > getDetailCategoryById(@RequestParam("id") Integer id,
-                                                     Principal principal) throws Exception {
-        if (principal == null) {
-            throw new HttpNotLoginException();
-        }
-        MyUserDetails myUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
-        User user = myUser.getUser();
-        user = userService.findUserById(user.getId());
-        if (user == null) {
-            throw new HttpNotLoginException("Tài khoản không tồn tại");
-        }
-        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
-            throw new HttpUserLockedException();
-        }
-        Category category = categoryService.findCategoryById(id);
-        if (category == null)
-            throw new HttpMyException("Thể Loại Không Tồn tại!");
-        return new ResponseEntity<>(category, HttpStatus.OK);
-    }
 }
 

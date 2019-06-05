@@ -10,28 +10,6 @@
     <script th:src="@{/js/controller/adminUserController.js}"></script>
     <!--Home AngularJS Service-->
     <script th:src="@{/js/service/WebService.js}"></script>
-    <!-- Toastr -->
-    <script th:src="@{/bower/MDB-4.7.5/js/modules/toastr.js}"></script>
-    <script th:if="${checkAddCategory != null && checkAddCategory == true}">
-        $(document).ready(function () {
-            toastr.success('Thêm Mới Thể Loại thành công!', 'Thông báo', {
-                "positionClass": "md-toast-top-right"
-            });
-            $('.toast').toast({
-                delay: 10000
-            })
-        });
-    </script>
-    <script th:if="${checkAddCategory != null && checkAddCategory == false}">
-        $(document).ready(function () {
-            toastr.danger('Có lỗi xảy ra,Thêm Mới Thể Loại thất bại!', 'Thông báo', {
-                "positionClass": "md-toast-top-right"
-            });
-            $('.toast').toast({
-                delay: 10000
-            })
-        });
-    </script>
 </head>
 <body class="fixed-sn white-skin body-none" ng-app="ngApp" ng-controller="adUserCtrl" th:ng-init="|init()|">
 <!--NavBar-->
@@ -169,6 +147,17 @@
     // Material Select Initialization
     $(document).ready(function () {
         $('.mdb-select').materialSelect();
+    });
+</script>
+<script th:if="${checkUserInformation != null}">
+    $(document).ready(function () {
+        var message = /*[[${checkUserInformation}]]*/ '';
+        toastr.danger(message, 'Thông báo', {
+            "positionClass": "md-toast-top-right"
+        });
+        $('.toast').toast({
+            delay: 10000
+        })
     });
 </script>
 </body>
