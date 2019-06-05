@@ -50,7 +50,7 @@ public class AdminUserController {
     }
     
     @RequestMapping
-    public String defaultAdmiHome(Model model, Principal principal) throws Exception {
+    public String defaultAdminHome(Model model, Principal principal) throws Exception {
         
         model.addAttribute("title", "Danh Sách Người Dùng");
         
@@ -60,7 +60,7 @@ public class AdminUserController {
     }
     
     @RequestMapping("/thong_tin/{id}")
-    public String informationUser(Model model, Principal principal, @PathVariable("id") Long id, RedirectAttributes redirectAttrs){
+    public String informationUser(Model model, Principal principal, @PathVariable("id") Long id, RedirectAttributes redirectAttrs) {
         User user = userService.findUserById(id);
         if (user == null) {
             redirectAttrs.addFlashAttribute("checkUserInformation", "Không Tồn Tại Người Dùng có Id " + id);
@@ -68,8 +68,16 @@ public class AdminUserController {
         }
         //Lấy Thông Tin Số truyện đang Đăng Bởi User
         Long storyGoing = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_GOING_ON);
+        //Lấy Thông Tin Số truyện bị ẩn đăng Bởi User
+        Long storyHidden = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_HIDDEN);
+        //Lấy Thông Tin Số truyện bị ẩn đăng Bởi User
+        Long storyComplete = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_COMPLETED);
+        
         model.addAttribute("user", user);
-
+        model.addAttribute("storyGoing", storyGoing);
+        model.addAttribute("storyHidden", storyHidden);
+        model.addAttribute("storyComplete", storyComplete);
+        
         return "/dashboard/informationUserPage";
     }
     

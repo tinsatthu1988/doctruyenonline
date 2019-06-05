@@ -377,7 +377,7 @@ public class StoryServiceImpl implements StoryService {
             return storyRepository.findByVnNameContainingAndStatusOrderByIdDesc(search, type, pageable);
         }
     }
-
+    
     /**
      * Lấy số lượng truyện đăng bởi User
      *
@@ -385,7 +385,9 @@ public class StoryServiceImpl implements StoryService {
      * @param status
      * @return Long
      */
-    public Long countStoryByUserWithStatus(Long userId, Integer status){
-        return storyRepository.coun
-    };
+    public Long countStoryByUserWithStatus(Long userId, Integer status) {
+        return storyRepository.countByUser_IdAndStatus(userId, status);
+    }
+    
+    ;
 }

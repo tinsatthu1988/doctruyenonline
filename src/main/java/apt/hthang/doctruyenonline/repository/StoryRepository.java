@@ -251,6 +251,15 @@ public interface StoryRepository extends JpaRepository< Story, Long > {
      */
     Long countByCreateDateGreaterThanEqual(Date date);
     
+    /**
+     * Đếm số truyện đăng bởi User có Id và Trạng Thái Truyện
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    Long countByUser_IdAndStatus(Long id, Integer status);
+    
     Page< StoryTop > findByOrderByIdDesc(Pageable pageable);
     
     Page< StoryTop > findByVnNameContainingOrderByIdDesc(String search, Pageable pageable);
