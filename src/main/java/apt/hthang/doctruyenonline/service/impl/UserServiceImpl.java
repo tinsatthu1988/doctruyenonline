@@ -220,13 +220,8 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public boolean deleteUser(User deleteUser) {
-        try {
+    public void deleteUser(User deleteUser) {
             userRepository.delete(deleteUser);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
     
     @Override

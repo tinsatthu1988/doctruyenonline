@@ -59,26 +59,22 @@ public class AdminUserController {
         return "/dashboard/adminUserPage";
     }
     
-    @RequestMapping("/thong_tin/{id}")
-    public String informationUser(Model model, Principal principal, @PathVariable("id") Long id, RedirectAttributes redirectAttrs) {
-        User user = userService.findUserById(id);
+    @RequestMapping("/cap_nhat/{id}")
+    public String updateUser(Model model, Principal principal, @PathVariable("id") Long id, RedirectAttributes redirectAttrs) throws Exception {
+        
+        model.addAttribute("title", "Cập Nhật Người Dùng");
+        
+        getUser(model, principal);
+        
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
         if (user == null) {
-            redirectAttrs.addFlashAttribute("checkUserInformation", "Không Tồn Tại Người Dùng có Id " + id);
-            return "redirect:/quan-tri/nguoi_dung";
+            throw new NotFoundException("Tài khoản không tồn tại mời liên hệ admin để biết thêm thông tin");
         }
-        //Lấy Thông Tin Số truyện đang Đăng Bởi User
-        Long storyGoing = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_GOING_ON);
-        //Lấy Thông Tin Số truyện bị ẩn đăng Bởi User
-        Long storyHidden = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_HIDDEN);
-        //Lấy Thông Tin Số truyện bị ẩn đăng Bởi User
-        Long storyComplete = storyService.countStoryByUserWithStatus(user.getId(), ConstantsStatusUtils.STORY_STATUS_COMPLETED);
-        
-        model.addAttribute("user", user);
-        model.addAttribute("storyGoing", storyGoing);
-        model.addAttribute("storyHidden", storyHidden);
-        model.addAttribute("storyComplete", storyComplete);
-        
-        return "/dashboard/informationUserPage";
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        User editUser = userService.findUserById(id);
+        return "/dashboard/editUserPage";
     }
-    
 }

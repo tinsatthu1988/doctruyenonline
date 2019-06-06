@@ -1,5 +1,6 @@
 package apt.hthang.doctruyenonline.restful;
 
+import apt.hthang.doctruyenonline.component.MyComponent;
 import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.Role;
 import apt.hthang.doctruyenonline.entity.User;
@@ -38,7 +39,8 @@ public class UserRestfulController {
     private PayService payService;
     @Autowired
     private CloudinaryUploadService cloudinaryUploadService;
-    
+    @Autowired
+    private MyComponent myComponent;
     //Lấy Thông Tin Converter
     @PostMapping(value = "/converterInfo")
     public ResponseEntity< ? > loadConverter(@RequestParam("userId") Long userId) {
@@ -213,27 +215,22 @@ public class UserRestfulController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new HttpUserLockedException();
         }
-        boolean checkAdminLogin = checkRole(user, ConstantsUtils.ROLE_ADMIN);
-        boolean checkAdminUser = checkRole(deleteUser, ConstantsUtils.ROLE_ADMIN);
-        boolean checkModLogin = checkRole(user, ConstantsUtils.ROLE_SMOD);
-        boolean checkModnUser = checkRole(deleteUser, ConstantsUtils.ROLE_SMOD);
-        System.out.println(checkAdminLogin +" : " +checkAdminUser + " = "+ checkModLogin+": "+ checkModnUser);
+        if (user.getId() == deleteUser.getId()) {
+            throw new HttpMyException("Bạn không thể tự xóa tài khoản của mình");
+        }
+        boolean checkAdminLogin = myComponent.hasRole(user, ConstantsUtils.ROLE_ADMIN);
+        boolean checkAdminUser = myComponent.hasRole(deleteUser, ConstantsUtils.ROLE_ADMIN);
+        boolean checkModLogin = myComponent.hasRole(user, ConstantsUtils.ROLE_SMOD);
+        boolean checkModnUser = myComponent.hasRole(deleteUser, ConstantsUtils.ROLE_SMOD);
         if ((checkAdminLogin == true && checkAdminUser == false) || (checkModLogin == true && checkModnUser == false && checkAdminUser == false)) {
-            boolean check = userService.deleteUser(deleteUser);
-            if (check)
+            try {
+                userService.deleteUser(deleteUser);
                 return new ResponseEntity<>(HttpStatus.OK);
-            else
+            } catch (Exception e) {
                 throw new HttpMyException("Không Thể Xóa Người Dùng Này");
+            }
         } else
             throw new HttpMyException("Bạn không đủ quyền xóa người dùng này");
-    }
-    
-    private boolean checkRole(User use, Integer id) {
-        for (Role role : use.getRoleList()) {
-            if (role.getId() == id)
-                return true;
-        }
-        return false;
     }
     
 }

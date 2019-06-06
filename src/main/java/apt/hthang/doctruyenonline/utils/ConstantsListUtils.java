@@ -52,7 +52,7 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.STORY_STATUS_STOP);
             }}
     );
-    //List Status của chapter có trạng thái hiển thị
+
     public static final List< Integer > LIST_ROLE_CON = Collections.unmodifiableList(
             new ArrayList< Integer >() {{
                 add(ConstantsUtils.ROLE_ADMIN);
@@ -65,6 +65,8 @@ public class ConstantsListUtils {
                 add(ConstantsStatusUtils.STORY_STATUS_COMPLETED);
             }}
     );
+    
+    
 //    public static final List< Integer > LIST_STORY_ALL = Collections.unmodifiableList(
 //            new ArrayList< Integer >() {{
 //                add(ConstantsUtils.STORY_STATUS_COMPLETED);

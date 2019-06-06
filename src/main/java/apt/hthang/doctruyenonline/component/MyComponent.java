@@ -1,6 +1,8 @@
 package apt.hthang.doctruyenonline.component;
 
 import apt.hthang.doctruyenonline.entity.Chapter;
+import apt.hthang.doctruyenonline.entity.Role;
+import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.projections.ChapterSummary;
 import apt.hthang.doctruyenonline.service.ChapterService;
 import apt.hthang.doctruyenonline.service.HistoryService;
@@ -86,7 +88,13 @@ public class MyComponent {
         if (chapter != null)
             return chapter.getId();
         return null;
-//        return Long.valueOf(0);
     }
     
+    public boolean hasRole(User use, Integer id) {
+        for (Role role : use.getRoleList()) {
+            if (role.getId() == id)
+                return true;
+        }
+        return false;
+    }
 }

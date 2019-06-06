@@ -107,7 +107,7 @@ public interface UserService extends FieldValueExists {
     
     Page< UserAdmin > findByType(String search, Integer type, Integer pagenumber, Integer size);
     
-    boolean deleteUser(User deleteUser);
+    void deleteUser(User deleteUser);
     
     boolean updateGoldUser(Long id, Double gold);
 }
