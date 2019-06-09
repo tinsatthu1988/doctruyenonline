@@ -5,7 +5,7 @@ import apt.hthang.doctruyenonline.entity.MyUserDetails;
 import apt.hthang.doctruyenonline.entity.User;
 import apt.hthang.doctruyenonline.exception.NotFoundException;
 import apt.hthang.doctruyenonline.service.ChapterService;
-import apt.hthang.doctruyenonline.service.StoryService;
+import apt.hthang.doctruyenonline.service.RoleService;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,12 @@ import java.security.Principal;
 public class AdminUserController {
     
     @Autowired
+    private RoleService roleService;
+    @Autowired
     private UserService userService;
     @Autowired
-    private ChapterService chapterService;
-    @Autowired
-    private StoryService storyService;
-    @Autowired
     private MyComponent myComponent;
-    
+        
     //Lấy Thông Tin Tên User Login, Avatar User Login
     private void getUser(Model model, Principal principal) throws NotFoundException {
         MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
@@ -75,6 +73,20 @@ public class AdminUserController {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
         User editUser = userService.findUserById(id);
+
+        if (editUser == null) {
+            redirectAttrs.addFlashAttribute("checkEditUserFalse", "Người dùng không tồn tại");
+            return "redirect:/quan-tri/nguoi_dung";
+        }
+        
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", editUser);
+        }
+
+        model.addAttribute("listRole" , roleService.getAllRole());
+
+        model.addAttribute("statusList", ConstantsListUtils.LIST_CATEGORY_STATUS_VIEW_ALL);
+        
         return "/dashboard/editUserPage";
     }
 }

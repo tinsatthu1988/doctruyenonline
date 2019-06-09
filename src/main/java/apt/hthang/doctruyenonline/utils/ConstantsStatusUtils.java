@@ -61,5 +61,6 @@ public class ConstantsStatusUtils {
     public static final Integer USER_DENIED = 0;
     
     public static final Integer REPORT_DENIED = 0;
+    
     public static final Integer REPORT_WAIT = 2;
 }
