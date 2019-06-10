@@ -9,38 +9,38 @@
 <main>
     <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${user}"
           th:action="@{/quan-tri/nguoi_dung/cap_nhat/save}" id="resetForm">
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <!-- Section: Intro -->
-        <section class="pb-4">
-            <div class="card">
-                <h2 class="card-header primary-color white-text text-center font-weight-bold">
-                    <span class="oi oi-book"></span> CẬP NHẬT NGƯỜI DÙNG
-                </h2>
-            </div>
-            <!-- Grid row -->
+            <!-- Section: Intro -->
+            <section class="pb-4">
+                <div class="card">
+                    <h2 class="card-header primary-color white-text text-center font-weight-bold">
+                        <span class="oi oi-book"></span> CẬP NHẬT NGƯỜI DÙNG
+                    </h2>
+                </div>
+                <!-- Grid row -->
 
-        </section>
-        <!-- Section: Intro -->
-        <section>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs md-tabs nav-justified primary-color ml-0 mr-0" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
-                        <i class="fas fa-user pr-2"></i>Thông Tin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
-                        <i class="fas fa-user-tag pr-2"></i>Phân Quyền</a>
-                </li>
-            </ul>
-            <!-- Nav tabs -->
+            </section>
+            <!-- Section: Intro -->
+            <section>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs md-tabs nav-justified primary-color ml-0 mr-0" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
+                            <i class="fas fa-user pr-2"></i>Thông Tin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
+                            <i class="fas fa-user-tag pr-2"></i>Phân Quyền</a>
+                    </li>
+                </ul>
+                <!-- Nav tabs -->
 
-            <!-- Tab panels -->
-            <div class="tab-content card pt-5">
+                <!-- Tab panels -->
+                <div class="tab-content card pt-5">
 
-                <!-- Panel 1 -->
-                <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
+                    <!-- Panel 1 -->
+                    <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
 
                         <!--Grid row-->
                         <div class="row">
@@ -57,6 +57,16 @@
                                 <div class="md-form mb-0">
                                     <input type="text" class="form-control" id="username" name="username" th:value="*{username}" readonly>
                                     <label for="username" class="text-primary">Tên Đăng Nhập: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="displayName" name="displayName" th:value="*{displayName}" readonly>
+                                    <label for="displayName" class="text-primary">Tên Hiển Thị: </label>
                                 </div>
                             </div>
                         </div>
@@ -80,8 +90,16 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="createBy" name="createBy" th:value="*{createBy}" readonly>
-                                    <label for="createDate" class="text-primary">Người Tạo </label>
+                                    <input type="text" class="form-control" id="gold" name="gold" th:field="*{gold}" readonly>
+                                    <label for="gold" class="text-primary">Số đậu: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="email" name="email" th:value="*{email}" readonly>
+                                    <label for="email" class="text-primary">Email </label>
                                 </div>
                             </div>
                         </div>
@@ -97,31 +115,47 @@
                         <!--Grid row-->
                         <div class="row text-right">
                             <div class="col-12">
-                                <a class="btn btn-outline-secondary btn-rounded waves-effect" th:href="@{/quan-tri/the_loai}">Quay Lại</a>
+                                <a class="btn btn-outline-secondary btn-rounded waves-effect" th:href="@{/quan-tri/nguoi_dung}">Quay Lại</a>
                                 <input type="submit" class="btn btn-outline-primary btn-rounded waves-effect" value="Cập Nhật"/>
                             </div>
                         </div>
 
+                    </div>
+                    <!-- Panel 1 -->
+
+                    <!-- Panel 2 -->
+                    <div class="tab-pane fade" id="panel666" role="tabpanel">
+
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="md-label-cs text-primary mt-1 form-label">Phân Quyền</label>
+                            </div>
+                            <!-- Material checked -->
+                            <div class="col-6 col-md-4 col-lg-2" th:each="category : ${listRole}">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="roleList" th:field="*{roleList}"
+                                           th:id="'inlineCheckbox'+ ${category.id}"
+                                           th:value="${category.id}">
+                                    <label class="custom-control-label " th:for="'inlineCheckbox'+ ${category.id}" th:text="${category.name}"
+                                           style="line-height: 1.8"></label>
+                                </div>
+                            </div>
+                            <!--                            <div class="col-md-12">-->
+                            <!--                                <div class="md-form mt-0 mb-0">-->
+                            <!--                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('categoryList')}" th:errors="*{categoryList}"-->
+                            <!--                                        th:classappend="${#fields.hasErrors('categoryList')} ? 'd-block' : ''"></em>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                        </div>
+                        <!--Grid row-->
+                    </div>
+                    <!-- Panel 2 -->
+
                 </div>
-                <!-- Panel 1 -->
-
-                <!-- Panel 2 -->
-                <div class="tab-pane fade" id="panel666" role="tabpanel">
-
-                    <p class="pt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta
-                        doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat
-                        ratione porro voluptate odit minima.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
-                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
-                        porro voluptate odit minima.</p>
-
-                </div>
-                <!-- Panel 2 -->
-
-            </div>
-            <!-- Tab panels -->
-        </section>
-    </div>
+                <!-- Tab panels -->
+            </section>
+        </div>
     </form>
 </main>
 <section th:replace="/fragments/adminFooter"></section>
