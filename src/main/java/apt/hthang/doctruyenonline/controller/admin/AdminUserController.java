@@ -9,11 +9,14 @@ import apt.hthang.doctruyenonline.service.RoleService;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -43,6 +46,7 @@ public class AdminUserController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
+        model.addAttribute("checkRole", myComponent.hasRole(user, ConstantsUtils.ROLE_ADMIN));
         model.addAttribute("avatar", myComponent.checkAvatar(user.getAvatar()));
         model.addAttribute("displayname", myComponent.getDisplayName(user.getUsername(), user.getDisplayName()));
         model.addAttribute("titleMenu", "Quản Lý Người Dùng");
@@ -58,7 +62,7 @@ public class AdminUserController {
         return "/dashboard/adminUserPage";
     }
     
-    @RequestMapping("/cap_nhat/{id}")
+    @GetMapping("/cap_nhat/{id}")
     public String updateUser(Model model, Principal principal, @PathVariable("id") Long id, RedirectAttributes redirectAttrs) throws Exception {
         
         model.addAttribute("title", "Cập Nhật Người Dùng");
@@ -88,6 +92,6 @@ public class AdminUserController {
 
         model.addAttribute("statusList", ConstantsListUtils.LIST_CATEGORY_STATUS_VIEW_ALL);
         
-        return "/dashboard/editUserPage";
+        return "dashboard/editUserPage";
     }
 }

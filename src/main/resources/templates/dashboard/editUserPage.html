@@ -70,15 +70,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Grid row-->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="metatitle" name="metatitle" th:value="*{metatitle}" readonly>
-                                    <label for="oldpass" class="text-primary">Metatitle</label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
@@ -133,20 +124,14 @@
                             </div>
                             <!-- Material checked -->
                             <div class="col-6 col-md-4 col-lg-2" th:each="category : ${listRole}">
-                                <div class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox" >
                                     <input type="checkbox" class="custom-control-input" name="roleList" th:field="*{roleList}"
-                                           th:id="'inlineCheckbox'+ ${category.id}"
-                                           th:value="${category.id}">
+                                           th:id="'inlineCheckbox'+ ${category.id}"                                           th:value="${category.id}"
+                                           th:disabled="${(checkRole == false && (category.id == 1 || category.id == 2)) || category.id == 4}">
                                     <label class="custom-control-label " th:for="'inlineCheckbox'+ ${category.id}" th:text="${category.name}"
                                            style="line-height: 1.8"></label>
                                 </div>
                             </div>
-                            <!--                            <div class="col-md-12">-->
-                            <!--                                <div class="md-form mt-0 mb-0">-->
-                            <!--                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('categoryList')}" th:errors="*{categoryList}"-->
-                            <!--                                        th:classappend="${#fields.hasErrors('categoryList')} ? 'd-block' : ''"></em>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
                         </div>
                         <!--Grid row-->
                     </div>
