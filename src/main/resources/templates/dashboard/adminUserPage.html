@@ -149,10 +149,21 @@
         $('.mdb-select').materialSelect();
     });
 </script>
-<script th:if="${checkUserInformation != null}">
+<script th:if="${checkEditUserFalse != null}">
     $(document).ready(function () {
-        var message = /*[[${checkUserInformation}]]*/ '';
+        var message = /*[[${checkEditUserFalse}]]*/ '';
         toastr.danger(message, 'Thông báo', {
+            "positionClass": "md-toast-top-right"
+        });
+        $('.toast').toast({
+            delay: 10000
+        })
+    });
+</script>
+<script th:if="${checkEditUserTrue != null}">
+    $(document).ready(function () {
+        var message = /*[[${checkEditUserTrue}]]*/ '';
+        toastr.success(message, 'Thông báo', {
             "positionClass": "md-toast-top-right"
         });
         $('.toast').toast({
