@@ -22,7 +22,7 @@ function adStoryCtrl($scope, WebService) {
     $scope.type = $scope.typeList[0];
 
     $scope.init = function () {
-        $scope.getAdListUser(1);
+        $scope.getAdListStory(1);
     };
 
     $scope.getAdListStory = function (pagenumber) {

@@ -328,6 +328,17 @@ public class StoryServiceImpl implements StoryService {
         storyEdit.setInfomation(story.getInfomation());
         storyEdit.setCategoryList(story.getCategoryList());
         storyEdit.setStatus(story.getStatus());
+        if(story.getDealStatus() !=null){
+            storyEdit.setDealStatus(story.getDealStatus());
+            if(story.getDealStatus() == ConstantsStatusUtils.STORY_VIP){
+                if(story.getPrice() != null){
+                    storyEdit.setPrice(story.getPrice());
+                }
+                if(story.getTimeDeal() != null){
+                    storyEdit.setTimeDeal(story.getTimeDeal());
+                }
+            }
+        }
         if (story.getImages() != null && !story.getImages().isEmpty()) {
             storyEdit.setImages(story.getImages());
         }

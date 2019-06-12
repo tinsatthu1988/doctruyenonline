@@ -10,6 +10,7 @@ import apt.hthang.doctruyenonline.service.CloudinaryUploadService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+import apt.hthang.doctruyenonline.utils.WebUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsListUtils;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+
+import javax.validation.Valid;
 
 /**
  * @author Huy Thang
@@ -94,4 +99,34 @@ public class AdminStoryController {
         return "dashboard/editStoryPage";
     }
 
+    @PostMapping("/cap_nhat/save")
+    public String saveStoryEditPage(@Valid Story story, BindingResult result, Model model, Principal principal, RedirectAttributes redirectAttrs) throws NotFoundException {
+       
+        MyUserDetails loginedUser = (MyUserDetails) ((Authentication) principal).getPrincipal();
+        User user = userService.findUserById(loginedUser.getUser().getId());
+        if (user == null) {
+            throw new NotFoundException("Tài khoản không tồn tại mời liên hệ admin để biết thêm thông tin");
+        }
+        if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
+            throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
+        }
+        boolean hasError = result.hasErrors();
+        if (hasError) {
+            redirectAttrs.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
+            redirectAttrs.addFlashAttribute("story", story);
+            return "redirect:/quan_ly/truyen/cap_nhat/" + story.getId();
+        }
+        story.setInfomation(story.getInfomation().replaceAll("\n", "<br />"));
+        if (!story.getEditfile().isEmpty() && story.getEditfile() != null) {
+            String url = cloudinaryUploadService
+                    .upload(story.getEditfile(), loginedUser.getUser().getUsername() + "-" + System.nanoTime());
+            story.setImages(url);
+        }
+        boolean check = storyService.updateStory(story);
+        if (check)
+            redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật không thành công! Có lỗi xảy ra, mong bạn thử lại sau!");
+        else
+            redirectAttrs.addFlashAttribute("checkEditStoryTrue", "Cập nhật truyện " + story.getVnName() + " thành công!");
+        return "redirect:/quan_ly/truyen";
+    }
 }
