@@ -197,8 +197,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="price" name="price" th:value="*{price}" readonly>
+                                    <input type="text" class="form-control" id="price" name="price" th:value="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
                                     <label for="price" class="md-label-cs text-primary mt-1 form-label">Giá Tiền: </label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></em>
                                 </div>
                             </div>
                         </div>
@@ -207,8 +208,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="timeDeal" name="timeDeal" th:value="*{timeDeal}" readonly>
+                                    <input type="text" class="form-control" id="timeDeal" name="timeDeal" th:value="*{timeDeal}" th:classappend="${#fields.hasErrors('timeDeal')} ? 'is-invalid' : ''">
                                     <label for="timeDeal" class="md-label-cs text-primary mt-1 form-label">Thời Hạn Vip: </label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('timeDeal')}" th:errors="*{timeDeal}"></em>
                                 </div>
                             </div>
                         </div>
@@ -244,6 +246,62 @@
     $(document).ready(function () {
         $('.mdb-select').materialSelect();
     });
+</script>
+<script th:inline="javascript">
+    var message = /*[[${story.images}]]*/ '';
+    $("#inputFile").change(function () {
+        var fileName = $('#inputFile').val();
+        if (fileName !== "") {
+            readURL(this);
+            readFileName(this);
+            showRemoveBtn();
+        } else {
+            removeURL();
+            removeFileName();
+            hiddenRemoveBtn();
+        }
+    });
+    $('#img-remove').click(function () {
+        removeURL();
+        removeFileName();
+        hiddenRemoveBtn();
+        $('#inputFile').val(null);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                //alert(e.target.result);
+                $('#imgLogo').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readFileName(input) {
+        $('#file-name').val(input.files[0].name);
+    }
+
+    function removeURL() {
+        $('#imgLogo').removeAttr('src');
+        $('#imgLogo').attr('src', message);
+
+    }
+
+    function removeFileName() {
+        $('#file-name').val('');
+    }
+
+    function showRemoveBtn() {
+        $('#img-remove').addClass('is-selected');
+    }
+
+    function hiddenRemoveBtn() {
+        $('#img-remove').removeClass('is-selected');
+    }
 </script>
 </body>
 </html>
