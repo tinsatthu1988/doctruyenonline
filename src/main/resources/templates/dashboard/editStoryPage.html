@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <th:block th:insert="/fragments/adminHeader"></th:block>
+</head>
+<body class="fixed-sn white-skin body-none">
+<!--NavBar-->
+<section th:replace="/fragments/adminNavbar"></section>
+<main>
+    <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${story}"
+          th:action="@{/quan-tri/truyen/cap_nhat/save}" id="resetForm">
+        <div class="container-fluid">
+
+            <!-- Section: Intro -->
+            <section class="pb-4">
+                <div class="card">
+                    <h2 class="card-header primary-color white-text text-center font-weight-bold">
+                        <span class="oi oi-book"></span> CẬP NHẬT TRUYỆN
+                    </h2>
+
+                    <div class="card-body">
+
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="id" name="id" th:value="*{id}" readonly>
+                                    <label for="id" class="form-label text-primary">ID Truyện </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="vnName" name="vnName" th:value="*{vnName}"
+                                           th:classappend="${#fields.hasErrors('vnName')} ? 'is-invalid' : ''">
+                                    <label for="vnName" class="form-label text-primary">Tên Tiếng Việt </label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('vnName')}" th:errors="*{vnName}"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="cnName" name="cnName" th:value="*{cnName}"
+                                           th:classappend="${#fields.hasErrors('cnName')} ? 'is-invalid' : ''">
+                                    <label for="cnName" class=" text-primary">Tên Tiếng Trung</label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnName')}" th:errors="*{cnName}"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="url" class="form-control" id="cnLink" name="cnLink" th:value="*{cnLink}"
+                                           th:classappend="${#fields.hasErrors('cnLink')} ? 'is-invalid' : ''">
+                                    <label for="cnLink" class="form-label text-primary">Link Tiếng Trung</label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnLink')}" th:errors="*{cnLink}"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="author" name="author" th:value="*{author}"
+                                           th:classappend="${#fields.hasErrors('author')} ? 'is-invalid' : ''">
+                                    <label for="author" class=" text-primary">Tác giả</label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <textarea type="text" id="infomation" name="infomation" rows="6" class="form-control md-textarea" th:field="*{infomation}"
+                                              th:classappend="${#fields.hasErrors('infomation')} ? 'is-invalid' : ''"></textarea>
+                                    <label for="infomation" class=" text-primary form-label">Giới Thiệu</label>
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('infomation')}" th:errors="*{infomation}"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="createDate" name="createDate" th:field="*{createDate}" readonly>
+                                    <label for="createDate" class="text-primary">Ngày Tạo </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="user.username" name="user.username" th:value="*{user.username}" readonly>
+                                    <label for="user.username" class="text-primary">Người Đăng: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="updateDate" name="updateDate" th:field="*{updateDate}" readonly>
+                                    <label for="updateDate" class="text-primary">Thời Gian Cập Nhật: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="md-label-cs text-primary mt-1 form-label">Thể Loại</label>
+                            </div>
+                            <!-- Material checked -->
+                            <div class="col-6 col-md-4 col-lg-2" th:each="category : ${categorylist}">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="categoryList" th:field="*{categoryList}"
+                                           th:id="'inlineCheckbox'+ ${category.id}"
+                                           th:value="${category.id}">
+                                    <label class="custom-control-label " th:for="'inlineCheckbox'+ ${category.id}" th:text="${category.name}"
+                                           style="line-height: 1.8"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form mt-0 mb-0">
+                                    <em class="error invalid-feedback" th:if="${#fields.hasErrors('categoryList')}" th:errors="*{categoryList}"
+                                        th:classappend="${#fields.hasErrors('categoryList')} ? 'd-block' : ''"></em>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="col-12 mt-2">
+                                <label class="md-label-cs text-primary form-label">Hình Ảnh</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-form mt-0">
+                                    <div class="file-field">
+                                        <div class="btn blue-gradient btn-sm float-left">
+                                            <span>Hình Ảnh</span>
+                                            <input type="file" id="inputFile" accept="image/png, image/jpeg, image/jpg" th:field="*{editfile}"/>
+                                        </div>
+                                        <div class="file-path-wrapper form-row">
+                                            <div class="col-8">
+                                                <!-- Material input -->
+                                                <input class="file-path" type="text" placeholder="Ảnh Bìa" id="file-name" readonly>
+                                            </div>
+                                            <!-- Grid column -->
+                                            <div class="col-auto">
+                                                <!-- Material input -->
+                                                <button type="button" class="btn btn-sm btn-danger btn-remove" id="img-remove">Hủy</button>
+                                            </div>
+                                            <!-- Grid column -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pl-0">
+                                    <div class="md-form mt-0 mb-0">
+                                        <em class="error invalid-feedback" th:if="${#fields.hasErrors('editfile')}" th:errors="*{uploadfile}"
+                                            th:classappend="${#fields.hasErrors('editfile')} ? 'd-block' : ''"></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <section class="col-12 col-sm-3 img-input">
+                                <img id="imgLogo" class="img-fluid" th:src="${story.images}">
+                            </section>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="mdb-select md-form colorful-select dropdown-primary" th:field="*{dealStatus}">
+                                    <option th:each="storyVip : ${statusVipList}" th:value="${storyVip.id}" th:text="${storyVip.name}"></option>
+                                </select>
+                                <label class="md-label-cs text-primary mt-1 form-label">Trạng Thái Vip </label>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="price" name="price" th:value="*{price}" readonly>
+                                    <label for="price" class="md-label-cs text-primary mt-1 form-label">Giá Tiền: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" class="form-control" id="timeDeal" name="timeDeal" th:value="*{timeDeal}" readonly>
+                                    <label for="timeDeal" class="md-label-cs text-primary mt-1 form-label">Thời Hạn Vip: </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="mdb-select md-form colorful-select dropdown-primary" th:field="*{status}">
+                                    <option th:each="storyStatus : ${statusList}" th:value="${storyStatus.id}" th:text="${storyStatus.name}"></option>
+                                </select>
+                                <label class="md-label-cs text-primary mt-1 form-label">Trạng Thái</label>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row text-right">
+                            <div class="col-12">
+                                <a class="btn btn-outline-secondary btn-rounded waves-effect" th:href="@{/quan-tri/truyen}">Quay Lại</a>
+                                <input type="submit" class="btn btn-outline-primary btn-rounded waves-effect" value="Cập Nhật"/>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </form>
+</main>
+<section th:replace="/fragments/adminFooter"></section>
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });
+</script>
+</body>
+</html>

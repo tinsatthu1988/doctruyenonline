@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class ConstantsListUtils {
     
-    //    public static final List< Status > LIST_STORY_STATUS_VIP = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(ConstantsUtils.STORY_NOT_VIP , "Miễn Phí"));
-//                add(new Status(ConstantsUtils.STORY_VIP, "Trả Phí"));
-//            }}
-//    );
+       public static final List< Status > LIST_STORY_STATUS_VIP = Collections.unmodifiableList(
+           new ArrayList< Status >() {{
+               add(new Status(ConstantsStatusUtils.STORY_NOT_VIP , "Miễn Phí"));
+               add(new Status(ConstantsStatusUtils.STORY_VIP, "Trả Phí"));
+           }}
+   );
     public static final List< Status > LIST_STORY_STATUS_CONVERTER = Collections.unmodifiableList(
             new ArrayList< Status >() {{
                 add(new Status(ConstantsStatusUtils.STORY_STATUS_HIDDEN, "Khóa"));
@@ -26,15 +26,15 @@ public class ConstantsListUtils {
                 add(new Status(ConstantsStatusUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
             }}
     );
-//
-//    public static final List< Status > LIST_STORY_STATUS = Collections.unmodifiableList(
-//            new ArrayList< Status >() {{
-//                add(new Status(ConstantsUtils.STORY_STATUS_GOING_ON, "Đang ra"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_STOP, "Tạm Dừng"));
-//                add(new Status(ConstantsUtils.STORY_STATUS_HIDDEN, "Ẩn"));
-//            }}
-//    );
+
+   public static final List< Status > LIST_STORY_STATUS = Collections.unmodifiableList(
+           new ArrayList< Status >() {{
+               add(new Status(ConstantsStatusUtils.STORY_STATUS_GOING_ON, "Đang ra"));
+               add(new Status(ConstantsStatusUtils.STORY_STATUS_COMPLETED, "Hoàn Thành"));
+               add(new Status(ConstantsStatusUtils.STORY_STATUS_STOP, "Tạm Dừng"));
+               add(new Status(ConstantsStatusUtils.STORY_STATUS_HIDDEN, "Ẩn"));
+           }}
+   );
     
     public static final List< Status > LIST_CHAPTER_STATUS_VIEW_ALL = Collections.unmodifiableList(
             new ArrayList< Status >() {{

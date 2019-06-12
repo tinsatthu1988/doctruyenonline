@@ -232,7 +232,7 @@ public interface StoryService {
      */
     Long countNewUserInDate(Date date);
     
-    Page< StoryTop > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search);
+    Page< StoryAdmin > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search);
 
     /**
      * Lấy số lượng truyện đăng bởi User

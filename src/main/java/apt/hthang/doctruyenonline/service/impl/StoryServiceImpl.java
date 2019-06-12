@@ -361,19 +361,22 @@ public class StoryServiceImpl implements StoryService {
     }
     
     @Override
-    public Page< StoryTop > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search) {
-        Pageable pageable = PageRequest.of(pagenumber, size);
+    public Page< StoryAdmin > findStoryInAdmin(Integer pagenumber, Integer size, Integer type, String search) {
+        Pageable pageable = PageRequest.of(pagenumber-1, size);
         if (type == -1) {
-            if (search.trim().isEmpty())
+            if (search.trim().isEmpty()) {
                 return storyRepository.findByOrderByIdDesc(pageable);
+            }
             return storyRepository.findByVnNameContainingOrderByIdDesc(search, pageable);
         } else if (type == 3) {
-            if (search.trim().isEmpty())
+            if (search.trim().isEmpty()) {
                 return storyRepository.findByDealStatusOrderByIdDesc(ConstantsStatusUtils.STORY_STATUS_GOING_ON, pageable);
+            }
             return storyRepository.findByDealStatusAndVnNameContainingOrderByIdDesc(ConstantsStatusUtils.STORY_STATUS_GOING_ON, search, pageable);
         } else {
-            if (search.trim().isEmpty())
+            if (search.trim().isEmpty()) {
                 return storyRepository.findByStatusOrderByIdDesc(type, pageable);
+            }
             return storyRepository.findByVnNameContainingAndStatusOrderByIdDesc(search, type, pageable);
         }
     }

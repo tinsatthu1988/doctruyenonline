@@ -223,8 +223,8 @@ public class StoryRestfulController {
     }
     
     @PostMapping(value = "/admin/listStory")
-    public ResponseEntity< ? > loadStoryAdmin(@PathVariable("pagenumber") Integer pagenumber, @PathVariable("search") String search,
-                                              @PathVariable("type") Integer type) {
+    public ResponseEntity< ? > loadStoryAdmin(@RequestParam("pagenumber") Integer pagenumber, @RequestParam("search") String search,
+                                              @RequestParam("type") Integer type) {
         return new ResponseEntity<>(storyService.findStoryInAdmin(pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT, type, search), HttpStatus.OK);
     }
 

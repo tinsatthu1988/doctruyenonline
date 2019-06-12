@@ -24,5 +24,4 @@ public interface StoryTop {
     
     Integer getDealStatus();
     
-    StorySummary getStory();
 }

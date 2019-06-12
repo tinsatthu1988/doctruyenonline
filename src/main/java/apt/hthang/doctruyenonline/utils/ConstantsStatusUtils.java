@@ -63,4 +63,10 @@ public class ConstantsStatusUtils {
     public static final Integer REPORT_DENIED = 0;
     
     public static final Integer REPORT_WAIT = 2;
+
+    // Trạng Thái Truyện Miễn Phí
+    public static final Integer STORY_NOT_VIP = 0;
+
+    // Trang Thái Truyện Tính Phí
+    public static final Integer STORY_VIP = 1;
 }

@@ -9,6 +9,9 @@ import apt.hthang.doctruyenonline.service.ReportService;
 import apt.hthang.doctruyenonline.service.StoryService;
 import apt.hthang.doctruyenonline.service.UserService;
 import apt.hthang.doctruyenonline.utils.ConstantsStatusUtils;
+import apt.hthang.doctruyenonline.utils.ConstantsUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
@@ -28,6 +31,7 @@ import java.time.LocalDate;
 @RequestMapping(value = "/quan-tri")
 public class AdminHomeController {
     
+    private Logger logger = LoggerFactory.getLogger(AdminHomeController.class);
     @Autowired
     private UserService userService;
     @Autowired
@@ -60,6 +64,7 @@ public class AdminHomeController {
         model.addAttribute("newReport", reportService.countNewReportInDay(java.sql.Date.valueOf(today)));
         model.addAttribute("newChapter", chapterService.countNewChapterInDate(java.sql.Date.valueOf(today)));
         getUser(model, principal);
+        
         return "/dashboard/homePage";
     }
 }

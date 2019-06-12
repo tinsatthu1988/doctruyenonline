@@ -19,21 +19,13 @@ function adStoryCtrl($scope, WebService) {
         {'id': 3, 'label': 'Vip'},
 
     ];
-    $scope.drawCoin = 0;
     $scope.type = $scope.typeList[0];
-    $scope.userId = 0;
+
     $scope.init = function () {
         $scope.getAdListUser(1);
     };
 
-    $scope.setID = function (userId) {
-        $scope.userId = userId;
-    }
-    $scope.reset = function () {
-        $scope.drawCoin = 0;
-    };
-
-    $scope.getAdListUser = function (pagenumber) {
+    $scope.getAdListStory = function (pagenumber) {
         if (pagenumber === undefined) {
             pagenumber = 1;
         }
@@ -58,7 +50,7 @@ function adStoryCtrl($scope, WebService) {
         })
     };
 
-    $scope.deleteUser = function (id) {
+    $scope.deleteStory = function (id) {
         swal({
             title: 'Bạn có chắc?',
             text: "Bạn muốn xóa truyện này!",

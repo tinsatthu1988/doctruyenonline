@@ -128,7 +128,7 @@ public class AdminUserController {
             redirectAttributes.addFlashAttribute("checkEditUserTrue", "Cập Nhật Thành Công");
             return "redirect:/quan-tri/nguoi_dung";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("checkEditUserFalse", "Có lỗi xảy ra!");
+            redirectAttributes.addFlashAttribute("checkEditUserFalse", "Có lỗi xảy ra! Cập Nhật Không Thành Công!");
             return "redirect:/quan-tri/nguoi_dung";
         }
         
