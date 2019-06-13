@@ -1,55 +1,64 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <th:block th:insert="/fragments/header"></th:block>
     <!-- Jquery Validation -->
     <script type="text/javascript" th:src="@{/bower/jquery-validation/dist/jquery.validate.js}"></script>
 </head>
-<body>
-<script type="text/javascript" th:if="${success!= null && success == false}">
-    $(document).ready(function () {
-        swal({
-            text: 'Có lỗi xảy ra! Hãy Thử Lại Sau!',
-            type: 'warning',
-            confirmButtonText: 'Ok'
-        });
-    });
-</script>
-<section class="page-wrapper">
-    <!--NavBar-->
-    <section th:replace="/fragments/navbar"></section>
 
-    <!--Body-->
-    <section class="truyen-main">
-        <section class="truyen-section section-featured">
-            <section class="container container-full mb-4 mt-5">
-                <section class="featured-content">
-                    <section class="container-fluid">
-                        <section class="featured-content" id="content">
-                            <section class="row">
-                                <th:block th:include="/nav-tabs/navbar_left"></th:block>
-                                <section class="col-lg-10 col-md-9" sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER')">
-                                    <div class="alert alert-danger text-center text-black" role="alert" style="font-size: larger;">
-                                        <span class="font-weight-bold">Bạn không có đủ quyền để đăng truyện mới</span>
-                                    </div>
-                                </section>
-                                <section sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER')" class="col-lg-10 col-md-9">
-                                    <section class="row">
-                                        <div class="col">
-                                            <div class="card mb-5">
-                                                <h3 class="card-header primary-color white-text">
-                                                    <span class="oi oi-book"></span> Đăng Truyện</h1>
-                                                </h3>
-                                                <div class="card-body">
-                                                    <form method="POST" enctype="multipart/form-data" class="section-preview" th:object="${story}"
-                                                          th:action="@{/tai-khoan/them_truyen/save}" id="resetForm">
-                                                        <!--Grid row-->
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="vnName" name="vnName" th:value="*{vnName}" length="255"
-                                                                           th:classappend="${#fields.hasErrors('vnName')} ? 'is-invalid' : ''">
+<body>
+    <script type="text/javascript" th:if="${success!= null && success == false}">
+        $(document).ready(function () {
+            swal({
+                text: 'Có lỗi xảy ra! Hãy Thử Lại Sau!',
+                type: 'warning',
+                confirmButtonText: 'Ok'
+            });
+        });
+    </script>
+    <section class="page-wrapper">
+        <!--NavBar-->
+        <section th:replace="/fragments/navbar"></section>
+
+        <!--Body-->
+        <section class="truyen-main">
+            <section class="truyen-section section-featured">
+                <section class="container container-full mb-4 mt-5">
+                    <section class="featured-content">
+                        <section class="container-fluid">
+                            <section class="featured-content" id="content">
+                                <section class="row">
+                                    <th:block th:include="/nav-tabs/navbar_left"></th:block>
+                                    <section class="col-lg-10 col-md-9"
+                                        sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER')">
+                                        <div class="alert alert-danger text-center text-black" role="alert"
+                                            style="font-size: larger;">
+                                            <span class="font-weight-bold">Bạn không có đủ quyền để đăng truyện
+                                                mới</span>
+                                        </div>
+                                    </section>
+                                    <section sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CONVERTER')"
+                                        class="col-lg-10 col-md-9">
+                                        <section class="row">
+                                            <div class="col">
+                                                <div class="card mb-5">
+                                                    <h3 class="card-header primary-color white-text">
+                                                        <span class="oi oi-book"></span> Đăng Truyện</h1>
+                                                    </h3>
+                                                    <div class="card-body">
+                                                        <form method="POST" enctype="multipart/form-data"
+                                                            class="section-preview" th:object="${story}"
+                                                            th:action="@{/tai-khoan/them_truyen/save}"
+                                                            id="addStoryForm">
+                                                            <!--Grid row-->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="md-form mb-0">
+                                                                        <input type="text" class="form-control"
+                                                                            id="vnName" name="vnName"
+                                                                            th:value="*{vnName}" length="255"
+                                                                            th:classappend="${#fields.hasErrors('vnName')} ? 'is-invalid' : ''">
                                                                     <label for="vnName" class="form-label text-primary">Tên Tiếng Việt </label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('vnName')}" th:errors="*{vnName}"></em>
                                                                 </div>
@@ -241,5 +250,4 @@
 
 <!--Footer-->
 <section th:replace="/fragments/footer"></section>
-</body>
 </html>
