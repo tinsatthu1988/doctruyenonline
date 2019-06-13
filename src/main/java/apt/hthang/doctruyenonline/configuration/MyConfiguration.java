@@ -9,7 +9,7 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 
 @Configuration

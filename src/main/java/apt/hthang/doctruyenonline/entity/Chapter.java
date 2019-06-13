@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Entity
 @Table(name = "chapter")

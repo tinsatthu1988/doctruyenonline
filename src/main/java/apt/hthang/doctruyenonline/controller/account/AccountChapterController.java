@@ -28,7 +28,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 

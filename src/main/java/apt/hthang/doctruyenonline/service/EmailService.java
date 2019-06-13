@@ -3,7 +3,7 @@ package apt.hthang.doctruyenonline.service;
 import apt.hthang.doctruyenonline.entity.Mail;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public interface EmailService {
     

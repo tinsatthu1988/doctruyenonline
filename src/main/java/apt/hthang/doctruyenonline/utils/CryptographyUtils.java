@@ -4,7 +4,7 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public class CryptographyUtils {
 

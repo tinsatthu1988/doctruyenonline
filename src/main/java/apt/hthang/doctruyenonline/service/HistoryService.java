@@ -6,7 +6,7 @@ import apt.hthang.doctruyenonline.entity.User;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public interface HistoryService {
     

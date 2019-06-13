@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Entity
 @Table(name = "role")

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Repository
 public interface CommentRepository extends JpaRepository< Comment, Long > {

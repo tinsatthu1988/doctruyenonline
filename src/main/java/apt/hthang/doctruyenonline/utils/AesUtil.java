@@ -16,7 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
 /**
- * @author Huy Thang on 02/12/2018
+ * @author Đời Không Như Là Mơ on 02/12/2018
  * @project truyenonline
  */
 public class AesUtil {

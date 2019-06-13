@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Entity
 @Table(name = "user_rating")

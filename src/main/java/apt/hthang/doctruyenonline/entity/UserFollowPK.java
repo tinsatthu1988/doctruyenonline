@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Embeddable
 @Data

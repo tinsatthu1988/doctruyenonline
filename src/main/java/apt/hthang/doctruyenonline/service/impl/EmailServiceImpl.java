@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 
 @Service

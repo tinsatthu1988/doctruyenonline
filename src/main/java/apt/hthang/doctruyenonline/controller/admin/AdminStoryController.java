@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 @Controller
@@ -110,11 +111,17 @@ public class AdminStoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
+        if(story.getDealStatus() == ConstantsStatusUtils.STORY_NOT_VIP){
+        if (story.getPrice()< 0 )
+            result.addError(new FieldError("story", "price", "Số Tiền Phải Là Số và Lớn Hơn 0!"));
+        if (story.getTimeDeal()< 0 )
+            result.addError(new FieldError("story", "timeDeal", "Thời Gian Vip Phải Là Số và Lớn Hơn 0!"));        
+        }
         boolean hasError = result.hasErrors();
         if (hasError) {
             redirectAttrs.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
             redirectAttrs.addFlashAttribute("story", story);
-            return "redirect:/quan_ly/truyen/cap_nhat/" + story.getId();
+            return "redirect:/quan-tri/truyen/cap_nhat/" + story.getId();
         }
         story.setInfomation(story.getInfomation().replaceAll("\n", "<br />"));
         if (!story.getEditfile().isEmpty() && story.getEditfile() != null) {
@@ -127,6 +134,6 @@ public class AdminStoryController {
             redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật không thành công! Có lỗi xảy ra, mong bạn thử lại sau!");
         else
             redirectAttrs.addFlashAttribute("checkEditStoryTrue", "Cập nhật truyện " + story.getVnName() + " thành công!");
-        return "redirect:/quan_ly/truyen";
+        return "redirect:/quan-tri/truyen";
     }
 }

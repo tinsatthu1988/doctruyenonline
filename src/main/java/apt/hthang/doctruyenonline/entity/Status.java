@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Huy Thang on 17/01/2019
+ * @author Đời Không Như Là Mơ on 17/01/2019
  * @project truyenonline
  */
 @Data

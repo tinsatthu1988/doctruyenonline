@@ -6,7 +6,7 @@ import apt.hthang.doctruyenonline.entity.UserFollow;
 import apt.hthang.doctruyenonline.projections.FollowSummar;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 public interface UserFollowService {

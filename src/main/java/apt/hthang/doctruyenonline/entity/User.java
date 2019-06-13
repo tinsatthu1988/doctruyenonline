@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Entity
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = "displayName"),

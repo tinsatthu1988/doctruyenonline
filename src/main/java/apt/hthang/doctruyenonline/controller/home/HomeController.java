@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 @Controller

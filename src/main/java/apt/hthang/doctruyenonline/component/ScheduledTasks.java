@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Huy Thang on 22/11/2018
+ * @author Đời Không Như Là Mơ on 22/11/2018
  * @project truyenonline
  */
 

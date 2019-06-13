@@ -3,7 +3,7 @@ package apt.hthang.doctruyenonline.projections;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 public interface StoryUpdate {

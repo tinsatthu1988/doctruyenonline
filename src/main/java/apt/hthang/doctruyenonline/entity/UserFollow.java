@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Entity
 @Table(name = "user_follow")

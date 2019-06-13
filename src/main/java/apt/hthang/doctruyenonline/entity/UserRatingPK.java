@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import lombok.Data;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Embeddable
 @Data

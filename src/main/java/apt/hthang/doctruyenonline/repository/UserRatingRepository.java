@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Repository
 public interface UserRatingRepository extends JpaRepository< UserRating, UserRatingPK > {

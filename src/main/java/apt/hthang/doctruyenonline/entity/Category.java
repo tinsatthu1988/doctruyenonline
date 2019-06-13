@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author Huy Thang on 28/01/2019
+ * @author Đời Không Như Là Mơ on 28/01/2019
  * @project truyenonline-multi-model
  */
 @Entity

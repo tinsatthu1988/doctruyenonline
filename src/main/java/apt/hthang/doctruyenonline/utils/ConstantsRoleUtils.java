@@ -1,7 +1,7 @@
 package apt.hthang.doctruyenonline.utils;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 public class ConstantsRoleUtils {

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Repository
 public interface HistoryRepository extends JpaRepository< History, Long > {

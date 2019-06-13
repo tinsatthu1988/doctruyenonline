@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 @RestController

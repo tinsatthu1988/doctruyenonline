@@ -3,7 +3,7 @@ package apt.hthang.doctruyenonline.service;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author Huy Thang on 27/09/2018
+ * @author Đời Không Như Là Mơ on 27/09/2018
  * @project truyenmvc
  */
 

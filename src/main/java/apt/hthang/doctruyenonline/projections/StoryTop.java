@@ -1,7 +1,7 @@
 package apt.hthang.doctruyenonline.projections;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project truyenonline
  */
 public interface StoryTop {

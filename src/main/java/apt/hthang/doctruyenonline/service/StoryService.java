@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public interface StoryService {
     

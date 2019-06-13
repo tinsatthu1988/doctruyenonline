@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @author Huy Thang on 02/12/2018
+ * @author Đời Không Như Là Mơ on 02/12/2018
  * @project truyenonline
  */
 @ResponseStatus(HttpStatus.BAD_REQUEST)

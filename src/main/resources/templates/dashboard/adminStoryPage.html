@@ -24,102 +24,101 @@
             <section class="mt-md-4 pt-md-2 mb-5 pb-4">
 
                 <!-- Grid row -->
-                <div class="row">
 
-                    <div class="card col-12">
-                        <h3 class="card-header primary-color white-text text-center">
-                            Danh sách Truyện
-                        </h3>
-                        <div class="card-body table-responsive">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6 col-12">
-                                    <div class="md-form mb-0 mt-0">
-                                        <input type="text" class="form-control" length="255" ng-model="search"
-                                            ng-change="getAdListChapter(1)">
-                                        <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-12">
-                                    <select class="mdb-select md-form colorful-select dropdown-primary mt-0"
-                                        ng-change="getAdListUser(1)"
-                                        ng-options="opt.label for opt in typeList track by opt.id" ng-model="type">
-                                    </select>
+                <div class="card">
+                    <h3 class="card-header primary-color white-text text-center">
+                        Danh sách Truyện
+                    </h3>
+                    <div class="card-body table-responsive">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-12">
+                                <div class="md-form mb-0 mt-0">
+                                    <input type="text" class="form-control" length="255" ng-model="search"
+                                        ng-change="getAdListStory(1)">
+                                    <label for="vnName" class="form-label text-primary">Tìm Kiếm Theo Tên</label>
                                 </div>
                             </div>
-                            <table class="table table-striped" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th class="font-weight-bolder">ID
-                                        </th>
-                                        <th class="font-weight-bolder">Tên Truyện
-                                        </th>
-                                        <th class="font-weight-bolder">Đánh Giá</th>
-                                        <th class="font-weight-bolder">Lượt Xem</th>
-                                        <th class="font-weight-bolder">Ngày Tạo</th>
-                                        <th class="font-weight-bolder">Người Tạo
-                                        </th>
-                                        <th class="font-weight-bolder">Trạng Thái
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
-                                        <td>{{item.id}}</td>
-                                        <td>
-                                            <a target="_blank" ng-href="/truyen/{{item.id}}"
-                                                class="align-items-center d-flex">
-                                                {{item.vnName}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{item.rating}}
-                                        </td>
-                                        <td>
-                                            {{item.countView}}
-                                        </td>
-                                        <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
-                                        <td>{{item.displayName}}</td>
-                                        <td>
-                                            <span ng-show="item.dealStatus===1"
-                                                class="badge badge-pill badge-success">Vip</span>
-                                            <span ng-show="item.dealStatus===0"
-                                                class="badge badge-pill badge-danger">Miễn Phí</span>
-                                            <span ng-show="item.status===0" class="badge badge-pill badge-danger">Khóa</span>
-                                            <span ng-show="item.status===1" class="badge badge-pill badge-info">Đang Ra</span>
-                                            <span ng-show="item.status===3" class="badge badge-pill badge-success">Hoàn Thành</span>
-                                            <span ng-show="item.status===2" class="badge badge-pill badge-light">Tạm Dừng</span>
-                                        </td>
-                                        <td>
-                                            <a title="Cập Nhật" ng-href="/quan-tri/truyen/cap_nhat/{{item.id}}"
-                                                class="badge badge-pill badge-danger"><i
-                                                    class="fas fa-edit mx-1"></i></a>
-                                            <a ng-click="deleteStory(item.id)" title="Xóa Truyện"
-                                                class="badge badge-pill badge-danger"><i
-                                                    class="fas fa-trash mx-1"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div aria-label="Page navigation example" ng-show="totalPages>1">
-                                <ul class="pagination pg-blue justify-content-end">
-                                    <li class="page-item" ng-show="currentPage != 1">
-                                        <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
-                                            <i class="fas fa-step-backward fa-sm"></i>
-                                        </a>
-                                    </li>
-                                    <li ng-repeat="i in page"
-                                        ng-class="i===currentPage?'page-item active': 'page-item'">
-                                        <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
-                                            ng-click="getAdListChapter(i)">{{i}}</a>
-                                    </li>
-                                    <li class="page-item" ng-show="currentPage != totalPages">
-                                        <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
-                                            <i class="fas fa-step-forward fa-sm"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                            <div class="col-sm-12 col-md-6 col-12">
+                                <select class="mdb-select md-form colorful-select dropdown-primary mt-0"
+                                    ng-change="getAdListStory   (1)"
+                                    ng-options="opt.label for opt in typeList track by opt.id" ng-model="type">
+                                </select>
                             </div>
+                        </div>
+                        <table class="table table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bolder">ID
+                                    </th>
+                                    <th class="font-weight-bolder">Tên Truyện
+                                    </th>
+                                    <th class="font-weight-bolder">Đánh Giá</th>
+                                    <th class="font-weight-bolder">Lượt Xem</th>
+                                    <th class="font-weight-bolder">Ngày Tạo</th>
+                                    <th class="font-weight-bolder">Người Tạo
+                                    </th>
+                                    <th class="font-weight-bolder">Trạng Thái
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
+                                    <td>{{item.id}}</td>
+                                    <td>
+                                        <a target="_blank" ng-href="/truyen/{{item.id}}"
+                                            class="align-items-center d-flex">
+                                            {{item.vnName}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{item.rating}}
+                                    </td>
+                                    <td>
+                                        {{item.countView}}
+                                    </td>
+                                    <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
+                                    <td>{{item.displayName}}</td>
+                                    <td>
+                                        <span ng-show="item.dealStatus===1"
+                                            class="badge badge-pill badge-success">Vip</span>
+                                        <span ng-show="item.dealStatus===0" class="badge badge-pill badge-danger">Miễn
+                                            Phí</span>
+                                        <span ng-show="item.status===0"
+                                            class="badge badge-pill badge-danger">Khóa</span>
+                                        <span ng-show="item.status===1" class="badge badge-pill badge-info">Đang
+                                            Ra</span>
+                                        <span ng-show="item.status===3" class="badge badge-pill badge-success">Hoàn
+                                            Thành</span>
+                                        <span ng-show="item.status===2" class="badge badge-pill badge-light">Tạm
+                                            Dừng</span>
+                                    </td>
+                                    <td>
+                                        <a title="Cập Nhật" ng-href="/quan-tri/truyen/cap_nhat/{{item.id}}"
+                                            class="badge badge-pill badge-danger"><i class="fas fa-edit mx-1"></i></a>
+                                        <a ng-click="deleteStory(item.id)" title="Xóa Truyện"
+                                            class="badge badge-pill badge-danger"><i class="fas fa-trash mx-1"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div aria-label="Page navigation example" ng-show="totalPages>1">
+                            <ul class="pagination pg-blue justify-content-end">
+                                <li class="page-item" ng-show="currentPage != 1">
+                                    <a class="page-link" ng-click="getAdListChapter(currentPage - 1)">
+                                        <i class="fas fa-step-backward fa-sm"></i>
+                                    </a>
+                                </li>
+                                <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
+                                    <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
+                                        ng-click="getAdListChapter(i)">{{i}}</a>
+                                </li>
+                                <li class="page-item" ng-show="currentPage != totalPages">
+                                    <a class="page-link" ng-click="getAdListChapter(currentPage + 1)">
+                                        <i class="fas fa-step-forward fa-sm"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -141,6 +140,17 @@
         $(document).ready(function () {
             var message = /*[[${checkEditStoryFalse}]]*/ '';
             toastr.danger(message, 'Thông báo', {
+                "positionClass": "md-toast-top-right"
+            });
+            $('.toast').toast({
+                delay: 10000
+            })
+        });
+    </script>
+    <script th:if="${checkEditStoryTrue != null }" th:inline="javascript">
+        $(document).ready(function () {
+            var message = /*[[${checkEditStoryTrue}]]*/ '';
+            toastr.success(message, 'Thông báo', {
                 "positionClass": "md-toast-top-right"
             });
             $('.toast').toast({

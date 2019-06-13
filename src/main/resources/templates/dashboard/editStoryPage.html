@@ -197,7 +197,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="price" name="price" th:value="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
+                                    <input type="number" class="form-control" id="price" name="price" th:value="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
                                     <label for="price" class="md-label-cs text-primary mt-1 form-label">Giá Tiền: </label>
                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></em>
                                 </div>
@@ -208,7 +208,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mb-0">
-                                    <input type="text" class="form-control" id="timeDeal" name="timeDeal" th:value="*{timeDeal}" th:classappend="${#fields.hasErrors('timeDeal')} ? 'is-invalid' : ''">
+                                    <input type="number" class="form-control" id="timeDeal" name="timeDeal" th:value="*{timeDeal}" th:classappend="${#fields.hasErrors('timeDeal')} ? 'is-invalid' : ''">
                                     <label for="timeDeal" class="md-label-cs text-primary mt-1 form-label">Thời Hạn Vip: </label>
                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('timeDeal')}" th:errors="*{timeDeal}"></em>
                                 </div>

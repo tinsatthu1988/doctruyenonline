@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public interface PayService {
     

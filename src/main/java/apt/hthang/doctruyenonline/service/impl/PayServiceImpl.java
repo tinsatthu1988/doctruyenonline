@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 @Service
 public class PayServiceImpl implements PayService {

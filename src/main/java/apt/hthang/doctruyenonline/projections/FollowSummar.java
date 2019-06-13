@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.Date;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 public interface FollowSummar {

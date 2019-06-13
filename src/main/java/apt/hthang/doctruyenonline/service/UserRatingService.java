@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  */
 public interface UserRatingService {
     /**

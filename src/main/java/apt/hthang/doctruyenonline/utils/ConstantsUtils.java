@@ -3,7 +3,7 @@ package apt.hthang.doctruyenonline.utils;
 import static java.lang.Long.valueOf;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 public class ConstantsUtils {

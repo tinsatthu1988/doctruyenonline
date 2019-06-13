@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @author Huy Thang on 28/11/2018
+ * @author Đời Không Như Là Mơ on 28/11/2018
  * @project truyenonline
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

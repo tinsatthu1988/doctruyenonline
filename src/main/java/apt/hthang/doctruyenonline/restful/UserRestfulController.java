@@ -26,7 +26,7 @@ import java.security.Principal;
 import java.util.List;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 @RestController

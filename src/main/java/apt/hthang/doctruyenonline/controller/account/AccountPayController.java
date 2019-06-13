@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 /**
- * @author Huy Thang
+ * @author Đời Không Như Là Mơ
  * @project doctruyenonline
  */
 @Controller
