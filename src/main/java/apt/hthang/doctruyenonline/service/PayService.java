@@ -15,7 +15,7 @@ import java.util.Date;
 public interface PayService {
     
     /**
-     * Lưu đề cử truyện
+     * Lưu truyện
      *
      * @param story
      * @param chapter
@@ -28,6 +28,19 @@ public interface PayService {
     boolean savePay(Story story, Chapter chapter,
                     User userSend, User userReceived, Integer vote,
                     Double money, Integer payType);
+
+    /**
+     * Lưu đề cử truyện
+     *
+     * @param story
+     * @param userSend
+     * @param money
+     * @param payType
+     * @return false - nếu thất bại hoặc có lỗi xảy ra
+     */
+    boolean savePayAppoint(Story story,
+                    User userSend, Double money, Integer vote,
+                     Integer payType);
     
     /**
      * Kiểm tra User đã thanh toán Chapter Vip trong khoảng

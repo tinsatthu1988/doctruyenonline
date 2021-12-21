@@ -34,7 +34,7 @@ public class PayServiceImpl implements PayService {
     private PayRepository payRepository;
     
     /**
-     * Lưu đề cử truyện
+     * Lưu truyện
      *
      * @param story
      * @param chapter
@@ -49,14 +49,39 @@ public class PayServiceImpl implements PayService {
     public boolean savePay(Story story, Chapter chapter, User userSend, User userReceived, Integer vote, Double money, Integer payType) {
         Long chapterID = null;
         Long storyID = null;
+        Long userReceivedId = null;
         if (chapter != null)
             chapterID = chapter.getId();
         if (story != null)
             storyID = story.getId();
+        if (userReceived != null)
+            userReceivedId = userReceived.getId();
         return payRepository
                 .transferPayChapter(userSend.getId(),
-                        userReceived.getId(),
+                        userReceivedId,
                         chapterID,
+                        storyID,
+                        money, vote,
+                        payType);
+    }
+
+    /**
+     * Lưu đề cử truyện
+     *
+     * @param story
+     * @param userSend
+     * @param money
+     * @param payType
+     * @return false - nếu thất bại hoặc có lỗi xảy ra
+     */
+    @Override
+    @Transactional(noRollbackFor = HttpMyException.class)
+    public boolean savePayAppoint(Story story, User userSend, Double money, Integer vote, Integer payType) {
+        Long storyID = null;
+        if (story != null)
+            storyID = story.getId();
+        return payRepository
+                .appointPayStory(userSend.getId(),
                         storyID,
                         money, vote,
                         payType);

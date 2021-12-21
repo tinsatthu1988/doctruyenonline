@@ -82,7 +82,7 @@
                                 <div class="custom-control custom-checkbox" >
                                     <input type="checkbox" class="custom-control-input" name="roleList" th:field="*{roleList}"
                                     th:id="'inlineCheckbox'+ ${category.id}" th:value="${category.id}"
-                                    th:disabled="${(checkRole == false && (category.id == 1 || category.id == 2)) || category.id == 4}">
+                                    >
                                     <label class="custom-control-label " th:for="'inlineCheckbox'+ ${category.id}" th:text="${category.name}" style="line-height: 1.8"></label>
                                 </div>
                             </div>

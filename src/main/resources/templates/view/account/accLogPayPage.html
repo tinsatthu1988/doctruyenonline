@@ -66,16 +66,16 @@
                                             <div aria-label="Page navigation example" ng-show="totalPages>1">
                                                 <ul class="pagination pg-blue justify-content-end">
                                                     <li class="page-item" ng-show="currentPage != 1">
-                                                        <a class="page-link" ng-click="getPage(currentPage - 1)">
+                                                        <a class="page-link" ng-click="getPayPage(currentPage - 1)">
                                                             <i class="fas fa-step-backward fa-sm"></i>
                                                         </a>
                                                     </li>
                                                     <li ng-repeat="i in page" ng-class="i===currentPage?'page-item active': 'page-item'">
                                                         <a ng-class="i===currentPage?'page-link disabled': 'page-link'"
-                                                           ng-click="getPage(i)">{{i}}</a>
+                                                           ng-click="getPayPage(i)">{{i}}</a>
                                                     </li>
                                                     <li class="page-item" ng-show="currentPage != totalPages">
-                                                        <a class="page-link" ng-click="getPage(currentPage + 1)">
+                                                        <a class="page-link" ng-click="getPayPage(currentPage + 1)">
                                                             <i class="fas fa-step-forward fa-sm"></i>
                                                         </a>
                                                     </li>

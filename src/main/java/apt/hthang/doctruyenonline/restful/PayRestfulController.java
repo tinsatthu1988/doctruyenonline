@@ -32,9 +32,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/pay")
 public class PayRestfulController {
-    
+
     Logger logger = LoggerFactory.getLogger(PayRestfulController.class);
-    
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -53,7 +53,7 @@ public class PayRestfulController {
     private String emailSignature;
     @Value("${hthang.truyenonline.email.url}")
     private String emailUrl;
-    
+
     //Danh sách Giao dịch của người dùng
     @PostMapping(value = "/list_pay")
     public ResponseEntity< ? > loadListPayWithdrawOfUser(@RequestParam("pagenumber") Integer pagenumber,
@@ -72,7 +72,7 @@ public class PayRestfulController {
         }
         return new ResponseEntity<>(payService.findPageByUserId(user.getId(), pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT), HttpStatus.OK);
     }
-    
+
     //Danh sách giao dịch rút tiền của người dùng
     @PostMapping(value = "/list_pay_draw")
     public ResponseEntity< ? > loadListPayOfUser(@RequestParam("pagenumber") Integer pagenumber,
@@ -91,7 +91,7 @@ public class PayRestfulController {
         }
         return new ResponseEntity<>(payService.findPagePayWithdrawByUserId(user.getId(), pagenumber, ConstantsUtils.PAGE_SIZE_DEFAULT), HttpStatus.OK);
     }
-    
+
     //Danh sách giao dịch rút tiền của người dùng
     @DeleteMapping(value = "/cancel_pay/{payId}")
     public ResponseEntity< ? > deletePayDraw(@PathVariable("payId") Long payId,
@@ -108,7 +108,7 @@ public class PayRestfulController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new HttpUserLockedException();
         }
-        
+
         //Lấy Thông Tin Giao Dịch
         Pay pay = payService.findPayById(payId);
         if (pay == null) {
@@ -125,7 +125,7 @@ public class PayRestfulController {
         else
             throw new HttpMyException("Có lỗi xảy ra! Hãy Thực hiện lai sau!");
     }
-    
+
     //THực Hiện Đăng Ký Rút Tiền
     @PostMapping(value = "/save_draw_pay")
     public ResponseEntity< ? > submitPayDraw(@RequestParam("money") Double money, @RequestParam("moneyVND") Double vnd,
@@ -165,7 +165,7 @@ public class PayRestfulController {
             throw new HttpMyException("Có lỗi xảy ra! Hãy Thực hiện lai sau!");
         }
     }
-    
+
     //THực Hiện Nạp Tiền Cho Người Dùng
     @PostMapping(value = "/rechange")
     public ResponseEntity< ? > submitPayDraw(@RequestParam("money") String money,
@@ -196,7 +196,7 @@ public class PayRestfulController {
             throw new HttpMyException("Có lỗi xảy ra! Hãy Thực hiện lai sau!");
         }
     }
-    
+
     private boolean checkRole(User use, Integer id) {
         for (Role role : use.getRoleList()) {
             if (role.getId() == id)
@@ -204,7 +204,7 @@ public class PayRestfulController {
         }
         return false;
     }
-    
+
     // Thực Hiện Giao Dịch Thanh Toán Đọc Chapter Vip
     @PostMapping(value = "/readingVip")
     @Transactional
@@ -235,7 +235,7 @@ public class PayRestfulController {
         }
         //Lấy Thời Gian Hiện Tại
         Date now = DateUtils.getCurrentDate();
-        
+
         // Lấy Thời Gian 24h Trước
         Date dayAgo = DateUtils.getHoursAgo(now, ConstantsUtils.TIME_DAY);
         boolean check = payService.checkDealChapterVip(Long.valueOf(chapterId), user.getId(), dayAgo, now);

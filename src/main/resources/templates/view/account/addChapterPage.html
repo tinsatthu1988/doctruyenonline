@@ -44,7 +44,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="serial" name="serial" th:value="*{serial}" length="255"
+                                                                    <input type="number" class="form-control" id="serial" name="serial" th:value="*{serial}" length="255"
                                                                            th:classappend="${#fields.hasErrors('serial')} ? 'is-invalid' : ''">
                                                                     <label for="serial" class="form-label text-primary">Thứ tự </label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('serial')}" th:errors="*{serial}"></em>

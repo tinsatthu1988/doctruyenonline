@@ -56,7 +56,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="id" name="vnName" th:value="*{vnName}" readonly>
+                                                                    <input type="text" class="form-control" id="id" name="id" th:value="*{id}" readonly>
                                                                     <label for="id" class="form-label text-primary">ID Truyện </label>
                                                                 </div>
                                                             </div>
@@ -66,7 +66,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="vnName" name="vnName" th:value="*{vnName}"
+                                                                    <input type="text" class="form-control" id="vnName" name="vnName" th:field="*{vnName}"
                                                                            th:classappend="${#fields.hasErrors('vnName')} ? 'is-invalid' : ''">
                                                                     <label for="vnName" class="form-label text-primary">Tên Tiếng Việt </label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('vnName')}" th:errors="*{vnName}"></em>
@@ -78,7 +78,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="cnName" name="cnName" th:value="*{cnName}"
+                                                                    <input type="text" class="form-control" id="cnName" name="cnName" th:field="*{cnName}"
                                                                            th:classappend="${#fields.hasErrors('cnName')} ? 'is-invalid' : ''">
                                                                     <label for="cnName" class=" text-primary">Tên Tiếng Trung</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnName')}" th:errors="*{cnName}"></em>
@@ -90,7 +90,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="url" class="form-control" id="cnLink" name="cnLink" th:value="*{cnLink}"
+                                                                    <input type="url" class="form-control" id="cnLink" name="cnLink" th:field="*{cnLink}"
                                                                            th:classappend="${#fields.hasErrors('cnLink')} ? 'is-invalid' : ''">
                                                                     <label for="cnLink" class="form-label text-primary">Link Tiếng Trung</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('cnLink')}" th:errors="*{cnLink}"></em>
@@ -102,7 +102,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="author" name="author" th:value="*{author}"
+                                                                    <input type="text" class="form-control" id="author" name="author" th:field="*{author}"
                                                                            th:classappend="${#fields.hasErrors('author')} ? 'is-invalid' : ''">
                                                                     <label for="author" class=" text-primary">Tác giả</label>
                                                                     <em class="error invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></em>
@@ -127,7 +127,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:value="*{createDate}" readonly>
+                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:field="*{createDate}" readonly>
                                                                     <label for="createDate" class="text-primary">Ngày Tạo </label>
                                                                 </div>
                                                             </div>

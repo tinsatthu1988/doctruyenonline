@@ -81,14 +81,14 @@
                                                         </div>
                                                         <!--Grid row-->
                                                         <!--Grid row-->
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:field="*{createDate}" readonly>
-                                                                    <label for="createDate" class="text-primary">Ngày Tạo </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+<!--                                                        <div class="row">-->
+<!--                                                            <div class="col-md-12">-->
+<!--                                                                <div class="md-form mb-0">-->
+<!--                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:field="*{createDate}" readonly>-->
+<!--                                                                    <label for="createDate" class="text-primary">Ngày Tạo </label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
                                                         <!--Grid row-->
                                                         <!--Grid row-->
                                                         <div class="row">
@@ -104,21 +104,21 @@
                                                             </div>
                                                         </div>
                                                         <!--Grid row-->
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="md-form mb-0">
-                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:value="*{createDate}" readonly>
-                                                                    <label for="createDate" class="text-primary">Ngày Tạo </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+<!--                                                        <div class="row">-->
+<!--                                                            <div class="col-md-12">-->
+<!--                                                                <div class="md-form mb-0">-->
+<!--                                                                    <input type="text" class="form-control" id="createDate" name="createDate" th:value="*{createDate}" readonly>-->
+<!--                                                                    <label for="createDate" class="text-primary">Ngày Tạo </label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
                                                         <!--Grid row-->
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <select class="mdb-select md-form colorful-select dropdown-primary" th:field="*{status}"
-                                                                        th:disabled="${chapter.status == 2 || chapter.status == 0}">
+                                                                       >
                                                                     <option th:each="chapterStatus : ${statusList}" th:value="${chapterStatus.id}" th:text="${chapterStatus.name}"
-                                                                            th:disabled="${chapterStatus.id == 2}"></option>
+                                                                            ></option>
                                                                 </select>
                                                                 <label class="md-label-cs text-primary mt-1 form-label">Trạng Thái</label>
                                                             </div>

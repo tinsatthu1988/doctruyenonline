@@ -38,7 +38,7 @@ import java.util.Map;
         encoding = "UTF-8")
 @RequestMapping("/quen-mat-khau")
 public class ResetPasswordController {
-    
+
     private final InformationService informationService;
     private final CategoryService categoryService;
     private final UserService userService;
@@ -58,7 +58,7 @@ public class ResetPasswordController {
     private String emailSignature;
     @Value("${hthang.truyenonline.email.url}")
     private String emailUrl;
-    
+
     @Autowired
     public ResetPasswordController(InformationService informationService,
                                    CategoryService categoryService,
@@ -69,27 +69,27 @@ public class ResetPasswordController {
         this.userService = userService;
         this.emailService = emailService;
     }
-    
+
     private void getMenuAndInfo(Model model, String title) {
-        
+
         // Lấy Title Cho Page
         model.addAttribute("title", title);
-        
+
         // Lấy List Category cho Menu
         model.addAttribute("categorylist", categoryService.getListCategoryOfMenu(ConstantsStatusUtils.CATEGORY_ACTIVED));
-        
+
         // Lấy Information của Web
         model.addAttribute("information", informationService.getWebInfomation());
     }
-    
+
     @GetMapping
     public String showForgotForm(final Model model) {
-        
+
         // Lấy List Category Menu
         getMenuAndInfo(model, titleForgot);
-        
+
         model.addAttribute("user", new ForgotUser());
-        
+
         return "view/forgotPage";
     }
     
@@ -113,7 +113,7 @@ public class ResetPasswordController {
                     model.addAttribute("error", "Có lỗi xảy ra mong bạn vui lòng quay lại sau!");
                     hasError = true;
                 }
-                
+
             }
         }
         if (hasError) {
@@ -136,6 +136,6 @@ public class ResetPasswordController {
         modelMap.put("signature", emailSignature);
         modelMap.put("password", newPassword);
         mail.setModel(modelMap);
-        return emailService.sendSimpleMessage(mail, "web/mail/forgot-password");
+        return emailService.sendSimpleMessage(mail, "mail/forgot-password");
     }
 }

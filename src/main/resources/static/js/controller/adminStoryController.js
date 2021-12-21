@@ -45,6 +45,7 @@ function adStoryCtrl($scope, WebService) {
                 pages.push(i);
             }
             $scope.page = pages;
+            console.log($scope.listCategory);
         }, function errorCallback(errResponse) {
 
         })

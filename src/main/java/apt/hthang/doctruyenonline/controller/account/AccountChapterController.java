@@ -110,8 +110,10 @@ public class AccountChapterController {
         if (!model.containsAttribute("chapter")) {
             Chapter chapter = new Chapter();
             ChapterSummary newChapter = chapterService.findChapterNewOfStory(id, ConstantsListUtils.LIST_CHAPTER_STATUS_ALL);
-            float serialNumber = newChapter.getSerial();
+
+            float serialNumber = 0;
             if (newChapter != null) {
+                serialNumber = newChapter.getSerial();
                 chapter.setSerial((float) ((int) serialNumber + 1));
             } else {
                 chapter.setSerial((float) 1);
@@ -214,7 +216,7 @@ public class AccountChapterController {
         }
         if (!chapterEdit.getUser().getId().equals(user.getId())) {
             redirectAttrs.addFlashAttribute("checkEditChapterFalse", "Bạn không có quyền sửa Chapter không do bạn đăng!");
-            return "redirect:/tai-khoan/list_chuong/" + chapterEdit.getStory().getId();
+            return "redirect:/tai-khoan/list_chuong/" + chapter.getStory().getId();
         }
         if (chapterEdit.getStory().getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN)) {
             redirectAttrs.addFlashAttribute("checkEditChapterFalse", "Bạn không có quyền sửa Chapter thuộc Truyện bị khóa!");
@@ -231,8 +233,8 @@ public class AccountChapterController {
             redirectAttrs.addFlashAttribute("checkEditChapterFalse", "Bạn không có quyền sửa Chapter thuộc Truyện bị khóa!");
             return "redirect:/tai-khoan/list_chuong/" + chapter.getStory().getId();
         }
-        Chapter editChapter = chapterService.findChapterById(chapter.getId());
-        if (chapterEdit.getStatus().equals(ConstantsStatusUtils.CHAPTER_DENIED) && chapter.getStatus().equals(chapterEdit.getStatus())) {
+        //Chapter editChapter = chapterService.findChapterById(chapter.getId());
+        if (chapterEdit.getStatus().equals(ConstantsStatusUtils.CHAPTER_DENIED) && chapterEdit.getStatus().equals(chapter.getStatus())) {
             redirectAttrs.addFlashAttribute("checkEditChapterFalse", "Bạn không có quyền Cập Nhật Trạng Thái Chapter bị khóa!");
             return "redirect:/tai-khoan/list_chuong/" + chapter.getStory().getId();
         }

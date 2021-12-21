@@ -20,6 +20,10 @@ import java.util.Optional;
 
 @Repository
 public interface StoryRepository extends JpaRepository< Story, Long > {
+
+//    @Query(value = "SELECT s.userPosted FROM Story s where id=:storyId",
+//            nativeQuery = true)
+//    Long findUserPostedByStoryId(@Param("storyId") Long storyId);
     
     /**
      * Lấy Danh sách Truyện Mới Theo Thể Loại

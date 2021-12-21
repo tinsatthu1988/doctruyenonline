@@ -65,10 +65,13 @@ public class AppointRestfulController {
         if (coupon <= 0) {
             throw new HttpMyException("Số phiếu đề cử ít nhất là 1!");
         }
+//
+//        Long userReceivedId = storyService.findUserPostedByStoryId(storyId);
+//        User userReceived = userService.findUserById(userReceivedId);
+
         if (user.getGold() < (coupon * 1000))
             throw new HttpMyException("Số dư của bạn không đủ để đề cử");
-        boolean check = payService.savePay(story, null, user, null,coupon,
-                (double) (coupon * 1000), ConstantsPayTypeUtils.PAY_APPOINT_TYPE);
+        boolean check = payService.savePayAppoint(story,  user, (double) (coupon * 1000), coupon, ConstantsPayTypeUtils.PAY_APPOINT_TYPE);
         if (check)
             return new ResponseEntity<>(HttpStatus.OK);
         else

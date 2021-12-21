@@ -34,7 +34,12 @@ public class StoryServiceImpl implements StoryService {
     public StoryServiceImpl(StoryRepository storyRepository) {
         this.storyRepository = storyRepository;
     }
-    
+
+//    @Override
+//    public Long findUserPostedByStoryId(Long storyId) {
+//        return storyRepository.findUserPostedByStoryId(storyId);
+//    }
+
     /**
      * Lấy List Truyện Mới Cập Nhật theo Category
      *

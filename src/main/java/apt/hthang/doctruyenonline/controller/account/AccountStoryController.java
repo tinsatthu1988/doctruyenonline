@@ -159,21 +159,26 @@ public class AccountStoryController {
         if (user.getStatus().equals(ConstantsStatusUtils.USER_DENIED)) {
             throw new NotFoundException("Tài khoản của bạn đã bị khóa mời liên hệ admin để biết thêm thông tin");
         }
-        if (!story.getUser().getId().equals(loginedUser.getUser().getId())) {
+
+        Story storyEdit = storyService.findStoryById(story.getId());
+        if (!storyEdit.getUser().getId().equals(loginedUser.getUser().getId())) {
             redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Bạn không có quyền sửa truyện không do bạn đăng!");
             return "redirect:/tai-khoan/quan_ly_truyen";
         }
-        if (hasError) {
-            redirectAttrs.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
-            redirectAttrs.addFlashAttribute("story", story);
-            return "redirect:/tai-khoan/sua_truyen/" + story.getId();
-        }
-        Story storyEdit = storyService.findStoryById(story.getId());
+
         if ((storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_COMPLETED) || storyEdit.getStatus().equals(ConstantsStatusUtils.STORY_STATUS_HIDDEN))
                 && !storyEdit.getStatus().equals(story.getStatus())) {
             redirectAttrs.addFlashAttribute("checkEditStoryFalse", "Cập nhật Trạng Thái Truyện " + story.getVnName() + " không thành công! Do Truyện đã hoàn thành hoặc bị khóa!");
             return "redirect:/tai-khoan/quan_ly_truyen";
         }
+
+        if (hasError) {
+            redirectAttrs.addFlashAttribute("org.springframework.validation.BindingResult.story", result);
+            redirectAttrs.addFlashAttribute("story", story);
+            logger.info(String.valueOf(result));
+            return "redirect:/tai-khoan/sua_truyen/" + story.getId();
+        }
+
         story.setInfomation(story.getInfomation().replaceAll("\n", "<br />"));
         if (!story.getEditfile().isEmpty() && story.getEditfile() != null) {
             String url = cloudinaryUploadService

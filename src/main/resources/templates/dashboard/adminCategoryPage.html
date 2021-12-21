@@ -57,7 +57,7 @@
                         <tr ng-show="listCategory.length !== 0" ng-repeat="item in listCategory">
                             <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.createDate | date:'dd/MM/yyyy HH:mm ' }}</td>
+                            <td>{{item.createDate | date:'HH:mm dd/MM/yyyy' }}</td>
                             <td>{{item.createBy}}</td>
                             <td>
                                 <span ng-show="item.status===1" class="badge badge-pill badge-success">Hiển Thị</span>

@@ -11,6 +11,8 @@ import java.util.List;
  * @author Đời Không Như Là Mơ
  */
 public interface StoryService {
+
+    //Long findUserPostedByStoryId(Long storyId);
     
     /**
      * Lấy List Truyện Mới Cập Nhật theo Category
