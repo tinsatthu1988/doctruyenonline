@@ -233,7 +233,7 @@ public class PayServiceImpl implements PayService {
         Pay pay = new Pay();
         pay.setUserSend(user);
         pay.setMoney(money);
-        pay.setType(ConstantsPayTypeUtils.PAY_CHAPTER_VIP_TYPE);
+        pay.setType(ConstantsPayTypeUtils.PAY_WITHDRAW_TYPE);
         payRepository.save(pay);
         //Lấy Thông Tin Mới Nhất của Người Thanh Toán
         user = userRepository.findById(user.getId()).get();

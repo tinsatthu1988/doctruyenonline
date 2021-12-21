@@ -159,7 +159,7 @@ public class PayRestfulController {
             modelMap.put("signature", emailSignature);
             modelMap.put("pay", payService.findPayById(result));
             mail.setModel(modelMap);
-            emailService.sendSimpleMessage(mail, "web/mail/withdraw-money");
+            emailService.sendSimpleMessage(mail, "mail/withdraw-money");
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             throw new HttpMyException("Có lỗi xảy ra! Hãy Thực hiện lai sau!");
