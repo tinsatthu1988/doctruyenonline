@@ -55,6 +55,19 @@ public interface PayRepository extends JpaRepository< Pay, Long > {
                                @Param("price") Double price,
                                @Param("vote") Integer vote,
                                @Param("payType") Integer payType);
+
+    /**
+     * Thực Hiện đề cử truyện
+     *
+     * @param payerID
+     * @param price
+     * @param payType
+     * @return true - nếu thanh toán thành công / false - nếu thanh toán thất bại và roll back dữ liệu
+     */
+    @Procedure("changeNick")
+    boolean changeNick(@Param("userSend") Long payerID,
+                            @Param("price") Double price,
+                            @Param("payType") Integer payType);
     
     /**
      * Kiểm Tra đã tồn tại thanh toán trong khoảng

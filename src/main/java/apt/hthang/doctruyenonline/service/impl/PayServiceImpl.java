@@ -86,7 +86,12 @@ public class PayServiceImpl implements PayService {
                         money, vote,
                         payType);
     }
-    
+
+    @Override
+    public boolean saveChangeNick(User userSend, Double money, Integer payType) {
+        return payRepository.changeNick(userSend.getId(), money, payType);
+    }
+
     /**
      * Kiểm tra User đã thanh toán Chapter Vip trong khoảng
      *

@@ -41,6 +41,16 @@ public interface PayService {
     boolean savePayAppoint(Story story,
                     User userSend, Double money, Integer vote,
                      Integer payType);
+
+    /**
+     * Lưu đề cử truyện
+     *
+     * @param userSend
+     * @param money
+     * @param payType
+     * @return false - nếu thất bại hoặc có lỗi xảy ra
+     */
+    boolean saveChangeNick(User userSend, Double money, Integer payType);
     
     /**
      * Kiểm tra User đã thanh toán Chapter Vip trong khoảng

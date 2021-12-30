@@ -89,8 +89,7 @@ public class UserRestfulController {
                 throw new HttpMyException("Số dư của bạn không đủ để thanh toán!");
             }
             userService.updateDisplayName(user.getId(), money, newNick);
-            payService.savePay(null, null, user, null, 0,
-                    ConstantsUtils.PRICE_UPDATE_NICK, ConstantsPayTypeUtils.PAY_DISPLAY_NAME_TYPE);
+            payService.saveChangeNick(user, ConstantsUtils.PRICE_UPDATE_NICK, ConstantsPayTypeUtils.PAY_DISPLAY_NAME_TYPE);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             throw new HttpMyException("Có lỗi xảy ra. Mong bạn quay lại sau");
