@@ -36,8 +36,10 @@ public class MyComponent {
     public String getDisplayName(String username, String displayName) {
         return (displayName != null && !displayName.isEmpty()) ? displayName : username;
     }
-    
+
     public String getBetewwen(Date date) {
+        if(date == null)
+            return "";
         return DateUtils.betweenTwoDays(date);
     }
     

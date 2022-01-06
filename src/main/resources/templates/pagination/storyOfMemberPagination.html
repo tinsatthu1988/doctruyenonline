@@ -11,7 +11,7 @@
                     <section class="content">
                         <a class="thumb" ng-href="/truyen/{{item.id}}">
                             <img class="img-fluid lazyload"
-                                 ng-src=="{{item.images}}"
+                                 ng-src="{{item.images}}"
                                  alt="{{item.vnName}}">
                         </a>
                         <section class="info">
@@ -21,7 +21,7 @@
                                     <img class="img-fluid"
                                          ng-show="item.dealStatus === 2"
                                          src="/images/vip-vip.gif">
-                                    <span ng-class="{{'shadow-2': item.dealStatus === 1}}">{{item.vnName}}</span>
+                                    <span ng-class="{'shadow-2': item.dealStatus === 1}">{{item.vnName}}</span>
                                 </a>
                             </h2>
                             <section class="chap"> {{item.author}}</section>

@@ -2,9 +2,9 @@ var app = angular.module('ngApp', ['ngSanitize']);
 
 app.controller('memberCtrl', memberCtrl);
 
-storyCtrl.$inject = ['WebService', '$scope'];
+memberCtrl.$inject = ['WebService', '$scope'];
 
-function memberCtrl(memberCtrl, $scope) {
+function memberCtrl(WebService, $scope) {
 
     $scope.listStory = [];
     $scope.totalPages = 0;
@@ -22,7 +22,7 @@ function memberCtrl(memberCtrl, $scope) {
         }
         var url = window.location.origin + '/api/story/storyOfMember';
         var data = new FormData();
-        data.append('userId', uID);
+        data.append('userId', $scope.uID);
         data.append('pagenumber', pagenumber);
         data.append('type', type);
         WebService.getData(url, data).then(function (response) {
